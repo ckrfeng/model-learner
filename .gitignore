@@ -1,0 +1,43 @@
+# Python, development tools, and build outputs
+__pycache__/
+*.py[cod]
+.venv/
+.tools/
+.uv-cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Local OS and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Private configuration, credentials, and local runtime data
+.env
+.env.*
+!.env.example
+credentials/
+secrets/
+*.pem
+*.key
+config.local.*
+.model-learner/
+data/
+spool/
+logs/
+raw/
+transcripts/
+*.log
+*.sock
+*.socket
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "model-learner"
+dynamic = ["version"]
+description = "Local-first AI-model utility estimation from verified outcomes."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "typer>=0.16,<1",
+    "rich>=14,<15",
+]
+
+[project.scripts]
+model-learner = "model_learner.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=8,<10",
+    "ruff>=0.12,<1",
+]
+
+[tool.hatch.version]
+path = "src/model_learner/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/model_learner"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

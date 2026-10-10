@@ -17,6 +17,8 @@ from model_learner.domain.models import (
     Event,
     Observation,
     Outcome,
+    Project,
+    ProjectTaskLink,
     Run,
     Session,
     Task,
@@ -141,6 +143,38 @@ class Repository:
             },
         )
         return task
+
+    def create_project(self, project: Project) -> Project:
+        self._insert(
+            "projects",
+            {
+                "project_id": self._identifier(project.project_id),
+                "created_at": project.created_at.isoformat(),
+                "data": self._json(project),
+            },
+        )
+        return project
+
+    def associate_task_project(self, link: ProjectTaskLink) -> ProjectTaskLink:
+        with self.database.connection() as connection:
+            self._require(connection, "projects", "project_id", link.project_id)
+            self._require(connection, "tasks", "task_id", link.task_id)
+            try:
+                connection.execute(
+                    "INSERT INTO project_tasks "
+                    "(project_id, task_id, associated_at, relationship, data) "
+                    "VALUES (?, ?, ?, ?, ?)",
+                    (
+                        str(link.project_id),
+                        str(link.task_id),
+                        link.associated_at.isoformat(),
+                        link.relationship,
+                        self._json(link),
+                    ),
+                )
+            except sqlite3.IntegrityError as error:
+                raise StorageError("project and task are already associated") from error
+        return link
 
     def create_session(self, session: Session) -> Session:
         self._insert(
@@ -279,7 +313,7 @@ class Repository:
             ).fetchone()
             for evidence_id in outcome.evidence_ids:
                 evidence = connection.execute(
-                    "SELECT task_id, run_id FROM verifications "
+                    "SELECT task_id, run_id, data FROM verifications "
                     "WHERE verification_id = ?",
                     (str(evidence_id),),
                 ).fetchone()
@@ -289,6 +323,15 @@ class Repository:
                     raise StorageError("outcome evidence belongs to a different task")
                 if evidence["run_id"] not in (None, str(outcome.run_id)):
                     raise StorageError("outcome evidence belongs to a different run")
+                verification = Verification.model_validate_json(evidence["data"])
+                task_row = connection.execute(
+                    "SELECT data FROM tasks WHERE task_id = ?", (run["task_id"],)
+                ).fetchone()
+                task = Task.model_validate_json(task_row["data"])
+                if verification.acceptance_spec != task.acceptance_spec:
+                    raise StorageError(
+                        "outcome evidence acceptance_spec does not match its task"
+                    )
             try:
                 connection.execute(
                     "INSERT INTO outcomes (outcome_id, run_id, recorded_at, data) "
@@ -305,17 +348,101 @@ class Repository:
         return outcome
 
     def add_observation(self, observation: Observation) -> Observation:
-        self._insert(
-            "observations",
-            {
-                "observation_id": str(observation.observation_id),
-                "source_kind": observation.source_kind.value,
-                "task_group": observation.task_group,
-                "recorded_at": observation.recorded_at.isoformat(),
-                "data": self._json(observation),
-            },
-        )
-        return observation
+        """Insert one canonical learning record, checking real evidence links."""
+        with self.database.connection() as connection:
+            if (
+                observation.source_kind.value == "real"
+                and observation.schema_version == 2
+            ):
+                self._validate_real_observation(connection, observation)
+            dataset = observation.dataset
+            connection.execute(
+                "INSERT INTO observations "
+                "(observation_id, stable_key, source_kind, dataset_id, "
+                "dataset_version, "
+                "task_group, recorded_at, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?) "
+                "ON CONFLICT(stable_key) DO NOTHING",
+                (
+                    str(observation.observation_id),
+                    observation.stable_key,
+                    observation.source_kind.value,
+                    dataset.dataset_id if dataset else None,
+                    dataset.dataset_version if dataset else None,
+                    observation.task_group,
+                    observation.recorded_at.isoformat(),
+                    self._json(observation),
+                ),
+            )
+            row = connection.execute(
+                "SELECT data FROM observations WHERE stable_key = ?",
+                (observation.stable_key,),
+            ).fetchone()
+        if row is None:  # pragma: no cover - defensive SQLite contract guard
+            raise StorageError("observation insertion did not return a persisted row")
+        return Observation.model_validate_json(row["data"])
+
+    def _validate_real_observation(
+        self, connection: sqlite3.Connection, observation: Observation
+    ) -> None:
+        """Ensure a real learner row cannot outlive or contradict its evidence."""
+        assert observation.task_id is not None
+        assert observation.run_id is not None
+        assert observation.outcome_id is not None
+        assert observation.acceptance_spec is not None
+        self._require(connection, "tasks", "task_id", observation.task_id)
+        self._require(connection, "runs", "run_id", observation.run_id)
+        run = connection.execute(
+            "SELECT task_id FROM runs WHERE run_id = ?", (str(observation.run_id),)
+        ).fetchone()
+        if run["task_id"] != str(observation.task_id):
+            raise StorageError("observation task_id does not match its run")
+        task_row = connection.execute(
+            "SELECT data FROM tasks WHERE task_id = ?", (str(observation.task_id),)
+        ).fetchone()
+        task = Task.model_validate_json(task_row["data"])
+        if observation.acceptance_spec != task.acceptance_spec:
+            raise StorageError("observation acceptance_spec does not match its task")
+        outcome_row = connection.execute(
+            "SELECT data FROM outcomes WHERE outcome_id = ?",
+            (str(observation.outcome_id),),
+        ).fetchone()
+        if outcome_row is None:
+            raise StorageError(f"unknown outcome: {observation.outcome_id}")
+        outcome = Outcome.model_validate_json(outcome_row["data"])
+        if outcome.run_id != observation.run_id:
+            raise StorageError("observation outcome belongs to a different run")
+        if observation.outcome_status != outcome.status:
+            raise StorageError("observation outcome_status does not match its outcome")
+        if observation.verification_status != outcome.verification_status:
+            raise StorageError(
+                "observation verification_status does not match its outcome"
+            )
+        if observation.evidence_ids != outcome.evidence_ids:
+            raise StorageError("observation evidence_ids do not match its outcome")
+        if observation.attempt_id is not None:
+            attempt_row = connection.execute(
+                "SELECT data FROM attempts WHERE attempt_id = ?",
+                (str(observation.attempt_id),),
+            ).fetchone()
+            if attempt_row is None:
+                raise StorageError(f"unknown attempt: {observation.attempt_id}")
+            attempt = Attempt.model_validate_json(attempt_row["data"])
+            if attempt.run_id != observation.run_id:
+                raise StorageError("observation attempt belongs to a different run")
+            if (
+                attempt.configuration.configuration_id
+                != observation.configuration.configuration_id
+            ):
+                raise StorageError(
+                    "observation configuration does not match its attempt"
+                )
+        if observation.eligible_for_configuration_learning:
+            if observation.verification_status.value != "verified":
+                raise StorageError(
+                    "eligible real observations require verified outcomes"
+                )
+            if not observation.evidence_ids:
+                raise StorageError("eligible real observations require evidence")
 
     def get(self, record_type: type[Record], identifier: UUID | str) -> Record | None:
         table, column = _record_table(record_type)
@@ -338,30 +465,54 @@ class Repository:
             ).fetchall()
         return [Session.model_validate_json(row["data"]) for row in rows]
 
-    def list_observations(self, source_kind: str) -> list[Observation]:
-        """Require an explicit source kind so datasets are never implicitly mixed."""
+    def list_projects_for_task(self, task_id: UUID | str) -> list[Project]:
         with self.database.connection() as connection:
             rows = connection.execute(
-                "SELECT data FROM observations WHERE source_kind = ? "
-                "ORDER BY recorded_at",
-                (source_kind,),
+                "SELECT projects.data FROM projects JOIN project_tasks "
+                "ON projects.project_id = project_tasks.project_id "
+                "WHERE project_tasks.task_id = ? ORDER BY project_tasks.associated_at",
+                (str(task_id),),
             ).fetchall()
+        return [Project.model_validate_json(row["data"]) for row in rows]
+
+    def list_observations(
+        self, source_kind: str, *, dataset_id: str | None = None
+    ) -> list[Observation]:
+        """Require an explicit source kind so datasets are never implicitly mixed."""
+        with self.database.connection() as connection:
+            if dataset_id is None:
+                rows = connection.execute(
+                    "SELECT data FROM observations WHERE source_kind = ? "
+                    "ORDER BY recorded_at",
+                    (source_kind,),
+                ).fetchall()
+            else:
+                rows = connection.execute(
+                    "SELECT data FROM observations WHERE source_kind = ? "
+                    "AND dataset_id = ? ORDER BY recorded_at",
+                    (source_kind, dataset_id),
+                ).fetchall()
         return [Observation.model_validate_json(row["data"]) for row in rows]
 
     def list_records(
-        self, record_type: type[Record], *, source_kind: str | None = None
+        self,
+        record_type: type[Record],
+        *,
+        source_kind: str | None = None,
+        dataset_id: str | None = None,
     ) -> list[Record]:
         """List one record type without combining source datasets."""
         if record_type is Observation:
             if source_kind is None:
                 raise ValueError("observation listing requires an explicit source_kind")
-            return self.list_observations(source_kind)  # type: ignore[return-value]
+            return self.list_observations(source_kind, dataset_id=dataset_id)  # type: ignore[return-value]
         return self._list(record_type)
 
     def import_record(self, record: BaseModel) -> BaseModel:
         """Persist a validated JSONL record through normal integrity checks."""
         writers = {
             Task: self.create_task,
+            Project: self.create_project,
             Session: self.create_session,
             Run: self.create_run,
             Attempt: self.create_attempt,
@@ -387,6 +538,7 @@ class Repository:
 def _record_table(record_type: type[BaseModel]) -> tuple[str, str]:
     tables: dict[type[BaseModel], tuple[str, str]] = {
         Task: ("tasks", "task_id"),
+        Project: ("projects", "project_id"),
         Session: ("sessions", "session_id"),
         Run: ("runs", "run_id"),
         Attempt: ("attempts", "attempt_id"),

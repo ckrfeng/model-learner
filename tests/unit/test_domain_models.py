@@ -9,8 +9,12 @@ from pydantic import ValidationError
 from model_learner.domain.models import (
     AcceptanceSpec,
     Attempt,
+    AttributionStatus,
+    DatasetReference,
+    DataSourceKind,
     Event,
     ExecutionConfiguration,
+    Observation,
     Outcome,
     OutcomeStatus,
     Provenance,
@@ -104,3 +108,92 @@ def test_task_identity_is_independent_of_run_identity() -> None:
 
     assert run.task_id == declared_task.task_id
     assert run.run_id != declared_task.task_id
+
+
+def test_schema_versions_reject_unsupported_contracts() -> None:
+    with pytest.raises(ValidationError, match="schema_version"):
+        Task(
+            schema_version=3,
+            description="Unsupported contract",
+            acceptance_spec=AcceptanceSpec(identifier="pytest", version="1"),
+        )
+
+
+def test_schema_version_one_observations_remain_readable_but_ineligible() -> None:
+    legacy = Observation(
+        schema_version=1,
+        source_kind=DataSourceKind.REAL,
+        task_group="maintenance",
+        configuration=ExecutionConfiguration(provider="example", model="model-a"),
+    )
+
+    assert legacy.dataset is None
+    assert legacy.eligible_for_configuration_learning is False
+
+
+def test_configuration_identity_is_stable_and_versioned() -> None:
+    first = ExecutionConfiguration(
+        provider="example",
+        model="model-a",
+        model_version="2026-10-01",
+        harness="codex",
+        harness_version="1.0",
+    )
+    second = ExecutionConfiguration(
+        provider="example",
+        model="model-a",
+        model_version="2026-10-01",
+        harness="codex",
+        harness_version="1.0",
+    )
+
+    assert first.configuration_id == second.configuration_id
+    assert first.schema_version == 2
+
+
+def test_observation_rejects_mixed_or_temporally_invalid_learning_labels() -> None:
+    decision_at = datetime(2026, 10, 9, tzinfo=UTC)
+    dataset = DatasetReference(
+        source_kind=DataSourceKind.SIMULATED,
+        dataset_id="simulator",
+        dataset_version="1",
+    )
+    common = {
+        "source_kind": DataSourceKind.SIMULATED,
+        "dataset": dataset,
+        "source_record_id": "row-1",
+        "task_group": "maintenance",
+        "configuration": ExecutionConfiguration(provider="example", model="model-a"),
+        "outcome_status": OutcomeStatus.SUCCESS,
+        "verification_status": VerificationStatus.VERIFIED,
+        "decision_at": decision_at,
+        "label_available_at": datetime(2026, 10, 10, tzinfo=UTC),
+        "recorded_at": datetime(2026, 10, 11, tzinfo=UTC),
+    }
+
+    with pytest.raises(ValidationError, match="single-configuration"):
+        Observation(
+            **common,
+            attribution_status=AttributionStatus.MIXED_CONFIGURATION,
+            eligible_for_configuration_learning=True,
+        )
+    with pytest.raises(ValidationError, match="must not precede decision_at"):
+        Observation(
+            **(
+                common
+                | {
+                    "attribution_status": AttributionStatus.SINGLE_CONFIGURATION,
+                    "label_available_at": datetime(2026, 10, 8, tzinfo=UTC),
+                }
+            ),
+        )
+    with pytest.raises(ValidationError, match="stable_key"):
+        Observation(
+            **(
+                common
+                | {
+                    "attribution_status": AttributionStatus.SINGLE_CONFIGURATION,
+                    "stable_key": "not-derived",
+                }
+            ),
+        )

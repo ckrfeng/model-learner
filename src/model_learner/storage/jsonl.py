@@ -12,6 +12,7 @@ from model_learner.domain.models import (
     Event,
     Observation,
     Outcome,
+    Project,
     Run,
     Session,
     Task,
@@ -21,6 +22,7 @@ from model_learner.storage.database import Repository, StorageError
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,
+    "project": Project,
     "session": Session,
     "run": Run,
     "attempt": Attempt,

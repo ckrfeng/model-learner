@@ -1,7 +1,7 @@
 # Model Learner status
 
-Current milestone: M1 — Data Contracts and Local Persistence (COMPLETE; awaiting user review)
-Last accepted milestone: M0 — Project Foundation.
+Current milestone: M1.1 — Contract Hardening (COMPLETE; awaiting user review)
+Last accepted milestone: M1 — Data Contracts and Local Persistence.
 Updated: 2026-10-09
 
 ## Completed milestones
@@ -10,6 +10,8 @@ Updated: 2026-10-09
 - M0-B: project foundation implemented and acceptance checks passed.
 - M1-A: typed, versioned domain contracts implemented.
 - M1-B: SQLite persistence, JSONL validation, and storage CLI implemented.
+- M1.1: evidence-safe observation, attribution, dataset, schema-version, and
+  optional project-context contracts implemented.
 
 ## Implementation status
 
@@ -53,6 +55,25 @@ Updated: 2026-10-09
 - Pydantic v2 is a runtime dependency; `uv.lock` was updated accordingly.
 - No agent hooks, real provider integrations, automated verification, simulator,
   learner, routing, or TUI have been implemented.
+- M1.1 adds an additive second SQLite migration. New records use schema version
+  2; known M1 schema version 1 records remain readable but legacy observations
+  cannot be marked learning-eligible. Unknown schema versions are rejected.
+- Learning observations now identify their real/simulated/benchmark dataset and
+  version, have deterministic stable keys for idempotent persistence, record
+  decision and label-availability times separately, and retain target acceptance
+  specifications, evidence IDs, attribution status, and eligibility.
+- Real version-2 observations require a task, run, outcome, acceptance
+  specification, outcome/verification status, and a matching attempt for a
+  single-configuration attribution. Repository checks ensure all links, evidence,
+  acceptance specification, configuration, and labels agree with ledger records.
+- `censored` is distinct from `unknown`; censored outcomes require a reason and
+  neither censored nor unknown observations can be learning-eligible. Mixed or
+  incomplete attribution is retained but cannot be eligible for
+  configuration-level learning.
+- Execution configurations now have a deterministic snapshot ID plus optional
+  configuration and harness versions. Optional manually declared `Project` and
+  `ProjectTaskLink` records group tasks without changing task identity or adding
+  project discovery.
 
 ## Test evidence
 
@@ -76,6 +97,10 @@ Typer 0.27.3, Rich 14.3.4, and Ruff 0.16.10 on 2026-10-09.
 | `uv run ruff check .` | Exit 0; `All checks passed!` |
 | `uv run ruff format --check .` | Exit 0; `16 files already formatted`. |
 | `uv run model-learner --help` | Exit 0; lists `init`, `task`, `session`, and `records` commands. |
+| `uv run pytest` | Exit 0; **29 passed in 0.52s**. M1.1 coverage includes M1-to-M1.1 migration, schema-version rejection and legacy reading, evidence-linked real observations, unknown/censored labels, mixed-attribution rejection, observation deduplication, temporal validity, dataset filtering, configuration identity, and optional project/task links. |
+| `uv run ruff check .` | Exit 0; `All checks passed!` |
+| `uv run ruff format --check .` | Exit 0; `16 files already formatted`. |
+| `git diff --check` | Exit 0; no whitespace errors. |
 
 M0 tests cover imports/version metadata, help, version, no arguments, invalid
 options, unsupported commands, and the installed executable from an unrelated
@@ -100,6 +125,12 @@ are local validation setup and are not required on a machine with uv/Python read
   alongside indexed relationship columns.
 - Make the M1 database migration-only: upgrades are forward-only and no downgrade
   path is supplied yet. The first migration creates the complete M1 ledger.
+- Treat schema version 1 as a legacy read format and schema version 2 as the
+  current M1.1 contract. Future schema versions require an explicit supported
+  parser or upcaster; they are not accepted optimistically.
+- Preserve project context as an explicit optional relationship. It is a manual
+  grouping only and is not task identity, task difficulty, automatic discovery,
+  or global activity tracking.
 
 ## Known issues / blockers
 
@@ -124,11 +155,15 @@ are local validation setup and are not required on a machine with uv/Python read
 - SQLite is appropriate for the local-first, single-machine milestone but does
   not make multiple concurrent writers parallel; short transactions and a busy
   timeout reduce contention only.
+- M1.1 does not add a decision/policy record, automatic project discovery,
+  execution-state inference, cache-cost attribution, or learner implementation.
+  Those remain later work and must not be inferred from the new contracts.
 
 ## Next recommended milestone
 
-- M2 is NOT STARTED. The next milestone is M2-A: a deterministic seeded
-  simulator with explicitly separate known-truth evaluator data. Do not begin it
+- M2 is NOT STARTED. After review, the statistical workstream can begin at M2-A:
+  a deterministic seeded simulator with explicitly separate known-truth evaluator
+  data. Real-data work remains at M3-A feasibility assessment. Do not begin either
   without a new user instruction.
 - Review the M1 diff and checks before committing. No commit, push, merge, or
   publication was made.

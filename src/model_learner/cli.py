@@ -17,6 +17,7 @@ from model_learner.domain.models import (
     Event,
     Observation,
     Outcome,
+    Project,
     Run,
     Session,
     Task,
@@ -51,6 +52,7 @@ app.add_typer(records_app, name="records")
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,
+    "project": Project,
     "session": Session,
     "run": Run,
     "attempt": Attempt,

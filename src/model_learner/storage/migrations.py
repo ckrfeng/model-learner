@@ -71,4 +71,26 @@ MIGRATIONS: tuple[str, ...] = (
     CREATE INDEX outcomes_run_id_idx ON outcomes(run_id);
     CREATE INDEX observations_source_kind_idx ON observations(source_kind);
     """,
+    """
+    CREATE TABLE projects (
+        project_id TEXT PRIMARY KEY,
+        created_at TEXT NOT NULL,
+        data TEXT NOT NULL
+    );
+    CREATE TABLE project_tasks (
+        project_id TEXT NOT NULL REFERENCES projects(project_id),
+        task_id TEXT NOT NULL REFERENCES tasks(task_id),
+        associated_at TEXT NOT NULL,
+        relationship TEXT NOT NULL,
+        data TEXT NOT NULL,
+        PRIMARY KEY (project_id, task_id)
+    );
+    ALTER TABLE observations ADD COLUMN stable_key TEXT;
+    ALTER TABLE observations ADD COLUMN dataset_id TEXT;
+    ALTER TABLE observations ADD COLUMN dataset_version TEXT;
+    CREATE UNIQUE INDEX observations_stable_key_idx ON observations(stable_key);
+    CREATE INDEX observations_dataset_idx
+        ON observations(source_kind, dataset_id, dataset_version);
+    CREATE INDEX project_tasks_task_id_idx ON project_tasks(task_id);
+    """,
 )

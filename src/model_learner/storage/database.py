@@ -20,6 +20,7 @@ from model_learner.domain.models import (
     Project,
     ProjectTaskLink,
     Run,
+    RunSessionLink,
     Session,
     Task,
     TaskSessionLink,
@@ -245,6 +246,100 @@ class Repository:
             except sqlite3.IntegrityError as error:
                 raise StorageError(str(error)) from error
         return attempt
+
+    def associate_run_session(self, link: RunSessionLink) -> RunSessionLink:
+        """Attach a session already explicitly associated with this run's task.
+
+        Replay returns the original link, without changing receipt timestamps or
+        rewriting imported events. The run timestamps define the selected bounds.
+        """
+        with self.database.connection() as connection:
+            # Acquire the write reservation before reading overlapping links.
+            # A deferred transaction could let two writers both pass the check.
+            connection.execute("BEGIN IMMEDIATE")
+            self._require(connection, "runs", "run_id", link.run_id)
+            self._require(connection, "sessions", "session_id", link.session_id)
+            run = connection.execute(
+                "SELECT task_id FROM runs WHERE run_id = ?", (str(link.run_id),)
+            ).fetchone()
+            task_link = connection.execute(
+                "SELECT 1 FROM task_sessions WHERE task_id = ? AND session_id = ?",
+                (run["task_id"], str(link.session_id)),
+            ).fetchone()
+            if task_link is None:
+                raise StorageError(
+                    "session must first be explicitly linked to the run's task"
+                )
+            run_row = connection.execute(
+                "SELECT data FROM runs WHERE run_id = ?", (str(link.run_id),)
+            ).fetchone()
+            self._validate_run_session_bounds(
+                connection, Run.model_validate_json(run_row["data"]), link.session_id
+            )
+            connection.execute(
+                "INSERT INTO run_sessions (run_id, session_id, associated_at, data) "
+                "VALUES (?, ?, ?, ?) ON CONFLICT(run_id, session_id) DO NOTHING",
+                (
+                    str(link.run_id),
+                    str(link.session_id),
+                    link.associated_at.isoformat(),
+                    self._json(link),
+                ),
+            )
+            row = connection.execute(
+                "SELECT data FROM run_sessions WHERE run_id = ? AND session_id = ?",
+                (str(link.run_id), str(link.session_id)),
+            ).fetchone()
+        return RunSessionLink.model_validate_json(row["data"])
+
+    def validate_run_session_bounds(self, run: Run, session_id: UUID) -> None:
+        """Preflight a declaration before creating a run or task association."""
+        with self.database.connection() as connection:
+            self._require(connection, "sessions", "session_id", session_id)
+            self._validate_run_session_bounds(connection, run, session_id)
+
+    @staticmethod
+    def _validate_run_session_bounds(
+        connection: sqlite3.Connection, run: Run, session_id: UUID
+    ) -> None:
+        if run.started_at is None or run.ended_at is None:
+            return  # Legacy unbounded records cannot yield builder observations.
+        rows = connection.execute(
+            "SELECT runs.data FROM runs JOIN run_sessions "
+            "ON runs.run_id = run_sessions.run_id "
+            "WHERE run_sessions.session_id = ? AND runs.run_id != ?",
+            (str(session_id), str(run.run_id)),
+        ).fetchall()
+        for row in rows:
+            other = Run.model_validate_json(row["data"])
+            if other.started_at is None or other.ended_at is None:
+                raise StorageError("session already has a run with unknown boundaries")
+            # Builder event selection is inclusive at both bounds. Even a shared
+            # endpoint could count the same captured execution twice.
+            if max(run.started_at, other.started_at) <= min(
+                run.ended_at, other.ended_at
+            ):
+                raise StorageError(
+                    "run boundaries overlap an existing run for this session"
+                )
+
+    def list_run_session_links(self, run_id: UUID | str) -> list[RunSessionLink]:
+        with self.database.connection() as connection:
+            rows = connection.execute(
+                "SELECT data FROM run_sessions WHERE run_id = ? ORDER BY associated_at",
+                (str(run_id),),
+            ).fetchall()
+        return [RunSessionLink.model_validate_json(row["data"]) for row in rows]
+
+    def list_sessions_for_run(self, run_id: UUID | str) -> list[Session]:
+        with self.database.connection() as connection:
+            rows = connection.execute(
+                "SELECT sessions.data FROM sessions JOIN run_sessions "
+                "ON sessions.session_id = run_sessions.session_id "
+                "WHERE run_sessions.run_id = ? ORDER BY run_sessions.associated_at",
+                (str(run_id),),
+            ).fetchall()
+        return [Session.model_validate_json(row["data"]) for row in rows]
 
     def add_event(self, event: Event) -> Event:
         """Insert an event once, returning the first canonical row on re-import."""

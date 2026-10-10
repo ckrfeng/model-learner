@@ -1,8 +1,8 @@
 # Model Learner status
 
-Current work: parallel first slices — local observation and probabilistic learning
-(COMPLETE; stopped for user review).
-Last accepted milestone: M1.1 — Contract Hardening (user confirmed M0/M1/M1.1).
+Current work: requested Workstreams A/B/C — tasks and verification, statistical
+evaluation, and Desktop feasibility (COMPLETE; stopped for user review).
+Last user-confirmed stage: M0, M1, M1.1, and the first parallel implementation slices.
 Updated: 2026-10-10
 
 ## Completed milestones
@@ -221,6 +221,160 @@ needed. The two implementation slices remain independently testable.
 Final independent review confirmed **105 tests passed**, clean Ruff/formatting,
 and no unresolved blockers within the requested slice.
 
+## Requested Workstreams A/B/C — 2026-10-10
+
+The coordinator read the plan, AGENTS.md, prior status and implementation. The
+build-order file remains absent. Three Codex subagents had separate ownership:
+new run/verification/observation modules and tests; simulation/learning stress
+modules and tests; and Desktop feasibility research. The coordinator owned shared
+contracts/migrations/storage, CLI integration, integration tests, README and this
+status. The research agent independently reviewed the final implementation.
+The master plan, dependencies and lockfile are unchanged.
+
+### Workstream A — delivered and real integration exercised
+
+- Added the additive `RunSessionLink` contract and migration 3 (`run_sessions`).
+  Existing version-1/2 contracts and primary records remain readable. Associations
+  require the session to be explicitly linked to the run's task. Imported events
+  are never rewritten to attach a run.
+- Explicit bounded runs retain declared state, receipt-time range, final artifact
+  fingerprint and boundary provenance. Attempts retain exact configuration
+  snapshots, contiguous boundaries and human declaration source; no inferred task
+  classification or fabricated native model telemetry is used.
+- Added a deterministic **read-only SHA-256 file verifier**. The expected digest is
+  declared with the task; the final artifact snapshot is declared with the run.
+  Verification retains artifact reference/fingerprint, acceptance version, result,
+  verifier version, observation time, criterion and observed provenance. It reads
+  bytes without retaining them and checks for file changes while hashing. It never
+  executes an arbitrary verifier command or launches an agent.
+- Completed execution remains separate from assessment. Evidence-free assessment
+  yields unknown; explicit human labels remain unverified. Matching final evidence
+  yields verified success/failure against this exact bytes-only criterion.
+  Wrong/stale artifact/spec, contradictory result, foreign evidence, invalid times
+  and branching supersession are rejected. Assessments remain append-only.
+- Real observation building retains task/run/outcome/attempt/evidence links,
+  dataset identity, acceptance/budget, label availability and eligibility reasons.
+  It requires actual captured Codex CLI events in the selected receipt-time range.
+  Mixed, incomplete or contradicted attribution, unknown/unverified labels, and
+  unknown/exceeded declared budgets stay ineligible. Unknown resources stay null.
+  Rebuilding the same derivation is idempotent. Quality reports explicitly count
+  assessment derivations, with dataset and missingness denominators.
+- Added `task create --expected-sha256`, `run create/attach-session/attempt/show`,
+  `verify file`, `outcome assess/human`, and `observations build/quality`. Existing
+  source-filtered JSONL export serves real observations. Usage and semantics are
+  documented in `README.md` and `docs/TASK_VERIFICATION.md`.
+- Independent review reproduced two defects: repeating the same captured run
+  counted it twice, and concurrent association could bypass overlap validation.
+  Inclusive overlapping bounds for the same session are now rejected (including
+  different tasks and additional session links). Preflight avoids ordinary phantom
+  runs, and `BEGIN IMMEDIATE` serializes the association check and write. Regression
+  tests cover repeat, shared endpoints, disjoint ranges and competing writers.
+
+**Actual real workflow:** An operator-only validation script under ignored
+`.model-learner/verification-smoke/` declared an exact sanitized reply digest
+**before** running installed `codex-cli 0.162.0-alpha.17.2` on macOS arm64.
+The explicit invocation used `exec --json --ephemeral --ignore-user-config
+--ignore-rules --skip-git-repo-check --sandbox read-only`, an isolated temporary
+working directory, `--model gpt-6.1-sol`, low reasoning, and `--output-last-message`.
+It requested a fixed reply without tools or file changes. The operator launches
+this test; the shipped Model Learner APIs/CLI remain observers. Based on the
+previous demonstrated outer-sandbox failure, this bounded validation received
+execution approval outside that outer sandbox while retaining Codex's own
+read-only sandbox. No native stderr or raw prompts/messages were retained.
+
+The CLI exited 0 and the streaming capture retained four metadata-only events,
+with zero diagnostics. First import inserted four; replay inserted zero and
+recognized four duplicates. A distinct task/run/session and explicitly declared
+configuration segment were linked. Finished execution first produced unknown,
+unverified, ineligible assessment. The predeclared exact reply bytes then passed
+verification; an appended assessment produced success/verified and an eligible
+real observation. Rebuild returned the same observation ID. JSONL exported both
+real derivations (unknown and assessed, in explicitly distinct cohorts), and
+fitting only the assessed dataset counted **one** label. Cost and latency remained
+null; configuration provenance was the operator's explicit command declaration,
+not an emitted native model/version. Native model version remains unknown.
+This validates the real capture-to-verification path for a fixed reply; it does
+not establish coding-task utility or native Desktop capture.
+
+### Workstream B — delivered with actual multi-seed evidence
+
+- Added pure `run_stress_suite()` and eight reproducible scenarios: balanced,
+  homogeneous, sparse, imbalanced, drift, missing, delayed-pending and delayed-mature.
+  Each seed/scenario has an explicit simulated dataset and complete configuration.
+  The existing Beta(1,1) estimator and seeded generation behavior are preserved.
+- Reports retain per-seed counts/cutoffs/exclusions, calibration bins and ECE,
+  Brier/log loss, evaluator-only truth errors and interval coverage/width,
+  assignment-weighted and represented-cell macro coverage, all 12 cell predictions,
+  across-seed variation, and paired global/per-arm/unpooled comparisons.
+  Undefined metrics remain null. Repeated cell predictions are not represented as
+  independent coverage trials, and Monte Carlo SE is not real-world confidence.
+- Added `learn stress` with repeated `--seed`/`--scenario`, count, frozen split,
+  calibration bins and exclusive optional JSON output. It never writes ledger rows.
+  `docs/STATISTICAL_EVALUATION.md` records complete reproduction and actual results.
+- Actual reference experiment: seeds 0–19, 1,000 observations per seed/scenario
+  (sparse capped at 48), 60% training split, ten calibration bins. Balanced unpooled
+  mean Brier was **0.197198** and latent 95%-interval coverage **0.968000**.
+  Homogeneous global Brier **0.211467** beat unpooled **0.216226**. Sparse scenarios
+  had 4–8 prior-only cells per seed; imbalance had 1–6 despite 600 training labels.
+  Under a sharp 0.9→0.2 drift at the split, unpooled Brier was **0.630445**, coverage
+  **0.000000**, and mean interval width **0.168369**: concrete overconfidence.
+  Global marginal ECE **0.005608** in heterogeneous balanced data masked conditional
+  coverage **0.233375**. Missing/delayed scenarios reduced evidence without recoding
+  unknown as failure or admitting future labels. No complex ML was introduced.
+
+### Workstream C — feasibility assessed, no adapter
+
+- `docs/CODEX_DESKTOP_FEASIBILITY.md` records official documented interfaces,
+  coverage, reliability, privacy and integration difficulty. The research agent
+  used the OpenAI Docs skill, public CLI help and generated installed-version
+  protocol schemas; it did not access private transcripts or app databases.
+- App-server read-only stored-thread APIs, prospective OTel and lifecycle hooks
+  are candidates. Public historical schemas have optional timing/configuration
+  and lack complete historical per-turn model/usage. The default public daemon
+  control socket was absent (`daemon version` exited 1). Desktop visibility,
+  passive connectivity and delivery fidelity therefore remain unvalidated.
+- No Desktop adapter, daemon, hook, telemetry setting or control integration was
+  installed. Continue supporting explicit CLI capture. The report proposes a
+  narrow sanitized public-transport feasibility spike as future work only.
+
+### Actual verification and independent review
+
+Existing local Python 3.12.14 / uv 0.12.24 / Ruff 0.16.10 environment, repository
+local tool/cache paths; no dependency installation was needed.
+
+| Command / check | Actual result |
+| --- | --- |
+| Pre-change `uv run pytest` | Exit 0; **105 passed in 1.45s**. |
+| A owned tests / lint / format | **32 passed in 0.69s**; lint passed; 5 files formatted. |
+| B learning/storage tests / lint / format | **66 passed in 2.85s**; lint and format passed. |
+| Final coordinator `uv run pytest` | Exit 0; **164 passed in 4.94s**. |
+| Final coordinator `uv run ruff check .` | Exit 0; `All checks passed!` |
+| Final coordinator `uv run ruff format --check .` | Exit 0; **51 files already formatted**. |
+| Installed CLI `--help` and `learn stress --help` | Exit 0; new workflow/stress commands and flags present. |
+| Real operator-run CLI workflow | Exit 0; four events, safe replay, unknown then verified, eligible real export, one learner label. |
+| Independent final suite | **164 passed in 4.72s**; lint and formatting passed. |
+| Independent association/task/CLI regressions | **29 passed**; duplicate and concurrent overlap repros resolved. |
+| `git diff --check` | Exit 0; no whitespace errors. |
+
+The independent reviewer found no remaining blocking implementation issue within
+these workstreams after the regression-tested fixes. Real validation completed
+subsequently with the result above. Fixtures remain sanitized/synthetic and real
+validation artifacts remain ignored; they are never claimed as Git fixtures.
+
+**Remaining limits:** Digest verification proves exact bytes of one regular file,
+not general correctness; a copy of identical bytes satisfies that criterion.
+Configuration/boundary declarations are trusted explicit user assertions; native
+metadata remains separate. Multi-operation run creation can leave a harmless
+unlinked run after exceptional I/O/concurrent failures; the builder rejects it.
+The learner still needs explicit resolution when a cohort contains multiple
+assessment derivations for one run; this smoke intentionally selected distinct
+cohorts for unknown and assessed rows. Simulation uses independent Bernoulli
+trials, completely-at-random missingness, independent assignment and simple step
+drift; correlated retries, confounding and biased delayed outcomes remain untested.
+No synthetic result establishes real calibration. Desktop capture remains
+unvalidated; the fixed-reply CLI smoke establishes neither Desktop nor coding-task
+performance.
+
 ## Decisions
 
 - Use the plan's `src/model_learner/` layout and Typer/Rich CLI.
@@ -256,10 +410,13 @@ and no unresolved blockers within the requested slice.
   adding new OS metadata but does not remove files already tracked by Git.
 - The real-agent importer supports explicitly selected Codex CLI streams only;
   existing desktop sessions and passive desktop capture remain unsupported.
-  No automatic verifier or verified real task-observation builder was added.
+  The requested increment now adds a narrow read-only file digest verifier and
+  evidence-linked real task-observation builder; general test/report verification
+  remains unimplemented.
 - JSONL imports enforce record schemas and relationships but are intentionally
   limited to primary records; task/session links are managed through the explicit
-  attach command rather than exported as a standalone record stream.
+  attach commands rather than exported as a standalone record stream. The new
+  run/session links likewise require explicit reconstruction on ledger transfer.
 - SQLite is appropriate for the local-first, single-machine milestone but does
   not make multiple concurrent writers parallel; short transactions and a busy
   timeout reduce contention only.
@@ -281,15 +438,18 @@ and no unresolved blockers within the requested slice.
   the same capture identity and machine ID. Metadata/raw-retention policy and
   emitter-version enrichment cannot rewrite already persisted events.
 
-## Next recommended tasks (not started)
+## Next recommended increment (not started)
 
-- Review these two slices before expanding scope. For observation, investigate a
-  documented read-only export/interface for existing desktop sessions, then add
-  only the narrow supported source needed to capture development activity.
-- Begin M4's explicit bounded task/run association and independently sourced
-  acceptance evidence so real captures can produce eligible learning records.
-- Exercise the existing simulator/evaluator across multiple seeds, missingness,
-  imbalance, and drift scenarios before considering a more complex estimator.
-- No recommendation, routing, fine-tuning, runtime intervention learning, TUI,
-  or AI Governor controls were implemented. Stop at this first useful slice.
-  No commit, push, merge, publication, or global hook installation was made.
+- Resolve append-only assessment revisions explicitly at a requested time cutoff
+  before learning. The current estimator rejects conflicting derivations for one
+  run; exporting both unknown and later verified rows into the same cohort needs
+  explicit resolution. Preserve evidence history and avoid future-label leakage.
+- Next statistical candidate: a simple recent-window baseline, evaluated on both
+  stationary and drifting scenarios. The new stress suite supplies concrete
+  evidence of drift failure; no adaptive or complex model was added here.
+- Desktop capture requires a separately scoped, sanitized public-transport spike.
+  A suitable passive connection to this running Desktop instance is unvalidated.
+- No recommendation, routing, model switching, fine-tuning, TUI, cloud sync,
+  runtime intervention control, or AI Governor was implemented. No commit, push,
+  merge, publication, or global hook installation was made. Stop at the requested
+  workstreams; await user direction.

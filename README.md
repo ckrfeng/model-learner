@@ -5,9 +5,9 @@ probabilities from verified outcomes. It preserves evidence, uncertainty, and
 missing values while keeping observation and inference separate. Agent control
 belongs to the future AI Governor.
 
-The first parallel slices add Codex CLI event capture/import and a seeded
-simulator with a Beta-Bernoulli learner and held-out evaluation. The existing
-versioned contracts and SQLite ledger are unchanged. Follow
+The local workflow includes Codex CLI capture/import, explicit task/run
+association, read-only file verification, real observation building, and a
+seeded simulator with a Beta-Bernoulli learner and multi-seed evaluation. Follow
 [MODEL_LEARNER_PLAN.md](MODEL_LEARNER_PLAN.md) for the design and
 [STATUS.md](STATUS.md) for implemented milestones and test results.
 
@@ -73,7 +73,45 @@ local payload retention; keep those files out of Git. Diagnostics return exit
 code 1 with valid-record counts, since valid records may still have been imported.
 
 This adapter supports the CLI stream. It does not ingest existing desktop session
-files. See [Codex source assessment and limitations](docs/CODEX_OBSERVATION.md).
+files. See [Codex source assessment and limitations](docs/CODEX_OBSERVATION.md)
+and [Desktop feasibility findings](docs/CODEX_DESKTOP_FEASIBILITY.md).
+
+## Tasks and verification
+
+Declare an objective, acceptance version, and expected file SHA-256 before the
+execution. This first verifier checks exact bytes only; it does not establish
+general code correctness. Associate the captured session with explicit run
+bounds and declare configuration segments with their manual provenance.
+
+```sh
+model-learner task create "Produce the agreed artifact" \
+  --acceptance-id exact-file --acceptance-version 1 \
+  --acceptance-description "Artifact matches the agreed SHA-256" \
+  --expected-sha256 <64-lowercase-hex-digest> --task-group artifact
+model-learner run create <task-id> --session-id <session-id> \
+  --started-at <ISO-time-with-timezone> --ended-at <ISO-time-with-timezone> \
+  --artifact <final-file>
+model-learner run attempt <run-id> --configuration-file <configuration.json> \
+  --started-at <ISO-time-with-timezone> --ended-at <ISO-time-with-timezone>
+model-learner verify file <run-id> <final-file>
+model-learner outcome assess <run-id> --verification-id <verification-id>
+model-learner observations build <run-id> --outcome-id <outcome-id> \
+  --dataset-id local-tasks --dataset-version 1
+model-learner observations quality --dataset-id local-tasks --dataset-version 1
+model-learner records export observation .model-learner/real-observations.jsonl \
+  --source-kind real
+```
+
+`configuration.json` uses the existing ExecutionConfiguration contract, for
+example `{"provider":"openai","model":"<actual-model>","harness":"codex"}`.
+Declare only settings you know; missing settings remain null. Run bounds select
+captured receipt-time events, not native timing or execution duration. Commands
+never launch an agent or an arbitrary verifier command. `run show` presents
+execution state, evidence and assessments separately. `outcome assess` without
+evidence records unknown; `outcome human` records an unverified human assessment.
+Revisions use `--supersedes` and preserve original evidence. Mixed configuration,
+incomplete capture/attribution, and unassessed outcomes are retained with
+exclusions. See [workflow semantics and limitations](docs/TASK_VERIFICATION.md).
 
 ## Simulation and reference learning
 
@@ -110,6 +148,20 @@ the scenario. Prediction accepts `--configuration-file` for an unseen arm.
 Both learning commands select an exact acceptance version and optional
 `--budget-file`; a missing budget selects only observations with no declared
 budget. See [statistical assumptions and limits](docs/PROBABILISTIC_LEARNING.md).
+
+Run the reference stress suite without writing any ledger rows:
+
+```sh
+model-learner learn stress --seed 7 --seed 9 --count 1000 \
+  --output .model-learner/stress-report.json
+```
+
+The eight scenarios cover heterogeneity, homogeneous pooling, sparse groups,
+imbalanced selection, drift, missing labels, and pending/mature delayed labels.
+Reports preserve per-seed denominators, calibration bins, latent-probability
+interval coverage, rare-cell diagnostics and paired baseline comparisons.
+The stationary estimator fails under abrupt drift; see
+[actual stress results and limits](docs/STATISTICAL_EVALUATION.md).
 
 ## Development checks
 

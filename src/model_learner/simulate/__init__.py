@@ -5,6 +5,7 @@ from model_learner.simulate.generator import (
     SimulationResult,
     SimulationTruth,
     TruthRecord,
+    execution_configurations,
     generate,
 )
 
@@ -13,5 +14,6 @@ __all__ = [
     "SimulationResult",
     "SimulationTruth",
     "TruthRecord",
+    "execution_configurations",
     "generate",
 ]

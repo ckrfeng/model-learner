@@ -103,6 +103,20 @@ class SimulationResult(BaseModel):
     truth: SimulationTruth
 
 
+def execution_configurations() -> tuple[ExecutionConfiguration, ...]:
+    """The complete simulator arm grid, including arms absent from a sample."""
+    return tuple(
+        ExecutionConfiguration(
+            provider="synthetic",
+            model=f"arm-{arm}",
+            model_version="1",
+            harness="independent-bernoulli-simulator",
+            harness_version="1",
+        )
+        for arm in ("a", "b", "c")
+    )
+
+
 def generate(config: SimulationConfig) -> SimulationResult:
     """Return reproducible independent runs, including unlabelled executions.
 
@@ -122,16 +136,7 @@ def generate(config: SimulationConfig) -> SimulationResult:
         dataset_version=config.dataset_version,
     )
     acceptance = AcceptanceSpec(identifier="simulated-binary-success", version="1")
-    configurations = tuple(
-        ExecutionConfiguration(
-            provider="synthetic",
-            model=f"arm-{arm}",
-            model_version="1",
-            harness="independent-bernoulli-simulator",
-            harness_version="1",
-        )
-        for arm in ("a", "b", "c")
-    )
+    configurations = execution_configurations()
     observations: list[Observation] = []
     truth: list[TruthRecord] = []
     for index in range(config.count):

@@ -22,6 +22,12 @@ from model_learner.commands.observation import (
 from model_learner.commands.observation import (
     show_session as inspect_session,
 )
+from model_learner.commands.tasks import (
+    observations_app,
+    outcome_app,
+    run_app,
+    verify_app,
+)
 from model_learner.domain.models import (
     AcceptanceSpec,
     Attempt,
@@ -42,6 +48,7 @@ from model_learner.storage.jsonl import (
     import_jsonl,
     validate_jsonl,
 )
+from model_learner.verification import digest_criterion
 
 DEFAULT_DATABASE = Path(".model-learner/model-learner.sqlite3")
 
@@ -66,6 +73,10 @@ app.add_typer(capture_app, name="capture")
 app.add_typer(import_app, name="import")
 app.add_typer(sim_app, name="sim")
 app.add_typer(learn_app, name="learn")
+app.add_typer(run_app, name="run")
+app.add_typer(verify_app, name="verify")
+app.add_typer(outcome_app, name="outcome")
+app.add_typer(observations_app, name="observations")
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,
@@ -143,8 +154,22 @@ def create_task(
     workspace_id: Annotated[str | None, typer.Option()] = None,
     task_group: Annotated[str | None, typer.Option()] = None,
     acceptance_description: Annotated[str | None, typer.Option()] = None,
+    expected_sha256: Annotated[
+        str | None,
+        typer.Option(
+            help="Declare exact expected file SHA-256 for read-only verification."
+        ),
+    ] = None,
 ) -> None:
     """Create a task; it is not automatically attached to any session."""
+    try:
+        metadata = (
+            {"file_digest_verifier": digest_criterion(expected_sha256)}
+            if expected_sha256
+            else {}
+        )
+    except ValueError as error:
+        raise typer.BadParameter(str(error)) from error
     task = Task(
         description=description,
         acceptance_spec=AcceptanceSpec(
@@ -154,6 +179,7 @@ def create_task(
         ),
         workspace_id=workspace_id,
         task_group=task_group,
+        metadata=metadata,
     )
     _write_record(_repository(database).create_task(task))
 

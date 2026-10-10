@@ -223,3 +223,71 @@ def evaluate_learning(
         write_json(report)
     except (OSError, ValueError, ArithmeticError, StorageError) as error:
         raise typer.BadParameter(str(error)) from error
+
+
+@learn_app.command("stress")
+def stress_learning(
+    seed: Annotated[
+        list[int] | None,
+        typer.Option(
+            "--seed",
+            help="Repeat for distinct reproducible seeds; default 0 through 9.",
+        ),
+    ] = None,
+    count: Annotated[
+        int,
+        typer.Option(min=2, help="Runs per scenario/seed; sparse scenario caps at 48."),
+    ] = 1000,
+    train_fraction: Annotated[
+        float, typer.Option(help="Fraction of decisions before frozen training cutoff.")
+    ] = 0.6,
+    scenario: Annotated[
+        list[str] | None,
+        typer.Option(
+            "--scenario",
+            help="Repeat to select named reference scenarios; default all.",
+        ),
+    ] = None,
+    calibration_bins: Annotated[int, typer.Option(min=1)] = 10,
+    output: Annotated[
+        Path | None, typer.Option(help="New JSON report destination; no ledger writes.")
+    ] = None,
+) -> None:
+    """Evaluate seeded sparse, imbalance, drift and label-delay scenarios."""
+    import json
+
+    from model_learner.commands.common import _json_default
+    from model_learner.learn.stress import reference_scenarios, run_stress_suite
+
+    try:
+        scenarios = reference_scenarios(count=count, train_fraction=train_fraction)
+        if scenario:
+            names = set(scenario)
+            if len(names) != len(scenario):
+                raise ValueError("scenario names must be distinct")
+            unknown = names - {s.name for s in scenarios}
+            if unknown:
+                raise ValueError("unknown scenarios: " + ", ".join(sorted(unknown)))
+            scenarios = tuple(s for s in scenarios if s.name in names)
+        report = run_stress_suite(
+            seeds=seed if seed is not None else range(10),
+            scenarios=scenarios,
+            calibration_bins=calibration_bins,
+        )
+        if output:
+            encoded = json.dumps(
+                report, default=_json_default, indent=2, allow_nan=False
+            )
+            with output.open("x", encoding="utf-8") as destination:
+                destination.write(encoded + "\n")
+            write_json(
+                {
+                    "output": output,
+                    "seeds": report.seeds,
+                    "scenarios": [s.name for s in report.scenarios],
+                }
+            )
+        else:
+            write_json(report)
+    except (OSError, ValueError, ArithmeticError) as error:
+        raise typer.BadParameter(str(error)) from error

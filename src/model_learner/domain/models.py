@@ -222,6 +222,14 @@ class ExecutionConfiguration(VersionedModel):
         return self
 
 
+class RunSessionLink(VersionedModel):
+    """An explicit session association to a bounded run; events remain immutable."""
+
+    run_id: UUID
+    session_id: UUID
+    associated_at: datetime = Field(default_factory=utc_now)
+
+
 class Run(VersionedModel):
     """One bounded execution of a task, potentially spanning multiple sessions."""
 

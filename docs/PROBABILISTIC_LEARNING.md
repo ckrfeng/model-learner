@@ -133,6 +133,12 @@ and unknown executions, and describe measured values rather than imputing missin
 costs. Public prediction/evaluation summaries are dataclasses suitable for
 `dataclasses.asdict`; selector and time fields in evaluation are JSON-ready.
 
-Next work can broaden simulator stress tests and evaluate multiple seeds, then add
-hierarchical pooling only under a separate approved milestone. Real data needs
-explicit task/run linking and trustworthy verification before it can train.
+Multi-seed stress evaluation is now available through
+`model_learner.learn.run_stress_suite(...)`, including sparse and imbalanced
+assignments, drift, missing/delayed outcomes, pooled calibration diagnostics,
+macro-cell coverage, and paired baseline comparisons. See
+[Statistical evaluation](STATISTICAL_EVALUATION.md) for the reproducible API,
+denominators, measured results, and failure cases. The estimator remains the same
+fixed-prior reference; hierarchical pooling and drift adaptation require a
+separately approved increment. Real data needs explicit task/run linking and
+trustworthy verification before it can train.

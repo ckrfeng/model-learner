@@ -93,4 +93,14 @@ MIGRATIONS: tuple[str, ...] = (
         ON observations(source_kind, dataset_id, dataset_version);
     CREATE INDEX project_tasks_task_id_idx ON project_tasks(task_id);
     """,
+    """
+    CREATE TABLE run_sessions (
+        run_id TEXT NOT NULL REFERENCES runs(run_id),
+        session_id TEXT NOT NULL REFERENCES sessions(session_id),
+        associated_at TEXT NOT NULL,
+        data TEXT NOT NULL,
+        PRIMARY KEY (run_id, session_id)
+    );
+    CREATE INDEX run_sessions_session_id_idx ON run_sessions(session_id);
+    """,
 )

@@ -11,6 +11,17 @@ import typer
 from pydantic import BaseModel
 
 from model_learner import __version__
+from model_learner.commands.learning import learn_app, sim_app
+from model_learner.commands.observation import (
+    capture_app,
+    import_app,
+)
+from model_learner.commands.observation import (
+    list_sessions as inspect_sessions,
+)
+from model_learner.commands.observation import (
+    show_session as inspect_session,
+)
 from model_learner.domain.models import (
     AcceptanceSpec,
     Attempt,
@@ -42,13 +53,19 @@ app = typer.Typer(
     add_completion=False,
 )
 task_app = typer.Typer(help="Create and inspect declared tasks.", no_args_is_help=True)
-session_app = typer.Typer(help="Register native agent sessions.", no_args_is_help=True)
+session_app = typer.Typer(
+    help="Register and inspect native agent sessions.", no_args_is_help=True
+)
 records_app = typer.Typer(
     help="Inspect persisted evidence records.", no_args_is_help=True
 )
 app.add_typer(task_app, name="task")
 app.add_typer(session_app, name="session")
 app.add_typer(records_app, name="records")
+app.add_typer(capture_app, name="capture")
+app.add_typer(import_app, name="import")
+app.add_typer(sim_app, name="sim")
+app.add_typer(learn_app, name="learn")
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,
@@ -100,7 +117,7 @@ def main(
         ),
     ] = False,
 ) -> None:
-    """Capture contracts and local records; collection and learning come later."""
+    """Capture evidence and estimate verified outcome probabilities locally."""
 
 
 @app.command()
@@ -201,6 +218,23 @@ def show_record(
     if record is None:
         raise typer.BadParameter(f"no {record_type} with ID {identifier}")
     _write_record(record)
+
+
+@app.command("sessions")
+def sessions(
+    database: Annotated[Path, typer.Option("--database", "-d")] = DEFAULT_DATABASE,
+) -> None:
+    """List retained native sessions, independently of declared tasks."""
+    inspect_sessions(database)
+
+
+@session_app.command("show")
+def session_detail(
+    identifier: Annotated[UUID, typer.Argument(help="Local session UUID.")],
+    database: Annotated[Path, typer.Option("--database", "-d")] = DEFAULT_DATABASE,
+) -> None:
+    """Inspect retained observations, metadata coverage, and receipt timeline."""
+    inspect_session(identifier, database)
 
 
 @records_app.command("export")

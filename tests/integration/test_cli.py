@@ -37,7 +37,7 @@ def test_no_arguments_shows_help() -> None:
     assert "Usage:" in result.output
 
 
-@pytest.mark.parametrize("arguments", [["--unknown-option"], ["learn"]])
+@pytest.mark.parametrize("arguments", [["--unknown-option"], ["recommend"]])
 def test_invalid_arguments(arguments: list[str]) -> None:
     result = runner.invoke(app, arguments)
 

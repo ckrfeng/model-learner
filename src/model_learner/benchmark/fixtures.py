@@ -70,6 +70,245 @@ _TASKS = (
             ("empty", ("",), None, "ValueError"),
         ),
     ),
+    TaskFixture(
+        task_id="ceil_div",
+        version="1",
+        description=(
+            "Implement ceil_div(n, d) for integers: the mathematical ceiling of "
+            "n / d without floating point. Signed operands are supported; zero "
+            "divisor raises ZeroDivisionError. Change only solution.py. "
+            "Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def ceil_div(n, d):\n    raise NotImplementedError\n",
+        function="ceil_div",
+        checks=(
+            ("positive", (7, 3), 3, None),
+            ("exact", (6, 3), 2, None),
+            ("negative_n", (-7, 3), -2, None),
+            ("negative_d", (7, -3), -2, None),
+            ("both_negative", (-7, -3), 3, None),
+            ("zero", (0, 5), 0, None),
+            ("large", (10**30 + 1, 10**15), 10**15 + 1, None),
+            ("zero_divisor", (1, 0), None, "ZeroDivisionError"),
+        ),
+    ),
+    TaskFixture(
+        task_id="first_index",
+        version="1",
+        description=(
+            "Implement first_index(values, target) in O(log n) time for a sorted "
+            "list of integers. Return the first matching index or -1 if absent. "
+            "Duplicates and an empty list are valid. Change only solution.py. "
+            "Standard library only. Named acceptance tests check returned values; "
+            "they do not establish asymptotic complexity."
+        ),
+        artifact_name="solution.py",
+        initial_source=(
+            "def first_index(values, target):\n    raise NotImplementedError\n"
+        ),
+        function="first_index",
+        checks=(
+            ("empty", ([], 2), -1, None),
+            ("one", ([2], 2), 0, None),
+            ("duplicates", ([1, 2, 2, 2, 4], 2), 1, None),
+            ("last", ([-4, 0, 7], 7), 2, None),
+            ("missing_between", ([1, 3, 5], 4), -1, None),
+            ("missing_lower", ([1, 3], -2), -1, None),
+            ("missing_upper", ([1, 3], 4), -1, None),
+        ),
+    ),
+    TaskFixture(
+        task_id="interval_length",
+        version="1",
+        description=(
+            "Implement interval_length(intervals): total length of the union of "
+            "half-open integer intervals [start, end), given as pairs in any "
+            "order. Empty and zero-length intervals contribute zero. Overlapping "
+            "and touching intervals merge; start > end raises ValueError. "
+            "Change only solution.py. Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source=(
+            "def interval_length(intervals):\n    raise NotImplementedError\n"
+        ),
+        function="interval_length",
+        checks=(
+            ("empty", ([],), 0, None),
+            ("overlap", ([[1, 5], [3, 8]],), 7, None),
+            ("disjoint", ([[7, 9], [1, 4]],), 5, None),
+            ("touching", ([[1, 3], [3, 5]],), 4, None),
+            ("nested_duplicate", ([[1, 8], [2, 3], [1, 8]],), 7, None),
+            ("negative_zero", ([[-3, 1], [2, 2]],), 4, None),
+            ("reversed", ([[3, 2]],), None, "ValueError"),
+        ),
+    ),
+    TaskFixture(
+        task_id="hex_integer",
+        version="1",
+        description=(
+            "Implement hex_integer(text): parse ASCII hexadecimal digits with "
+            "an optional leading + or -, optional 0x/0X prefix, and surrounding "
+            "whitespace. Letters a-f/A-F are valid. Reject empty digits, internal "
+            "whitespace, underscores and other characters with ValueError. "
+            "Change only solution.py. Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def hex_integer(text):\n    raise NotImplementedError\n",
+        function="hex_integer",
+        checks=(
+            ("plain", ("Af",), 175, None),
+            ("prefix", ("0X10",), 16, None),
+            ("signed", (" -0xF ",), -15, None),
+            ("positive_zero", ("+00",), 0, None),
+            ("empty", ("",), None, "ValueError"),
+            ("prefix_only", ("0x",), None, "ValueError"),
+            ("underscore", ("1_f",), None, "ValueError"),
+            ("internal_space", ("a b",), None, "ValueError"),
+            ("bad_digit", ("gh",), None, "ValueError"),
+        ),
+    ),
+    TaskFixture(
+        task_id="median",
+        version="1",
+        description=(
+            "Implement median(values) for an unsorted list of finite integers or "
+            "floats. Return the central value for odd length, the arithmetic mean "
+            "of the two central values for even length. Empty lists raise "
+            "ValueError. Change only solution.py. Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def median(values):\n    raise NotImplementedError\n",
+        function="median",
+        checks=(
+            ("one", ([7],), 7, None),
+            ("odd_unsorted", ([9, 1, 3],), 3, None),
+            ("even_unsorted", ([8, 2, 4, 1],), 3, None),
+            ("negative", ([-3, -1, -5, -2],), -2.5, None),
+            ("duplicates", ([4, 4, 4],), 4, None),
+            ("floats", ([0.25, 1.25],), 0.75, None),
+            ("empty", ([],), None, "ValueError"),
+        ),
+    ),
+    TaskFixture(
+        task_id="edit_distance",
+        version="1",
+        description=(
+            "Implement edit_distance(a, b): Levenshtein distance between two "
+            "strings, with insertion, deletion and substitution each costing one. "
+            "Characters are case-sensitive Python string characters, including "
+            "Unicode. Change only solution.py. Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def edit_distance(a, b):\n    raise NotImplementedError\n",
+        function="edit_distance",
+        checks=(
+            ("empty", ("", ""), 0, None),
+            ("insertions", ("", "abc"), 3, None),
+            ("deletions", ("abc", ""), 3, None),
+            ("identity", ("same", "same"), 0, None),
+            ("classic", ("kitten", "sitting"), 3, None),
+            ("case", ("A", "a"), 1, None),
+            ("unicode", ("café", "cafe"), 1, None),
+        ),
+    ),
+    TaskFixture(
+        task_id="components",
+        version="1",
+        description=(
+            "Implement components(n, edges): count connected components in an "
+            "undirected graph with integer vertices 0..n-1 and edge pairs. "
+            "Self-loops and duplicate edges are allowed. Negative n or any "
+            "endpoint outside the vertex range raises ValueError. Empty graph "
+            "has zero components. Change only solution.py. Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def components(n, edges):\n    raise NotImplementedError\n",
+        function="components",
+        checks=(
+            ("empty", (0, []), 0, None),
+            ("isolated", (4, []), 4, None),
+            ("chain", (4, [[0, 1], [1, 2], [2, 3]]), 1, None),
+            ("two_groups", (5, [[0, 1], [1, 2], [3, 4]]), 2, None),
+            ("duplicates_loops", (3, [[0, 0], [0, 1], [1, 0]]), 2, None),
+            ("bad_endpoint", (2, [[0, 2]]), None, "ValueError"),
+            ("negative_endpoint", (2, [[-1, 0]]), None, "ValueError"),
+            ("negative_n", (-1, []), None, "ValueError"),
+        ),
+    ),
+    TaskFixture(
+        task_id="unique_window",
+        version="1",
+        description=(
+            "Implement unique_window(text): length of the longest contiguous "
+            "substring with no repeated Python string characters. Empty string "
+            "returns zero; comparison is case-sensitive. Change only solution.py. "
+            "Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def unique_window(text):\n    raise NotImplementedError\n",
+        function="unique_window",
+        checks=(
+            ("empty", ("",), 0, None),
+            ("all_unique", ("abcde",), 5, None),
+            ("repeated", ("aaaa",), 1, None),
+            ("classic", ("abcabcbb",), 3, None),
+            ("overlap", ("abba",), 2, None),
+            ("middle", ("pwwkew",), 3, None),
+            ("unicode_case", ("éAéa",), 3, None),
+        ),
+    ),
+    TaskFixture(
+        task_id="rpn",
+        version="1",
+        description=(
+            "Implement rpn(tokens): evaluate reverse Polish expressions of signed "
+            "ASCII integer strings and operators + - * /. Division truncates "
+            "toward zero without floating point. Zero division raises "
+            "ZeroDivisionError; invalid tokens, too few operands, or a final "
+            "stack size other than one raise ValueError. Change only solution.py. "
+            "Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def rpn(tokens):\n    raise NotImplementedError\n",
+        function="rpn",
+        checks=(
+            ("single", (["-3"],), -3, None),
+            ("order", (["7", "2", "-"],), 5, None),
+            ("mixed", (["2", "3", "+", "4", "*"],), 20, None),
+            ("negative_division", (["-7", "3", "/"],), -2, None),
+            ("signed_division", (["7", "-3", "/"],), -2, None),
+            ("large", ([str(10**30 + 1), "1", "/"],), 10**30 + 1, None),
+            ("zero_division", (["1", "0", "/"],), None, "ZeroDivisionError"),
+            ("underflow", (["1", "+"],), None, "ValueError"),
+            ("leftover", (["1", "2"],), None, "ValueError"),
+            ("invalid", (["1_0"],), None, "ValueError"),
+            ("empty", ([],), None, "ValueError"),
+        ),
+    ),
+    TaskFixture(
+        task_id="balanced_span",
+        version="1",
+        description=(
+            "Implement balanced_span(text): length of the longest contiguous "
+            "substring that is a well-formed sequence of parentheses. Empty "
+            "string returns zero. Any character other than ( or ) raises "
+            "ValueError. Change only solution.py. Standard library only."
+        ),
+        artifact_name="solution.py",
+        initial_source="def balanced_span(text):\n    raise NotImplementedError\n",
+        function="balanced_span",
+        checks=(
+            ("empty", ("",), 0, None),
+            ("pair", ("()",), 2, None),
+            ("nested", ("(()())",), 6, None),
+            ("prefix", ("(()",), 2, None),
+            ("split", (")()())",), 4, None),
+            ("suffix", ("()(())(",), 6, None),
+            ("none", (")))(((",), 0, None),
+            ("invalid", ("(x)",), None, "ValueError"),
+        ),
+    ),
 )
 
 

@@ -1,18 +1,42 @@
 # Operator-controlled coding-task evaluation
 
-The benchmark harness stages two public standard-library Python tasks (`clamp`
-and `duration`) in fresh disposable directories. It predeclares the task,
+The benchmark harness stages predefined public standard-library Python tasks
+in fresh disposable directories. It predeclares the task,
 acceptance version, exact configuration snapshot, fixture digest and benchmark
 dataset before execution. Each task changes one module. Acceptance covers the
 named examples, not universal correctness or whole-project quality.
 
-No benchmark API or CLI command launches a coding agent, shell, paid API or test
-process. An operator separately chooses whether to spend money on an agent run,
+The staging and evidence commands launch no coding agent, shell, paid API or test
+process. The isolation diagnostic launches only its fixed harmless shell probe.
+An operator separately chooses whether to spend money on an agent run,
 then separately invokes the supplied acceptance controller. Repository tests run
 only controlled public candidate fixtures. There are no real-agent performance
 results in this delivery.
 
-## Isolation contract
+## Current safety readiness
+
+**Real execution collection is blocked.** The harness has no supported verified
+OS execution backend. Real-origin preparation only stages public files;
+real-origin finalization fails before writing a run, even with
+`--isolation-confirmed`. Fixture-origin local checks remain supported. An operator
+declaration cannot unlock real collection. No paid agent execution has been run.
+
+Run the fixed, harmless macOS diagnostic with:
+
+```sh
+model-learner benchmark isolation-probe
+```
+
+It creates disposable public canaries and checks allowed workspace reads/writes,
+outside reads/writes, a symlink escape and inherited child restrictions. A failed
+bootstrap returns `unavailable` with null denied-access results, never successful
+containment. `probe_passed` only describes this fixed shell profile; its
+`real_execution_ready` remains false. It does not certify a credentialed agent,
+acceptance worker, network policy or VM. See
+[`BENCHMARK_SAFETY.md`](BENCHMARK_SAFETY.md) for the actual macOS audit, observed
+probe limitations, required execution limits and smallest proposed VM setup.
+
+## Required isolation contract (not yet a supported backend)
 
 A disposable working directory **is not an OS sandbox**. Before starting a real
 run, configure a container, VM or equivalent filesystem/process boundary:
@@ -20,7 +44,8 @@ run, configure a container, VM or equivalent filesystem/process boundary:
 1. Expose only the returned `workspace` directory as the agent's writable task
    mount. Do not mount the Model Learner repository or the sibling `control`
    directory into the agent environment. Deny host filesystem/process access.
-   Use a clean agent configuration and only operator-selected credentials.
+   Use a clean agent configuration; keep provider credentials on the operator
+   side of a bounded relay, inaccessible to candidate code and the agent's tools.
 2. Capture agent stdout on the host through the existing metadata-only capture
    wrapper into an operator-owned file outside the repository and workspace.
    Do not hand the agent the destination or allow it to replace the wrapper.
@@ -32,9 +57,9 @@ run, configure a container, VM or equivalent filesystem/process boundary:
    Preserve operator ownership of the manifest, trusted acceptance source,
    snapshot receipt and evidence outputs. Candidate workers must not have access
    to the agent's credentialed environment.
-5. Confirm that these boundaries held before finalization. `--isolation-confirmed`
-   records an operator declaration; the harness cannot inspect or attest a VM or
-   container policy. Do not assert it when containment was absent or uncertain.
+5. Validate each boundary with harmless canaries and record the actual policy,
+   runtime identity and limits. `--isolation-confirmed` records only an operator
+   declaration; it cannot enable the currently blocked real-origin finalization.
 
 The harness concretely rejects parent directories equal to, inside, or above the
 protected repository after symlink resolution. All workspace, control, ledger,
@@ -56,11 +81,19 @@ to fixed expected results and writes JUnit in the control directory. Candidate
 `print` output and agent self-report are not acceptance evidence. Monkeypatching
 `builtins.eval` inside a candidate cannot patch controller assertions or report
 production. Isolated Python mode is not an OS security boundary; resource limits
-and denial of filesystem/process interference still belong to the operator.
+and denial of filesystem/process interference still require an execution backend.
+Its workers presently run with the controller's filesystem access. Therefore
+this script by itself is suitable for controlled fixtures only: a malicious
+candidate could inspect or replace control files or attack the controller process.
+The required separate candidate-only VM/worker transport is not implemented.
 Finite public tests are not an anti-cheating benchmark, and receipt/hash checks
 are not cryptographic attestation of which code actually ran.
 
-## Operator workflow
+## Staging workflow and blocked real-run protocol
+
+These commands describe evidence staging and the future operator protocol. Do
+not launch real agents from these examples until the safety blockers are resolved
+and the operator has explicitly authorized the experiment and its spend cap.
 
 Inspect the available public tasks:
 
@@ -105,7 +138,8 @@ frozen `candidate.py` and trusted controller there. The script writes
 and completion/time receipt. Its only child processes are local Python candidate
 workers. Do not let the coding agent generate the report or declare test success.
 
-Finalize with actual operator receipts, for example:
+Once a verified backend is supported, finalization would use actual operator
+receipts, for example (currently refused for `execution-origin real`):
 
 ```sh
 model-learner benchmark finalize ROOT \
@@ -161,8 +195,10 @@ uses a new disposable root, so runs cannot inherit another candidate's artifacts
 `prepare_benchmark`, `load_benchmark`, `snapshot_candidate`,
 `finalize_benchmark`, `cleanup_benchmark` and `list_tasks` are exported by
 `model_learner.benchmark`. Preparation requires an explicit protected repository
-path and containment declaration; finalization requires explicit containment
-confirmation. Predefined fixtures are the only supported task IDs. There is no
+path and containment declaration; fixture finalization requires explicit
+containment confirmation, while real finalization is blocked. The diagnostic API
+is `model_learner.benchmark.isolation.probe_macos_containment()`; it accepts no
+arbitrary program or profile. Predefined fixtures are the only supported task IDs. There is no
 arbitrary execution-command API, routing, Governor, neural fine-tuning or cloud
 synchronization. Larger repositories, multi-module submissions and stronger
 execution attestation require a separately scoped increment.

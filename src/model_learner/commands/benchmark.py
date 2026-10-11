@@ -17,6 +17,48 @@ benchmark_app = typer.Typer(
 PROTECTED_REPOSITORY = Path(__file__).resolve().parents[3]
 
 
+@benchmark_app.command("isolation-probe")
+def isolation_probe() -> None:
+    """Test disposable public canaries; this cannot authorize a real agent run."""
+    from model_learner.benchmark.isolation import probe_macos_containment
+
+    result = probe_macos_containment()
+    write_json(result)
+    if result.status != "probe_passed":
+        raise typer.Exit(1)
+
+
+@benchmark_app.command("pilot-plan")
+def pilot_plan(
+    configuration_a: Annotated[
+        Path, typer.Option(help="Frozen arm A configuration JSON.")
+    ],
+    configuration_b: Annotated[
+        Path, typer.Option(help="Frozen arm B configuration JSON.")
+    ],
+    seed: Annotated[int, typer.Option()] = 1,
+) -> None:
+    """Preregister 12 task pairs and checkpoints; never launch an execution."""
+    from model_learner.benchmark.pilot import build_pilot_plan
+
+    try:
+        try:
+            arm_a = ExecutionConfiguration.model_validate_json(
+                configuration_a.read_text()
+            )
+            arm_b = ExecutionConfiguration.model_validate_json(
+                configuration_b.read_text()
+            )
+        except ValidationError as error:
+            raise ValueError("invalid pilot execution configuration") from error
+        result = build_pilot_plan(
+            configuration_a=arm_a, configuration_b=arm_b, seed=seed
+        )
+    except (OSError, ValueError) as error:
+        raise typer.BadParameter(str(error)) from error
+    write_json(result)
+
+
 @benchmark_app.command("tasks")
 def tasks() -> None:
     """List public, predefined coding fixtures and acceptance targets."""
@@ -104,7 +146,8 @@ def finalize(
     test_exit_code: Annotated[int | None, typer.Option(min=0, max=255)] = None,
     test_generated_at: Annotated[str | None, typer.Option()] = None,
     isolation_confirmed: Annotated[
-        bool, typer.Option(help="Attest OS containment during agent and test runs.")
+        bool,
+        typer.Option(help="Record an operator declaration; cannot enable real runs."),
     ] = False,
 ) -> None:
     """Record independent JUnit evidence, telemetry and unknown outcomes."""

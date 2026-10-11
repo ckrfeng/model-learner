@@ -20,6 +20,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from model_learner.adapters.codex import ingest_codex_capture, read_codex_capture
 from model_learner.benchmark.fixtures import acceptance_source, get_task, list_tasks
+from model_learner.benchmark.isolation import require_supported_real_containment
 from model_learner.domain.models import (
     AcceptanceSpec,
     Attempt,
@@ -280,6 +281,9 @@ def load_benchmark(root: Path) -> PreparedBenchmark:
         != f"public-coding-{fixture.task_id}"
         or prepared.task.acceptance_spec.version != fixture.version
         or prepared.dataset.source_kind.value != "benchmark"
+        or prepared.task.metadata.get("source_kind") != "benchmark"
+        or prepared.task.metadata.get("execution_origin") != prepared.execution_origin
+        or not prepared.dataset.dataset_id.endswith(":" + prepared.execution_origin)
     ):
         raise ValueError("benchmark acceptance or dataset declaration changed")
     acceptance = prepared.control / "acceptance.py"
@@ -539,6 +543,8 @@ def finalize_benchmark(
 ) -> BenchmarkResult:
     """Finalize in a private staging ledger; rejected evidence leaves no partial run."""
     prepared = load_benchmark(root)
+    if prepared.execution_origin == "real":
+        require_supported_real_containment()
     lock = prepared.control / "finalizing.lock"
     with lock.open("x"):
         pass

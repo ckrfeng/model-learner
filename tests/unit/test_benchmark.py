@@ -51,7 +51,9 @@ def test_staging_is_reproducible_public_and_separate(tmp_path: Path) -> None:
     ).read_bytes()
     assert not (first.workspace / "acceptance.py").exists()
     assert load_benchmark(first.root) == first
-    assert {task.task_id for task in list_tasks()} == {"clamp", "duration"}
+    tasks = list_tasks()
+    assert {"clamp", "duration"} <= {task.task_id for task in tasks}
+    assert len({task.task_id for task in tasks}) == len(tasks)
     cleanup_benchmark(first.root)
     assert not first.root.exists()
     assert second.root.exists()

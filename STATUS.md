@@ -1,7 +1,8 @@
 # Model Learner status
 
-Current work: requested Workstreams A/B — real coding-task evaluation and
-task-state predictive evaluation (COMPLETE; stopped after independent review).
+Current work: requested Workstreams A/B — real benchmark safety audit and
+controlled real evaluation pilot preparation (COMPLETE; stopped after review;
+real execution containment remains unvalidated and real runs are blocked).
 Last user-confirmed work: historical assessment resolution and drift investigation
 complete.
 Updated: 2026-10-10
@@ -771,7 +772,119 @@ No automatic routing, Governor, neural fine-tuning, cloud synchronization,
 subsequent milestone, commit, push, merge, publication or global hook installation
 was implemented. Stop after these two workstreams.
 
+## Real benchmark safety and controlled pilot preparation — 2026-10-10
+
+The coordinator read the requested design, repository instructions, status and
+evaluation documents and inspected the implementation before changes. Two
+implementation/research subagents had separate ownership: A owns the containment
+audit, diagnostic probe, benchmark safety gates and safety documentation; B owns
+the synthetic task catalog, pure pilot preregistration, acceptance fixtures and
+operator experiment protocol. The coordinator owns CLI integration, README,
+integration tests and this status. A separate read-only reviewer checked the
+final implementation and protocol, including the final host-access demonstration.
+The master plan, estimator, domain contracts, migrations and dependencies remain
+unchanged. No paid coding-agent execution was launched.
+
+### Safety findings and delivered boundary
+
+- The existing harness enforced path separation, immutable snapshots, hashes and
+  operator declarations, but no OS containment. Python `-I` and a separate worker
+  interpreter do not prevent submitted code from reading or writing host files.
+  Source fingerprints detect changes after the fact; they cannot prevent them.
+- A controlled local candidate read and overwrote synthetic files outside its
+  task directory while passing all six `clamp` acceptance checks. This actual
+  harmless test demonstrates the current worker's host access; no private files
+  or real Model Learner source were read or modified by that candidate.
+- Added `benchmark isolation-probe`: a fixed, five-second macOS diagnostic creates
+  disposable synthetic workspace/private/source canaries, checks permitted access
+  and attempts forbidden reads/writes, symlink reads and child-process reads.
+  It accepts no arbitrary program or private path. Bootstrap failure is reported
+  as unavailable with unknown denial results; it cannot masquerade as successful
+  confinement. Even a passing diagnostic has `real_execution_ready=false`.
+- Real benchmark finalization now refuses collection before creating a lock,
+  staging ledger or result: there is no supported, verified containment backend.
+  Neither an isolation string, the existing confirmation flag nor a passing
+  diagnostic enables it. Preparation, inspection, snapshots and disposal remain
+  available; controlled public fixture finalization continues working. Manifest
+  origin/dataset consistency checks prevent a single-field origin relabeling.
+- The minimal proposed real boundary is a fresh, clean VM with no host shares or
+  integration, no agent-readable secrets, a bounded external provider relay and
+  a separate credential-free acceptance environment. Required resource limits,
+  harmless canary validation and operator receipts are documented. This setup is
+  a protocol requirement, not an implemented or validated agent runner.
+
+### Pilot preparation
+
+- Twelve public synthetic single-module Python tasks have versioned independent
+  acceptance tests and controlled solution fixtures. Existing `clamp`/`duration`
+  behavior is preserved; ten tasks add arithmetic, parsing, sequences and graphs.
+  Named tests establish only their stated acceptance criterion.
+- `benchmark pilot-plan` accepts two declared configuration files and a fixed
+  seed, emits 24 paired runs with balanced arm order, an 8-family training /
+  4-family held-out split, and hashes of matching initial source and task text.
+  Each run requires a fresh disposable root. It launches no execution and writes
+  no evidence or ledger rows. The primary checkpoint is 30 seconds; 10/60 seconds
+  are diagnostic only; the agent wall limit is 120 seconds.
+- The operator protocol predeclares configuration identities, initial-state
+  checks, time/event availability, allowed A/B/C feature groups, independent
+  verification, cost/latency provenance and missingness. Hidden acceptance data,
+  final outcomes, final resource totals and future telemetry are excluded from
+  checkpoint features. A/B/C share the same cohort and cutoffs.
+- Current benchmark finalization creates associations and imports telemetry after
+  execution. The real observation builder cannot export benchmark observations,
+  and each fixture has a separate exact acceptance target. Prospective checkpoint
+  export and pooled suite evaluation therefore remain blocked; receipts must not
+  be backdated and targets must not be fabricated. The existing predictive floors
+  remain 30 training labels, 20 scored labels, five task clusters per partition,
+  and both training classes. This 24-run pilot must report `insufficient_data`;
+  it cannot establish real predictive improvement.
+
+### Actual checks and independent review
+
+Executed on macOS 26.6.2 arm64 with Python 3.12.14, uv 0.13.0 and Ruff 0.16.10.
+The default external uv cache was unwritable; using
+`UV_CACHE_DIR="$PWD/.uv-cache"` resolved that environment issue. No dependencies
+were added or installed.
+
+| Check | Actual result |
+| --- | --- |
+| Baseline coordinator `uv run pytest` | **397 passed in 20.69s**. |
+| Baseline Ruff lint / format | Passed; **91 files** formatted. |
+| A owned benchmark checks | **32 passed in 1.63s**; owned Ruff lint/format passed. |
+| B owned pilot checks | **51 passed in 10.29s**; owned Ruff lint/format passed. |
+| Coordinator diagnostic/pilot CLI tests | **5 passed** across readiness, paired preparation and private-diagnostic checks. |
+| First expanded full suite | **460 passed, 1 failed in 29.23s**: an original CLI test assumed exactly two task IDs. The scoped catalog assertion was updated and its four-test file passed. |
+| Final coordinator `uv run pytest` | **462 passed in 34.22s**. |
+| Final coordinator `uv run ruff check .` | `All checks passed!` |
+| Final coordinator `uv run ruff format --check .` | **102 files already formatted**. |
+| Final `git diff --check` | Passed. |
+| Independent full suite before final canary demonstration | **461 passed in 32.81s**; Ruff lint/format and whitespace passed. |
+| Final synthetic host-access demonstration | Coordinator **1 passed in 0.40s**; independently **1 passed in 0.46s**. Outside synthetic read/write succeeded while all six acceptance checks passed. |
+| Actual nested and elevated restrictive macOS canary probes | Both `unavailable`, `sandbox_bootstrap_unavailable`; no successful positive controls or demonstrated denial; outside canaries unchanged. |
+| Elevated permissive macOS profile diagnostic | `/usr/bin/true` exited **0**; establishes profile application availability only. Fixed restrictive shell startup diagnostics exited **134** before output. |
+| Benchmark CLI help | Passed; includes `isolation-probe` and `pilot-plan`. |
+
+Independent review prompted clarification that +10/+60 are diagnostic horizons,
+while +30 is primary. Final review found no remaining actionable defect in this
+preparation scope; its final lint, **102-file** format and whitespace checks passed.
+The actual restrictive containment profile is unvalidated, and the proposed
+VM/relay/candidate transport was not executed. These are real-experiment blockers,
+not passing isolation claims. Ready now: operator configuration preregistration,
+disposable staging, all-task controlled acceptance rehearsal and recording
+protocols in `docs/BENCHMARK_SAFETY.md` / `docs/REAL_EVALUATION_PILOT.md`.
+
+The requested audit/probe attempts and pilot preparation are complete. No real
+coding-agent execution, routing, Governor, fine-tuning, cloud synchronization,
+web GUI, subsequent milestone, commit, push, merge or publication was performed.
+
 ## Known issues / blockers
+
+- Real benchmark collection is fail-closed pending a supported, validated
+  containment backend and credential isolation. A working macOS executable or
+  successful narrow canary probe alone does not attest an agent/test boundary.
+- The pilot is prepared for operator review and controlled fixture rehearsal.
+  Manually authorizing payment does not resolve containment or predictive export
+  limitations; no real experiment has been authorized or run here.
 
 - No known M0 implementation defects or unresolved blockers.
 - uv is installed in the ignored `.tools/bin/`, rather than the default shell PATH.
@@ -819,6 +932,11 @@ was implemented. Stop after these two workstreams.
 
 ## Next recommended increment (not started)
 
+- Review the safety audit and pilot protocol. A separately authorized increment
+  would need to validate and support the clean execution/acceptance boundary and
+  prospective benchmark evidence handoff before any real coding-agent pilot.
+  The requested safety validation and pilot preparation introduce no routing,
+  Governor, fine-tuning, cloud synchronization or GUI.
 - The requested coding-verification, execution-analysis, coding-task evaluation
   and task-state evaluation workstreams are delivered and checked. No next
   milestone is authorized. Real benchmark executions remain operator-controlled

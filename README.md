@@ -153,16 +153,35 @@ artifact; intermediate snapshots across code edits are unsupported. See
 
 ## Coding-task and task-state evaluation
 
-`model-learner benchmark tasks` lists small public coding exercises.
+`model-learner benchmark tasks` lists small public synthetic coding exercises.
 `benchmark prepare` stages a fresh disposable workspace outside this repository,
 predeclares the configuration and acceptance target, and preserves operator
-control files separately. The operator supplies OS containment, runs any agent,
-captures telemetry, stops the agent, and invokes the trusted acceptance runner.
+control files separately. Disposable paths and integrity checks provide no OS
+containment. Real-run finalization is blocked until a supported, validated
+execution boundary exists; an operator confirmation alone cannot enable it.
 `benchmark snapshot`, `finalize`, and `cleanup` manage the frozen artifact,
 independent JUnit evidence, incomplete outcomes, and disposal. These commands
 never launch paid agent executions. Public tasks are recorded as benchmark data,
 with actual agent executions distinguished from fixture checks. Follow the
 [operator run procedure and isolation boundaries](docs/CODING_TASK_EVALUATION.md).
+
+The [real evaluation pilot protocol](docs/REAL_EVALUATION_PILOT.md) predeclares
+12 tasks, two configurations, prospective checkpoints, independent acceptance,
+resource limits and missing-data reporting. It prepares a manually controlled
+experiment; no paid executions have run. Containment readiness and the benchmark
+handoff into predictive evaluation remain explicit gates. This small pilot cannot
+establish predictive improvement under the existing evidence thresholds.
+
+```sh
+model-learner benchmark isolation-probe
+model-learner benchmark pilot-plan \
+  --configuration-a /private/tmp/arm-a.json \
+  --configuration-b /private/tmp/arm-b.json --seed 1
+```
+
+The probe uses synthetic canaries and reports unavailable containment explicitly.
+Even a passing probe does not authorize an agent run. `pilot-plan` emits a frozen
+schedule from operator-supplied configurations without starting any execution.
 
 The task-state experiment compares initial task/configuration information (A),
 initial information plus simple execution metrics (B), and those inputs plus

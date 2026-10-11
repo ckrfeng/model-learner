@@ -32,7 +32,8 @@ def test_benchmark_cli_operator_flow_preserves_unknown(
     config = tmp_path / "config.json"
     config.write_text('{"provider":"fixture","model":"public-fixture"}')
     tasks = call(["benchmark", "tasks"])
-    assert {task["task_id"] for task in tasks} == {"clamp", "duration"}
+    assert {"clamp", "duration"} <= {task["task_id"] for task in tasks}
+    assert len(tasks) == 12
     prepared = call(
         [
             "benchmark",

@@ -163,6 +163,38 @@ interval coverage, rare-cell diagnostics and paired baseline comparisons.
 The stationary estimator fails under abrupt drift; see
 [actual stress results and limits](docs/STATISTICAL_EVALUATION.md).
 
+Resolve append-only real assessments at a historical cutoff without changing
+the ledger:
+
+```sh
+model-learner observations resolve --dataset-id local-tasks --dataset-version 1 \
+  --cutoff <ISO-time-with-timezone>
+```
+
+The resolver selects one complete revision chain per run and reports conflicts
+explicitly. Unknown and censored heads supersede earlier binary labels. Real
+`learn predict` resolves the selected cohort at its cutoff; real `learn eval`
+resolves training and scoring separately, preserving earlier training knowledge.
+Learning requires a matching derivation recorded by that time. Declared timestamps
+are trusted; some record types lack ingestion receipts. See
+[historical reconstruction and availability limits](docs/ASSESSMENT_RESOLUTION.md).
+
+Compare the existing full-history estimator with explicit recent decision-age
+windows, using chronological refits across independent simulation seeds:
+
+```sh
+model-learner learn drift --count 1000 --window-steps 120 --window-steps 300 \
+  --output .model-learner/drift-report.json
+```
+
+The default experiment uses seeds 0–19 and stationary, abrupt, gradual, sparse,
+imbalanced and delayed-verification scenarios. Reports include Brier scores,
+calibration bins, empirical latent-probability interval coverage, cell sample
+counts and adaptation with unrecovered seeds marked censored. Windows measure
+decision age; delayed old labels do not become recent evidence. Full history
+remains the default learner. See [drift investigation](docs/DRIFT_INVESTIGATION.md)
+for reproduction, sample-size sensitivity and the stationary/adaptation tradeoff.
+
 ## Development checks
 
 ```sh

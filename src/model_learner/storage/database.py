@@ -402,7 +402,35 @@ class Repository:
 
     def add_outcome(self, outcome: Outcome) -> Outcome:
         with self.database.connection() as connection:
+            # Serialize the graph check with insertion so competing revisions
+            # cannot both supersede the same immutable assessment.
+            connection.execute("BEGIN IMMEDIATE")
             self._require(connection, "runs", "run_id", outcome.run_id)
+            parent_id = outcome.supersedes_outcome_id
+            if parent_id is not None:
+                if parent_id == outcome.outcome_id:
+                    raise StorageError("assessment cannot supersede itself")
+                parent_row = connection.execute(
+                    "SELECT data FROM outcomes WHERE outcome_id = ?",
+                    (str(parent_id),),
+                ).fetchone()
+                if parent_row is None:
+                    raise StorageError("unknown superseded outcome")
+                parent = Outcome.model_validate_json(parent_row["data"])
+                if parent.run_id != outcome.run_id:
+                    raise StorageError("superseded outcome belongs to a different run")
+                if parent.recorded_at > outcome.recorded_at:
+                    raise StorageError("revision timestamp must follow its parent")
+                siblings = connection.execute(
+                    "SELECT data FROM outcomes WHERE run_id = ?",
+                    (str(outcome.run_id),),
+                ).fetchall()
+                if any(
+                    Outcome.model_validate_json(row["data"]).supersedes_outcome_id
+                    == parent_id
+                    for row in siblings
+                ):
+                    raise StorageError("superseded outcome already has a revision")
             run = connection.execute(
                 "SELECT task_id FROM runs WHERE run_id = ?", (str(outcome.run_id),)
             ).fetchone()
@@ -419,6 +447,8 @@ class Repository:
                 if evidence["run_id"] not in (None, str(outcome.run_id)):
                     raise StorageError("outcome evidence belongs to a different run")
                 verification = Verification.model_validate_json(evidence["data"])
+                if verification.observed_at > outcome.recorded_at:
+                    raise StorageError("assessment predates its verification evidence")
                 task_row = connection.execute(
                     "SELECT data FROM tasks WHERE task_id = ?", (run["task_id"],)
                 ).fetchone()
@@ -559,6 +589,18 @@ class Repository:
                 (str(task_id),),
             ).fetchall()
         return [Session.model_validate_json(row["data"]) for row in rows]
+
+    def list_task_session_links(self, task_id: UUID | str) -> list[TaskSessionLink]:
+        """Retain association availability when reconstructing historical evidence."""
+        with self.database.connection() as connection:
+            rows = connection.execute(
+                "SELECT data FROM task_sessions WHERE task_id = ?",
+                (str(task_id),),
+            ).fetchall()
+        return sorted(
+            (TaskSessionLink.model_validate_json(row["data"]) for row in rows),
+            key=lambda link: (link.associated_at, str(link.session_id)),
+        )
 
     def list_projects_for_task(self, task_id: UUID | str) -> list[Project]:
         with self.database.connection() as connection:

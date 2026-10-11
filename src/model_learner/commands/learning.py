@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from pathlib import Path
 from typing import Annotated
 
@@ -110,6 +111,30 @@ def _inputs(
     return dataset, [o for o in observations if o.dataset == dataset]
 
 
+def _historical_inputs(
+    database: Path,
+    dataset: DatasetReference,
+    observations: list[Observation],
+    cutoff: datetime,
+) -> tuple[list[Observation], object | None]:
+    """Validate real cohort evidence and select its assessment heads at this time."""
+    if dataset.source_kind is not DataSourceKind.REAL:
+        return observations, None
+    from model_learner.observations.resolution import resolve_real_observations
+
+    snapshot = resolve_real_observations(
+        repository(database),
+        dataset=dataset,
+        cutoff=cutoff,
+        run_ids={
+            row.run_id
+            for row in observations
+            if row.run_id is not None and row.recorded_at <= cutoff
+        },
+    )
+    return list(snapshot.observations), snapshot
+
+
 @learn_app.command("predict")
 def predict(
     source_kind: Annotated[DataSourceKind, typer.Option()],
@@ -159,6 +184,9 @@ def predict(
             if budget_file
             else None
         )
+        observations, resolution = _historical_inputs(
+            database, dataset, observations, aware_time(cutoff)
+        )
         estimator = BetaBernoulli.fit(
             observations,
             dataset=dataset,
@@ -174,6 +202,7 @@ def predict(
                 "resource_budget": budget,
                 "configuration": configuration,
                 "training": estimator.training_summary,
+                "assessment_resolution": resolution,
                 "prediction": estimator.predict(configuration, group),
             }
         )
@@ -205,8 +234,14 @@ def evaluate_learning(
         dataset, observations = _inputs(
             database, source_kind, dataset_id, dataset_version
         )
+        training_rows, training_resolution = _historical_inputs(
+            database, dataset, observations, aware_time(train_until)
+        )
+        scoring_rows, scoring_resolution = _historical_inputs(
+            database, dataset, observations, aware_time(evaluation_at)
+        )
         report = evaluate(
-            observations,
+            scoring_rows,
             dataset=dataset,
             train_until=aware_time(train_until),
             evaluation_at=aware_time(evaluation_at),
@@ -219,8 +254,20 @@ def evaluate_learning(
             truth=SimulationTruth.model_validate_json(truth_file.read_text())
             if truth_file
             else None,
+            training_observations=training_rows,
         )
-        write_json(report)
+        if source_kind is DataSourceKind.REAL:
+            from dataclasses import asdict
+
+            write_json(
+                asdict(report)
+                | {
+                    "training_assessment_resolution": training_resolution,
+                    "scoring_assessment_resolution": scoring_resolution,
+                }
+            )
+        else:
+            write_json(report)
     except (OSError, ValueError, ArithmeticError, StorageError) as error:
         raise typer.BadParameter(str(error)) from error
 
@@ -284,6 +331,60 @@ def stress_learning(
                 {
                     "output": output,
                     "seeds": report.seeds,
+                    "scenarios": [s.name for s in report.scenarios],
+                }
+            )
+        else:
+            write_json(report)
+    except (OSError, ValueError, ArithmeticError) as error:
+        raise typer.BadParameter(str(error)) from error
+
+
+@learn_app.command("drift")
+def investigate_drift(
+    seed: Annotated[
+        list[int] | None,
+        typer.Option("--seed", help="Repeat for distinct seeds; default 0 through 19."),
+    ] = None,
+    count: Annotated[int, typer.Option(min=8)] = 1000,
+    window_steps: Annotated[
+        list[int] | None,
+        typer.Option(
+            "--window-steps",
+            help="Repeat for decision-age windows; default 120 and 300.",
+        ),
+    ] = None,
+    refit_steps: Annotated[int, typer.Option(min=1)] = 50,
+    calibration_bins: Annotated[int, typer.Option(min=1)] = 10,
+    output: Annotated[
+        Path | None, typer.Option(help="New JSON report destination; no ledger writes.")
+    ] = None,
+) -> None:
+    """Compare full history and recent windows with chronological updates."""
+    import json
+
+    from model_learner.commands.common import _json_default
+    from model_learner.learn.drift import run_drift_suite
+
+    try:
+        report = run_drift_suite(
+            seeds=seed if seed is not None else range(20),
+            count=count,
+            window_steps=window_steps if window_steps is not None else (120, 300),
+            refit_steps=refit_steps,
+            calibration_bins=calibration_bins,
+        )
+        if output:
+            encoded = json.dumps(
+                report, default=_json_default, indent=2, allow_nan=False
+            )
+            with output.open("x", encoding="utf-8") as destination:
+                destination.write(encoded + "\n")
+            write_json(
+                {
+                    "output": output,
+                    "seeds": report.seeds,
+                    "window_steps": report.window_steps,
                     "scenarios": [s.name for s in report.scenarios],
                 }
             )

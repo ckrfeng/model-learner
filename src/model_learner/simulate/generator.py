@@ -46,6 +46,7 @@ class SimulationConfig(BaseModel):
         (0.25, 0.5, 0.7),
     )
     drift_at_index: int | None = Field(default=None, ge=0)
+    gradual_drift_steps: int | None = Field(default=None, gt=0, strict=True)
     drift_probabilities: tuple[tuple[float, float, float], ...] | None = None
     cost_means_usd: tuple[float, float, float] = (0.02, 0.08, 0.2)
     latency_means_seconds: tuple[float, float, float] = (10, 25, 50)
@@ -70,6 +71,8 @@ class SimulationConfig(BaseModel):
                 raise ValueError("probabilities must be a 4 × 3 matrix in [0, 1]")
         if (self.drift_at_index is None) != (self.drift_probabilities is None):
             raise ValueError("drift requires both an index and probabilities")
+        if self.gradual_drift_steps is not None and self.drift_at_index is None:
+            raise ValueError("gradual drift requires drift index and probabilities")
         if any(
             value < 0 for value in (*self.cost_means_usd, *self.latency_means_seconds)
         ):
@@ -126,6 +129,9 @@ def generate(config: SimulationConfig) -> SimulationResult:
     """
     # Count is excluded so a longer generation retains the same experiment prefix.
     scenario = config.model_dump(mode="json", exclude={"count"})
+    # Retain the original fingerprints/identities for pre-existing scenarios.
+    if config.gradual_drift_steps is None:
+        scenario.pop("gradual_drift_steps")
     fingerprint = hashlib.sha256(
         json.dumps(scenario, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
@@ -147,6 +153,16 @@ def generate(config: SimulationConfig) -> SimulationResult:
             assert config.drift_probabilities is not None
             matrix = config.drift_probabilities
         probability = matrix[group][arm]
+        if (
+            config.gradual_drift_steps is not None
+            and config.drift_at_index is not None
+            and index >= config.drift_at_index
+        ):
+            fraction = min(
+                (index - config.drift_at_index) / config.gradual_drift_steps, 1
+            )
+            initial = config.probabilities[group][arm]
+            probability = initial + fraction * (probability - initial)
         success = rng.random() < probability
         unknown = rng.random() < config.unknown_probability
         cost = _resource(rng, config.cost_means_usd[arm], config.resource_log_sigma)

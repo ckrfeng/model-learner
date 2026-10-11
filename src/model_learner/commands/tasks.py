@@ -278,3 +278,35 @@ def observation_quality(
             "quality": data_quality_report([r for r in rows if r.dataset == dataset]),
         }
     )
+
+
+@observations_app.command("resolve")
+def resolve_observations(
+    dataset_id: Annotated[str, typer.Option()],
+    dataset_version: Annotated[str, typer.Option()],
+    cutoff: Annotated[
+        str, typer.Option(help="Historical availability cutoff, ISO timestamp.")
+    ],
+    run_id: Annotated[
+        list[UUID] | None, typer.Option(help="Repeat to restrict the declared runs.")
+    ] = None,
+    database: Annotated[Path, typer.Option("--database", "-d")] = DEFAULT_DATABASE,
+) -> None:
+    """Read one assessment per run at a cutoff, retaining history and exclusions."""
+    from model_learner.observations.resolution import resolve_real_observations
+
+    try:
+        write_json(
+            resolve_real_observations(
+                repository(database),
+                dataset=DatasetReference(
+                    source_kind="real",
+                    dataset_id=dataset_id,
+                    dataset_version=dataset_version,
+                ),
+                cutoff=aware_time(cutoff),
+                run_ids=run_id,
+            )
+        )
+    except (ValueError, StorageError) as error:
+        raise typer.BadParameter(str(error)) from error

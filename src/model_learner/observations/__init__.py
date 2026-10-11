@@ -18,6 +18,7 @@ from model_learner.domain.models import (
     OutcomeStatus,
     Provenance,
     Run,
+    Session,
     Task,
     Verification,
     VerificationStatus,
@@ -48,7 +49,7 @@ def _attribution(run: Run, attempts: list[Attempt]) -> AttributionStatus:
     return AttributionStatus.SINGLE_CONFIGURATION
 
 
-def build_real_observation(
+def derive_real_observation(
     repository: Repository,
     *,
     run_id: UUID,
@@ -56,13 +57,17 @@ def build_real_observation(
     dataset: DatasetReference,
     recorded_at: datetime | None = None,
     task_group: str | None = None,
+    historical_cutoff: datetime | None = None,
+    historical_attempt_ids: Iterable[UUID] | None = None,
 ) -> Observation:
-    """Persist one exact assessment derivation, retaining exclusions and provenance.
+    """Derive one assessment without changing the append-only ledger.
 
     Only full manually declared segment coverage with one exact configuration,
     independently hashed final evidence, and a verified binary outcome is
     eligible. Captured native completion and tool failures never supply labels.
     """
+    if historical_attempt_ids is not None and historical_cutoff is None:
+        raise ValueError("historical attempt selection requires a historical cutoff")
     if dataset.source_kind is not DataSourceKind.REAL:
         raise ValueError("real observation builder requires a real dataset")
     run = repository.get(Run, run_id)
@@ -83,7 +88,30 @@ def build_real_observation(
         raise ValueError("observation timestamp must follow its assessment")
     if outcome.recorded_at < run.ended_at:
         raise ValueError("assessment must follow the declared run end")
-    sessions = repository.list_sessions_for_run(run_id)
+    if historical_cutoff is not None:
+        if historical_cutoff.tzinfo is None or historical_cutoff.utcoffset() is None:
+            raise ValueError("historical cutoff requires a timezone")
+        if time != historical_cutoff:
+            raise ValueError("historical derivation timestamp must equal its cutoff")
+        if task.created_at > historical_cutoff or run.ended_at > historical_cutoff:
+            raise ValueError("task or completed run unavailable at cutoff")
+        task_links = {
+            link.session_id
+            for link in repository.list_task_session_links(task.task_id)
+            if link.task_id == task.task_id and link.associated_at <= historical_cutoff
+        }
+        session_ids_at_cutoff = {
+            link.session_id
+            for link in repository.list_run_session_links(run_id)
+            if link.associated_at <= historical_cutoff and link.session_id in task_links
+        }
+        sessions = [
+            session
+            for session in repository.list_records(Session)
+            if session.session_id in session_ids_at_cutoff
+        ]
+    else:
+        sessions = repository.list_sessions_for_run(run_id)
     if not sessions or any(session.source != SOURCE for session in sessions):
         raise ValueError("real builder requires explicitly linked Codex CLI sessions")
     session_ids = {session.session_id for session in sessions}
@@ -94,14 +122,35 @@ def build_real_observation(
         and event.source == SOURCE
         and event.provenance is Provenance.OBSERVED
         and run.started_at <= event.observed_at <= run.ended_at
+        and (historical_cutoff is None or event.ingested_at <= historical_cutoff)
     ]
     if not events:
         raise ValueError("no captured events inside the declared run boundaries")
     if any(event.ingested_at > time for event in events):
         raise ValueError("observation timestamp must follow capture ingestion")
+    if historical_attempt_ids is None:
+        selected_attempts = [
+            item for item in repository.list_records(Attempt) if item.run_id == run_id
+        ]
+    else:
+        identifiers = tuple(historical_attempt_ids)
+        if len(set(identifiers)) != len(identifiers):
+            raise ValueError("historical attempt proof contains duplicate identities")
+        selected_attempts = []
+        for identifier in identifiers:
+            item = repository.get(Attempt, identifier)
+            if item is None or item.run_id != run_id:
+                raise ValueError(
+                    "historical attempt proof references missing or foreign attempt"
+                )
+            selected_attempts.append(item)
     attempts = sorted(
-        (item for item in repository.list_records(Attempt) if item.run_id == run_id),
-        key=lambda item: (item.started_at is None, item.started_at or run.started_at),
+        selected_attempts,
+        key=lambda item: (
+            item.started_at is None,
+            item.started_at or run.started_at,
+            str(item.attempt_id),
+        ),
     )
     attribution = _attribution(run, attempts)
     telemetry_conflicts = []
@@ -134,6 +183,15 @@ def build_real_observation(
         else ExecutionConfiguration()
     )
     evidence = []
+    if historical_cutoff is not None:
+        # Even a partial/unverified claim cannot expose future evidence IDs as a
+        # learner derivation. Do not fall back to an earlier binary assessment.
+        for identifier in outcome.evidence_ids:
+            item = repository.get(Verification, identifier)
+            if item is None or item.observed_at > historical_cutoff:
+                raise ValueError("assessment evidence unavailable at cutoff")
+            if item.observed_at > outcome.recorded_at:
+                raise ValueError("assessment predates its verification evidence")
     if outcome.verification_status is VerificationStatus.VERIFIED:
         if not outcome.evidence_ids:
             raise ValueError("verified assessment requires evidence")
@@ -260,7 +318,29 @@ def build_real_observation(
             ),
         },
     )
-    return repository.add_observation(observation)
+    return observation
+
+
+def build_real_observation(
+    repository: Repository,
+    *,
+    run_id: UUID,
+    outcome_id: UUID,
+    dataset: DatasetReference,
+    recorded_at: datetime | None = None,
+    task_group: str | None = None,
+) -> Observation:
+    """Persist an exact assessment derivation idempotently, retaining history."""
+    return repository.add_observation(
+        derive_real_observation(
+            repository,
+            run_id=run_id,
+            outcome_id=outcome_id,
+            dataset=dataset,
+            recorded_at=recorded_at,
+            task_group=task_group,
+        )
+    )
 
 
 def data_quality_report(observations: Iterable[Observation]) -> dict[str, object]:

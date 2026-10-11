@@ -95,8 +95,8 @@ def select_records(
     """Select one dataset and count reimports without counting an experiment twice.
 
     Conflicting derivations/assessment revisions of one experimental unit are
-    rejected. A later milestone must explicitly resolve such histories before
-    learning; silently treating a revision as another trial is incorrect.
+    rejected. Use the assessment resolver before learning real revision histories;
+    silently treating a revision as another trial is incorrect.
     """
     rows: dict[str, Observation] = {}
     units: dict[str, str] = {}

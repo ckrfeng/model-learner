@@ -99,12 +99,16 @@ def evaluate(
     resource_budget: ResourceBudget | None = None,
     truth: SimulationTruth | None = None,
     calibration_bins: int = 10,
+    training_observations: Iterable[Observation] | None = None,
 ) -> EvaluationReport:
     """Compare global, exact-configuration and group × configuration Beta priors.
 
     All models use the same fixed Beta(1,1) prior and frozen training prefix.
     The unpooled entry is the main reference learner, not an advanced model.
     Unknown outcomes contribute to coverage/resource counts but not label scores.
+    ``training_observations`` can hold a separately resolved assessment snapshot
+    at ``train_until``; the primary rows hold scoring state at ``evaluation_at``.
+    Fit still enforces training decision, record and label availability cutoffs.
     """
     require_aware(train_until, "train_until")
     require_aware(evaluation_at, "evaluation_at")
@@ -115,6 +119,11 @@ def evaluate(
     if calibration_bins <= 0:
         raise ValueError("calibration_bins must be a positive integer")
     input_rows = list(observations)
+    # Historical assessment heads at training and scoring times may differ.
+    # The caller can supply independently resolved, frozen training records.
+    training_rows = (
+        input_rows if training_observations is None else list(training_observations)
+    )
     rows, exclusions = select_records(input_rows, dataset)
     held_out: list[Observation] = []
     scored: list[Observation] = []
@@ -165,7 +174,7 @@ def evaluate(
     training: TrainingSummary | None = None
     for aggregation in ("global", "per_arm", "unpooled"):
         learner = BetaBernoulli.fit(
-            input_rows,
+            training_rows,
             dataset=dataset,
             cutoff=train_until,
             acceptance_spec=acceptance_spec,

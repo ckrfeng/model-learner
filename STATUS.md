@@ -1,7 +1,7 @@
 # Model Learner status
 
-Current work: requested Workstreams A/B/C — tasks and verification, statistical
-evaluation, and Desktop feasibility (COMPLETE; stopped for user review).
+Current work: requested Workstreams A/B — historical assessment resolution and
+drift investigation (COMPLETE; stopped for user review).
 Last user-confirmed stage: M0, M1, M1.1, and the first parallel implementation slices.
 Updated: 2026-10-10
 
@@ -394,6 +394,152 @@ performance.
   grouping only and is not task identity, task difficulty, automatic discovery,
   or global activity tracking.
 
+## Historical assessment resolution and drift investigation — 2026-10-10
+
+The coordinator inspected the plan, repository instructions, status, code and
+tests before editing. Two implementation subagents had non-overlapping ownership:
+observation derivation/resolution and its tests/docs; recent-window inference,
+drift evaluation, additive gradual simulation and its tests/docs. The coordinator
+owned repository integrity checks, CLI integration, frozen evaluation inputs,
+integration tests, package exports, README and this status. A third subagent
+performed independent read-only statistical and data-integrity review. Domain
+contracts, migrations, dependencies, lockfile and the master plan are unchanged.
+
+### Assessment resolution delivered
+
+- Added pure `resolve_assessment` and persisted-cohort
+  `resolve_observation_revisions`, plus read-only evidence-checked
+  `resolve_real_observations`. A cutoff includes only available assessment
+  revisions and evidence. One complete unbranched visible chain selects its head;
+  equal timestamps resolve by lineage. Missing/unavailable or foreign parents,
+  backwards edges, cycles, branches, multiple roots and conflicting identities
+  fail closed with deterministic diagnostics. Future branches cannot invalidate
+  earlier state. Original outcome/evidence/observation rows remain append-only.
+- Preserved unknown and censored heads without fallback to older binary labels.
+  Exact proof/target/evidence/attribution/resource-budget checks still determine
+  learning eligibility. At most one observation per run is returned; stable
+  identities and deduplication prevent revisions or replay becoming extra trials.
+- Refactored the existing builder into read-only derivation plus the compatible
+  idempotent persistence wrapper. Historical learning requires a unique matching
+  builder derivation recorded by the cutoff. Its immutable attempt IDs reconstruct
+  the earlier declaration set, preserving explicit task-group overrides and
+  excluding later declarations. Missing or malformed proof fails closed. Without
+  proof, the assessment remains visible but configuration/attribution availability
+  is unknown and learning is ineligible.
+- Existing task/run session association timestamps and capture observation/ingest
+  times are checked independently. Added read-only task/session link access.
+  Repository outcome insertion now validates parent identity/run/time and evidence
+  time and atomically checks branching with insertion, covering JSONL imports and
+  competing writers without a migration.
+- Added `observations resolve`. Real `learn predict` resolves the selected cohort
+  at its cutoff; real `learn eval` independently resolves training and scoring
+  snapshots, so a later censored/revised assessment cannot change frozen training.
+  Pure estimator APIs retain explicit resolved-row input and conflict rejection.
+  See `docs/ASSESSMENT_RESOLUTION.md` for APIs and limits.
+
+**Historical limits:** Availability follows trusted declared timestamps. Run and
+Attempt lack declaration receipts; Verification lacks ingestion receipts. A
+persisted derivation proves availability only within those existing contracts,
+not actual SQLite insertion time. Without a recorded proof, complete historical
+attribution cannot be reconstructed. Snapshots expose these limitations. No
+backdated unknown knowledge is promoted to a verified learning observation.
+
+### Drift investigation delivered
+
+- Independently reproduced the original frozen 20-seed stress results. Unpooled
+  coverage was balanced **0.968000**, homogeneous **0.945250**, sparse **0.970000**,
+  imbalanced **0.949750**, missing **0.961000**, delayed-pending **0.953672** and
+  delayed-mature **0.957750**. The sharp split **0.9 to 0.2** drift alone had
+  **0.000000** coverage in that suite. Stationary coverage is compatible with the
+  stated assumptions in these tested scenarios, not a real-world guarantee.
+- Audited the coverage metric and information flow. It checks whether an interval
+  contains evaluator-only latent success probability, not whether it contains a
+  future binary outcome. A stationary fixed-parameter posterior cannot promise
+  current-time coverage after drift. Frozen pre-change training cannot adapt.
+  Truth is evaluator-only; training checks decision, record and label cutoffs.
+- Added explicit `RecentWindowBetaBernoulli`: fixed Beta prior with labels from
+  `[cutoff - window_duration, cutoff)`, using decision age, never arrival age.
+  The existing full-history estimator remains the default. No exponentially
+  weighted method was added; another uncertain interval convention was unnecessary
+  to test the requested simple baseline.
+- Added `run_drift_suite` and `learn drift`: block-prequential full-history versus
+  fixed 120/300-step windows, 50-step refits, seeds **0–19**, **1,000** decisions
+  per seed/scenario and ten calibration bins. Seven scenarios cover heterogeneous
+  and homogeneous stationary conditions, abrupt and gradual drift, 85% independent
+  missing labels, 98:1:1 assignments and delayed verification. Additive gradual
+  simulation preserves existing default fingerprints and seeded prefixes.
+- Reports retain per-seed Brier, calibration bins/ECE, empirical current-p coverage,
+  widths, assignment-weighted and represented-cell macro coverage, cell sample
+  counts, tail metrics, paired differences and adaptation censoring. Adaptation
+  requires three consecutive blocks with probability MAE at most 0.1 after drift
+  ends. Recovery time has refit-step resolution, retrospective certification and
+  survivor-only means; unrecovered seeds are explicitly censored.
+
+| Scenario | Full-history Brier / ECE / coverage | Recent 120 Brier / ECE / coverage |
+| --- | --- | --- |
+| Stationary heterogeneous | 0.194192 / 0.035466 / 0.965833 | 0.207131 / 0.068866 / 0.959667 |
+| Stationary homogeneous | 0.214616 / 0.045822 / 0.954583 | 0.227774 / 0.104458 / 0.959083 |
+| Abrupt drift | 0.369329 / 0.440229 / 0.000000 | 0.221218 / 0.165865 / 0.808667 |
+| Gradual drift | 0.351974 / 0.379013 / 0.103417 | 0.210493 / 0.120210 / 0.876833 |
+| Sparse labels with drift | 0.352703 / 0.412883 / 0.234833 | 0.243423 / 0.241188 / 0.940833 |
+| Imbalanced assignments with drift | 0.371025 / 0.442353 / 0.015750 | 0.219452 / 0.151061 / 0.767333 |
+| Delayed verification with drift | 0.456481 / 0.528721 / 0.000000 | 0.250000 / 0.300500 / 1.000000 |
+
+Abrupt recovery: full history **0/20**; recent 120 **16/20**, mean **281.25**
+steps among recovered seeds; recent 300 **20/20**, mean **300** steps. Last-quarter
+abrupt coverage was **0.000000 / 0.972333 / 0.952000**, respectively. Delayed
+verification takes 150 steps, longer than the 120-step window: it has **zero**
+usable labels, prior-only predictions, and **0/20** recovery. Its 100% coverage is
+the broad prior, not useful adaptation or validated nonstationary uncertainty.
+
+Sample-size sensitivity also ran 20 seeds at **240** decisions with fixed
+120/300 windows and 50-step refits, then proportionate **29/72** windows and
+12-step refits. At 240, a 300-step window equals full history. The fixed 120
+abrupt Brier was **0.362787**, versus **0.401582** full history; shorter
+proportionate windows gave **0.224872 / 0.253312**, versus **0.356845** full
+history. Smaller cells increase prior influence and noise; calibration and
+recovery depend on window, cadence, delay and evidence count. These are designed
+comparisons, not tuning on held-out outcomes. Full results/reproduction are in
+`docs/DRIFT_INVESTIGATION.md` and sanitized `docs/experiments/drift_reference.json`.
+
+**Statistical limits:** Coverage under drift is empirical descriptive coverage,
+with no nominal Bayesian claim. Repeated forecasts/cells/blocks are dependent;
+independent simulation seeds define replication. ECE is a noisy bin-dependent
+diagnostic. Verification missingness/delay are independent of outcomes here.
+Real calibration, informative delays, confounding and correlated retries remain
+unvalidated. Recent windows improve these drift scenarios but worsen stationary
+scores; the experiments do not justify replacing the existing estimator.
+
+### Actual checks and independent review
+
+Existing macOS arm64 Python 3.12.14 / uv 0.12.24 / Ruff 0.16.10 environment;
+repository-local tool/cache paths, no dependencies installed.
+
+| Check | Actual result |
+| --- | --- |
+| Pre-change `uv run pytest` | **164 passed in 4.98s**. |
+| Assessment agent relevant tests | **64 passed**; owned lint/format passed. |
+| Drift agent recent/drift/simulation/stress tests | **60 passed in 4.39s**; owned lint/format passed. |
+| Coordinator final `uv run pytest` | **232 passed in 8.53s**. |
+| Coordinator `uv run ruff check .` | `All checks passed!` |
+| Coordinator `uv run ruff format --check .` | **61 files already formatted**. |
+| Installed CLI resolve/drift help | Exit 0; documented options present. |
+| Independent full suite | **232 passed in 7.90s**; lint/format and whitespace passed. |
+| Independent statistical verification | Reproduced original 20-seed stress table; checked final 20-seed aggregates against per-seed values; independently reproduced seeds 0/1 for all seven 1,000-decision scenarios. |
+
+Regression tests include historical reconstruction, equal-time chains, corrupted
+graphs, conflicting identities/proofs, delayed evidence, future revisions/events/
+associations, attribution availability, exact prior attribution after later
+declarations, group overrides, unknown/censoring, duplicate learning, concurrent
+revision insertion, separate historical train/score states, window boundaries,
+late old labels, truth isolation and chronological prediction freezing.
+Independent review found no remaining blocking code or statistical issue. No
+new real capture was required or attempted; these checks exercise ledger
+reconstruction and explicitly synthetic evaluation. The system remains
+observational and predictive. No routing, switching, embeddings, fine-tuning,
+TUI, cloud sync, Desktop capture or Governor was implemented. No commit, push,
+merge, publication or global hook installation was performed. Stop here.
+
 ## Known issues / blockers
 
 - No known M0 implementation defects or unresolved blockers.
@@ -426,8 +572,9 @@ performance.
   causal model superiority, or effects of interventions/budgets.
 - Simulator outcomes are independent; missingness is completely at random.
   Correlated retries, outcome-dependent missingness, and selection confounding
-  are not modeled. Conflicting assessment revisions require explicit resolution
-  before fitting. Simulation calibration does not establish real calibration.
+  are not modeled. Real CLI fitting now resolves conflicting assessment histories
+  at the requested cutoff; pure estimator callers must pass resolved rows.
+  Simulation calibration does not establish real calibration.
 - The initial numerical interval implementation supports shapes at least 0.5,
   posterior shape sum at most 100,000, and interval mass in [0.5, 0.999]. The
   default Beta(1,1) permits at most 99,998 verified trials per cell. Unsupported
@@ -440,13 +587,14 @@ performance.
 
 ## Next recommended increment (not started)
 
-- Resolve append-only assessment revisions explicitly at a requested time cutoff
-  before learning. The current estimator rejects conflicting derivations for one
-  run; exporting both unknown and later verified rows into the same cohort needs
-  explicit resolution. Preserve evidence history and avoid future-label leakage.
-- Next statistical candidate: a simple recent-window baseline, evaluated on both
-  stationary and drifting scenarios. The new stress suite supplies concrete
-  evidence of drift failure; no adaptive or complex model was added here.
+- The requested historical resolver and recent-window comparison are delivered
+  in the new Workstreams A/B section below. Stop after their review and checks.
+- Complete receipt-time reconstruction beyond trusted declared timestamps would
+  require a separately scoped declaration/ingestion availability contract. No
+  schema change has been made for that future work.
+- Further statistical work could examine informative verification delays,
+  correlated retries and selection confounding. The recent-window experiment
+  does not justify replacing full history as the default estimator.
 - Desktop capture requires a separately scoped, sanitized public-transport spike.
   A suitable passive connection to this running Desktop instance is unvalidated.
 - No recommendation, routing, model switching, fine-tuning, TUI, cloud sync,

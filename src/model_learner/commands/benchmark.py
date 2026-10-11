@@ -6,7 +6,7 @@ from typing import Annotated
 import typer
 from pydantic import ValidationError
 
-from model_learner.commands.common import aware_time, write_json
+from model_learner.commands.common import aware_time, repository, write_json
 from model_learner.domain.models import ExecutionConfiguration, RunState
 from model_learner.storage.database import StorageError
 
@@ -26,6 +26,82 @@ def isolation_probe() -> None:
     write_json(result)
     if result.status != "probe_passed":
         raise typer.Exit(1)
+
+
+@benchmark_app.command("offline-isolation-probe")
+def offline_isolation_probe(
+    image_id: Annotated[
+        str | None,
+        typer.Option(help="Immutable locally installed Docker image ID; never pulls."),
+    ] = None,
+) -> None:
+    """Test a fixed offline synthetic worker; real execution stays disabled."""
+    from model_learner.benchmark.offline import probe_offline_isolation
+
+    try:
+        result = probe_offline_isolation(image_id=image_id)
+    except (OSError, ValueError) as error:
+        raise typer.BadParameter(str(error)) from error
+    write_json(result)
+    if result.status != "validated":
+        raise typer.Exit(1)
+
+
+@benchmark_app.command("evidence-export")
+def evidence_export(
+    root: Annotated[Path, typer.Argument(help="Trusted finalized benchmark root.")],
+    checkpoint: Annotated[
+        list[str] | None,
+        typer.Option(help="Aware ISO checkpoint; repeat for multiple horizons."),
+    ] = None,
+    historical_cutoff: Annotated[
+        str | None, typer.Option(help="Aware ISO evidence availability cutoff.")
+    ] = None,
+    output: Annotated[
+        Path | None, typer.Option(help="New export file; existing files are refused.")
+    ] = None,
+) -> None:
+    """Export benchmark evidence and audit checkpoint availability."""
+    from model_learner.benchmark.evidence import export_benchmark_evidence
+
+    try:
+        result = export_benchmark_evidence(
+            root,
+            checkpoints=tuple(aware_time(value) for value in checkpoint or ()),
+            historical_cutoff=(
+                aware_time(historical_cutoff) if historical_cutoff else None
+            ),
+        )
+        if output is not None:
+            with output.open("x", encoding="utf-8") as stream:
+                stream.write(result.model_dump_json(indent=2) + "\n")
+    except ValidationError as error:
+        raise typer.BadParameter("invalid benchmark evidence") from error
+    except (OSError, ValueError, StorageError) as error:
+        raise typer.BadParameter(str(error)) from error
+    write_json(result if output is None else {"output": output})
+
+
+@benchmark_app.command("evidence-import")
+def evidence_import(
+    path: Annotated[Path, typer.Argument(help="Benchmark evidence JSON export.")],
+    root: Annotated[Path, typer.Option(help="Trusted source benchmark root.")],
+    database: Annotated[Path, typer.Option(help="Initialized destination ledger.")],
+) -> None:
+    """Revalidate source evidence and idempotently import its observation."""
+    from model_learner.benchmark.evidence import (
+        BenchmarkEvidence,
+        import_benchmark_evidence,
+    )
+
+    try:
+        evidence = BenchmarkEvidence.model_validate_json(path.read_text())
+        result = import_benchmark_evidence(repository(database), evidence, root=root)
+    except ValidationError as error:
+        raise typer.BadParameter("invalid benchmark evidence") from error
+    except (OSError, ValueError, StorageError) as error:
+        raise typer.BadParameter(str(error)) from error
+    write_json(result)
 
 
 @benchmark_app.command("pilot-plan")

@@ -183,6 +183,22 @@ The probe uses synthetic canaries and reports unavailable containment explicitly
 Even a passing probe does not authorize an agent run. `pilot-plan` emits a frozen
 schedule from operator-supplied configurations without starting any execution.
 
+`benchmark offline-isolation-probe` investigates an existing Docker Desktop Linux
+runtime using a fixed synthetic worker, no host mounts, no network and bounded
+resources. It never installs software, pulls an image or enables real execution.
+An unavailable daemon or compatible local image remains an explicit blocker.
+See [offline isolation experiment](docs/OFFLINE_BENCHMARK_ISOLATION.md).
+
+`benchmark evidence-export ROOT` exports finalized benchmark evidence, and
+`benchmark evidence-import FILE --root ROOT --database DATABASE` revalidates that
+evidence against its trusted source before importing an observation idempotently.
+The destination database must already be initialized. Repeat `--checkpoint
+<aware-ISO-time>` to audit checkpoint coverage; use `--historical-cutoff
+<aware-ISO-time>` for historical evidence selection. Fixture origins, exact
+acceptance targets, native evidence and unknown outcomes remain explicit.
+Post-run ingestion does not create historically available predictor inputs.
+See [benchmark evidence export](docs/BENCHMARK_EVIDENCE.md).
+
 The task-state experiment compares initial task/configuration information (A),
 initial information plus simple execution metrics (B), and those inputs plus
 evolving failure-state features (C). All variants and feature-group ablations

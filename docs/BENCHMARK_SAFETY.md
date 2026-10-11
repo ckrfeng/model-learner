@@ -4,6 +4,13 @@ Audit date: 2026-10-10 (America/Chicago). **Real-agent collection remains blocke
 The current supported harness stages evidence; it does not provide an execution
 sandbox. No real or paid coding-agent run was launched in this audit.
 
+The subsequent fixed offline Docker Desktop experiment and its actual validation
+scope are documented in [OFFLINE_BENCHMARK_ISOLATION.md](OFFLINE_BENCHMARK_ISOLATION.md).
+It is a separate synthetic probe with no host mounts. It does not replace the
+agent/credential/acceptance transport requirements below or unlock real runs.
+The [benchmark evidence pipeline](BENCHMARK_EVIDENCE.md) supports offline,
+source-revalidated exports; prospective checkpoint collection remains blocked.
+
 ## What is actually enforced
 
 | Mechanism | Actual protection | Limitation |

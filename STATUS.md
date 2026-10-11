@@ -1,11 +1,11 @@
 # Model Learner status
 
-Current work: requested Workstreams A/B — real benchmark safety audit and
-controlled real evaluation pilot preparation (COMPLETE; stopped after review;
-real execution containment remains unvalidated and real runs are blocked).
+Current work: requested Workstreams A/B — fixed offline isolation experiment and
+benchmark evidence pipeline (validated for the synthetic offline scope;
+real-agent execution remains disabled; stopped after independent review).
 Last user-confirmed work: historical assessment resolution and drift investigation
 complete.
-Updated: 2026-10-10
+Updated: 2026-10-11
 
 ## Completed milestones
 
@@ -877,11 +877,140 @@ The requested audit/probe attempts and pilot preparation are complete. No real
 coding-agent execution, routing, Governor, fine-tuning, cloud synchronization,
 web GUI, subsequent milestone, commit, push, merge or publication was performed.
 
+## Offline isolation experiment and benchmark evidence pipeline — 2026-10-11
+
+Read the requested design, repository instructions, status, safety and pilot
+documents and inspected the current benchmark implementation. Two implementation
+subagents had non-overlapping ownership: A owns `benchmark/offline.py`, its
+unit/integration tests and `docs/OFFLINE_BENCHMARK_ISOLATION.md`; B owns
+`benchmark/evidence.py`, its unit/integration tests and `docs/BENCHMARK_EVIDENCE.md`.
+The coordinator owns CLI integration, pipeline CLI tests, README, updates to the
+existing safety/pilot documentation and this status. A separate read-only reviewer
+checked security, evidence integrity, statistical semantics and actual containment.
+The master plan, domain contracts, migrations, estimator, dependencies and lockfile
+remain unchanged. The existing real-execution gate remains unconditional.
+
+### Actual isolated offline experiment
+
+- Existing Docker Desktop **4.94.0 (241994)** / Engine **29.8.2** on macOS
+  **26.6.2 arm64**, Linux **7.0.14-linuxkit**, cgroup v2 was available. No system
+  software, image, global security setting or daemon was installed/started.
+- The fixed probe requires an explicitly approved, locally cached immutable public
+  `docker/welcome-to-docker` image. Only
+  `sha256:c4d56c24da4f009ecf8352146b43497fe78953edb4c679b841732beb97e588b0`
+  is supported in this experiment; absent/unapproved images fail closed without
+  pulling. An unspecified image returns `unavailable/image_approval_required`.
+- Each fresh container has **zero host mounts**, an unprivileged user, read-only
+  root, all capabilities dropped, no-new-privileges, private process/cgroup
+  boundary, IPC disabled and **network none**. Host home, credentials, repository,
+  hidden tests and runtime sockets are never mounted. The controller uses an empty
+  Docker client configuration and minimal environment; actual policy is inspected
+  before starting. Only synthetic canaries are probed.
+- Limits: **1 CPU, 128 MiB memory with no additional swap, 16 processes, 1 MiB
+  task tmpfs, 15-second enclosing deadline, 64 KiB transport/log cap, 1 KiB
+  artifact cap and 64 file descriptors**. CPU/memory values were read back from
+  effective kernel cgroups, not load-stressed. Actual process creation and task
+  storage overflow were refused. A second disposable boundary deliberately hit
+  the watchdog with a sleeping descendant; whole-container removal was confirmed.
+- Actual worker workspace positive controls passed. Outside synthetic
+  repository/source/credential/hidden-test/runtime reads and writes, symlink,
+  traversal and child-process reads were denied. Exact network-tool-mode loopback
+  positive controls passed before external/host/metadata connections were denied.
+  Host canaries were unchanged. No real credentials or source were read by workers.
+- Coordinator and independent reviewer each observed
+  **`validated/fixed_offline_probes_passed`, all 33 checks true**, zero host mounts,
+  fixed-artifact hash
+  `b91b66771b6ab7ce8f906c171c351e0f729ec21205db88ed835be3d56e47b048`, and policy
+  fingerprint `2fb1b75be291c30610dc7b50e6ef92e1c9c8a17d473dc686fd5064fb68b73061`.
+  The reviewer independently found no remaining probe containers. Ordinary
+  enclosing-sandbox daemon access returned unavailable; scoped outer-sandbox
+  approval permitted only this fixed harmless diagnostic, without broadening
+  worker permissions. Every receipt retained **`real_execution_ready=false`**.
+- Paused Docker `cp` could not see the task tmpfs and was rejected. Independent
+  extraction instead uses a controller-requested stream from the pinned tar tool
+  after the fixed worker has finished writing, followed by bounded in-memory
+  regular-file validation, exact expected-byte comparison, pause and destruction.
+  **Hostile artifact freeze-before-read is not validated.** This synthetic probe
+  is not a general candidate runner, independent acceptance transport or paid
+  agent execution backend. Cleanup has bounded additional control grace; an
+  unavailable/hung daemon or unconfirmed destruction fails closed.
+
+### Offline evidence handoff
+
+- Added source-revalidated `benchmark-evidence/v1` export/import using the existing
+  `Observation` contract. It preserves benchmark/task/run/attempt/assessment IDs,
+  exact operator configuration and harness provenance, fixture family/version/hash,
+  origin-specific datasets, acceptance target and artifact/report bindings.
+- Retained native metadata-only events preserve IDs, adapter/emitter versions,
+  original observation/ingestion times and safe redaction/missingness metadata.
+  Raw transcripts, commands/outputs, candidate/report bodies, hidden case IDs and
+  arbitrary native metadata are excluded. Arbitrary configuration metadata is
+  rejected rather than hashed into a hidden-label channel or silently rewritten.
+- Independent visible verification remains in the audit even for interrupted
+  runs whose unknown assessment cites no evidence. Labels use only selected
+  assessment-linked independent verification; agent self-report never labels a
+  run. Unknown/censored/incomplete outcomes, attribution/configuration conflicts
+  and nullable resources remain explicit. Blank or missing required configuration
+  dimensions prevent eligibility. No unknown price becomes zero.
+- Historical export resolves the visible assessment head and excludes future
+  labels, verification, event ingestion and unavailable associations. Export/import
+  availability stays actual; no timestamps or scope declarations are backdated.
+  Requested checkpoints retain missing-session/unavailable-input reasons. **All
+  checkpoint projections remain `eligible_for_task_state=false`** because this
+  finalization path has no prospective initial/configuration/scope collector.
+- Import requires the retained trusted benchmark root, rederives the whole bundle,
+  checks current artifact/report bytes and uses an atomic replay-check/insertion
+  transaction. Reimport returns one unchanged observation. An exclusive optional
+  output file refuses overwriting prior evidence. No export/import executes code.
+- Eligible `:fixture` rows support **algorithm rehearsal only**, not model utility
+  measurement. An actual handwritten public clamp candidate passed the existing
+  independent acceptance/finalization workflow, then exported/imported twice as
+  one eligible fixture observation. The unknown CLI fixture stayed ineligible.
+  Synthetic receipt fixtures separately exercised exact-target learner consumption,
+  historical revisions, leakage rejection and interrupted verification retention.
+- Exact targets and family dependence remain explicit; no suite target, pooling,
+  changed estimator or lowered sufficiency floor was introduced. Multiple benchmark
+  revisions in one learner input still fail closed as conflicting trials; select
+  one immutable revision per evaluation snapshot. This does not add benchmark
+  history resolution to the real-only CLI or establish predictive improvement.
+
+### Review and checks
+
+Commands use the existing `.tools/bin/uv` and repository-local `UV_CACHE_DIR`.
+Independent review prompted fixes for arbitrary image selection, network-mode
+false positives, actual PID/watchdog tests, bounded regular-file checks, missing
+checkpoint coverage, interrupted verification retention, configuration metadata
+and blank identity dimensions. No remaining actionable issue was found in the
+requested synthetic experiment/evidence scope; the real blockers remain below.
+
+| Check | Actual result |
+| --- | --- |
+| Baseline coordinator `uv run pytest` | **462 passed in 28.63s**. |
+| Baseline Ruff lint/format | Passed; **102 files** formatted. |
+| A unit/ordinary integration | **16 passed, 1 opt-in runtime test skipped**. |
+| A actual opt-in Docker integration | **2 passed in 1.85s** with scoped approval. |
+| B final owned tests | **19 passed in 0.67s**; owned lint/format passed. |
+| Coordinator pipeline CLI integration | **6 passed in 0.70s**, including actual public fixture acceptance and refusal to overwrite export. |
+| Intermediate full regression before A integration file landed | **502 passed in 29.50s**. |
+| Coordinator actual Docker CLI | Exit **0**; all **33 checks true**, real readiness **false**. |
+| Independent actual Docker replay and cleanup inventory | All **33 checks true**; no remaining probe containers. |
+| Final coordinator `uv run pytest` | **503 passed, 1 opt-in test skipped in 30.70s**. The skipped actual test was separately executed successfully by A; coordinator/reviewer also ran the actual probe. |
+| Final coordinator `uv run ruff check .` | `All checks passed!` |
+| Final coordinator `uv run ruff format --check .` | **111 files already formatted**. |
+| Final coordinator `git diff --check` | Passed. |
+| Independent final focused evidence/offline/CLI checks | **26 passed, 1 opt-in test skipped in 1.34s**; lint/format/whitespace passed. |
+
+No real or paid agents, production orchestration, routing, Governor, fine-tuning,
+cloud synchronization, next milestone, commit, push, merge, publication, global
+hook or system security change was performed. Stop after the requested offline
+experiment and evidence pipeline.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
-  containment backend and credential isolation. A working macOS executable or
-  successful narrow canary probe alone does not attest an agent/test boundary.
+  agent backend, credential relay, hostile artifact freezing/extraction, separate
+  candidate-only acceptance transport and run-bound validation receipts. The
+  validated fixed offline shell probe does not attest these real-agent boundaries.
 - The pilot is prepared for operator review and controlled fixture rehearsal.
   Manually authorizing payment does not resolve containment or predictive export
   limitations; no real experiment has been authorized or run here.
@@ -932,11 +1061,10 @@ web GUI, subsequent milestone, commit, push, merge or publication was performed.
 
 ## Next recommended increment (not started)
 
-- Review the safety audit and pilot protocol. A separately authorized increment
-  would need to validate and support the clean execution/acceptance boundary and
-  prospective benchmark evidence handoff before any real coding-agent pilot.
-  The requested safety validation and pilot preparation introduce no routing,
-  Governor, fine-tuning, cloud synchronization or GUI.
+- The fixed offline isolation experiment and benchmark evidence pipeline are
+  delivered; await review and new user scope. A later real pilot still requires
+  the remaining agent/credential/artifact/independent-acceptance boundary plus
+  prospective checkpoint collection. No next milestone is authorized.
 - The requested coding-verification, execution-analysis, coding-task evaluation
   and task-state evaluation workstreams are delivered and checked. No next
   milestone is authorized. Real benchmark executions remain operator-controlled

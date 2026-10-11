@@ -186,6 +186,13 @@ or capture timestamps. A separately scoped prospective collector/receipt contrac
 is required before the pilot can supply eligible checkpoint examples. Raw
 stream receipt envelopes can still be retained as metadata for auditing the gap.
 
+The offline [benchmark evidence export](BENCHMARK_EVIDENCE.md) now retains
+metadata-only native observations and audit checkpoint projections, including
+explicit unavailable-input reasons. It revalidates labels and artifacts against
+the trusted finalized root and imports benchmark observations idempotently.
+These posthoc projections have `eligible_for_task_state=false`; this delivery
+does not add a prospective collector or backdate ingestion/association receipts.
+
 ## Evidence and recording sheet
 
 Keep operator manifests, metadata-only capture, reports and receipts outside Git
@@ -241,10 +248,11 @@ the existing sufficiency checks pass; otherwise retain null scores/intervals and
 Three independent limits prevent a scored real comparison today:
 
 1. The fail-closed real-execution containment gate remains unresolved.
-2. No supported benchmark-to-observation export exists. The current real builder
-   requires `source_kind=real` and human-declared attempts; benchmark results have
-   `source_kind=benchmark` and operator-predeclared attempts. Do not relabel them
-   as real, change provenance or invent verified eligible observations.
+2. The offline benchmark-to-observation handoff now exists for source-revalidated
+   evidence, preserving `source_kind=benchmark`, execution origin and operator
+   predeclaration. Real finalized roots remain blocked, and prospective checkpoint
+   inputs still lack the required availability contract. Do not relabel benchmark
+   rows as real or turn posthoc projections into predictive examples.
 3. Each fixture has a distinct `public-coding-TASK` acceptance target, whereas
    the evaluator selects one exact acceptance target. Do not rewrite individual
    evidence to a fictional common target or pool scores across incompatible
@@ -299,4 +307,5 @@ variation; report that as insufficient evidence.
 Ready now: twelve versioned task definitions, independently checked acceptance,
 deterministic paired preregistration, fresh-state staging and an operator recording
 protocol. Blocked: supported real-agent containment, real executions, prospective
-checkpoint/benchmark observation export and sufficient real predictive evidence.
+checkpoint collection and sufficient real predictive evidence. Offline benchmark
+observation export is available with the evidence limits described above.

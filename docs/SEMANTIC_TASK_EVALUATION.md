@@ -220,3 +220,8 @@ lexical baselines. Optional actual-model tests use
 Tests cover exact metric denominators, invalid labels/split leakage, freeze/hash
 integrity, label changes preserving ranks, annotation changes preserving ranks,
 unknown embeddings and exact frozen lexical/optional Potion reproduction.
+
+The subsequent [annotation workflow and evaluation protocol](TASK_ANNOTATIONS.md)
+prepares fresh independently human-reviewed data, no-match queries and abstention
+evaluation. This original v1 dataset and its results remain frozen; the new
+workflow does not turn its agent-authored labels into human-reviewed ground truth.

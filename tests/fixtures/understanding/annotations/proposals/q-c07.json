@@ -1,0 +1,49 @@
+{
+  "no_match": "yes",
+  "rationale": "No historical candidate addresses cached avatar image responses or CDN request traffic.",
+  "pairs": [
+    {
+      "candidate_id": "h-x17",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Both mention profiles and caching, but invalidating memoized database records cannot satisfy avatar image traffic acceptance.",
+      "evidence_refs": [
+        "q-c07",
+        "h-x17"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-b42",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": false,
+      "rationale": "Navigation shortcut placement does not address avatar delivery or CDN caching.",
+      "evidence_refs": [
+        "q-c07",
+        "h-b42"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-v08",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "A stale-preference regression guards database freshness, not unchanged avatar response reuse.",
+      "evidence_refs": [
+        "q-c07",
+        "h-v08"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

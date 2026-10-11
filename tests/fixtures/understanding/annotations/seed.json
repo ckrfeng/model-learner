@@ -1,0 +1,351 @@
+{
+  "schema_version": "task-annotations/v1",
+  "dataset_id": "task-understanding-annotation-seed-v1",
+  "source_kind": "benchmark",
+  "description": "Unannotated agent-authored benchmark seed with independent split groups, realistic technical wording, hard-negative and no-match draft proposals. No human labels, accepted reviews, selected protocol or accuracy result. One simulated metadata fact is attached only as constructed context, never an actual execution of these hypothetical tasks.",
+  "snapshots": [
+    {
+      "example_id": "h-x17",
+      "role": "historical",
+      "description": "Evict the memoized user record after persisting preference changes so subsequent lookups see current data.",
+      "split": "train",
+      "project": "profile-store",
+      "family": "profile-cache",
+      "lineage": "profile-checkpoints-v2",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000065",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/retrieval_v1.json",
+        "source_sha256": "75a4208dea16b4aec6c6d3cfa59d5e29f67f2c028a70823f49cf56baf9b4000d",
+        "locator": "#/candidates/0/text",
+        "authorship": "agent"
+      },
+      "facts": [
+        {
+          "evidence_id": "e-j37",
+          "statement": "Controlled simulated capture sequence 4 records command-1 as failed with exit code 1; its command and aggregated output are redacted.",
+          "origin": {
+            "source_ref": "tests/fixtures/execution/controlled_capture.jsonl",
+            "source_sha256": "1165d3d54b65c0cc3b7f84c1749d6c8f6078aeb5898176392e751c6c973231a7",
+            "locator": "jsonl:4",
+            "authorship": "agent"
+          },
+          "available_at": "2026-10-10T12:00:04Z",
+          "source_kind": "simulated",
+          "provenance": "observed"
+        }
+      ]
+    },
+    {
+      "example_id": "h-b42",
+      "role": "historical",
+      "description": "Make account settings visible immediately by moving the settings shortcut to the main navigation.",
+      "split": "train",
+      "project": "profile-store",
+      "family": "profile-cache",
+      "lineage": "profile-checkpoints-v2",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000066",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/retrieval_v1.json",
+        "source_sha256": "75a4208dea16b4aec6c6d3cfa59d5e29f67f2c028a70823f49cf56baf9b4000d",
+        "locator": "#/candidates/2/text",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "h-v08",
+      "role": "historical",
+      "description": "Add a regression test that edits a profile and immediately reads it through the caching layer.",
+      "split": "train",
+      "project": "profile-store",
+      "family": "profile-cache",
+      "lineage": "profile-checkpoints-v2",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000067",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/retrieval_v1.json",
+        "source_sha256": "75a4208dea16b4aec6c6d3cfa59d5e29f67f2c028a70823f49cf56baf9b4000d",
+        "locator": "#/candidates/1/text",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-f19",
+      "role": "query",
+      "description": "Continue the declared profile-cache repair. The acceptance criterion now also requires invalidation across two application workers after a preference write, while preserving fresh reads in the writer process. The old objective covered only the writer process.",
+      "split": "train",
+      "project": "profile-store",
+      "family": "profile-cache",
+      "lineage": "profile-checkpoints-v2",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000065",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-f19",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-c07",
+      "role": "query",
+      "description": "Reduce profile-avatar download traffic by caching image responses at the CDN with a versioned image URL. Acceptance requires an unchanged avatar to reuse its cached image; account-preference database freshness is outside this task.",
+      "split": "train",
+      "project": "profile-store",
+      "family": "profile-cache",
+      "lineage": "profile-checkpoints-v2",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000068",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-c07",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-m61",
+      "role": "query",
+      "description": "Add a regression test that saves a profile preference and immediately reads it through the memoized user lookup. This description supplies no declared task identity or prior-session association; the test should guard stale preference reads.",
+      "split": "train",
+      "project": "profile-store",
+      "family": "profile-cache",
+      "lineage": "profile-checkpoints-v2",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": null,
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-m61",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "h-a05",
+      "role": "historical",
+      "description": "Repair payroll CSV export so each employee gross amount is rounded to two decimal places using decimal half-up rounding. Acceptance compares exported rows with declared currency examples for one monthly pay period.",
+      "split": "development",
+      "project": "payroll-export",
+      "family": "currency-rounding",
+      "lineage": "payroll-checkpoints-v1",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000069",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/h-a05",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "h-n71",
+      "role": "historical",
+      "description": "Document the existing payroll CSV export rounding convention and add one worked example to the finance help page. Preserve exporter behavior; acceptance reviews the explanation rather than changing computed amounts.",
+      "split": "development",
+      "project": "payroll-export",
+      "family": "currency-rounding",
+      "lineage": "payroll-checkpoints-v1",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006a",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/h-n71",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "h-k36",
+      "role": "historical",
+      "description": "Format gross payroll amounts in the employee-facing dashboard using the viewer locale and currency symbol. Acceptance checks separators and display symbols; CSV rounding and exported numeric values are outside this task.",
+      "split": "development",
+      "project": "payroll-export",
+      "family": "currency-rounding",
+      "lineage": "payroll-checkpoints-v1",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006b",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/h-k36",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-b73",
+      "role": "query",
+      "description": "Continue the declared payroll CSV rounding repair, expanding acceptance from one monthly period to monthly and fortnightly periods and requiring negative correction amounts to use decimal half-up rounding too.",
+      "split": "development",
+      "project": "payroll-export",
+      "family": "currency-rounding",
+      "lineage": "payroll-checkpoints-v1",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000069",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-b73",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-h28",
+      "role": "query",
+      "description": "Continue the declared payroll CSV rounding repair after the requester narrows acceptance: only positive monthly gross amounts must round half-up to two decimals. Negative corrections and other pay periods are explicitly deferred.",
+      "split": "development",
+      "project": "payroll-export",
+      "family": "currency-rounding",
+      "lineage": "payroll-checkpoints-v1",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000069",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-h28",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-r44",
+      "role": "query",
+      "description": "Keep employee names containing accents and non-Latin characters intact in payroll CSV exports by using UTF-8 consistently. Acceptance round-trips those names; currency rounding, finance documentation and dashboard formatting are unchanged.",
+      "split": "development",
+      "project": "payroll-export",
+      "family": "currency-rounding",
+      "lineage": "payroll-checkpoints-v1",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006c",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-r44",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "h-p29",
+      "role": "historical",
+      "description": "Reject archive members whose normalized extraction destination escapes the selected output directory. Acceptance includes parent-directory traversal and absolute member paths; preserve ordinary nested-file extraction.",
+      "split": "test",
+      "project": "archive-tool",
+      "family": "archive-containment",
+      "lineage": "archive-checkpoints-v2",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006d",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/h-p29",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "h-e83",
+      "role": "historical",
+      "description": "Allow users to reorder the list of files in the archive-preview panel with drag and drop before extraction. Acceptance checks list order and keyboard fallback; extraction path validation is unchanged.",
+      "split": "test",
+      "project": "archive-tool",
+      "family": "archive-containment",
+      "lineage": "archive-checkpoints-v2",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006e",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/h-e83",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "h-t64",
+      "role": "historical",
+      "description": "Add regression coverage that attempts to extract parent-directory and absolute-path archive members and asserts that no file appears outside the output directory. This is a separate explicitly declared test task.",
+      "split": "test",
+      "project": "archive-tool",
+      "family": "archive-containment",
+      "lineage": "archive-checkpoints-v2",
+      "available_at": "2026-10-10T12:00:10Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006f",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/h-t64",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-z53",
+      "role": "query",
+      "description": "Continue the declared archive extraction containment repair. Expand acceptance to reject symlink targets that escape the output directory and ensure cleanup after a rejected member, in addition to parent-directory and absolute-path checks.",
+      "split": "test",
+      "project": "archive-tool",
+      "family": "archive-containment",
+      "lineage": "archive-checkpoints-v2",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006d",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-z53",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-n06",
+      "role": "query",
+      "description": "Create an independent regression task for archive extraction containment: cover parent-directory and absolute member paths and verify that output remains inside the selected directory. Do not change the archive-preview UI.",
+      "split": "test",
+      "project": "archive-tool",
+      "family": "archive-containment",
+      "lineage": "archive-checkpoints-v2",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-000000000070",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-n06",
+        "authorship": "agent"
+      },
+      "facts": []
+    },
+    {
+      "example_id": "q-d81",
+      "role": "query",
+      "description": "The requester explicitly keeps the same declared archive task identity but changes its current objective from safe extraction to exporting selected files into a new archive. Acceptance checks that selected filenames are preserved in the new archive; extraction containment is outside the revised scope.",
+      "split": "test",
+      "project": "archive-tool",
+      "family": "archive-containment",
+      "lineage": "archive-checkpoints-v2",
+      "available_at": "2026-10-10T13:00:00Z",
+      "canonical_task_id": "00000000-0000-0000-0000-00000000006d",
+      "origin": {
+        "source_ref": "tests/fixtures/understanding/annotations/authored_descriptions.json",
+        "source_sha256": "c3a166fc427b9f0f22997cd145010bd8d1ae24d04e0a4603db5d809d2b280e08",
+        "locator": "#/descriptions/q-d81",
+        "authorship": "agent"
+      },
+      "facts": []
+    }
+  ],
+  "annotations": [],
+  "reviews": [],
+  "protocol": null,
+  "freeze": null,
+  "parent_sha256": null
+}

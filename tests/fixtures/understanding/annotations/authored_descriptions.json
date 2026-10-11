@@ -1,0 +1,22 @@
+{
+  "format": "task-annotation-authored-descriptions/v1",
+  "authorship": "agent",
+  "note": "Constructed sanitized technical descriptions authored by the Codex annotation-example agent. Declared UUIDs in seed are hypothetical benchmark identities, not imported real ledger links. No task here was executed or human adjudicated.",
+  "descriptions": {
+    "q-f19": "Continue the declared profile-cache repair. The acceptance criterion now also requires invalidation across two application workers after a preference write, while preserving fresh reads in the writer process. The old objective covered only the writer process.",
+    "q-c07": "Reduce profile-avatar download traffic by caching image responses at the CDN with a versioned image URL. Acceptance requires an unchanged avatar to reuse its cached image; account-preference database freshness is outside this task.",
+    "q-m61": "Add a regression test that saves a profile preference and immediately reads it through the memoized user lookup. This description supplies no declared task identity or prior-session association; the test should guard stale preference reads.",
+    "h-a05": "Repair payroll CSV export so each employee gross amount is rounded to two decimal places using decimal half-up rounding. Acceptance compares exported rows with declared currency examples for one monthly pay period.",
+    "h-n71": "Document the existing payroll CSV export rounding convention and add one worked example to the finance help page. Preserve exporter behavior; acceptance reviews the explanation rather than changing computed amounts.",
+    "h-k36": "Format gross payroll amounts in the employee-facing dashboard using the viewer locale and currency symbol. Acceptance checks separators and display symbols; CSV rounding and exported numeric values are outside this task.",
+    "q-b73": "Continue the declared payroll CSV rounding repair, expanding acceptance from one monthly period to monthly and fortnightly periods and requiring negative correction amounts to use decimal half-up rounding too.",
+    "q-h28": "Continue the declared payroll CSV rounding repair after the requester narrows acceptance: only positive monthly gross amounts must round half-up to two decimals. Negative corrections and other pay periods are explicitly deferred.",
+    "q-r44": "Keep employee names containing accents and non-Latin characters intact in payroll CSV exports by using UTF-8 consistently. Acceptance round-trips those names; currency rounding, finance documentation and dashboard formatting are unchanged.",
+    "h-p29": "Reject archive members whose normalized extraction destination escapes the selected output directory. Acceptance includes parent-directory traversal and absolute member paths; preserve ordinary nested-file extraction.",
+    "h-e83": "Allow users to reorder the list of files in the archive-preview panel with drag and drop before extraction. Acceptance checks list order and keyboard fallback; extraction path validation is unchanged.",
+    "h-t64": "Add regression coverage that attempts to extract parent-directory and absolute-path archive members and asserts that no file appears outside the output directory. This is a separate explicitly declared test task.",
+    "q-z53": "Continue the declared archive extraction containment repair. Expand acceptance to reject symlink targets that escape the output directory and ensure cleanup after a rejected member, in addition to parent-directory and absolute-path checks.",
+    "q-n06": "Create an independent regression task for archive extraction containment: cover parent-directory and absolute member paths and verify that output remains inside the selected directory. Do not change the archive-preview UI.",
+    "q-d81": "The requester explicitly keeps the same declared archive task identity but changes its current objective from safe extraction to exporting selected files into a new archive. Acceptance checks that selected filenames are preserved in the new archive; extraction containment is outside the revised scope."
+  }
+}

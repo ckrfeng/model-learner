@@ -277,6 +277,16 @@ times are declarations, not independently verified historical availability.
 Scores are relatedness suggestions, not probabilities of continuation or success.
 Task identities, explicit links and the Bayesian estimator remain unchanged.
 
+The [task annotation workflow](docs/TASK_ANNOTATIONS.md) collects similarity,
+continuation, no-match, scope and apparent-difficulty judgments in versioned local
+files. Use `model-learner annotation prepare`, `show`, `label`, `review`, `freeze`
+and `evaluate` to collect labels, record independent human review and measure
+retrieval precision, recall, false positives and abstention with a frozen policy.
+Annotations never create task relationships. The
+[example seed](tests/fixtures/understanding/annotations/README.md) and proposals
+are agent-authored drafts awaiting actual human labeling and review; they supply
+no new accuracy evidence or model-utility prediction claim.
+
 ## Simulation and reference learning
 
 Generate observations in an explicitly simulated dataset. Known probabilities

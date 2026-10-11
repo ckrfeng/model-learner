@@ -11,6 +11,7 @@ import typer
 from pydantic import BaseModel
 
 from model_learner import __version__
+from model_learner.commands.annotations import annotation_app
 from model_learner.commands.benchmark import benchmark_app
 from model_learner.commands.learning import learn_app, sim_app
 from model_learner.commands.observation import (
@@ -90,6 +91,7 @@ app.add_typer(verify_app, name="verify")
 app.add_typer(outcome_app, name="outcome")
 app.add_typer(observations_app, name="observations")
 app.add_typer(benchmark_app, name="benchmark")
+app.add_typer(annotation_app, name="annotation")
 learn_app.command("state-eval")(state_eval)
 learn_app.command("state-experiment")(state_experiment)
 sim_app.command("state-fixture")(state_fixture)

@@ -1,0 +1,49 @@
+{
+  "no_match": "no",
+  "rationale": "Containment implementation and regression work are relevant; archive-preview order is a wording trap.",
+  "pairs": [
+    {
+      "candidate_id": "h-p29",
+      "similarity": "relevant",
+      "continuation": "yes",
+      "scope_change": "expanded",
+      "difficulty_change": "harder",
+      "hard_negative": false,
+      "rationale": "The declared repair continues while acceptance adds symlink resolution and rejected-member cleanup, apparently increasing the constraints beyond normalizing member paths.",
+      "evidence_refs": [
+        "q-z53",
+        "h-p29"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-e83",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Reordering a preview list affects user interaction, not whether extraction writes escape the output directory.",
+      "evidence_refs": [
+        "q-z53",
+        "h-e83"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-t64",
+      "similarity": "relevant",
+      "continuation": "no",
+      "scope_change": "expanded",
+      "difficulty_change": "unknown",
+      "hard_negative": false,
+      "rationale": "Existing traversal regressions cover part of the broader containment objective. They have a distinct declared task identity; comparative implementation difficulty is unresolved.",
+      "evidence_refs": [
+        "q-z53",
+        "h-t64"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

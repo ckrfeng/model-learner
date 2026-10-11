@@ -1,10 +1,12 @@
 # Model Learner status
 
-Current work: requested semantic task retrieval increment completed, measured and
-independently reviewed. Real coding-agent execution remains disabled. Stopped
+Current work: requested task-understanding annotation workflow and evaluation
+protocol implemented, tested and independently reviewed. Genuine human annotation
+collection remains pending. Real coding-agent execution remains disabled. Stopped
 after this increment; no later milestone has started.
-Last user-confirmed work: semantic task-understanding/evaluation increment, using
-the existing pinned local Potion encoder and independent implementation/review.
+Last user-confirmed work: versioned local annotations, independent human review
+workflow, group-disjoint retrieval/no-match/abstention evaluation; preserve TF-IDF
+and the existing pinned local Potion encoder without training or downloads.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -1448,6 +1450,98 @@ understanding. No fine-tuning, routing, paid agent execution, web GUI, remote
 inference, model downloads, Governor or utility-estimator integration was performed.
 Stop after this requested increment; the recommended next increment is not started.
 
+## Task annotation workflow and evaluation protocol — 2026-10-11
+
+Delivered only the requested preparation/evaluation increment. The original
+retrieval v1 fixture and its reference results remain frozen. No new retrieval
+accuracy, task-classification accuracy or model-utility improvement is claimed.
+
+- `understanding/annotations.py` defines strict `task-annotations/v1` local
+  artifacts with task-description snapshots, optional caller-declared canonical
+  task UUIDs, source SHA-256/locators/authorship, split/project/family/lineage,
+  timezone-aware availability and separately sourced observed facts. Facts retain
+  their own real/simulated/benchmark origin; judgments always remain inferred.
+- Complete per-query candidate judgments separately record similarity,
+  continuation, scope and apparent-difficulty changes, rationales, evidence
+  references and hard negatives. Query-level no-match is yes/no/unknown; yes
+  requires every candidate explicitly irrelevant in that frozen corpus. Unknown
+  judgments remain unknown. Distinct explicit canonical task IDs cannot be
+  overridden by a continuation label, and annotations never create ledger links.
+- Human author identity and independent reviewer identity/kind/time are explicit
+  caller attestations. Accept/reject reviews bind to descriptions, provenance and
+  labels by content hash. Self-review (including case/whitespace variants), stale
+  reviews, agent-only labels/reviews, missing annotations and unresolved rejection
+  block freezing. Relabeling invalidates current reviews; exclusive revision files
+  retain prior decisions and a parent-content digest. Identities are not authenticated.
+- Split checks reject shared projects, families, lineages, canonical task IDs,
+  normalized description copies and exact source records across train/development/
+  test, including a source used as a description in one split and a fact in another.
+  Facts cannot postdate their snapshot; historical candidates cannot postdate the
+  query. Unknown correlations and source-locator aliases still require human audit.
+- Freeze locks data and a prospective backend/k/strict score threshold/selection
+  note plus Potion revision/hash where applicable. Evaluation requires the frozen
+  human-reviewed artifact before model loading. Only descriptions enter retrieval;
+  TF-IDF fits candidate text only, and labels/groups/facts enter reporting afterward.
+- `understanding/annotation_evaluation.py` reports per-query/family and aggregate
+  TP/FP/FN/TN, precision, known-target recall, pairwise false-positive rate,
+  hard-negative errors, no-match false acceptance, coverage and abstention. Unknown
+  labels are excluded from confusion denominators and counted separately; unknown
+  representations are separate operational abstentions. No-match recall and other
+  empty denominators are null. Precision@k retains the requested slot denominator.
+  Continuation/scope/difficulty have label coverage only, with no classifier or
+  fabricated predictions. The protocol documents their future independent tests.
+- `commands/annotations.py` and CLI registration provide `annotation prepare`,
+  `show`, `label`, `review`, `freeze` and `evaluate`, all using explicitly supplied
+  local files, exclusive output creation and privacy-safe malformed-input errors.
+  No ledger access, transcript collection, network inference or automatic fallback.
+- `tests/fixtures/understanding/annotations/` contains 18 snapshots and nine
+  complete **agent-authored draft proposals**, with three independent example
+  cohorts. Three historical descriptions reuse frozen sanitized v1 text; one
+  context fact reuses the simulated controlled execution fixture. Source hashes
+  are verified in tests. UUIDs/checkpoints are hypothetical benchmark context,
+  not real ledger records. These public exposed examples are workflow rehearsals,
+  not a fresh held-out human-reviewed accuracy dataset.
+- `docs/TASK_ANNOTATIONS.md`, the root README and a pointer in the original
+  semantic-evaluation doc explain collection, independent review, rejection,
+  versioning, leakage checks, development-only policy selection, exact metric
+  denominators and limitations. Existing TF-IDF/Potion code and learner semantics
+  are unchanged; no security boundary or database migration was modified.
+
+### Actual validation and independent review
+
+macOS arm64 / Python 3.12.14. Used the existing `.tools/bin/uv` and repository-local
+`UV_CACHE_DIR=$PWD/.uv-cache`; the default global cache is outside sandbox writes.
+No packages, model weights or paid agents were provisioned for this increment.
+
+| Check | Actual result |
+| --- | --- |
+| Initial full `uv run pytest` during implementation | **720 passed, 5 skipped in 32.10s** before the final source-overlap/fixture/model tests; optional model path absent. |
+| Focused annotation unit + CLI checks after review fix | **56 passed in 1.38s**; independent reviewer separately reproduced **56 passed in 1.63s** before two further encoder tests. |
+| Final full `uv run pytest` with `MODEL_LEARNER_TEST_POTION_PATH` set to the existing approved `potion-base-8M-bf8b056651a2c21b8d2565580b8569da283cab23` local bundle | **728 passed, 1 skipped in 33.33s**. Includes all 58 new annotation tests and actual pinned local Potion evaluation, with socket connections denied in the new model test. The remaining skip is the existing explicitly enabled Docker offline isolation check. |
+| `uv run ruff check .` | **All checks passed!** |
+| `uv run ruff format --check .` | **146 files already formatted** |
+| `git diff --check` | Exit 0; no whitespace errors. |
+| `uv run model-learner annotation --help` | Exit 0; all six operations displayed. |
+
+Independent subagent implementation review inspected contracts, evaluator, CLI,
+tests, provenance and claims. It found one P2 split-leakage gap: description and
+fact source origins used separate namespaces. Fixed by checking both against the
+same source-location namespace, with a cross-role regression. Reviewer verified
+the correction and found no remaining semantic/provenance/privacy/metric blockers.
+Its final formatting observation was corrected and the final checks above passed.
+This is independent code review, **not independent human annotation review**.
+The documentation reviewer authored the protocol prose but did not implement the
+schema, evaluator or CLI. Implementation/CLI and example-authoring subagents had
+separate file ownership.
+
+The workflow and protocol are complete. Actual realistic human label collection,
+adjudication and prospectively unexposed test cohorts remain pending and must occur
+before substantive task-understanding accuracy claims. Hidden cohort aliases,
+honest human attestations and no test-driven policy selection require operator
+discipline. Retrieval evaluation remains separate from model-utility prediction.
+No fine-tuning, larger model download, paid agent, routing, security-boundary
+change, web GUI, commit, push, merge or publication occurred. Stop here.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1509,10 +1603,12 @@ Stop after this requested increment; the recommended next increment is not start
 
 ## Next recommended increment (not started)
 
-- The semantic retrieval increment above is the latest requested work. Validate
-  the frozen labels with humans and broaden families/projects before adding
-  semantic classification, scope evolution, fine-tuning or utility features.
-  Earlier checkpoint entries below are historical; no new increment is started.
+- The annotation workflow and evaluation protocol above are the latest requested
+  work. The next evidence step is genuine independent human labeling/adjudication
+  on realistic, prospectively held-out groups, then retrieval/no-match/abstention
+  measurement under a development-selected frozen policy. No next increment,
+  semantic classifier, fine-tuning or utility integration is authorized or started.
+  Earlier checkpoint entries below are historical.
 - The fixed offline isolation experiment and benchmark evidence pipeline are
   delivered. The requested secure controller components and CPU representation
   prototype are also delivered for their offline scope; await new user direction.

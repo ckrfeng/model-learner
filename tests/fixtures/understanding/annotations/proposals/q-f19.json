@@ -1,0 +1,49 @@
+{
+  "no_match": "no",
+  "rationale": "Prior cache invalidation work and its regression task address the same freshness objective. Scope and apparent difficulty judgments are draft comparisons of acceptance constraints, not execution outcome labels.",
+  "pairs": [
+    {
+      "candidate_id": "h-x17",
+      "similarity": "relevant",
+      "continuation": "yes",
+      "scope_change": "expanded",
+      "difficulty_change": "harder",
+      "hard_negative": false,
+      "rationale": "The declared task identity is retained, while two-worker invalidation expands the writer-only objective and appears to require coordination across processes. The simulated failed command supplies no root cause, verification or difficulty evidence.",
+      "evidence_refs": [
+        "q-f19",
+        "h-x17"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-b42",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Immediate visibility in navigation changes placement of a settings shortcut, whereas the query concerns freshness after writes. Similar wording does not align acceptance criteria.",
+      "evidence_refs": [
+        "q-f19",
+        "h-b42"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-v08",
+      "similarity": "relevant",
+      "continuation": "no",
+      "scope_change": "expanded",
+      "difficulty_change": "unknown",
+      "hard_negative": false,
+      "rationale": "The independent stale-read regression provides relevant historical coverage, but its different declared identity is authoritative. Cross-worker repair exceeds that test scope; comparative implementation difficulty is not established.",
+      "evidence_refs": [
+        "q-f19",
+        "h-v08"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

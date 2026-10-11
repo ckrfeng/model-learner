@@ -1,0 +1,49 @@
+{
+  "no_match": "yes",
+  "rationale": "All historical tasks concern extraction or its UI. The revised declared task concerns creating an archive, so authoritative continuity and no relevant historical objective can coexist.",
+  "pairs": [
+    {
+      "candidate_id": "h-p29",
+      "similarity": "irrelevant",
+      "continuation": "yes",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "The requester explicitly retained this declared identity, establishing continuity in the example. Its acceptance changed from rejecting unsafe extraction paths to preserving exported filenames, so semantic relevance is absent.",
+      "evidence_refs": [
+        "q-d81",
+        "h-p29"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-e83",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Selecting or arranging preview files before extraction differs from writing selected filenames to a new archive.",
+      "evidence_refs": [
+        "q-d81",
+        "h-e83"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-t64",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Extraction containment regressions do not verify archive creation. The separately declared test identity also rules out continuation.",
+      "evidence_refs": [
+        "q-d81",
+        "h-t64"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

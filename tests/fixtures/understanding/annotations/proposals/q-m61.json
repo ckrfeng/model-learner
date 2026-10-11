@@ -1,0 +1,49 @@
+{
+  "no_match": "no",
+  "rationale": "Both prior invalidation work and the stale-read regression concern the tested freshness mechanism. No canonical identity is supplied for the query, so continuity remains unresolved.",
+  "pairs": [
+    {
+      "candidate_id": "h-x17",
+      "similarity": "relevant",
+      "continuation": "unknown",
+      "scope_change": "narrowed",
+      "difficulty_change": "unknown",
+      "hard_negative": false,
+      "rationale": "The query tests the writer-local freshness repair instead of implementing it. The shared mechanism makes the repair useful history, but neither task continuity nor comparative difficulty follows from text alone.",
+      "evidence_refs": [
+        "q-m61",
+        "h-x17"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-b42",
+      "similarity": "irrelevant",
+      "continuation": "unknown",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Seeing settings in navigation is a word-level distraction from reading newly saved database values. No declared query identity resolves continuation.",
+      "evidence_refs": [
+        "q-m61",
+        "h-b42"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-v08",
+      "similarity": "relevant",
+      "continuation": "unknown",
+      "scope_change": "unchanged",
+      "difficulty_change": "same",
+      "hard_negative": false,
+      "rationale": "Both acceptance descriptions require editing a profile and immediately reading it through the caching layer. Apparent constraints are comparable; the shared description does not establish task identity.",
+      "evidence_refs": [
+        "q-m61",
+        "h-v08"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

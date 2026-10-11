@@ -1,0 +1,49 @@
+{
+  "no_match": "no",
+  "rationale": "Prior containment implementation and matching path regression coverage can both inform the new independently declared test task.",
+  "pairs": [
+    {
+      "candidate_id": "h-p29",
+      "similarity": "relevant",
+      "continuation": "no",
+      "scope_change": "narrowed",
+      "difficulty_change": "unknown",
+      "hard_negative": false,
+      "rationale": "Containment repair is useful history for acceptance tests, but explicit distinct task IDs rule out continuation. Writing regression coverage is narrower than implementing the repair; comparative difficulty is unknown.",
+      "evidence_refs": [
+        "q-n06",
+        "h-p29"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-e83",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "The common archive context does not make preview reordering relevant to path containment assertions.",
+      "evidence_refs": [
+        "q-n06",
+        "h-e83"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-t64",
+      "similarity": "relevant",
+      "continuation": "no",
+      "scope_change": "unchanged",
+      "difficulty_change": "same",
+      "hard_negative": false,
+      "rationale": "Both specified regression objectives cover parent-directory and absolute member paths with no outside writes. Apparent constraints are the same, while authoritative distinct task IDs preserve independence.",
+      "evidence_refs": [
+        "q-n06",
+        "h-t64"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

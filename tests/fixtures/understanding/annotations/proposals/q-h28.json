@@ -1,0 +1,49 @@
+{
+  "no_match": "no",
+  "rationale": "The same declared payroll repair remains relevant after acceptance is reduced to positive monthly amounts.",
+  "pairs": [
+    {
+      "candidate_id": "h-a05",
+      "similarity": "relevant",
+      "continuation": "yes",
+      "scope_change": "narrowed",
+      "difficulty_change": "easier",
+      "hard_negative": false,
+      "rationale": "The explicit identity is unchanged and acceptance now excludes negative corrections. The reduced supported amount domain suggests easier work, independently of completion or retries.",
+      "evidence_refs": [
+        "q-h28",
+        "h-a05"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-n71",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Writing a rounding explanation is separate from making positive monthly exports satisfy half-up examples.",
+      "evidence_refs": [
+        "q-h28",
+        "h-n71"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-k36",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Dashboard locale formatting is adjacent currency work with a different acceptance target.",
+      "evidence_refs": [
+        "q-h28",
+        "h-k36"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

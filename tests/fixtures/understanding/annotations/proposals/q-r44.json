@@ -1,0 +1,49 @@
+{
+  "no_match": "yes",
+  "rationale": "None of the histories address CSV character encoding or name round-tripping.",
+  "pairs": [
+    {
+      "candidate_id": "h-a05",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Payroll CSV overlap hides a difference between amount rounding and text encoding.",
+      "evidence_refs": [
+        "q-r44",
+        "h-a05"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-n71",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": true,
+      "rationale": "Export help-page documentation of rounding does not preserve employee-name characters.",
+      "evidence_refs": [
+        "q-r44",
+        "h-n71"
+      ],
+      "provenance": "inferred"
+    },
+    {
+      "candidate_id": "h-k36",
+      "similarity": "irrelevant",
+      "continuation": "no",
+      "scope_change": "changed",
+      "difficulty_change": "unknown",
+      "hard_negative": false,
+      "rationale": "Locale-specific display separators and symbols do not establish UTF-8 encoding in CSV exports.",
+      "evidence_refs": [
+        "q-r44",
+        "h-k36"
+      ],
+      "provenance": "inferred"
+    }
+  ],
+  "provenance": "inferred"
+}

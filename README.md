@@ -250,6 +250,33 @@ revision/hash pins and never downloads automatically. The same frozen synthetic
 cohorts show no consistent improvement over B. See the
 [measured results, uncertainty and reproduction](docs/CPU_TASK_REPRESENTATION.md#completed-pretrained-potion-c-evaluation--2026-10-11).
 
+Optional [task-description retrieval](docs/SEMANTIC_TASK_EVALUATION.md) now compares
+token matching, TF-IDF and the same frozen local Potion encoder against authored
+relevance judgments. On twelve queries from six task families, Potion retrieved
+15 of 24 relevant query/candidate matches in the top three versus 10 for either
+lexical baseline. Its top result was relevant on only 4 of 12 queries. These are small,
+constructed examples with agent-authored labels, not evidence of real-world
+accuracy or agent success prediction.
+
+```sh
+model-learner task similar TASK_ID --database .model-learner/model-learner.sqlite3
+model-learner task similar TASK_ID --backend potion \
+  --model-path /absolute/path/to/approved/potion-bundle \
+  --model-revision bf8b056651a2c21b8d2565580b8569da283cab23 \
+  --model-sha256 930be259798d5d6e24ee8285a198f4248d9b42ec8544c92b952fa5e2aa5184d2
+```
+
+TF-IDF is the default and requires no embedding runtime. The optional Potion
+backend requires the existing local bundle and pinned runtime; unavailable
+embeddings yield an explicit status with no automatic fallback. The command
+uses only declared descriptions of tasks created no later than the query task,
+omits text from output, and returns IDs, inferred similarity scores and provenance.
+Descriptions are limited to 4096 characters; unsupported historical descriptions
+are counted as exclusions. The index supports up to 10,000 candidates. Creation
+times are declarations, not independently verified historical availability.
+Scores are relatedness suggestions, not probabilities of continuation or success.
+Task identities, explicit links and the Bayesian estimator remain unchanged.
+
 ## Simulation and reference learning
 
 Generate observations in an explicitly simulated dataset. Known probabilities

@@ -1,0 +1,26 @@
+{
+  "dataset_id": "authored-semantic-retrieval-v1",
+  "sha256": "75a4208dea16b4aec6c6d3cfa59d5e29f67f2c028a70823f49cf56baf9b4000d",
+  "frozen_before_encoder_execution": true,
+  "frozen_at": "2026-10-11",
+  "counts": {
+    "development_queries": 4,
+    "test_queries": 12,
+    "development_candidates": 12,
+    "test_candidates": 36,
+    "development_families": 2,
+    "test_families": 6
+  },
+  "fixed_metrics": {
+    "k": [
+      1,
+      3
+    ],
+    "ranking": [
+      "MRR",
+      "nDCG@3"
+    ]
+  },
+  "no_test_threshold_selection": true,
+  "pre_encoding_metadata_correction": "Clarified agent authorship and absent repository license before initial encoding; no text, split or relevance judgment changed."
+}

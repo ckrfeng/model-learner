@@ -1,10 +1,10 @@
 # Model Learner status
 
-Current work: requested pretrained CPU semantic C evaluation completed with pinned
-Potion weights and measured synthetic results; A/B unchanged and independently
-reviewed. Real coding-agent execution remains disabled. Stopped after C.
-Last user-confirmed work: offline isolation/evidence export and secure-controller
-components with optional CPU A/B evaluation complete.
+Current work: requested semantic task retrieval increment completed, measured and
+independently reviewed. Real coding-agent execution remains disabled. Stopped
+after this increment; no later milestone has started.
+Last user-confirmed work: semantic task-understanding/evaluation increment, using
+the existing pinned local Potion encoder and independent implementation/review.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -1293,6 +1293,161 @@ No real coding agent, cloud/paid inference, Governor, automatic switching,
 fine-tuning, benchmark boundary change, commit, push, merge or publication was
 performed. Stop after C; no additional milestone is authorized.
 
+## Semantic task understanding and relevance evaluation — 2026-10-11
+
+Read the user request, AGENTS.md, current STATUS, relevant observation/identity,
+privacy and evaluation plan sections, existing CPU encoder, representation and
+task-state evaluators, documentation and tests before implementation. The main
+agent owns architecture, CLI integration, README and this status. Non-overlapping
+subagents own retrieval plus unit tests and dataset/evaluation/reproducer plus
+their tests/docs. A third read-only reviewer independently checks labels,
+leakage, false associations, privacy, performance and numerical reproduction.
+The pre-existing `.DS_Store`, `pyproject.toml` and `uv.lock` changes are preserved.
+No dependency, domain schema, master plan, learner or benchmark boundary changes
+were needed for this increment.
+
+### Delivered subset and limits
+
+- `understanding/retrieval.py`: bounded in-memory description retrieval with
+  deterministic token Jaccard, candidate-only TF-IDF and optional frozen Potion
+  cosine. Explicit public/sanitized/declared input provenance, max 4096 characters
+  per description and 10,000 candidate tasks; no transcript discovery or retention.
+  Scores are inferred relatedness, never calibrated continuation/success
+  probabilities. Zero/unknown representations remain unknown. Finite vectors,
+  dimensions, deterministic ties and self exclusion are checked.
+- `understanding/evaluation.py`, `experiment.py` and
+  `tests/fixtures/understanding/`: authored relevance dataset, frozen SHA-256
+  manifest, metrics and actual three-worker-per-backend reference measurements.
+  Labels are technical judgments written by a separate evaluation agent before
+  any encoder invocation, independently inspected by the reviewer; they are not
+  derived from the encoder. They lack independent external human adjudication.
+  Text is newly constructed and reviewable, with no third-party/private content
+  or asserted external license. No outcome-success labels exist in this dataset.
+- `model-learner task similar TASK_ID`: optional read-only shortlist command,
+  TF-IDF default; `--backend text` or explicitly pinned local `--backend potion`.
+  Returns distinct task IDs, similarity scores, explanation, provenance and
+  exclusion/unknown counts without description text. Candidate creation
+  declarations cannot be later than the query's declaration; this is not an
+  attestation of historical ingestion availability. Model absence/bad pins return
+  `semantic_unavailable` and no fallback suggestions. Other commands still work.
+- Similarity never creates associations or changes task identities. Explicit
+  task/session/run links remain authoritative. Shared sessions and equivalent
+  descriptions do not establish continuation; integration tests retain distinct
+  tasks with identical descriptions and a shared session. No continuation
+  classifier is delivered or assigned classification metrics.
+- This intentionally chooses the smallest reliably evaluable subset: related-task
+  retrieval. Characteristic/ambiguity/dependency inference and evolving-scope or
+  implementation-to-debugging detection remain unimplemented. Scope-diverged
+  descriptions are hard retrieval negatives, not a longitudinal evolution test.
+  No sanitized execution-summary collector or semantic utility features are added.
+
+### Frozen relevance evidence
+
+Dataset `authored-semantic-retrieval-v1`, frozen content SHA-256
+`75a4208dea16b4aec6c6d3cfa59d5e29f67f2c028a70823f49cf56baf9b4000d`.
+Development: four queries, two families/projects, twelve candidates. Locked test:
+twelve queries, six families/projects, thirty-six candidates, two relevant tasks
+per query. Family, project and query rewrite groups are disjoint between splits;
+TF-IDF fits only the candidate corpus of the selected split. Query-to-historical
+same-family matches are intended retrieval targets, not supervised training.
+No thresholds or parameters are chosen from the locked test. Labels, family and
+project annotations do not reach the retrieval index. Full known rankings use
+fixed deterministic ties; unknown representations receive no retrieval credit.
+
+| Locked-test method | Precision@1 | Precision@3 | Recall@3 | MRR | nDCG@3 |
+| --- | --- | --- | --- | --- | --- |
+| Token Jaccard | 0.250000 | 0.277778 | 0.416667 | 0.439316 | 0.352191 |
+| TF-IDF | 0.250000 | 0.277778 | 0.416667 | 0.452649 | 0.358881 |
+| Pinned Potion | 0.333333 | 0.416667 | 0.625000 | 0.574537 | 0.525548 |
+
+Potion recovers fifteen of twenty-four relevant top-three slots versus ten for
+either lexical baseline. Top-one relevant results improve only from three to
+four of twelve; eight Potion first suggestions remain irrelevant. All six
+original wording-trap queries choose their high-overlap wrong-objective distractor
+first for every backend. Potion improves paraphrased duplicate-payment retrieval
+(two relevant top-three results versus zero lexical), but confuses paraphrased
+authentication concurrency with an unrelated payment regression test, and still
+ranks changed-scope descriptions too highly. Scores require human review.
+
+Two correlated rewrites per family and one repeated candidate structure make
+this a small purposive six-family experiment. Means are descriptive; no population
+confidence interval, significance claim, real-task accuracy or success-prediction
+claim is warranted. The measured improvement supports only optional shortlist
+exploration. It does not justify semantic decisions, automatic grouping or
+feeding embeddings into the Bayesian estimator. Earlier synthetic outcome
+prediction remains unchanged and has no consistent semantic gain.
+The reviewer found two mixed-relevance text-baseline cutoff ties where frozen
+task-ID ordering favors the positive label; TF-IDF/Potion have no such top-one or
+top-three boundary ties. Potion's gain against TF-IDF is unaffected. A future
+dataset should use opaque IDs. Potion's Recall@3 improves in four of six families
+and worsens in the keyboard and query-plan families.
+
+### Actual CPU measurements
+
+Three fresh workers for each backend, Python 3.12.14/macOS arm64, requested
+single-thread limits, tokenizer parallelism disabled, socket connections blocked
+before loading. Every worker reports zero connection attempts. OS caches were
+not cleared. Five warm serial passes measure twelve test queries against the
+same thirty-six candidates; timings are descriptive, not large-ledger estimates.
+
+| Component | Measured range across workers |
+| --- | --- |
+| Potion model loading, runtime imports/snapshot/hash/construction | 0.178–0.264 seconds |
+| Potion warm single-description median encoding | 62.50–68.29 microseconds |
+| Potion warm query median, including encode/score/sort | 0.4397–0.4636 milliseconds |
+| Text warm query median | 0.0388–0.0436 milliseconds |
+| TF-IDF warm query median | 0.0427–0.0435 milliseconds |
+| Potion embedding table alone | 30,236,672 bytes |
+| Whole Potion worker peak RSS | 132,202,496–132,235,264 bytes |
+| Whole lexical worker peak RSS | 38,502,400–38,600,704 bytes |
+
+Whole-process peak RSS is a lifetime high-water mark, not incremental model RAM.
+Index construction/model loading are excluded from warm query time and reported
+separately in the artifact. These short descriptions and tiny indexes do not
+establish worst-case CPU/latency. Overhead buys a narrow top-three relevance gain,
+but poor top-one precision and insufficient data favor keeping TF-IDF default.
+Fine-tuning is not justified by this evidence; acquire independently human-reviewed
+labels and a larger project/family-disjoint test first.
+
+### Validation and next step
+
+- Pre-change full suite: **598 passed, 3 skipped in 35.84s** (model/Docker opt-ins
+  absent in this initial check).
+- Retrieval owner's focused checks: **42 passed in 0.15s**, Ruff lint/format and
+  whitespace passed.
+- Coordinator final registered CLI focused tests with sockets blocked:
+  **6 passed in 0.65s**, including malformed-ledger privacy diagnostics.
+- Evaluation owner's focused actual-model checks: **22 passed in 0.38s**;
+  owned Ruff lint/format passed.
+- Independent reviewer exactly reproduced all three backends' development/test
+  stored top-three similarity scores, relevant-target ranks, per-query/family
+  metrics and provenance with socket connections blocked; zero attempts. Timing
+  fields are intentionally not compared.
+- Coordinator final `uv run pytest`: **670 passed, 1 skipped in 38.73s**.
+  The unchanged Docker integration opt-in is the sole skip. Actual pinned model
+  tests are enabled via the explicit `MODEL_LEARNER_TEST_POTION_PATH`.
+- Coordinator `uv run ruff check .`: **All checks passed!**
+- Coordinator `uv run ruff format --check .`: **139 files already formatted**.
+- Final `git diff --check`: passed. Checks use the repository-local uv/cache and
+  `UV_NO_SYNC=1` to preserve the installed approved optional semantic runtime.
+- Independent reviewer full actual-model run before the final added metric test:
+  **669 passed, 1 skipped in 38.20s**, lint/format/whitespace passed. The
+  coordinator's final run above includes that additional test.
+
+Independent review found no remaining blocking defect in the delivered scope.
+It prompted pre-encoding provenance corrections, disclosure of text tie-order
+sensitivity, precise reported-ranking wording and updating status resource ranges
+to the final stored artifact. External human adjudication, diverse negative
+objectives and no-relevant-history cases remain evaluation limitations.
+
+See `docs/SEMANTIC_TASK_EVALUATION.md` for provenance, reproducer, per-capability
+limitations and error analysis. The next recommended increment is larger
+independently human-adjudicated retrieval data with diverse real-world objectives,
+plus explicit success criteria and changing-scope labels before extending task
+understanding. No fine-tuning, routing, paid agent execution, web GUI, remote
+inference, model downloads, Governor or utility-estimator integration was performed.
+Stop after this requested increment; the recommended next increment is not started.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1354,6 +1509,10 @@ performed. Stop after C; no additional milestone is authorized.
 
 ## Next recommended increment (not started)
 
+- The semantic retrieval increment above is the latest requested work. Validate
+  the frozen labels with humans and broaden families/projects before adding
+  semantic classification, scope evolution, fine-tuning or utility features.
+  Earlier checkpoint entries below are historical; no new increment is started.
 - The fixed offline isolation experiment and benchmark evidence pipeline are
   delivered. The requested secure controller components and CPU representation
   prototype are also delivered for their offline scope; await new user direction.

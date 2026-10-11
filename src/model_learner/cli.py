@@ -38,6 +38,7 @@ from model_learner.commands.tasks import (
     run_app,
     verify_app,
 )
+from model_learner.commands.understanding import task_similar
 from model_learner.domain.models import (
     AcceptanceSpec,
     Attempt,
@@ -94,6 +95,7 @@ learn_app.command("state-experiment")(state_experiment)
 sim_app.command("state-fixture")(state_fixture)
 learn_app.command("representation-eval")(representation_eval)
 sim_app.command("representation-fixture")(representation_fixture)
+task_app.command("similar")(task_similar)
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,

@@ -1,0 +1,650 @@
+{
+  "schema_version": 1,
+  "dataset_id": "authored-semantic-retrieval-v1",
+  "provenance": {
+    "source_kind": "constructed_public_fixture",
+    "author": "Codex implementation agent; reviewable technical judgments, not external human annotation",
+    "license": "Newly authored reviewable fixture; no third-party text or external license asserted.",
+    "label_method": "Explicit technical-objective and failure-mechanism judgments authored by a Codex agent before any evaluated encoder run; no evaluated-encoder-derived relevance labels.",
+    "relevance_definition": "Useful prior work on the same technical objective/mechanism, including independent regression tests; lexical overlap, project membership, and historical task continuity alone are insufficient.",
+    "negative_policy": "Every candidate outside the query family is judged irrelevant; within each family all six candidates have an explicit rationale. Both query rewrites share the same objective and judgments.",
+    "split_policy": "Development and locked test share no projects, families or rewrite groups. Each query deliberately retrieves same-family prior candidates in its own split. No supervised training or threshold tuning occurs.",
+    "freeze_policy": "Freeze content SHA-256 in manifest before encoding. Never revise this version based on measured ranks; any later revision must have a new dataset identity.",
+    "continuation_policy": "Related independent work is relevant but has no authoritative task/session link; relevance is never a continuation label.",
+    "limitations": [
+      "Small purposive English coding examples authored by one agent.",
+      "No independent external human adjudication; labels and realism are reviewable assumptions.",
+      "Two queries per family are correlated rewrites, not independent samples.",
+      "Documentation/changed-scope negatives intentionally challenge objective discrimination.",
+      "No real executions, task outcomes, success labels, semantic classification or evolution labels."
+    ]
+  },
+  "candidates": [
+    {
+      "task_id": "cache-invalidation-c1",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "text": "Evict the memoized user record after persisting preference changes so subsequent lookups see current data.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Both concern invalidating stale profile data on writes."
+    },
+    {
+      "task_id": "cache-invalidation-c2",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "text": "Add a regression test that edits a profile and immediately reads it through the caching layer.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Tests the same stale-read defect; separate work is related, without asserting continuation."
+    },
+    {
+      "task_id": "cache-invalidation-c3",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "text": "Make account settings visible immediately by moving the settings shortcut to the main navigation.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "Visibility in navigation is not freshness of stored values."
+    },
+    {
+      "task_id": "cache-invalidation-c4",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "text": "Rotate the service audit-log files and retain seven days of history.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Same constructed project, unrelated log retention objective."
+    },
+    {
+      "task_id": "cache-invalidation-c5",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "text": "Cache rendered profile avatars at the CDN to reduce image download traffic.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Caching another resource for performance does not fix stale preferences."
+    },
+    {
+      "task_id": "cache-invalidation-c6",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "text": "The stale settings defect is already fixed; now translate the settings labels into French.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "Explicitly changed objective is localization, not invalidation."
+    },
+    {
+      "task_id": "timezone-dst-c1",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "text": "Compute calendar recurrences in an IANA zone rather than adding a fixed number of UTC seconds.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Both preserve local recurring time across DST transitions."
+    },
+    {
+      "task_id": "timezone-dst-c2",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "text": "Write spring and autumn transition tests for recurring local-time reminders.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Same recurrence/DST technical problem; related independent test work."
+    },
+    {
+      "task_id": "timezone-dst-c3",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "text": "Keep the daily reminder at nine by changing the notification text to display the numeral 9.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "Display text does not correct scheduling time."
+    },
+    {
+      "task_id": "timezone-dst-c4",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "text": "Add pagination to the scheduler administration list.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Unrelated interface pagination in the same project."
+    },
+    {
+      "task_id": "timezone-dst-c5",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "text": "Display elapsed job duration using monotonic time instead of the system clock.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Duration measurement is not calendar recurrence."
+    },
+    {
+      "task_id": "timezone-dst-c6",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "text": "The daylight saving bug is closed; replace the reminder bell icon.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "Changed objective is an icon asset, not time behavior."
+    },
+    {
+      "task_id": "concurrent-session-update-c1",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "text": "Use compare-and-swap on credential versions so competing token renewals cannot clobber each other.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Same lost-update mechanism for concurrent authentication refresh."
+    },
+    {
+      "task_id": "concurrent-session-update-c2",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "text": "Build an interleaving test where two workers rotate a login token and only the newest credential remains valid.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Exercises the same concurrent renewal problem without declaring task identity."
+    },
+    {
+      "task_id": "concurrent-session-update-c3",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "text": "Document the race condition in session handling as a training example; do not change authentication behavior.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "Writing training documentation is a different objective from repairing the race."
+    },
+    {
+      "task_id": "concurrent-session-update-c4",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "text": "Add a company logo to the login page and align its footer.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Same authentication project, unrelated presentation."
+    },
+    {
+      "task_id": "concurrent-session-update-c5",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "text": "Extend idle session expiry from thirty minutes to two hours.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Session policy does not address concurrent update correctness."
+    },
+    {
+      "task_id": "concurrent-session-update-c6",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "text": "The refresh race is resolved; investigate why password-reset messages are classified as spam.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "Later explicit scope is mail delivery, not the historical race."
+    },
+    {
+      "task_id": "query-plan-index-c1",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "text": "Measure the planner with EXPLAIN and add a compound index on organization_id and created_at for bill retrieval.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Same filtered database search and compound-index access-path problem."
+    },
+    {
+      "task_id": "query-plan-index-c2",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "text": "Add a performance regression fixture for fetching one organization's bills over a narrow date range.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Evaluates the same filtered-query performance objective."
+    },
+    {
+      "task_id": "query-plan-index-c3",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "text": "Speed up invoice search by tenant and date in the product brochure: revise that sentence for marketing.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "Copy editing is not database performance work."
+    },
+    {
+      "task_id": "query-plan-index-c4",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "text": "Change the PDF invoice footer to include the registered office address.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Same ledger project, unrelated document content."
+    },
+    {
+      "task_id": "query-plan-index-c5",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "text": "Correct the rounding of sales tax on invoices with fractional amounts.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Arithmetic correctness is unrelated to the search access path."
+    },
+    {
+      "task_id": "query-plan-index-c6",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "text": "The tenant-date scan is fixed; now migrate the billing dashboard colors to the new theme.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "Theme migration is explicitly the new objective."
+    },
+    {
+      "task_id": "keyboard-dialog-focus-c1",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "text": "Implement a focus trap for the dialog and restore the previously active element when it is dismissed.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Same keyboard focus containment and restoration behavior."
+    },
+    {
+      "task_id": "keyboard-dialog-focus-c2",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "text": "Write browser accessibility checks for tab cycling inside the popup and focus restoration after Escape.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Tests the same modal focus problem as independent work."
+    },
+    {
+      "task_id": "keyboard-dialog-focus-c3",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "text": "Make the modal accessible to keyboard users in the help article by describing the existing Tab behavior.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "Writing help about existing behavior does not repair accessibility."
+    },
+    {
+      "task_id": "keyboard-dialog-focus-c4",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "text": "Compress the dashboard background photographs for mobile bandwidth.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Same console project, unrelated media optimization."
+    },
+    {
+      "task_id": "keyboard-dialog-focus-c5",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "text": "Increase the contrast of modal text while leaving keyboard navigation unchanged.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Related accessibility domain, different success criteria and mechanism."
+    },
+    {
+      "task_id": "keyboard-dialog-focus-c6",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "text": "The focus bug is resolved; replace the modal animation with a shorter fade.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "Animation timing is the new scope, not keyboard correctness."
+    },
+    {
+      "task_id": "native-wheel-packaging-c1",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "text": "Package the compiled .so in the manylinux artifact and verify dynamic linking in an environment without build tools.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Same deployable binary-wheel/native-library inclusion problem."
+    },
+    {
+      "task_id": "native-wheel-packaging-c2",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "text": "Add a clean-container smoke check that installs the wheel and loads the numerical extension without GCC.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Independent validation of the same installation/import requirement."
+    },
+    {
+      "task_id": "native-wheel-packaging-c3",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "text": "Repair the Linux wheel diagram in the tutorial by redrawing the native shared library arrow.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "Diagram editing is not fixing distribution contents."
+    },
+    {
+      "task_id": "native-wheel-packaging-c4",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "text": "Rename the benchmark output columns and sort the report by input size.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Same numerical package, unrelated benchmark presentation."
+    },
+    {
+      "task_id": "native-wheel-packaging-c5",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "text": "Optimize the extension inner loop with SIMD for faster numerical computation.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Runtime speed does not repair missing binary packaging."
+    },
+    {
+      "task_id": "native-wheel-packaging-c6",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "text": "The wheel imports correctly now; investigate inaccurate floating-point sums.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "Numerical precision is a different explicit objective."
+    },
+    {
+      "task_id": "duplicate-payment-delivery-c1",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "text": "Store an idempotency key atomically with the transaction so replayed purchase events have only one financial effect.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Same repeated-delivery/payment-side-effect idempotency requirement."
+    },
+    {
+      "task_id": "duplicate-payment-delivery-c2",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "text": "Test repeated transaction envelopes and a worker restart to prove one debit is recorded.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Independent tests for the same duplicate-charge mechanism."
+    },
+    {
+      "task_id": "duplicate-payment-delivery-c3",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "text": "Explain duplicate charges when the queue delivers a job twice in a customer FAQ; retain current processing behavior.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "FAQ writing has a different objective from changing payment processing."
+    },
+    {
+      "task_id": "duplicate-payment-delivery-c4",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "text": "Add the supported payment-card logos to the checkout page.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Same payments project, unrelated branding."
+    },
+    {
+      "task_id": "duplicate-payment-delivery-c5",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "text": "Order payment jobs by purchase timestamp before assigning workers.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Queue ordering alone does not establish idempotent financial effects."
+    },
+    {
+      "task_id": "duplicate-payment-delivery-c6",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "text": "Duplicate charging is fixed; now reconcile foreign-exchange fees in monthly statements.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "New explicit fee accounting scope is unrelated to duplicate processing."
+    },
+    {
+      "task_id": "archive-path-containment-c1",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "text": "Reject archive entries whose normalized destination leaves the sandbox root before unpacking user content.",
+      "case_kind": "relevant-paraphrase",
+      "judgment_rationale": "Same traversal/containment defect in untrusted archive extraction."
+    },
+    {
+      "task_id": "archive-path-containment-c2",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "text": "Add malicious archive-member tests for parent traversal and absolute paths; verify no file is created beyond the unpack root.",
+      "case_kind": "related-independent",
+      "judgment_rationale": "Independent regression checks for the same containment requirement."
+    },
+    {
+      "task_id": "archive-path-containment-c3",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "text": "Stop uploaded ZIP archives from writing outside the extraction directory in a security tutorial: proofread that heading.",
+      "case_kind": "wording-trap",
+      "judgment_rationale": "Proofreading documentation does not harden extraction."
+    },
+    {
+      "task_id": "archive-path-containment-c4",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "text": "Show import progress as a percentage in the status bar.",
+      "case_kind": "same-project",
+      "judgment_rationale": "Same importer project, unrelated progress display."
+    },
+    {
+      "task_id": "archive-path-containment-c5",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "text": "Limit uncompressed archive bytes to prevent decompression bombs.",
+      "case_kind": "domain-neighbor",
+      "judgment_rationale": "Resource exhaustion is a different archive threat and success criterion."
+    },
+    {
+      "task_id": "archive-path-containment-c6",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "text": "Traversal is fixed; now support optional image thumbnails inside imported bundles.",
+      "case_kind": "scope-diverged",
+      "judgment_rationale": "Thumbnail support is the later explicit scope."
+    }
+  ],
+  "queries": [
+    {
+      "task_id": "cache-invalidation-q1",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "rewrite_group": "cache-invalidation",
+      "text": "Make updated account settings visible immediately instead of returning the cached old values.",
+      "relevant_task_ids": [
+        "cache-invalidation-c1",
+        "cache-invalidation-c2"
+      ]
+    },
+    {
+      "task_id": "cache-invalidation-q2",
+      "split": "development",
+      "family": "cache-invalidation",
+      "project": "atlas-cache",
+      "rewrite_group": "cache-invalidation",
+      "text": "After a profile write, later reads still show yesterday's preferences; remove the stale entry.",
+      "relevant_task_ids": [
+        "cache-invalidation-c1",
+        "cache-invalidation-c2"
+      ]
+    },
+    {
+      "task_id": "timezone-dst-q1",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "rewrite_group": "timezone-dst",
+      "text": "A daily reminder jumps by an hour after daylight saving time; keep it at nine in the user's timezone.",
+      "relevant_task_ids": [
+        "timezone-dst-c1",
+        "timezone-dst-c2"
+      ]
+    },
+    {
+      "task_id": "timezone-dst-q2",
+      "split": "development",
+      "family": "timezone-dst",
+      "project": "meridian-scheduler",
+      "rewrite_group": "timezone-dst",
+      "text": "Persist a recurring appointment as a local wall-clock time so the spring clock change does not move it.",
+      "relevant_task_ids": [
+        "timezone-dst-c1",
+        "timezone-dst-c2"
+      ]
+    },
+    {
+      "task_id": "concurrent-session-update-q1",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "rewrite_group": "concurrent-session-update",
+      "text": "Fix a race condition in session handling when two refresh requests update authentication state at once.",
+      "relevant_task_ids": [
+        "concurrent-session-update-c1",
+        "concurrent-session-update-c2"
+      ]
+    },
+    {
+      "task_id": "concurrent-session-update-q2",
+      "split": "test",
+      "family": "concurrent-session-update",
+      "project": "cedar-auth",
+      "rewrite_group": "concurrent-session-update",
+      "text": "Simultaneous renewals overwrite a login record with stale credentials; prevent the lost update.",
+      "relevant_task_ids": [
+        "concurrent-session-update-c1",
+        "concurrent-session-update-c2"
+      ]
+    },
+    {
+      "task_id": "query-plan-index-q1",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "rewrite_group": "query-plan-index",
+      "text": "Speed up the invoice search by tenant and date; the database scans every row despite a small result set.",
+      "relevant_task_ids": [
+        "query-plan-index-c1",
+        "query-plan-index-c2"
+      ]
+    },
+    {
+      "task_id": "query-plan-index-q2",
+      "split": "test",
+      "family": "query-plan-index",
+      "project": "birch-ledger",
+      "rewrite_group": "query-plan-index",
+      "text": "The billing lookup walks the whole relation to filter one customer organization and a time interval; inspect the access path.",
+      "relevant_task_ids": [
+        "query-plan-index-c1",
+        "query-plan-index-c2"
+      ]
+    },
+    {
+      "task_id": "keyboard-dialog-focus-q1",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "rewrite_group": "keyboard-dialog-focus",
+      "text": "Make the modal accessible to keyboard users: keep Tab inside it and return focus to the opener on close.",
+      "relevant_task_ids": [
+        "keyboard-dialog-focus-c1",
+        "keyboard-dialog-focus-c2"
+      ]
+    },
+    {
+      "task_id": "keyboard-dialog-focus-q2",
+      "split": "test",
+      "family": "keyboard-dialog-focus",
+      "project": "maple-console",
+      "rewrite_group": "keyboard-dialog-focus",
+      "text": "People navigating without a mouse can tab behind the overlay and lose their place after dismissing it.",
+      "relevant_task_ids": [
+        "keyboard-dialog-focus-c1",
+        "keyboard-dialog-focus-c2"
+      ]
+    },
+    {
+      "task_id": "native-wheel-packaging-q1",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "rewrite_group": "native-wheel-packaging",
+      "text": "Repair the Linux wheel so users can import the package without a compiler; include the native shared library.",
+      "relevant_task_ids": [
+        "native-wheel-packaging-c1",
+        "native-wheel-packaging-c2"
+      ]
+    },
+    {
+      "task_id": "native-wheel-packaging-q2",
+      "split": "test",
+      "family": "native-wheel-packaging",
+      "project": "elm-numerics",
+      "rewrite_group": "native-wheel-packaging",
+      "text": "Our binary distribution installs but fails to find its extension on a clean machine; fix the bundled artifacts.",
+      "relevant_task_ids": [
+        "native-wheel-packaging-c1",
+        "native-wheel-packaging-c2"
+      ]
+    },
+    {
+      "task_id": "duplicate-payment-delivery-q1",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "rewrite_group": "duplicate-payment-delivery",
+      "text": "Prevent duplicate charges when the queue delivers the same payment job twice after a retry.",
+      "relevant_task_ids": [
+        "duplicate-payment-delivery-c1",
+        "duplicate-payment-delivery-c2"
+      ]
+    },
+    {
+      "task_id": "duplicate-payment-delivery-q2",
+      "split": "test",
+      "family": "duplicate-payment-delivery",
+      "project": "willow-payments",
+      "rewrite_group": "duplicate-payment-delivery",
+      "text": "Replayed checkout messages debit the buyer again; make processing safe under at-least-once delivery.",
+      "relevant_task_ids": [
+        "duplicate-payment-delivery-c1",
+        "duplicate-payment-delivery-c2"
+      ]
+    },
+    {
+      "task_id": "archive-path-containment-q1",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "rewrite_group": "archive-path-containment",
+      "text": "Stop uploaded ZIP archives from writing outside the extraction directory through ../ filenames.",
+      "relevant_task_ids": [
+        "archive-path-containment-c1",
+        "archive-path-containment-c2"
+      ]
+    },
+    {
+      "task_id": "archive-path-containment-q2",
+      "split": "test",
+      "family": "archive-path-containment",
+      "project": "spruce-importer",
+      "rewrite_group": "archive-path-containment",
+      "text": "An imported bundle can escape the staging folder using parent-relative member paths; enforce containment.",
+      "relevant_task_ids": [
+        "archive-path-containment-c1",
+        "archive-path-containment-c2"
+      ]
+    }
+  ]
+}

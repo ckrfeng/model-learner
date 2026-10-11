@@ -1,8 +1,9 @@
 # Model Learner status
 
-Current work: requested Workstreams A/B — fixed offline isolation experiment and
-benchmark evidence pipeline (validated for the synthetic offline scope;
-real-agent execution remains disabled; stopped after independent review).
+Current work: requested Workstreams A/B — secure real-execution boundary components
+and optional CPU task representation prototype (offline scope validated and
+independently reviewed; real-agent execution disabled; pretrained CPU integration
+pending; stopped after these two workstreams).
 Last user-confirmed work: historical assessment resolution and drift investigation
 complete.
 Updated: 2026-10-11
@@ -1005,12 +1006,161 @@ cloud synchronization, next milestone, commit, push, merge, publication, global
 hook or system security change was performed. Stop after the requested offline
 experiment and evidence pipeline.
 
+## Secure execution boundary and CPU task representation — 2026-10-11
+
+Read AGENTS.md, the master plan, status, and current benchmark/execution-state
+modules. Two subagents had separate implementation ownership: A owns new
+`benchmark/secure.py`, its security tests and `docs/SECURE_BENCHMARK_BOUNDARY.md`;
+B owns new `representation/`, its evaluation tests/public fixtures and
+`docs/CPU_TASK_REPRESENTATION.md`. The coordinator owns representation CLI commands,
+CLI tests, README and this status. Each subagent independently reviews the other's
+work read-only. The existing offline isolation and evidence-export workstreams
+remain complete. Domain contracts, migrations, probabilistic learner, master plan,
+dependencies and lockfile are unchanged.
+
+### A — controller components delivered; real execution blocked
+
+- Added a bounded, bytes-only single-file archive parser and immutable candidate
+  object. It accepts only regular `solution.py` bytes, rejects traversal, links,
+  device/FIFO/sparse/metadata entries, excess size, duplicate entries and hidden
+  trailing data, and never imports or executes candidate source.
+- Exclusive freezing pins directory descriptors, refuses symlink parents and
+  existing outputs, and validation rechecks bounded current regular-file bytes,
+  stable identity and metadata. This is controller-side freezing after transport;
+  it does **not** prove hostile writers stopped before transport. Operator-owned
+  control directories must remain inaccessible to workers.
+- Public fixture envelopes and primitive function requests contain only public
+  task inputs. Expected answers, case identities, control/report paths and signing
+  material remain controller-side. Responses have size/type/field/request-ID
+  checks. Wrong numeric answers fail comparison; missing/malformed evidence emits
+  no validation receipt.
+- Per-run ephemeral HMAC receipts bind benchmark/task/run, exact fixture and
+  configuration snapshot, nonce, candidate/transport hashes and the controller's
+  complete ordered comparison transcript. Tamper, foreign controller/run, wrong
+  purpose, response replay, duplicate import and repeat finalization are rejected.
+  Receipt authentication is in-process only; keys are not persisted or exported.
+- Every receipt is `offline_synthetic_controller_only` with
+  `real_execution_ready=false`, `runtime_freeze_verified=false` or
+  `candidate_execution_attested=false`. They cannot create verified observations
+  or satisfy the unchanged unconditional real-finalization gate.
+- Actual integration launches only fixed harmless Python workers with an empty
+  environment. Public synthetic credential environment canaries are absent; six
+  clamp comparisons pass against an opaque non-Python candidate marker, and
+  replay to another request is refused. Hostile tests supply only bytes/files;
+  no hostile candidate code is executed on the host.
+
+No acceptable exact-agent credential relay or hostile runtime artifact transport
+was established. A separate credential-free candidate execution boundary also
+remains unimplemented. The fixed Docker probe cannot attest these mechanisms.
+One safe real coding-agent benchmark execution therefore remains **blocked**;
+no real/paid agent was launched and containment requirements were preserved.
+
+### B — optional local CPU prototype
+
+- New independent representation inputs carry a public/sanitized initial task
+  description, SHA-256, availability time, task identity and dependence family.
+  The prototype collects no raw transcripts, writes no ledger rows and changes
+  neither the probabilistic learner nor agent behavior.
+- A uses existing task-group/exact-configuration features; B adds deterministic
+  checkpoint metrics, failures, repeated failures and unknown/missing fractions;
+  C adds an optional frozen pretrained CPU representation. Final tests, terminal
+  states, final resources, outcomes and arbitrary metadata never enter features.
+- Frozen chronological cohorts retain exact source/dataset/target/budget selection,
+  visible labels and input availability. Task, family and exact description reuse
+  cannot cross training/scoring partitions. Non-simulated checkpoint facts require
+  retained bounded events; future records, unknown labels and insufficient cohorts
+  remain explicit exclusions. Training-only feature vocabulary/scaling and a fixed
+  logistic reference use no held-out fitting or fine-tuning.
+- A/B/C share scored units. Reports include Brier scores, calibration bins,
+  family-cluster paired bootstrap intervals, task/family counts, exclusions,
+  reproducibility bindings and component timing/memory measurements. Floors stay
+  30 training labels, 20 scored labels, five families per partition and both
+  training classes. These floors do not guarantee precision.
+- Added `sim representation-fixture` and `learn representation-eval`. Semantic
+  loading requires an explicit existing three-file MiniLM safetensors bundle,
+  expected bundle hash and full revision identity. Loading uses a bounded private
+  snapshot, explicit architecture/tokenizer and CPU inference only; no download,
+  remote inference, automatic model selection or software installation occurs.
+  Unavailable semantic loading preserves A/B results and null C metrics.
+- The current repository environment lacks `torch`, `transformers` and
+  `safetensors`, and no local model was supplied. The optional pretrained adapter
+  is **integration-pending**. C scores, actual model load/inference overhead and
+  actual semantic memory remain unavailable; no semantic improvement is claimed.
+
+Coordinator controlled evaluation: seeds 0–4, 150 simulated tasks per seed,
+60% chronological training prefix, fixed +30-second checkpoint, 300 paired family
+bootstrap draws. Training labels: **80, 89, 88, 87, 86**; scored labels:
+**58, 58, 58, 57, 57**. Every partition has six families. Equal-seed means:
+
+| Controlled scenario | A Brier | B Brier | A minus B | C |
+| --- | --- | --- | --- | --- |
+| Deliberate state signal | 0.256719 | 0.122489 | 0.134229 | unavailable |
+| Null state signal | 0.254266 | 0.258117 | -0.003851 | unavailable |
+
+All five state-signal conditional intervals were positive. In the null scenario,
+two intervals excluded zero in opposite directions; six clusters provide limited
+uncertainty evidence. These constructed held-out comparisons are algorithm
+rehearsal only. They establish neither real predictive improvement nor benefit
+from semantic embeddings.
+
+Actual installed CLI rehearsal in a fresh process used seed 1 / 150 public
+synthetic tasks: 89 training and 58 scored labels, A/B evaluated and C
+`semantic_unavailable`. A feature extraction averaged **0.286 microseconds** and
+reference prediction **1.36 microseconds** per checkpoint; B measured
+**2.52 / 2.57 microseconds**, respectively. Reference fits took **0.0266 / 0.0682
+seconds**. The feature Python-object census was **64,156 / 425,482 bytes** for
+147 rows; this excludes other objects and runtime memory. Whole-process lifetime
+peak RSS after the run was **52,822,016 bytes**, not incremental component RAM.
+These are one wall-clock sample, excluding input parsing/cohort validation, and
+are not stable performance guarantees. The semantic FP32 parameter estimate is
+**90,800,000 bytes** (rounded 22.7M parameters), excluding runtime, activations
+and feature objects; actual semantic memory/inference measurements remain null.
+
+### Checks and independent review
+
+Existing Python 3.12.14 / repository-local uv environment; commands use
+`UV_CACHE_DIR="$PWD/.uv-cache"` and `--no-sync` to prevent dependency installation.
+No global configuration, software installation, paid execution or subsequent
+milestone was performed.
+
+| Check | Actual result |
+| --- | --- |
+| Pre-change `uv run --no-sync pytest` | **503 passed, 1 opt-in runtime test skipped in 34.16s**. |
+| Pre-change Ruff lint/format | Passed; **111 files already formatted**. |
+| A final owned unit/integration tests | **40 passed in 0.42s**; owned lint/format passed. |
+| Coordinator representation CLI tests | **4 passed in 0.67s**; includes unavailable model and sanitized invalid input. |
+| B final owned unit/integration tests | **19 passed in 3.15s**; owned lint/format passed. |
+| First combined coordinator suite | **564 passed, 1 opt-in runtime test skipped in 32.89s**. |
+| Combined Ruff lint/format and whitespace | Passed; **123 files already formatted**. |
+| Actual installed representation CLI rehearsal | Exit **0**; 150 public synthetic inputs, A/B evaluated, C unavailable; measured overhead above. |
+| Independent A security review/checks by B | **40 passed in 0.36s**; no actionable defect in synthetic scope; real credential/runtime blockers confirmed. |
+| Final combined coordinator `uv run --no-sync pytest` | **566 passed, 1 opt-in runtime test skipped in 34.05s**. |
+| Final coordinator Ruff lint/format and whitespace | Passed; **125 files already formatted**; `git diff --check` passed. |
+| Independent final B evaluation and parent CLI checks by A | **23 passed in 3.74s**; owned lint/format and whitespace passed. |
+| Independent numerical reproduction by A | All **10 stored reports** matched exactly for cohort digests, counts, metrics/calibration/intervals, comparisons and methods; C remained unavailable. |
+
+Independent security and evaluation reviews found no remaining actionable defect
+within the delivered offline scope. Review prompted fixes for bounded hostile
+integer/error responses, archive metadata prechecks, frozen-file identity/size
+checks, exact configuration snapshot identity, task versus family denominators,
+incomplete pretrained weight rejection and native future-ingestion/fact tests.
+Actual runtime/credential mechanisms and pretrained model compatibility remain
+unvalidated blockers, not passing claims. The pre-existing `.DS_Store` modification
+was preserved. No AI Governor, automatic switching, fine-tuning, software install,
+paid agent, commit, push, merge or publication was performed. Stop after these
+two workstreams; await user direction.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
   agent backend, credential relay, hostile artifact freezing/extraction, separate
-  candidate-only acceptance transport and run-bound validation receipts. The
-  validated fixed offline shell probe does not attest these real-agent boundaries.
+  candidate-only acceptance transport and exact-runtime run-bound validation
+  receipts. The validated fixed offline shell probe and new synthetic controller
+  receipts do not attest these real-agent boundaries.
+- The CPU semantic adapter remains integration-pending: no approved existing
+  pretrained bundle or compatible local torch/transformers/safetensors runtime
+  was available. A/B synthetic evaluation is validated; C scores and actual
+  semantic overhead/memory remain unavailable. No installation was attempted.
 - The pilot is prepared for operator review and controlled fixture rehearsal.
   Manually authorizing payment does not resolve containment or predictive export
   limitations; no real experiment has been authorized or run here.
@@ -1062,9 +1212,12 @@ experiment and evidence pipeline.
 ## Next recommended increment (not started)
 
 - The fixed offline isolation experiment and benchmark evidence pipeline are
-  delivered; await review and new user scope. A later real pilot still requires
-  the remaining agent/credential/artifact/independent-acceptance boundary plus
-  prospective checkpoint collection. No next milestone is authorized.
+  delivered. The requested secure controller components and CPU representation
+  prototype are also delivered for their offline scope; await new user direction.
+  A real pilot still requires the exact agent/credential/artifact/independent
+  acceptance boundary plus prospective checkpoint collection. The optional
+  pretrained CPU adapter still needs actual approved local model/runtime
+  integration. No installation, real run or next milestone is authorized here.
 - The requested coding-verification, execution-analysis, coding-task evaluation
   and task-state evaluation workstreams are delivered and checked. No next
   milestone is authorized. Real benchmark executions remain operator-controlled

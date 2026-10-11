@@ -1,0 +1,3142 @@
+{
+  "scenarios": {
+    "null_signal": {
+      "mean_A_brier": 0.25426597735247236,
+      "mean_A_minus_B": -0.0038514499879298133,
+      "mean_B_brier": 0.2581174273404022,
+      "reports": [
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "fd56431b040baa1a730d1258a2b2a7a28ce0d84cae19385d59a183cb41bfdfd0",
+          "comparisons": [
+            {
+              "brier_improvement": -0.019077331614903933,
+              "candidate": "B_execution_state",
+              "interpretation": "no resolved held-out improvement",
+              "interval": {
+                "lower": -0.0315543497909339,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": -0.008679023506556662
+              },
+              "reference": "A_existing",
+              "scored_count": 58,
+              "task_count": 58
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 58,
+              "task_count": 58
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-0",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 2,
+            "training_missing_or_nonbinary_label": 10
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 0,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 4.662497667595744e-05,
+                "feature_python_object_bytes": 60304,
+                "reference_fit_seconds": 0.023669374990276992,
+                "reference_scoring_seconds": 6.366701563820243e-05,
+                "reference_seconds_per_checkpoint": 1.097707166175904e-06,
+                "seconds_per_checkpoint": 3.3786214982577856e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.00038404198130592704,
+                "feature_python_object_bytes": 399508,
+                "reference_fit_seconds": 0.06165791698731482,
+                "reference_scoring_seconds": 0.0001650839694775641,
+                "reference_seconds_per_checkpoint": 2.846275335820071e-06,
+                "seconds_per_checkpoint": 2.782912908013964e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49119232,
+            "process_peak_rss_bytes_before_features": 49119232,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 58,
+          "scored_family_count": 6,
+          "scored_task_count": 58,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 80,
+          "training_family_count": 6,
+          "training_task_count": 80,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24837186446592316,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.28075903346125003
+              },
+              "brier_score": 0.26501600266474973,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 58,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4970645903362298,
+                  "observed_success_rate": 0.5862068965517241,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 80
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2650886636076423,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.30535055195947725
+              },
+              "brier_score": 0.28409333427965366,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 9,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3469051081988648,
+                  "observed_success_rate": 0.8888888888888888,
+                  "upper": 0.4
+                },
+                {
+                  "count": 37,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5091507727604575,
+                  "observed_success_rate": 0.5405405405405406,
+                  "upper": 0.6
+                },
+                {
+                  "count": 12,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6442069386234552,
+                  "observed_success_rate": 0.5,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 80
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 58,
+              "status": "semantic_unavailable",
+              "task_count": 58,
+              "training_count": 80
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "bc9ed10cda6ba2226a8c212b5d22be9a1917fc45908e8f687925eaafdeeb939c",
+          "comparisons": [
+            {
+              "brier_improvement": 0.017174944821857257,
+              "candidate": "B_execution_state",
+              "interpretation": "conditional held-out evidence on this dataset",
+              "interval": {
+                "lower": 0.009377815347844464,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.025410858790769687
+              },
+              "reference": "A_existing",
+              "scored_count": 58,
+              "task_count": 58
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 58,
+              "task_count": 58
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-1",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 2,
+            "training_missing_or_nonbinary_label": 1
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 1,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 4.5666994992643595e-05,
+                "feature_python_object_bytes": 64156,
+                "reference_fit_seconds": 0.025806666002608836,
+                "reference_scoring_seconds": 5.820899968966842e-05,
+                "reference_seconds_per_checkpoint": 1.0036034429253174e-06,
+                "seconds_per_checkpoint": 3.1065982988192924e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.0004103340324945748,
+                "feature_python_object_bytes": 425482,
+                "reference_fit_seconds": 0.06979591702111065,
+                "reference_scoring_seconds": 0.0001948749995790422,
+                "reference_seconds_per_checkpoint": 3.359913785845555e-06,
+                "seconds_per_checkpoint": 2.79138797615357e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49119232,
+            "process_peak_rss_bytes_before_features": 49119232,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 58,
+          "scored_family_count": 6,
+          "scored_task_count": 58,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 89,
+          "training_family_count": 6,
+          "training_task_count": 89,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2583076890599533,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.2700674243842296
+              },
+              "brier_score": 0.26406709173051596,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 58,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4647422343543652,
+                  "observed_success_rate": 0.46551724137931033,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 89
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23328821939642647,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.25948225430024235
+              },
+              "brier_score": 0.24689214690865868,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 7,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3564051648206949,
+                  "observed_success_rate": 0.2857142857142857,
+                  "upper": 0.4
+                },
+                {
+                  "count": 51,
+                  "lower": 0.4,
+                  "mean_prediction": 0.47059459829750766,
+                  "observed_success_rate": 0.49019607843137253,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 89
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 58,
+              "status": "semantic_unavailable",
+              "task_count": 58,
+              "training_count": 89
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "8c793c406acdea1c262f4aaa6f47ac99652e2f058dadebc0fc6d665413a166b8",
+          "comparisons": [
+            {
+              "brier_improvement": -0.016780167937112803,
+              "candidate": "B_execution_state",
+              "interpretation": "no resolved held-out improvement",
+              "interval": {
+                "lower": -0.034651040285685455,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.004722353756316697
+              },
+              "reference": "A_existing",
+              "scored_count": 58,
+              "task_count": 58
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 58,
+              "task_count": 58
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-2",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 2,
+            "training_missing_or_nonbinary_label": 2
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 2,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 5.3291034419089556e-05,
+                "feature_python_object_bytes": 63728,
+                "reference_fit_seconds": 0.026627957995515317,
+                "reference_scoring_seconds": 6.466696504503489e-05,
+                "reference_seconds_per_checkpoint": 1.1149476731902567e-06,
+                "seconds_per_checkpoint": 3.650070850622572e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.0004147079889662564,
+                "feature_python_object_bytes": 422596,
+                "reference_fit_seconds": 0.0698548749787733,
+                "reference_scoring_seconds": 0.00016425002831965685,
+                "reference_seconds_per_checkpoint": 2.8318970399940837e-06,
+                "seconds_per_checkpoint": 2.8404656778510712e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49119232,
+            "process_peak_rss_bytes_before_features": 49119232,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 58,
+          "scored_family_count": 6,
+          "scored_task_count": 58,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 88,
+          "training_family_count": 6,
+          "training_task_count": 88,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2376544994880034,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.26772369058173945
+              },
+              "brier_score": 0.2532757035294643,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 58,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5091825445322464,
+                  "observed_success_rate": 0.46551724137931033,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 88
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2397152271221149,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.3001741077765732
+              },
+              "brier_score": 0.27005587146657717,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 10,
+                  "lower": 0.2,
+                  "mean_prediction": 0.34515481178342755,
+                  "observed_success_rate": 0.7,
+                  "upper": 0.4
+                },
+                {
+                  "count": 36,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5015664481372462,
+                  "observed_success_rate": 0.4722222222222222,
+                  "upper": 0.6
+                },
+                {
+                  "count": 12,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6504782109586029,
+                  "observed_success_rate": 0.25,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 88
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 58,
+              "status": "semantic_unavailable",
+              "task_count": 58,
+              "training_count": 88
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "dd7652fbb8b8ff44f66dabd04b699694ef3c86e08a105cfd9f71b60b9d0e7611",
+          "comparisons": [
+            {
+              "brier_improvement": -0.006435511713694982,
+              "candidate": "B_execution_state",
+              "interpretation": "no resolved held-out improvement",
+              "interval": {
+                "lower": -0.01243065321005308,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.0007408404719585075
+              },
+              "reference": "A_existing",
+              "scored_count": 57,
+              "task_count": 57
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 57,
+              "task_count": 57
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-3",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 3,
+            "training_missing_or_nonbinary_label": 3
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 3,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 4.5124965254217386e-05,
+                "feature_python_object_bytes": 62872,
+                "reference_fit_seconds": 0.026508917042519897,
+                "reference_scoring_seconds": 7.154099876061082e-05,
+                "reference_seconds_per_checkpoint": 1.2551052414142249e-06,
+                "seconds_per_checkpoint": 3.133678142653985e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.00040154095040634274,
+                "feature_python_object_bytes": 416824,
+                "reference_fit_seconds": 0.06773837498622015,
+                "reference_scoring_seconds": 0.00017079198732972145,
+                "reference_seconds_per_checkpoint": 2.996350654907394e-06,
+                "seconds_per_checkpoint": 2.788478822266269e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49119232,
+            "process_peak_rss_bytes_before_features": 49119232,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 57,
+          "scored_family_count": 6,
+          "scored_task_count": 57,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 87,
+          "training_family_count": 6,
+          "training_task_count": 87,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.23706512383668576,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.26208839777238063
+              },
+              "brier_score": 0.24878267654034372,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 57,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5443264274717197,
+                  "observed_success_rate": 0.543859649122807,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 87
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2491746589109874,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.26332692802809743
+              },
+              "brier_score": 0.25521818825403875,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 53,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5359041044628887,
+                  "observed_success_rate": 0.5471698113207547,
+                  "upper": 0.6
+                },
+                {
+                  "count": 4,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6251725791863724,
+                  "observed_success_rate": 0.5,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 87
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 57,
+              "status": "semantic_unavailable",
+              "task_count": 57,
+              "training_count": 87
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "44ef8bc0e9f48fd1b9668fbcbd7714b1dec3ecfb603f5affdc1492747afc9ef3",
+          "comparisons": [
+            {
+              "brier_improvement": 0.005860816504205394,
+              "candidate": "B_execution_state",
+              "interpretation": "no resolved held-out improvement",
+              "interval": {
+                "lower": -0.00616325735781469,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.01689649520980545
+              },
+              "reference": "A_existing",
+              "scored_count": 57,
+              "task_count": 57
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 57,
+              "task_count": 57
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-4",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 3,
+            "training_missing_or_nonbinary_label": 4
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 4,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 5.9166981372982264e-05,
+                "feature_python_object_bytes": 62444,
+                "reference_fit_seconds": 0.026652666041627526,
+                "reference_scoring_seconds": 6.620900239795446e-05,
+                "reference_seconds_per_checkpoint": 1.1615614455781485e-06,
+                "seconds_per_checkpoint": 4.1375511449637944e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.00041612499626353383,
+                "feature_python_object_bytes": 413938,
+                "reference_fit_seconds": 0.0662181670195423,
+                "reference_scoring_seconds": 0.0001652499777264893,
+                "reference_seconds_per_checkpoint": 2.8991224162541983e-06,
+                "seconds_per_checkpoint": 2.909965008835901e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49119232,
+            "process_peak_rss_bytes_before_features": 49119232,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 57,
+          "scored_family_count": 6,
+          "scored_task_count": 57,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 86,
+          "training_family_count": 6,
+          "training_task_count": 86,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2287931983541285,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.25237761814180304
+              },
+              "brier_score": 0.24018841229728827,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 57,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4581826625484015,
+                  "observed_success_rate": 0.43859649122807015,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 86
+            },
+            {
+              "brier_interval": {
+                "lower": 0.22754658814929424,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.24137497874057715
+              },
+              "brier_score": 0.23432759579308288,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 22,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3650312102448425,
+                  "observed_success_rate": 0.3181818181818182,
+                  "upper": 0.4
+                },
+                {
+                  "count": 31,
+                  "lower": 0.4,
+                  "mean_prediction": 0.491098265925941,
+                  "observed_success_rate": 0.5161290322580645,
+                  "upper": 0.6
+                },
+                {
+                  "count": 4,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6350504636078939,
+                  "observed_success_rate": 0.5,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 86
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 57,
+              "status": "semantic_unavailable",
+              "task_count": 57,
+              "training_count": 86
+            }
+          ],
+          "version": "task-representation-report/v1"
+        }
+      ]
+    },
+    "state_signal": {
+      "mean_A_brier": 0.2567185620082459,
+      "mean_A_minus_B": 0.1342292115929101,
+      "mean_B_brier": 0.12248935041533579,
+      "reports": [
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "b198775f38249d26f3c255ffeb8fd49da648bba6af54b9cb95eae74a6e093acc",
+          "comparisons": [
+            {
+              "brier_improvement": 0.14155717116877445,
+              "candidate": "B_execution_state",
+              "interpretation": "conditional held-out evidence on this dataset",
+              "interval": {
+                "lower": 0.09889768371551061,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.16404385564813453
+              },
+              "reference": "A_existing",
+              "scored_count": 58,
+              "task_count": 58
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 58,
+              "task_count": 58
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-0",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 2,
+            "training_missing_or_nonbinary_label": 10
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 0,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 4.800001624971628e-05,
+                "feature_python_object_bytes": 60304,
+                "reference_fit_seconds": 0.02455887501128018,
+                "reference_scoring_seconds": 6.833398947492242e-05,
+                "reference_seconds_per_checkpoint": 1.1781722323262486e-06,
+                "seconds_per_checkpoint": 3.47826204708089e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.00039537495467811823,
+                "feature_python_object_bytes": 399508,
+                "reference_fit_seconds": 0.06429424998350441,
+                "reference_scoring_seconds": 0.00015395897207781672,
+                "reference_seconds_per_checkpoint": 2.654465035824426e-06,
+                "seconds_per_checkpoint": 2.8650359034646247e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 47857664,
+            "process_peak_rss_bytes_before_features": 43696128,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 58,
+          "scored_family_count": 6,
+          "scored_task_count": 58,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 80,
+          "training_family_count": 6,
+          "training_task_count": 80,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.21104243958623708,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.2811291898232326
+              },
+              "brier_score": 0.2432756877424719,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 14,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5994351696121891,
+                  "observed_success_rate": 0.7142857142857143,
+                  "upper": 0.6
+                },
+                {
+                  "count": 44,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6151816599450021,
+                  "observed_success_rate": 0.5454545454545454,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 80
+            },
+            {
+              "brier_interval": {
+                "lower": 0.05672704400443123,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.14560795890470246
+              },
+              "brier_score": 0.10171851657369745,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 28,
+                  "lower": 0.2,
+                  "mean_prediction": 0.313508399010957,
+                  "observed_success_rate": 0.17857142857142858,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 30,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8985261074718346,
+                  "observed_success_rate": 0.9666666666666667,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 80
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 58,
+              "status": "semantic_unavailable",
+              "task_count": 58,
+              "training_count": 80
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "1627258cf9568c5e5d36f04bb38636d1cef6238b4ce774f6583542d1ff6e8059",
+          "comparisons": [
+            {
+              "brier_improvement": 0.19107229769834472,
+              "candidate": "B_execution_state",
+              "interpretation": "conditional held-out evidence on this dataset",
+              "interval": {
+                "lower": 0.16976415202551043,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.21299355556668215
+              },
+              "reference": "A_existing",
+              "scored_count": 58,
+              "task_count": 58
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 58,
+              "task_count": 58
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-1",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 2,
+            "training_missing_or_nonbinary_label": 1
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 1,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 4.9708993174135685e-05,
+                "feature_python_object_bytes": 64156,
+                "reference_fit_seconds": 0.03491391701390967,
+                "reference_scoring_seconds": 7.629196625202894e-05,
+                "reference_seconds_per_checkpoint": 1.3153787284832576e-06,
+                "seconds_per_checkpoint": 3.381564161505829e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.0004046250251121819,
+                "feature_python_object_bytes": 425482,
+                "reference_fit_seconds": 0.07060783397173509,
+                "reference_scoring_seconds": 0.00016504095401614904,
+                "reference_seconds_per_checkpoint": 2.845533689933604e-06,
+                "seconds_per_checkpoint": 2.7525511912393328e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 48611328,
+            "process_peak_rss_bytes_before_features": 47906816,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 58,
+          "scored_family_count": 6,
+          "scored_task_count": 58,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 89,
+          "training_family_count": 6,
+          "training_task_count": 89,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24473367525658027,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.2527630877352424
+              },
+              "brier_score": 0.24874438017323747,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 58,
+                  "lower": 0.4,
+                  "mean_prediction": 0.506104390837605,
+                  "observed_success_rate": 0.5517241379310345,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 89
+            },
+            {
+              "brier_interval": {
+                "lower": 0.03428978582516202,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.08254737687154273
+              },
+              "brier_score": 0.057672082474892736,
+              "calibration": [
+                {
+                  "count": 27,
+                  "lower": 0.0,
+                  "mean_prediction": 0.14511693780251622,
+                  "observed_success_rate": 0.07407407407407407,
+                  "upper": 0.2
+                },
+                {
+                  "count": 1,
+                  "lower": 0.2,
+                  "mean_prediction": 0.2059641259364981,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 13,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7704199106868607,
+                  "observed_success_rate": 1.0,
+                  "upper": 0.8
+                },
+                {
+                  "count": 17,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8168765615156043,
+                  "observed_success_rate": 1.0,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 89
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 58,
+              "status": "semantic_unavailable",
+              "task_count": 58,
+              "training_count": 89
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "ba95418a9aeb2822bcc5fe361f195b217129ae71014ec8c1f97344440f0d20ac",
+          "comparisons": [
+            {
+              "brier_improvement": 0.13623597056575834,
+              "candidate": "B_execution_state",
+              "interpretation": "conditional held-out evidence on this dataset",
+              "interval": {
+                "lower": 0.08330312878115245,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.17419575297902284
+              },
+              "reference": "A_existing",
+              "scored_count": 58,
+              "task_count": 58
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 58,
+              "task_count": 58
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-2",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 2,
+            "training_missing_or_nonbinary_label": 2
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 2,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 5.1166978664696217e-05,
+                "feature_python_object_bytes": 63728,
+                "reference_fit_seconds": 0.026669666985981166,
+                "reference_scoring_seconds": 6.141699850559235e-05,
+                "reference_seconds_per_checkpoint": 1.058913767337799e-06,
+                "seconds_per_checkpoint": 3.5045875797737133e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.00040120899211615324,
+                "feature_python_object_bytes": 422596,
+                "reference_fit_seconds": 0.07019191596191376,
+                "reference_scoring_seconds": 0.00015341700054705143,
+                "reference_seconds_per_checkpoint": 2.6451206990870937e-06,
+                "seconds_per_checkpoint": 2.748006795316118e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49086464,
+            "process_peak_rss_bytes_before_features": 48611328,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 58,
+          "scored_family_count": 6,
+          "scored_task_count": 58,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 88,
+          "training_family_count": 6,
+          "training_task_count": 88,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2528394764817971,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.26449710053247044
+              },
+              "brier_score": 0.25874536069755116,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 58,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5297345013694678,
+                  "observed_success_rate": 0.5,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 88
+            },
+            {
+              "brier_interval": {
+                "lower": 0.08134182851258119,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.17621703126290728
+              },
+              "brier_score": 0.12250939013179281,
+              "calibration": [
+                {
+                  "count": 2,
+                  "lower": 0.0,
+                  "mean_prediction": 0.1715783895672869,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.2
+                },
+                {
+                  "count": 23,
+                  "lower": 0.2,
+                  "mean_prediction": 0.26333493502242744,
+                  "observed_success_rate": 0.08695652173913043,
+                  "upper": 0.4
+                },
+                {
+                  "count": 1,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4240171235835173,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.6
+                },
+                {
+                  "count": 27,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7586710996911373,
+                  "observed_success_rate": 0.8148148148148148,
+                  "upper": 0.8
+                },
+                {
+                  "count": 5,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8228888365477156,
+                  "observed_success_rate": 1.0,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 58,
+              "status": "evaluated",
+              "task_count": 58,
+              "training_count": 88
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 58,
+              "status": "semantic_unavailable",
+              "task_count": 58,
+              "training_count": 88
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "047943c75098da50d695d88debe33f6737fd643a42fa71a98f08d85d35354f13",
+          "comparisons": [
+            {
+              "brier_improvement": 0.11792206030729557,
+              "candidate": "B_execution_state",
+              "interpretation": "conditional held-out evidence on this dataset",
+              "interval": {
+                "lower": 0.04337067632901279,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.17811967862958702
+              },
+              "reference": "A_existing",
+              "scored_count": 57,
+              "task_count": 57
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 57,
+              "task_count": 57
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-3",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 3,
+            "training_missing_or_nonbinary_label": 3
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 3,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 4.46249614469707e-05,
+                "feature_python_object_bytes": 62872,
+                "reference_fit_seconds": 0.02595725003629923,
+                "reference_scoring_seconds": 5.9166981372982264e-05,
+                "reference_seconds_per_checkpoint": 1.0380172170698643e-06,
+                "seconds_per_checkpoint": 3.098955656039632e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.0004165419959463179,
+                "feature_python_object_bytes": 416824,
+                "reference_fit_seconds": 0.06860062497435138,
+                "reference_scoring_seconds": 0.00015070795780047774,
+                "reference_seconds_per_checkpoint": 2.6439992596575042e-06,
+                "seconds_per_checkpoint": 2.892652749627208e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49119232,
+            "process_peak_rss_bytes_before_features": 49086464,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 57,
+          "scored_family_count": 6,
+          "scored_task_count": 57,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 87,
+          "training_family_count": 6,
+          "training_task_count": 87,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2613594132268392,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.2856224942463626
+              },
+              "brier_score": 0.27365034760047924,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 33,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5751955171135719,
+                  "observed_success_rate": 0.3939393939393939,
+                  "upper": 0.6
+                },
+                {
+                  "count": 24,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6325765054535161,
+                  "observed_success_rate": 0.5,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 87
+            },
+            {
+              "brier_interval": {
+                "lower": 0.09598949381270082,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.23434426537192368
+              },
+              "brier_score": 0.1557282872931837,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 33,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3167196115085741,
+                  "observed_success_rate": 0.15151515151515152,
+                  "upper": 0.4
+                },
+                {
+                  "count": 1,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4159782972033132,
+                  "observed_success_rate": 1.0,
+                  "upper": 0.6
+                },
+                {
+                  "count": 5,
+                  "lower": 0.6,
+                  "mean_prediction": 0.781615699060263,
+                  "observed_success_rate": 0.8,
+                  "upper": 0.8
+                },
+                {
+                  "count": 18,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8458244174440448,
+                  "observed_success_rate": 0.8333333333333334,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 87
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 57,
+              "status": "semantic_unavailable",
+              "task_count": 57,
+              "training_count": 87
+            }
+          ],
+          "version": "task-representation-report/v1"
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "schema_version": 2,
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "cohort_sha256": "7edbd21149a392627856657278a43c7934525acb031124dc160dfaa05d7aa0de",
+          "comparisons": [
+            {
+              "brier_improvement": 0.08435855822437746,
+              "candidate": "B_execution_state",
+              "interpretation": "conditional held-out evidence on this dataset",
+              "interval": {
+                "lower": 0.010777488283780017,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.14404035594310552
+              },
+              "reference": "A_existing",
+              "scored_count": 57,
+              "task_count": 57
+            },
+            {
+              "brier_improvement": null,
+              "candidate": "C_cpu_semantic",
+              "interpretation": "semantic_unavailable",
+              "interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "reference": "B_execution_state",
+              "scored_count": 57,
+              "task_count": 57
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-4",
+            "dataset_version": "1",
+            "schema_version": 2,
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T07:30:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 3,
+            "training_missing_or_nonbinary_label": 4
+          },
+          "limitations": [
+            "Public/sanitized source and timestamp receipts are operator declarations, not automatic privacy/provenance attestations.",
+            "Real/benchmark observations require previously independently resolved labels; this portable input is not ledger attestation.",
+            "Final outcomes, tests, terminal state and final resource totals are excluded from predictors.",
+            "Bootstrap conditions on frozen fits and samples held-out families; it omits training/time dependence uncertainty.",
+            "Missing labels/descriptions may select a nonrepresentative common cohort; no causal or real utility claim.",
+            "Model provisioning/runtime are optional; null C scores never imply zero overhead or a semantic improvement."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_existing": [
+                "initial"
+              ],
+              "B_execution_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_cpu_semantic": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ]
+            },
+            "min_families_per_partition": 5,
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05; 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; scale floor 1; log1p counts",
+            "runtime": {
+              "machine": "arm64",
+              "python": "3.12.14",
+              "system": "Darwin"
+            },
+            "seed": 4,
+            "semantic_training": "frozen pretrained encoder; no fine-tuning; reference predictor fitted on training partition only",
+            "split": "chronological; disjoint task/family identities and exact description hashes"
+          },
+          "overhead": {
+            "feature_profiles": {
+              "A_existing": {
+                "feature_extraction_seconds": 4.545802948996425e-05,
+                "feature_python_object_bytes": 62444,
+                "reference_fit_seconds": 0.025801375042647123,
+                "reference_scoring_seconds": 5.8917037677019835e-05,
+                "reference_seconds_per_checkpoint": 1.0336322399477165e-06,
+                "seconds_per_checkpoint": 3.178883181116381e-07
+              },
+              "B_execution_state": {
+                "feature_extraction_seconds": 0.0003886659978888929,
+                "feature_python_object_bytes": 413938,
+                "reference_fit_seconds": 0.06812066695420071,
+                "reference_scoring_seconds": 0.00015712500317022204,
+                "reference_seconds_per_checkpoint": 2.7565790029863515e-06,
+                "seconds_per_checkpoint": 2.7179440411810692e-06
+              },
+              "C_cpu_semantic": {
+                "reference_fit_seconds": null,
+                "reference_scoring_seconds": null,
+                "reference_seconds_per_checkpoint": null
+              }
+            },
+            "process_peak_rss_bytes_after_features": 49119232,
+            "process_peak_rss_bytes_before_features": 49119232,
+            "rss_basis": "whole-process lifetime high-water mark; not incremental per-component RAM",
+            "semantic": {
+              "actual_inference_seconds": null,
+              "actual_load_seconds": null,
+              "actual_model_memory_bytes": null,
+              "automatic_download": false,
+              "available_packages": {
+                "safetensors": false,
+                "torch": false,
+                "transformers": false
+              },
+              "estimate_basis": "model card rounded 22.7M parameters at FP32; excludes runtime/activations",
+              "estimated_parameter_bytes": 90800000,
+              "logical_cpu_count": 12,
+              "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+              "reason": "no_explicit_local_model",
+              "remote_inference": false,
+              "status": "unavailable"
+            }
+          },
+          "resource_budget": null,
+          "scored_count": 57,
+          "scored_family_count": 6,
+          "scored_task_count": 57,
+          "train_until": "2026-01-01T04:30:00+00:00",
+          "training_count": 86,
+          "training_family_count": 6,
+          "training_task_count": 86,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24130754530391335,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.2773784722742269
+              },
+              "brier_score": 0.2591770338274897,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 57,
+                  "lower": 0.4,
+                  "mean_prediction": 0.536315993517976,
+                  "observed_success_rate": 0.5263157894736842,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_existing",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 86
+            },
+            {
+              "brier_interval": {
+                "lower": 0.11784276524147592,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": 0.24467356311585903
+              },
+              "brier_score": 0.17481847560311228,
+              "calibration": [
+                {
+                  "count": 3,
+                  "lower": 0.0,
+                  "mean_prediction": 0.17807186806698705,
+                  "observed_success_rate": 0.3333333333333333,
+                  "upper": 0.2
+                },
+                {
+                  "count": 24,
+                  "lower": 0.2,
+                  "mean_prediction": 0.2782398163837946,
+                  "observed_success_rate": 0.20833333333333334,
+                  "upper": 0.4
+                },
+                {
+                  "count": 1,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4029052863832497,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.6
+                },
+                {
+                  "count": 15,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7326309108599478,
+                  "observed_success_rate": 0.9333333333333333,
+                  "upper": 0.8
+                },
+                {
+                  "count": 14,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8508168058715413,
+                  "observed_success_rate": 0.7142857142857143,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "B_execution_state",
+              "scored_count": 57,
+              "status": "evaluated",
+              "task_count": 57,
+              "training_count": 86
+            },
+            {
+              "brier_interval": {
+                "lower": null,
+                "method": "95% percentile held-out family bootstrap, conditional on frozen fit",
+                "upper": null
+              },
+              "brier_score": null,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 0,
+              "groups": [
+                "initial",
+                "metrics",
+                "state",
+                "semantic"
+              ],
+              "name": "C_cpu_semantic",
+              "scored_count": 57,
+              "status": "semantic_unavailable",
+              "task_count": 57,
+              "training_count": 86
+            }
+          ],
+          "version": "task-representation-report/v1"
+        }
+      ]
+    }
+  },
+  "scope": "simulated algorithm rehearsal; no pretrained CPU integration or agents executed",
+  "seed_count": 5,
+  "tasks_per_seed": 150,
+  "version": "controlled-task-representation/v1"
+}

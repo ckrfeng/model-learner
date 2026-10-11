@@ -218,6 +218,31 @@ input format requires explicit feature availability and independently resolved
 labels; real observations need prior ledger validation. See
 [methods, leakage controls and limitations](docs/TASK_STATE_EVALUATION.md).
 
+The [secure benchmark controller primitives](docs/SECURE_BENCHMARK_BOUNDARY.md)
+add bounded hostile archive parsing, immutable candidate bytes, credential-free
+public envelopes, primitive acceptance messages, and authenticated per-run
+synthetic receipts. They never execute submitted source. The supported real-agent
+credential mechanism and OS freeze/acceptance transport remain unvalidated;
+real execution stays disabled.
+
+An optional [CPU task representation prototype](docs/CPU_TASK_REPRESENTATION.md)
+compares existing initial features (A), those features plus deterministic
+execution metrics/state (B), and B plus pretrained semantic embeddings (C).
+This separate experiment uses public or explicitly sanitized initial descriptions,
+chronological cutoffs, and held-out task families. It leaves the probabilistic
+learner unchanged and writes no ledger records.
+
+```sh
+model-learner sim representation-fixture /tmp/public-representation.json
+model-learner learn representation-eval --help
+```
+
+Semantic inference requires an explicitly supplied local, hash-pinned CPU model
+bundle and an existing compatible runtime. The prototype never downloads models
+or installs dependencies. Without a model, C scores and inference measurements
+remain unavailable; A/B still run. Synthetic held-out results are algorithm
+rehearsal and cannot establish real coding-task improvement.
+
 ## Simulation and reference learning
 
 Generate observations in an explicitly simulated dataset. Known probabilities

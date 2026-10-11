@@ -23,6 +23,10 @@ from model_learner.commands.observation import (
 from model_learner.commands.observation import (
     show_session as inspect_session,
 )
+from model_learner.commands.representation import (
+    representation_eval,
+    representation_fixture,
+)
 from model_learner.commands.task_state import (
     state_eval,
     state_experiment,
@@ -88,6 +92,8 @@ app.add_typer(benchmark_app, name="benchmark")
 learn_app.command("state-eval")(state_eval)
 learn_app.command("state-experiment")(state_experiment)
 sim_app.command("state-fixture")(state_fixture)
+learn_app.command("representation-eval")(representation_eval)
+sim_app.command("representation-fixture")(representation_fixture)
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,

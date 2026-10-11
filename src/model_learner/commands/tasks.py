@@ -5,6 +5,7 @@ from typing import Annotated
 from uuid import UUID
 
 import typer
+from pydantic import ValidationError
 
 from model_learner.commands.common import (
     DEFAULT_DATABASE,
@@ -33,6 +34,7 @@ from model_learner.verification import (
     file_sha256,
     verify_file,
 )
+from model_learner.verification.junit import JUnitReportBinding, verify_junit
 
 run_app = typer.Typer(
     help="Declare bounded executions without controlling agents.", no_args_is_help=True
@@ -170,6 +172,34 @@ def verify_artifact(
     """Check a file SHA-256 against the criterion declared when creating its task."""
     try:
         write_json(verify_file(repository(database), run_id=run_id, artifact=artifact))
+    except (OSError, ValueError, StorageError) as error:
+        raise typer.BadParameter(str(error)) from error
+
+
+@verify_app.command("junit")
+def verify_test_report(
+    run_id: Annotated[UUID, typer.Argument()],
+    report: Annotated[Path, typer.Argument(help="Existing pytest/JUnit XML report.")],
+    artifact: Annotated[Path, typer.Option(help="Exact final file snapshot tested.")],
+    binding_file: Annotated[
+        Path, typer.Option(help="External JUnitReportBinding JSON receipt.")
+    ],
+    database: Annotated[Path, typer.Option("--database", "-d")] = DEFAULT_DATABASE,
+) -> None:
+    """Import independent test evidence; never execute test commands."""
+    try:
+        binding = JUnitReportBinding.model_validate_json(binding_file.read_text())
+        write_json(
+            verify_junit(
+                repository(database),
+                run_id=run_id,
+                report=report,
+                artifact=artifact,
+                binding=binding,
+            )
+        )
+    except ValidationError as error:
+        raise typer.BadParameter("invalid JUnit binding receipt") from error
     except (OSError, ValueError, StorageError) as error:
         raise typer.BadParameter(str(error)) from error
 

@@ -49,6 +49,7 @@ from model_learner.storage.jsonl import (
     validate_jsonl,
 )
 from model_learner.verification import digest_criterion
+from model_learner.verification.junit import junit_criterion
 
 DEFAULT_DATABASE = Path(".model-learner/model-learner.sqlite3")
 
@@ -160,14 +161,26 @@ def create_task(
             help="Declare exact expected file SHA-256 for read-only verification."
         ),
     ] = None,
+    required_test: Annotated[
+        list[str] | None,
+        typer.Option(help="Repeat predeclared JUnit test identities: classname::name."),
+    ] = None,
 ) -> None:
     """Create a task; it is not automatically attached to any session."""
     try:
+        if expected_sha256 is not None and required_test is not None:
+            raise ValueError(
+                "supply only one file digest or JUnit acceptance criterion"
+            )
         metadata = (
             {"file_digest_verifier": digest_criterion(expected_sha256)}
             if expected_sha256
             else {}
         )
+        if required_test is not None:
+            metadata = {
+                "junit_verifier": junit_criterion(required_test_ids=required_test)
+            }
     except ValueError as error:
         raise typer.BadParameter(str(error)) from error
     task = Task(
@@ -261,6 +274,33 @@ def session_detail(
 ) -> None:
     """Inspect retained observations, metadata coverage, and receipt timeline."""
     inspect_session(identifier, database)
+
+
+@session_app.command("analyze")
+def analyze_session(
+    identifier: Annotated[UUID, typer.Argument(help="Local session UUID.")],
+    checkpoint: Annotated[
+        list[str], typer.Option(help="Repeat explicit ISO checkpoints with timezone.")
+    ],
+    database: Annotated[Path, typer.Option("--database", "-d")] = DEFAULT_DATABASE,
+) -> None:
+    """Reconstruct observed execution features at each availability checkpoint."""
+    from model_learner.commands.common import aware_time, write_json
+    from model_learner.execution import extract_execution_checkpoints
+
+    ledger = _repository(database)
+    if ledger.get(Session, identifier) is None:
+        raise typer.BadParameter("unknown session")
+    try:
+        write_json(
+            extract_execution_checkpoints(
+                ledger.list_records(Event),
+                session_id=identifier,
+                checkpoints=[aware_time(value) for value in checkpoint],
+            )
+        )
+    except ValueError as error:
+        raise typer.BadParameter(str(error)) from error
 
 
 @records_app.command("export")

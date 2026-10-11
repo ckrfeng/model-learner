@@ -221,16 +221,23 @@ import json
 from model_learner.learn.drift import run_drift_suite
 from model_learner.learn.stress import reference_scenarios, run_stress_suite
 
-main = run_drift_suite(seeds=range(20), count=1000,
-                      window_steps=(120, 300), refit_steps=50)
-short_fixed = run_drift_suite(seeds=range(20), count=240,
-                             window_steps=(120, 300), refit_steps=50)
-short_proportionate = run_drift_suite(seeds=range(20), count=240,
-                                    window_steps=(29, 72), refit_steps=12)
+main = run_drift_suite(
+    seeds=range(20), count=1000, window_steps=(120, 300), refit_steps=50
+)
+short_fixed = run_drift_suite(
+    seeds=range(20), count=240, window_steps=(120, 300), refit_steps=50
+)
+short_proportionate = run_drift_suite(
+    seeds=range(20), count=240, window_steps=(29, 72), refit_steps=12
+)
 frozen = run_stress_suite(
-    seeds=range(20), count=1000,
-    scenarios=tuple(s for s in reference_scenarios()
-                    if s.name in ("balanced", "homogeneous", "drift")),
+    seeds=range(20),
+    count=1000,
+    scenarios=tuple(
+        s
+        for s in reference_scenarios()
+        if s.name in ("balanced", "homogeneous", "drift")
+    ),
 )
 print(json.dumps(asdict(main), allow_nan=False))
 ```

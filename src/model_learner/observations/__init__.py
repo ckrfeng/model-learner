@@ -200,6 +200,10 @@ def derive_real_observation(
             if item is None:
                 raise StorageError("unknown verification evidence")
             validate_evidence(repository, run, task, item)
+            if item.result.value not in ("pass", "fail"):
+                raise ValueError(
+                    "verified assessment cannot use indeterminate evidence"
+                )
             if item.observed_at > outcome.recorded_at:
                 raise ValueError("assessment predates its verification evidence")
             evidence.append(item)

@@ -1,8 +1,9 @@
 # Model Learner status
 
-Current work: requested Workstreams A/B — historical assessment resolution and
-drift investigation (COMPLETE; stopped for user review).
-Last user-confirmed stage: M0, M1, M1.1, and the first parallel implementation slices.
+Current work: requested Workstreams A/B — coding-task verification and
+execution-state analysis (COMPLETE; stopped after independent review).
+Last user-confirmed work: historical assessment resolution and drift investigation
+complete.
 Updated: 2026-10-10
 
 ## Completed milestones
@@ -540,6 +541,114 @@ observational and predictive. No routing, switching, embeddings, fine-tuning,
 TUI, cloud sync, Desktop capture or Governor was implemented. No commit, push,
 merge, publication or global hook installation was performed. Stop here.
 
+## Coding-task verification and execution-state analysis — 2026-10-10
+
+The coordinator read the plan, repository instructions, status and existing
+contracts before implementing the requested two workstreams. Two implementation
+subagents used separate ownership: verification modules/JUnit tests and fixtures,
+versus execution-analysis modules/tests and controlled examples. The coordinator
+owns CLI integration, the observation determinate-evidence guard, CLI integration
+tests, README and status. A third agent completed independent read-only review.
+Domain contracts, storage/migrations, dependencies, lockfile and master plan are
+unchanged. One pre-existing Python code block in the drift documentation received
+only the formatting required by the installed Ruff checker.
+
+### Coding verification
+
+- Added bounded, read-only pytest/JUnit XML parsing with per-test identities and
+  pass/failure/error/skipped status, separate counts, report hash/reference,
+  parser/verifier versions and provenance. Failure messages, stack traces,
+  commands and captured outputs are omitted from evidence metadata.
+- Acceptance predeclares required test identities. An external binding receipt
+  declares task/run, exact acceptance specification, tested artifact SHA-256,
+  report SHA-256, generation time, completion and process exit. Association,
+  artifact bytes, report digest and result/count consistency are rechecked before
+  assessment and observation derivation. The existing file verifier is preserved.
+- Missing/malformed/unsupported/contradictory reports, missing required tests,
+  skipped tests, unknown completion or unsuitable process exit remain
+  indeterminate. Finished execution alone remains unknown. Determinate evidence
+  can produce a separately appended verified assessment; indeterminate evidence
+  cannot become an eligible binary learning label, including imported claims.
+- Added `task create --required-test` and `verify junit ... --artifact ...
+  --binding-file ...`. No test process, command or agent is launched by these
+  APIs/commands. Sanitized pytest-style fixtures cover passes, failures, errors,
+  skips and partial/inconsistent reports. See `docs/JUNIT_VERIFICATION.md`.
+
+### Execution analysis
+
+- Added a pure read-only extractor returning multiple explicit checkpoint
+  projections from existing Codex capture events. Both observation and ingestion
+  times must be available. Counts, tool lifecycle/status/exit observations,
+  per-field token coverage and source evidence IDs remain separate from versioned
+  heuristic states. Unsupported observations and unavailable data stay explicit.
+- Distinct failed items can establish repeated failures of a tool category or
+  named MCP tool. Commands/arguments are redacted; identical-operation retries,
+  root causes, loops and stalls cannot be established from these observations.
+  Completion/zero exit do not imply tests passed or task success. Unknown native
+  duration, cost and verified task success remain null.
+- Explicitly scoped run mode accepts validated JUnit evidence with declared
+  association/artifact availability and optional evidence availability receipts.
+  It compares test status/count changes only for unambiguous report ordering;
+  different test sets or incomplete reports cannot establish aggregate progress.
+  The current ledger binds reports to one final artifact and observes verification
+  after run end. This compares repeated reports of that snapshot; it does not
+  reconstruct test progression across intermediate coding edits.
+- Added `session analyze ... --checkpoint ...` with repeatable checkpoints for
+  event-only inspection. Python run/evidence mode requires explicit receipts.
+  Tests and controlled examples cover missingness, replay, future visibility,
+  malformed/unsupported events, repeated failures, report binding and changes.
+  See `docs/EXECUTION_ANALYSIS.md`.
+
+**Limits:** XML support is a bounded documented JUnit dialect, not all vendor
+extensions. Report bindings and receipt timestamps are trusted operator
+declarations, not cryptographic attestation of execution. Snapshot hashing covers
+one regular file, not repository dependencies/environment. Verification has no
+ingestion timestamp in the existing ledger; an explicit analyzer receipt is
+preferable, otherwise trusted `observed_at` availability is disclosed. Metadata-only
+CLI captures do not contain structured test results. Desktop capture remains
+unsupported. These changes do not establish coding-agent performance calibration.
+
+### Checks and independent review
+
+Existing macOS arm64 Python 3.12.14 / uv 0.12.24 / Ruff 0.16.10 environment,
+repository-local tool/cache paths; no new dependencies were installed.
+
+| Check | Actual result |
+| --- | --- |
+| Baseline `uv run pytest` | **232 passed in 9.41s**. |
+| A final relevant tests | **103 passed in 2.31s**; owned lint and formatting passed. |
+| B final owned unit/integration tests | **38 passed in 0.19s**; owned lint and formatting passed. |
+| Coordinator CLI integration tests | **5 passed in 0.62s**. |
+| Coordinator full `uv run pytest --junitxml=<ignored path>` | **346 passed in 10.04s**. |
+| Coordinator `uv run ruff check .` | `All checks passed!` |
+| Coordinator `uv run ruff format --check .` | **75 files already formatted**. |
+| Independent full `uv run pytest` | **346 passed in 9.85s**. |
+| Independent Ruff lint/format and `git diff --check` | Passed; **75 files already formatted**. |
+| Fresh selected pytest report | **1 passed in 0.13s**; actual XML parsed, bound to an unchanged tested module, persisted and assessed as pass/success/verified. |
+
+The full generated pytest XML was **10,537,007 bytes**, exceeding the **10,485,760
+byte** parser limit because a security-test parameter embeds a large byte fixture
+in its case name. Parsing returned `report_too_large`, without passing evidence.
+A fresh bounded report for the predeclared `test_summary_rejects_forged_counts`
+then validated the real pytest producer format through parsing, digest binding,
+ledger persistence and assessment. These were actual operator-run project checks,
+not a coding-agent execution or coding-utility claim. The XML/receipts/validation
+ledger remain under ignored `.model-learner/`; no learning observations were made.
+
+Independent review prompted regression-tested fixes for raw private binding
+values in CLI errors, acceptance targets unavailable at historical checkpoints,
+optional completion-field omission, malformed XML hierarchy/case state, ambiguous
+equal-time report comparisons, conflicting/incomplete projections, and dual
+acceptance verifier declarations. Wrong task/run/spec/artifact/report associations,
+missing/skipped/partial results, delayed receipts and replay are covered. The
+reviewer found **no remaining blocking issue** in the requested scope after the
+final fixes and complete checks.
+
+No routing, automatic switching, Governor, neural network, CPU fine-tuning, TUI,
+agent control, unrestricted command execution, migration or next milestone was
+implemented. No commit, push, merge, publication or global hook installation was
+performed. Stop after these two workstreams.
+
 ## Known issues / blockers
 
 - No known M0 implementation defects or unresolved blockers.
@@ -557,8 +666,9 @@ merge, publication or global hook installation was performed. Stop here.
 - The real-agent importer supports explicitly selected Codex CLI streams only;
   existing desktop sessions and passive desktop capture remain unsupported.
   The requested increment now adds a narrow read-only file digest verifier and
-  evidence-linked real task-observation builder; general test/report verification
-  remains unimplemented.
+  evidence-linked real task-observation builder plus bound JUnit report verification.
+  Arbitrary test command execution and whole-repository artifact verification remain
+  unsupported.
 - JSONL imports enforce record schemas and relationships but are intentionally
   limited to primary records; task/session links are managed through the explicit
   attach commands rather than exported as a standalone record stream. The new
@@ -566,7 +676,7 @@ merge, publication or global hook installation was performed. Stop here.
 - SQLite is appropriate for the local-first, single-machine milestone but does
   not make multiple concurrent writers parallel; short transactions and a busy
   timeout reduce contention only.
-- Decision/policy records, automatic project discovery, execution-state inference,
+- Decision/policy records, automatic project discovery, intervention-state learning,
   and cache-cost attribution remain unimplemented. The new learner estimates a
   selected binary acceptance target; it does not claim full expected utility,
   causal model superiority, or effects of interventions/budgets.
@@ -587,8 +697,11 @@ merge, publication or global hook installation was performed. Stop here.
 
 ## Next recommended increment (not started)
 
-- The requested historical resolver and recent-window comparison are delivered
-  in the new Workstreams A/B section below. Stop after their review and checks.
+- The requested coding-verification and execution-analysis workstreams are
+  delivered, independently reviewed, and checked. No next milestone is authorized.
+- Intermediate artifact snapshots and complete declaration/evidence ingestion
+  receipts would require separately scoped contracts. No new schema is introduced
+  here; no subsequent milestone has started.
 - Complete receipt-time reconstruction beyond trusted declared timestamps would
   require a separately scoped declaration/ingestion availability contract. No
   schema change has been made for that future work.

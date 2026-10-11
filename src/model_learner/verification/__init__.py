@@ -1,4 +1,4 @@
-"""Read-only deterministic file verification and append-only assessments.
+"""Read-only deterministic verification and append-only assessments.
 
 The verifier reads bytes only. It never launches a shell, tests, or an agent.
 """
@@ -23,6 +23,14 @@ from model_learner.domain.models import (
     utc_now,
 )
 from model_learner.storage.database import Repository, StorageError
+from model_learner.verification.junit import (  # noqa: F401
+    JUnitReportBinding,
+    JUnitSummary,
+    junit_criterion,
+    parse_junit_xml,
+    validated_junit_summary,
+    verify_junit,
+)
 
 VERIFIER_TYPE = "file-sha256"
 VERIFIER_VERSION = "1"
@@ -73,6 +81,8 @@ def _target(repository: Repository, run_id: UUID) -> tuple[Run, Task]:
 
 
 def _expected(task: Task) -> str:
+    if "junit_verifier" in task.metadata and "file_digest_verifier" in task.metadata:
+        raise ValueError("multiple acceptance verifier criteria are unsupported")
     criterion = task.metadata.get("file_digest_verifier")
     if not isinstance(criterion, dict) or criterion.get("version") != "file-sha256/v1":
         raise ValueError("task has no declared file-sha256/v1 acceptance criterion")
@@ -138,7 +148,9 @@ def validate_evidence(
         raise ValueError("verification evidence belongs to a different task or run")
     if evidence.acceptance_spec != task.acceptance_spec:
         raise ValueError("verification acceptance_spec does not match its task")
-    if evidence.verifier_type != VERIFIER_TYPE or evidence.verifier_version != "1":
+    if evidence.verifier_type not in {VERIFIER_TYPE, "junit-xml"} or (
+        evidence.verifier_version != "1"
+    ):
         raise ValueError("unsupported deterministic verification evidence")
     if evidence.provenance is not Provenance.OBSERVED:
         raise ValueError("deterministic verification requires observed provenance")
@@ -148,6 +160,13 @@ def validate_evidence(
         raise ValueError(
             "artifact fingerprint does not match the declared run snapshot"
         )
+    if run.ended_at is None or evidence.observed_at < run.ended_at:
+        raise ValueError("verification must follow the declared run end")
+    if evidence.verifier_type == "junit-xml":
+        from model_learner.verification.junit import validate_junit_evidence
+
+        validate_junit_evidence(run, task, evidence)
+        return
     expected = _expected(task)
     actual = fingerprint.removeprefix("sha256:")
     if evidence.metadata.get("criterion") != digest_criterion(expected):
@@ -203,12 +222,13 @@ def assess_run(
         validate_evidence(repository, run, task, evidence)
         if time < evidence.observed_at:
             raise ValueError("assessment timestamp must follow verification")
-        status = (
-            OutcomeStatus.SUCCESS
-            if evidence.result is VerificationResult.PASS
-            else OutcomeStatus.FAILURE
-        )
-        verification_status = VerificationStatus.VERIFIED
+        if evidence.result in {VerificationResult.PASS, VerificationResult.FAIL}:
+            status = (
+                OutcomeStatus.SUCCESS
+                if evidence.result is VerificationResult.PASS
+                else OutcomeStatus.FAILURE
+            )
+            verification_status = VerificationStatus.VERIFIED
         evidence_ids = (evidence.verification_id,)
     outcome = Outcome(
         run_id=run_id,
@@ -219,7 +239,13 @@ def assess_run(
         evidence_ids=evidence_ids,
         supersedes_outcome_id=supersedes_outcome_id,
         note=note,
-        metadata={"assessment_method": "deterministic_file_digest"},
+        metadata={
+            "assessment_method": (
+                "deterministic_junit_report"
+                if verification_id is not None and evidence.verifier_type == "junit-xml"
+                else "deterministic_file_digest"
+            )
+        },
     )
     if run.ended_at is None or time < run.ended_at:
         raise ValueError("assessment must follow the declared run end")

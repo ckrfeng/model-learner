@@ -6,8 +6,9 @@ missing values while keeping observation and inference separate. Agent control
 belongs to the future AI Governor.
 
 The local workflow includes Codex CLI capture/import, explicit task/run
-association, read-only file verification, real observation building, and a
-seeded simulator with a Beta-Bernoulli learner and multi-seed evaluation. Follow
+association, read-only file and JUnit verification, checkpoint analysis, real
+observation building, and a seeded simulator with a Beta-Bernoulli learner and
+multi-seed evaluation. Follow
 [MODEL_LEARNER_PLAN.md](MODEL_LEARNER_PLAN.md) for the design and
 [STATUS.md](STATUS.md) for implemented milestones and test results.
 
@@ -112,6 +113,43 @@ evidence records unknown; `outcome human` records an unverified human assessment
 Revisions use `--supersedes` and preserve original evidence. Mixed configuration,
 incomplete capture/attribution, and unassessed outcomes are retained with
 exclusions. See [workflow semantics and limitations](docs/TASK_VERIFICATION.md).
+
+For coding tasks, declare the required JUnit test identities before execution.
+Run pytest yourself and retain its XML report plus an independent binding receipt
+for the exact task, run, acceptance version and tested artifact snapshot:
+
+```sh
+model-learner task create "Repair parser regression" \
+  --acceptance-id parser-tests --acceptance-version 1 \
+  --required-test 'tests.test_parser::test_regression'
+model-learner verify junit <run-id> <report.xml> \
+  --artifact <tested-file> --binding-file <binding.json>
+model-learner outcome assess <run-id> --verification-id <verification-id>
+```
+
+Missing, incomplete or contradictory evidence cannot establish success. Reports
+retain counts and test identities/statuses without failure messages or outputs.
+The binding receipt is a trusted external declaration, not an agent completion
+claim or cryptographic proof of execution. Current artifact hashing covers one
+regular file; it does not establish a whole repository snapshot. See
+[JUnit report bindings and limits](docs/JUNIT_VERIFICATION.md).
+
+Inspect execution features at multiple explicit checkpoints without changing
+agent behavior or creating outcome labels:
+
+```sh
+model-learner session analyze <session-id> \
+  --checkpoint <ISO-time-with-timezone> --checkpoint <later-ISO-time-with-timezone>
+```
+
+Only events observed and ingested by each checkpoint contribute. Tool failures
+and turn completion are separate from test results and verified task outcomes.
+Default Codex capture omits commands/outputs, so identical-command retries and
+test counts are unknown from those events. The Python analyzer accepts explicitly
+bound structured verification for test-result changes; the session CLI analyzes
+events only. Report comparisons currently require the same declared final
+artifact; intermediate snapshots across code edits are unsupported. See
+[observable execution features](docs/EXECUTION_ANALYSIS.md).
 
 ## Simulation and reference learning
 

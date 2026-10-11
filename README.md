@@ -151,6 +151,38 @@ events only. Report comparisons currently require the same declared final
 artifact; intermediate snapshots across code edits are unsupported. See
 [observable execution features](docs/EXECUTION_ANALYSIS.md).
 
+## Coding-task and task-state evaluation
+
+`model-learner benchmark tasks` lists small public coding exercises.
+`benchmark prepare` stages a fresh disposable workspace outside this repository,
+predeclares the configuration and acceptance target, and preserves operator
+control files separately. The operator supplies OS containment, runs any agent,
+captures telemetry, stops the agent, and invokes the trusted acceptance runner.
+`benchmark snapshot`, `finalize`, and `cleanup` manage the frozen artifact,
+independent JUnit evidence, incomplete outcomes, and disposal. These commands
+never launch paid agent executions. Public tasks are recorded as benchmark data,
+with actual agent executions distinguished from fixture checks. Follow the
+[operator run procedure and isolation boundaries](docs/CODING_TASK_EVALUATION.md).
+
+The task-state experiment compares initial task/configuration information (A),
+initial information plus simple execution metrics (B), and those inputs plus
+evolving failure-state features (C). All variants and feature-group ablations
+share chronological cutoffs and held-out tasks. Reports include Brier scores,
+calibration bins, sample sizes, paired uncertainty and insufficient-data results.
+Final acceptance reports and task outcomes never enter predictive features.
+
+```sh
+model-learner learn state-experiment --seeds 5 --count 400
+model-learner sim state-fixture /tmp/task-state-examples.json --seed 1 --count 400
+model-learner learn state-eval --help
+```
+
+Controlled state-signal and null-signal scenarios establish fixture behavior.
+They do not establish predictive improvement on real coding tasks. The portable
+input format requires explicit feature availability and independently resolved
+labels; real observations need prior ledger validation. See
+[methods, leakage controls and limitations](docs/TASK_STATE_EVALUATION.md).
+
 ## Simulation and reference learning
 
 Generate observations in an explicitly simulated dataset. Known probabilities

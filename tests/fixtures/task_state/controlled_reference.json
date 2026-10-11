@@ -1,0 +1,4693 @@
+{
+  "count_per_seed": 400,
+  "interpretation": "Designed simulation evidence only; seed spread is descriptive. No real predictive improvement established.",
+  "scenarios": {
+    "null_signal": {
+      "independent_seed_count": 5,
+      "maximum_seed_improvement": 0.0018880697499686237,
+      "mean_state_brier_improvement": -0.0004894028370729605,
+      "minimum_seed_improvement": -0.0024729194713741494,
+      "reports": [
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": -0.0014126306916851736,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.009145275551241902,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.005387119539437675
+              },
+              "reference": "A_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.0018880697499686237,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0008460979692878596,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.005255147323535281
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -0.0014657582925327723,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0036841616609999475,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0012038576525179785
+              },
+              "reference": "C_without_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -0.001767031273782317,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.00917463131709096,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.004755620000713645
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.0018880697499686237,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0008460979692878596,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.005255147323535281
+              },
+              "reference": "C_without_state",
+              "scored_count": 153,
+              "task_count": 153
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-0",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 7,
+            "training_missing_or_nonbinary_label": 18
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 0,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 153,
+          "scored_task_count": 153,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 222,
+          "training_task_count": 222,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2469869923626165,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2544002882015143
+              },
+              "brier_score": 0.250454927788439,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 153,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5171391219690368,
+                  "observed_success_rate": 0.5359477124183006,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24370296386096027,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2605167663093367
+              },
+              "brier_score": 0.25186755848012415,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 143,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5032015792141027,
+                  "observed_success_rate": 0.5454545454545454,
+                  "upper": 0.6
+                },
+                {
+                  "count": 10,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6211336957104766,
+                  "observed_success_rate": 0.4,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24172624615107433,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25928467046282566
+              },
+              "brier_score": 0.24997948873015552,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 1,
+                  "lower": 0.2,
+                  "mean_prediction": 0.39323170614862757,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.4
+                },
+                {
+                  "count": 142,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5028906696464318,
+                  "observed_success_rate": 0.5492957746478874,
+                  "upper": 0.6
+                },
+                {
+                  "count": 10,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6190925224901818,
+                  "observed_success_rate": 0.4,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24019952843458925,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25740313949660587
+              },
+              "brier_score": 0.24851373043762273,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 147,
+                  "lower": 0.4,
+                  "mean_prediction": 0.506004374587806,
+                  "observed_success_rate": 0.5374149659863946,
+                  "upper": 0.6
+                },
+                {
+                  "count": 6,
+                  "lower": 0.6,
+                  "mean_prediction": 0.621301648153191,
+                  "observed_success_rate": 0.5,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24350604493421524,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2539384587495148
+              },
+              "brier_score": 0.24821245745637321,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 153,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5157376511088201,
+                  "observed_success_rate": 0.5359477124183006,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24370296386096027,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2605167663093367
+              },
+              "brier_score": 0.25186755848012415,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 143,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5032015792141027,
+                  "observed_success_rate": 0.5454545454545454,
+                  "upper": 0.6
+                },
+                {
+                  "count": 10,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6211336957104766,
+                  "observed_success_rate": 0.4,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": 0.005947958433715345,
+              "candidate": "B_initial_metrics",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.0003703335107062683,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.012295643013208206
+              },
+              "reference": "A_initial",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": -0.0024729194713741494,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.014272464026327212,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.009728700838861628
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": 4.311604577992567e-05,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.002467003791664825,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.002068497201343313
+              },
+              "reference": "C_without_initial",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": 0.005723008681656668,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.0010218989108182741,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.011196928548252572
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": -0.0024729194713741494,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.014272464026327212,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.009728700838861628
+              },
+              "reference": "C_without_state",
+              "scored_count": 150,
+              "task_count": 150
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-1",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 10,
+            "training_missing_or_nonbinary_label": 12
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 1,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 150,
+          "scored_task_count": 150,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 228,
+          "training_task_count": 228,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24813437794747306,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25343262004001593
+              },
+              "brier_score": 0.25066121209197445,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 150,
+                  "lower": 0.4,
+                  "mean_prediction": 0.49685338893641917,
+                  "observed_success_rate": 0.5733333333333334,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23807241607820065,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25137746157231455
+              },
+              "brier_score": 0.24471325365825905,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 150,
+                  "lower": 0.4,
+                  "mean_prediction": 0.49508721707262093,
+                  "observed_success_rate": 0.5733333333333334,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23423475989295253,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26095741554223884
+              },
+              "brier_score": 0.24718617312963323,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 37,
+                  "lower": 0.2,
+                  "mean_prediction": 0.372816114375418,
+                  "observed_success_rate": 0.4864864864864865,
+                  "upper": 0.4
+                },
+                {
+                  "count": 105,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5093316802431678,
+                  "observed_success_rate": 0.5904761904761905,
+                  "upper": 0.6
+                },
+                {
+                  "count": 8,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6112021081592114,
+                  "observed_success_rate": 0.75,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23461160787755872,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26089474181018424
+              },
+              "brier_score": 0.24722928917541315,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 39,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3774743774285757,
+                  "observed_success_rate": 0.48717948717948717,
+                  "upper": 0.4
+                },
+                {
+                  "count": 104,
+                  "lower": 0.4,
+                  "mean_prediction": 0.509014080885613,
+                  "observed_success_rate": 0.5865384615384616,
+                  "upper": 0.6
+                },
+                {
+                  "count": 7,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6137453489817689,
+                  "observed_success_rate": 0.8571428571428571,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2399951065179334,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26618628325259397
+              },
+              "brier_score": 0.25290918181128985,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 36,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3909259517916527,
+                  "observed_success_rate": 0.5277777777777778,
+                  "upper": 0.4
+                },
+                {
+                  "count": 114,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5112558260396725,
+                  "observed_success_rate": 0.5877192982456141,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23807241607820065,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25137746157231455
+              },
+              "brier_score": 0.24471325365825905,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 150,
+                  "lower": 0.4,
+                  "mean_prediction": 0.49508721707262093,
+                  "observed_success_rate": 0.5733333333333334,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": -0.0005100471586414727,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0060744932956090505,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.005355772398557974
+              },
+              "reference": "A_initial",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": -0.0019148612107317755,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.004263301576725462,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.00038806617994367125
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": -0.0001537930235338323,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.007815584941561388,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.007839328226572056
+              },
+              "reference": "C_without_initial",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": -0.0008263536307436111,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.006300102747271009,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.005001279213773945
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": -0.0019148612107317755,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.004263301576725462,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.00038806617994367125
+              },
+              "reference": "C_without_state",
+              "scored_count": 151,
+              "task_count": 151
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-2",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 9,
+            "training_missing_or_nonbinary_label": 9
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 2,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 151,
+          "scored_task_count": 151,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 231,
+          "training_task_count": 231,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2431285737360211,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2565464580628156
+              },
+              "brier_score": 0.2498776147066045,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 151,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5013648745685264,
+                  "observed_success_rate": 0.4966887417218543,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2411620251394609,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2591860666112569
+              },
+              "brier_score": 0.25038766186524597,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 5,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3961553422780776,
+                  "observed_success_rate": 0.4,
+                  "upper": 0.4
+                },
+                {
+                  "count": 139,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4994986301650989,
+                  "observed_success_rate": 0.49640287769784175,
+                  "upper": 0.6
+                },
+                {
+                  "count": 7,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6105043686740999,
+                  "observed_success_rate": 0.5714285714285714,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24308783319483587,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26093012695814577
+              },
+              "brier_score": 0.2523025230759777,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 7,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3893366170442546,
+                  "observed_success_rate": 0.7142857142857143,
+                  "upper": 0.4
+                },
+                {
+                  "count": 132,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4983528147731029,
+                  "observed_success_rate": 0.4772727272727273,
+                  "upper": 0.6
+                },
+                {
+                  "count": 12,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6076263734921122,
+                  "observed_success_rate": 0.5833333333333334,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24599818440877794,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2578652271565075
+              },
+              "brier_score": 0.2521487300524439,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 151,
+                  "lower": 0.4,
+                  "mean_prediction": 0.48827373341097596,
+                  "observed_success_rate": 0.4966887417218543,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24400149216293246,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2581979182515171
+              },
+              "brier_score": 0.25147616944523415,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 151,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5021751575915593,
+                  "observed_success_rate": 0.4966887417218543,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2411620251394609,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2591860666112569
+              },
+              "brier_score": 0.25038766186524597,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 5,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3961553422780776,
+                  "observed_success_rate": 0.4,
+                  "upper": 0.4
+                },
+                {
+                  "count": 139,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4994986301650989,
+                  "observed_success_rate": 0.49640287769784175,
+                  "upper": 0.6
+                },
+                {
+                  "count": 7,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6105043686740999,
+                  "observed_success_rate": 0.5714285714285714,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": 0.002952174471431736,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0006545901104754613,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0066472762996436585
+              },
+              "reference": "A_initial",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": 0.0009660481926858413,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0005196611620524135,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0022644020378574593
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": -0.00032088435543291396,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.005637689897576854,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.00549311302912845
+              },
+              "reference": "C_without_initial",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": 0.003044039337450047,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0005368046825403838,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.006759405322051097
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": 0.0009660481926858413,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0005196611620524135,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0022644020378574593
+              },
+              "reference": "C_without_state",
+              "scored_count": 154,
+              "task_count": 154
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-3",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 6,
+            "training_missing_or_nonbinary_label": 9
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 3,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 154,
+          "scored_task_count": 154,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 231,
+          "training_task_count": 231,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.2376007797003695,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25777500485259475
+              },
+              "brier_score": 0.24862886847883212,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 154,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5527417843027541,
+                  "observed_success_rate": 0.5454545454545454,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23546545514996298,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2547813873768813
+              },
+              "brier_score": 0.2456766940074004,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 130,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5396139359847318,
+                  "observed_success_rate": 0.5307692307692308,
+                  "upper": 0.6
+                },
+                {
+                  "count": 24,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6117195859747085,
+                  "observed_success_rate": 0.625,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23461654816981728,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25369299789871214
+              },
+              "brier_score": 0.24471064581471455,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 129,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5383056382751824,
+                  "observed_success_rate": 0.5348837209302325,
+                  "upper": 0.6
+                },
+                {
+                  "count": 25,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6139812827998312,
+                  "observed_success_rate": 0.6,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23627821408449576,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25287720762010313
+              },
+              "brier_score": 0.24438976145928165,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 154,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5473845338542258,
+                  "observed_success_rate": 0.5454545454545454,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2364749963216259,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25653502223091473
+              },
+              "brier_score": 0.24775468515216462,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 133,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5449094143679276,
+                  "observed_success_rate": 0.5338345864661654,
+                  "upper": 0.6
+                },
+                {
+                  "count": 21,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6005796859138076,
+                  "observed_success_rate": 0.6190476190476191,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23546545514996298,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2547813873768813
+              },
+              "brier_score": 0.2456766940074004,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 130,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5396139359847318,
+                  "observed_success_rate": 0.5307692307692308,
+                  "upper": 0.6
+                },
+                {
+                  "count": 24,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6117195859747085,
+                  "observed_success_rate": 0.625,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": -0.006429179492360376,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.012639205783745293,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.001440424667629567
+              },
+              "reference": "A_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -0.0009133514459133427,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.003975766119542557,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.001841022940076969
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.0012730561535256339,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.004471538999306278,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.00695524104620977
+              },
+              "reference": "C_without_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -0.006493714317590118,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.012570352200766138,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0011238439012680591
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -0.0009133514459133427,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.003975766119542557,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.001841022940076969
+              },
+              "reference": "C_without_state",
+              "scored_count": 153,
+              "task_count": 153
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-null_signal-seed-4",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 7,
+            "training_missing_or_nonbinary_label": 11
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 4,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 153,
+          "scored_task_count": 153,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 229,
+          "training_task_count": 229,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24859954619729102,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26642470523052486
+              },
+              "brier_score": 0.25768858307900305,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 153,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4523186532759255,
+                  "observed_success_rate": 0.5686274509803921,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.25249556380467375,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2739458485478219
+              },
+              "brier_score": 0.26411776257136343,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 25,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3796765178877952,
+                  "observed_success_rate": 0.56,
+                  "upper": 0.4
+                },
+                {
+                  "count": 128,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4658908041861719,
+                  "observed_success_rate": 0.5703125,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2524396117865015,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.27617869654198796
+              },
+              "brier_score": 0.2650311140172768,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 25,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3680333443814161,
+                  "observed_success_rate": 0.6,
+                  "upper": 0.4
+                },
+                {
+                  "count": 127,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4637140306788812,
+                  "observed_success_rate": 0.5590551181102362,
+                  "upper": 0.6
+                },
+                {
+                  "count": 1,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6115453954578033,
+                  "observed_success_rate": 1.0,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.25520275348782945,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.276368590674034
+              },
+              "brier_score": 0.2663041701708024,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 20,
+                  "lower": 0.2,
+                  "mean_prediction": 0.380353949260634,
+                  "observed_success_rate": 0.65,
+                  "upper": 0.4
+                },
+                {
+                  "count": 133,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4570422219929206,
+                  "observed_success_rate": 0.556390977443609,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24782689979295477,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2690130805181365
+              },
+              "brier_score": 0.25853739969968664,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 21,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3935644699957702,
+                  "observed_success_rate": 0.5238095238095238,
+                  "upper": 0.4
+                },
+                {
+                  "count": 132,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4583645201857988,
+                  "observed_success_rate": 0.5757575757575758,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.25249556380467375,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2739458485478219
+              },
+              "brier_score": 0.26411776257136343,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 25,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3796765178877952,
+                  "observed_success_rate": 0.56,
+                  "upper": 0.4
+                },
+                {
+                  "count": 128,
+                  "lower": 0.4,
+                  "mean_prediction": 0.4658908041861719,
+                  "observed_success_rate": 0.5703125,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            }
+          ]
+        }
+      ],
+      "requested_seed_count": 5
+    },
+    "state_signal": {
+      "independent_seed_count": 5,
+      "maximum_seed_improvement": 0.1383171233934727,
+      "mean_state_brier_improvement": 0.11612831756006892,
+      "minimum_seed_improvement": 0.07850316070267961,
+      "reports": [
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": 0.000598319900019467,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0047285218792090826,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0062442847517452695
+              },
+              "reference": "A_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.1383171233934727,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.10384135762431215,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.16916987864488592
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -7.0649068340970724e-06,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0008956979653908289,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.00069384439159918
+              },
+              "reference": "C_without_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.0004461683347697383,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0010338145292701128,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0019791100902210017
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.1383171233934727,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.10384135762431215,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.16916987864488592
+              },
+              "reference": "C_without_state",
+              "scored_count": 153,
+              "task_count": 153
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-0",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 7,
+            "training_missing_or_nonbinary_label": 18
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 0,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 153,
+          "scored_task_count": 153,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 222,
+          "training_task_count": 222,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24132140544898648,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25954329015106825
+              },
+              "brier_score": 0.2507584566582729,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 153,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5581186607561417,
+                  "observed_success_rate": 0.5228758169934641,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2393593559687192,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26037814598552084
+              },
+              "brier_score": 0.25016013675825344,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 141,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5512298450564397,
+                  "observed_success_rate": 0.5177304964539007,
+                  "upper": 0.6
+                },
+                {
+                  "count": 12,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6102222389321071,
+                  "observed_success_rate": 0.5833333333333334,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.08066083065398565,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.1442253580716473
+              },
+              "brier_score": 0.11184301336478072,
+              "calibration": [
+                {
+                  "count": 3,
+                  "lower": 0.0,
+                  "mean_prediction": 0.1961592606826759,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.2
+                },
+                {
+                  "count": 75,
+                  "lower": 0.2,
+                  "mean_prediction": 0.23337453460060942,
+                  "observed_success_rate": 0.16,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 75,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8551707903303543,
+                  "observed_success_rate": 0.9066666666666666,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.08080036053971328,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.14411149527170078
+              },
+              "brier_score": 0.11183594845794662,
+              "calibration": [
+                {
+                  "count": 1,
+                  "lower": 0.0,
+                  "mean_prediction": 0.19395783026888788,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.2
+                },
+                {
+                  "count": 77,
+                  "lower": 0.2,
+                  "mean_prediction": 0.23304452852109486,
+                  "observed_success_rate": 0.15584415584415584,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 75,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8545782335087745,
+                  "observed_success_rate": 0.9066666666666666,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.08074146824305899,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.14483716574451622
+              },
+              "brier_score": 0.11228918169955045,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 78,
+                  "lower": 0.2,
+                  "mean_prediction": 0.2327559030874618,
+                  "observed_success_rate": 0.15384615384615385,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 75,
+                  "lower": 0.8,
+                  "mean_prediction": 0.856264627162221,
+                  "observed_success_rate": 0.9066666666666666,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2393593559687192,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26037814598552084
+              },
+              "brier_score": 0.25016013675825344,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 141,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5512298450564397,
+                  "observed_success_rate": 0.5177304964539007,
+                  "upper": 0.6
+                },
+                {
+                  "count": 12,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6102222389321071,
+                  "observed_success_rate": 0.5833333333333334,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 222
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": 0.002637149633399308,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.002148219738220785,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.007320247599799463
+              },
+              "reference": "A_initial",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": 0.12594312705360752,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.08527274887307976,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.15990866741798201
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": -0.0014240875769649943,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0036256291332367745,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.00030471400054494504
+              },
+              "reference": "C_without_initial",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": 0.00040406328935887505,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0002805363020890881,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0012409422459127364
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 150,
+              "task_count": 150
+            },
+            {
+              "brier_improvement": 0.12594312705360752,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.08527274887307976,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.15990866741798201
+              },
+              "reference": "C_without_state",
+              "scored_count": 150,
+              "task_count": 150
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-1",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 10,
+            "training_missing_or_nonbinary_label": 12
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 1,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 150,
+          "scored_task_count": 150,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 228,
+          "training_task_count": 228,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.23376219429841202,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2584270290230783
+              },
+              "brier_score": 0.24554672959047016,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 111,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5616941433043037,
+                  "observed_success_rate": 0.5675675675675675,
+                  "upper": 0.6
+                },
+                {
+                  "count": 39,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6045929149174608,
+                  "observed_success_rate": 0.5641025641025641,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2305685186350408,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25725118552501147
+              },
+              "brier_score": 0.24290957995707085,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 105,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5523204887766417,
+                  "observed_success_rate": 0.5619047619047619,
+                  "upper": 0.6
+                },
+                {
+                  "count": 45,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6163700604196746,
+                  "observed_success_rate": 0.5777777777777777,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.08572675706859134,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.15444070740560473
+              },
+              "brier_score": 0.11696645290346332,
+              "calibration": [
+                {
+                  "count": 60,
+                  "lower": 0.0,
+                  "mean_prediction": 0.17676194908113327,
+                  "observed_success_rate": 0.23333333333333334,
+                  "upper": 0.2
+                },
+                {
+                  "count": 15,
+                  "lower": 0.2,
+                  "mean_prediction": 0.21300242429708102,
+                  "observed_success_rate": 0.06666666666666667,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 9,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7962519017152843,
+                  "observed_success_rate": 0.8888888888888888,
+                  "upper": 0.8
+                },
+                {
+                  "count": 66,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8433426687705562,
+                  "observed_success_rate": 0.9393939393939394,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.08541166595619286,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.15191694542098957
+              },
+              "brier_score": 0.11554236532649831,
+              "calibration": [
+                {
+                  "count": 72,
+                  "lower": 0.0,
+                  "mean_prediction": 0.18405573272453846,
+                  "observed_success_rate": 0.19444444444444445,
+                  "upper": 0.2
+                },
+                {
+                  "count": 3,
+                  "lower": 0.2,
+                  "mean_prediction": 0.20278772170396922,
+                  "observed_success_rate": 0.3333333333333333,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 75,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8336269095818862,
+                  "observed_success_rate": 0.9333333333333333,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.08579504412916328,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.15511453572029282
+              },
+              "brier_score": 0.1173705161928222,
+              "calibration": [
+                {
+                  "count": 59,
+                  "lower": 0.0,
+                  "mean_prediction": 0.1762378746678325,
+                  "observed_success_rate": 0.23728813559322035,
+                  "upper": 0.2
+                },
+                {
+                  "count": 16,
+                  "lower": 0.2,
+                  "mean_prediction": 0.21485266389110838,
+                  "observed_success_rate": 0.0625,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 75,
+                  "lower": 0.8,
+                  "mean_prediction": 0.839451215187411,
+                  "observed_success_rate": 0.9333333333333333,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2305685186350408,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.25725118552501147
+              },
+              "brier_score": 0.24290957995707085,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 105,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5523204887766417,
+                  "observed_success_rate": 0.5619047619047619,
+                  "upper": 0.6
+                },
+                {
+                  "count": 45,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6163700604196746,
+                  "observed_success_rate": 0.5777777777777777,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 150,
+              "status": "evaluated",
+              "task_count": 150,
+              "training_count": 228
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": -0.0044240180556722655,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.010608960268376513,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.001020934908309455
+              },
+              "reference": "A_initial",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": 0.13339264792236932,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.10574956360515986,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.16153504728958612
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": 0.0002384410178045496,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.002028376948734441,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0024778947311331484
+              },
+              "reference": "C_without_initial",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": -0.0010264668795316612,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0036369366683148166,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0013146773067723092
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 151,
+              "task_count": 151
+            },
+            {
+              "brier_improvement": 0.13339264792236932,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.10574956360515986,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.16153504728958612
+              },
+              "reference": "C_without_state",
+              "scored_count": 151,
+              "task_count": 151
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-2",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 9,
+            "training_missing_or_nonbinary_label": 9
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 2,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 151,
+          "scored_task_count": 151,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 231,
+          "training_task_count": 231,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24742816355793512,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2535816156275592
+              },
+              "brier_score": 0.25058572647204447,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 151,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5088789256056725,
+                  "observed_success_rate": 0.48344370860927155,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24887881541131146,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26078824091752173
+              },
+              "brier_score": 0.2550097445277168,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 150,
+                  "lower": 0.4,
+                  "mean_prediction": 0.504977116267628,
+                  "observed_success_rate": 0.4866666666666667,
+                  "upper": 0.6
+                },
+                {
+                  "count": 1,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6061283678769563,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.09441796521096374,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.15137780712749105
+              },
+              "brier_score": 0.12161709660534745,
+              "calibration": [
+                {
+                  "count": 11,
+                  "lower": 0.0,
+                  "mean_prediction": 0.18562791448001456,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.2
+                },
+                {
+                  "count": 68,
+                  "lower": 0.2,
+                  "mean_prediction": 0.2391866608760718,
+                  "observed_success_rate": 0.14705882352941177,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 54,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7646163632382336,
+                  "observed_success_rate": 0.8703703703703703,
+                  "upper": 0.8
+                },
+                {
+                  "count": 18,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8174979560588584,
+                  "observed_success_rate": 0.8888888888888888,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.09395413123264502,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.15164721102365963
+              },
+              "brier_score": 0.12185553762315199,
+              "calibration": [
+                {
+                  "count": 5,
+                  "lower": 0.0,
+                  "mean_prediction": 0.1945228058192352,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.2
+                },
+                {
+                  "count": 74,
+                  "lower": 0.2,
+                  "mean_prediction": 0.24347195128951335,
+                  "observed_success_rate": 0.13513513513513514,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 52,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7719369354804926,
+                  "observed_success_rate": 0.8846153846153846,
+                  "upper": 0.8
+                },
+                {
+                  "count": 20,
+                  "lower": 0.8,
+                  "mean_prediction": 0.814497522045363,
+                  "observed_success_rate": 0.85,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.09235631963170596,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.14996823857998456
+              },
+              "brier_score": 0.12059062972581577,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 79,
+                  "lower": 0.2,
+                  "mean_prediction": 0.23248818136002236,
+                  "observed_success_rate": 0.12658227848101267,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 62,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7733327591644168,
+                  "observed_success_rate": 0.8709677419354839,
+                  "upper": 0.8
+                },
+                {
+                  "count": 10,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8162223385773192,
+                  "observed_success_rate": 0.9,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.24887881541131146,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26078824091752173
+              },
+              "brier_score": 0.2550097445277168,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 150,
+                  "lower": 0.4,
+                  "mean_prediction": 0.504977116267628,
+                  "observed_success_rate": 0.4866666666666667,
+                  "upper": 0.6
+                },
+                {
+                  "count": 1,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6061283678769563,
+                  "observed_success_rate": 0.0,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 151,
+              "status": "evaluated",
+              "task_count": 151,
+              "training_count": 231
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": 0.000608491477200974,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.003526380248965993,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.004669749155292237
+              },
+              "reference": "A_initial",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": 0.07850316070267961,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.03744418692560244,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.11591428615069246
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": -0.0007712983480647734,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.002546991595446447,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0011710340538362719
+              },
+              "reference": "C_without_initial",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": -0.0001515492734156548,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0024370241326332393,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.001981395568276436
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 154,
+              "task_count": 154
+            },
+            {
+              "brier_improvement": 0.07850316070267961,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.03744418692560244,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.11591428615069246
+              },
+              "reference": "C_without_state",
+              "scored_count": 154,
+              "task_count": 154
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-3",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 6,
+            "training_missing_or_nonbinary_label": 9
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 3,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 154,
+          "scored_task_count": 154,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 231,
+          "training_task_count": 231,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24466818118169534,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26235062713587887
+              },
+              "brier_score": 0.2533696840574218,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 154,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5361932729569604,
+                  "observed_success_rate": 0.5064935064935064,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2426290105602689,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26333734430887434
+              },
+              "brier_score": 0.2527611925802208,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 129,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5258006967644776,
+                  "observed_success_rate": 0.49612403100775193,
+                  "upper": 0.6
+                },
+                {
+                  "count": 25,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6167656782251,
+                  "observed_success_rate": 0.56,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.13719503040758874,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.21460027760500364
+              },
+              "brier_score": 0.1742580318775412,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 74,
+                  "lower": 0.2,
+                  "mean_prediction": 0.25213168031309435,
+                  "observed_success_rate": 0.21621621621621623,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 14,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7902025119324704,
+                  "observed_success_rate": 0.6428571428571429,
+                  "upper": 0.8
+                },
+                {
+                  "count": 66,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8260708918315973,
+                  "observed_success_rate": 0.803030303030303,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.1364640011575639,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.21463659610586078
+              },
+              "brier_score": 0.1734867335294764,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 74,
+                  "lower": 0.2,
+                  "mean_prediction": 0.2499594259671643,
+                  "observed_success_rate": 0.21621621621621623,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 9,
+                  "lower": 0.6,
+                  "mean_prediction": 0.789985311142164,
+                  "observed_success_rate": 0.5555555555555556,
+                  "upper": 0.8
+                },
+                {
+                  "count": 71,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8232651283920148,
+                  "observed_success_rate": 0.8028169014084507,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.13707105819121146,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2153916370251171
+              },
+              "brier_score": 0.17410648260412553,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 74,
+                  "lower": 0.2,
+                  "mean_prediction": 0.24708115463814162,
+                  "observed_success_rate": 0.21621621621621623,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 80,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8176316472417214,
+                  "observed_success_rate": 0.775,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            },
+            {
+              "brier_interval": {
+                "lower": 0.2426290105602689,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.26333734430887434
+              },
+              "brier_score": 0.2527611925802208,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 129,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5258006967644776,
+                  "observed_success_rate": 0.49612403100775193,
+                  "upper": 0.6
+                },
+                {
+                  "count": 25,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6167656782251,
+                  "observed_success_rate": 0.56,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 154,
+              "status": "evaluated",
+              "task_count": 154,
+              "training_count": 231
+            }
+          ]
+        },
+        {
+          "acceptance_spec": {
+            "identifier": "controlled-task-acceptance",
+            "version": "1"
+          },
+          "checkpoint_offset_seconds": 30,
+          "comparisons": [
+            {
+              "brier_improvement": -0.0003720645922944209,
+              "candidate": "B_initial_metrics",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.012848652668730321,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.011230140660603039
+              },
+              "reference": "A_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.10448552872821547,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.06940404965629005,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.13925784294672525
+              },
+              "reference": "B_initial_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -0.00104176788252405,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.0025821784413599226,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.0007481694715417948
+              },
+              "reference": "C_without_initial",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": -9.592804843238386e-05,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "no resolved improvement on this dataset",
+              "interval": {
+                "lower": -0.004194345503064647,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.003986739801018586
+              },
+              "reference": "C_without_metrics",
+              "scored_count": 153,
+              "task_count": 153
+            },
+            {
+              "brier_improvement": 0.10448552872821547,
+              "candidate": "C_initial_metrics_state",
+              "interpretation": "conditional evidence of lower Brier on this dataset",
+              "interval": {
+                "lower": 0.06940404965629005,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.13925784294672525
+              },
+              "reference": "C_without_state",
+              "scored_count": 153,
+              "task_count": 153
+            }
+          ],
+          "dataset": {
+            "dataset_id": "task-state-state_signal-seed-4",
+            "dataset_version": "1",
+            "source_kind": "simulated"
+          },
+          "evaluation_at": "2026-01-01T20:00:00+00:00",
+          "exclusions": {
+            "score_missing_or_nonbinary_label": 7,
+            "training_missing_or_nonbinary_label": 11
+          },
+          "held_out_count": 160,
+          "limitations": [
+            "Final JUnit/test state, terminal execution state, outcomes and final resources are excluded from predictors.",
+            "Input/config availability and label provenance are trusted external receipts; real observations require prior ledger resolution.",
+            "Intervals condition on the fitted model; they omit training uncertainty and time dependence across different tasks.",
+            "Exploratory ablations have no multiplicity correction; ECE/bin calibration is descriptive and sample dependent.",
+            "Missing labels or unavailable horizons can select a nonrepresentative cohort; no causal model or real-utility claim."
+          ],
+          "method": {
+            "bootstrap_replicates": 300,
+            "feature_groups": {
+              "A_initial": [
+                "initial"
+              ],
+              "B_initial_metrics": [
+                "initial",
+                "metrics"
+              ],
+              "C_initial_metrics_state": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "C_without_initial": [
+                "metrics",
+                "state"
+              ],
+              "C_without_metrics": [
+                "initial",
+                "state"
+              ],
+              "C_without_state": [
+                "initial",
+                "metrics"
+              ]
+            },
+            "min_scored": 20,
+            "min_training": 30,
+            "model": "fixed L2 logistic reference; ridge=0.05, 400 full-batch steps",
+            "preprocessing": "training-only vocabulary and mean/std; unseen categories ignored; log1p counts with missing indicators",
+            "seed": 4,
+            "split": "decision < train_until; checkpoint and labels available by fit/score cutoff; task clusters disjoint",
+            "uncertainty": "paired held-out task bootstrap; fixed training fit; 95% percentile intervals"
+          },
+          "resource_budget": null,
+          "scored_count": 153,
+          "scored_task_count": 153,
+          "train_until": "2026-01-01T12:00:00+00:00",
+          "training_count": 229,
+          "training_task_count": 229,
+          "variants": [
+            {
+              "brier_interval": {
+                "lower": 0.24229932907115806,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2512499455109877
+              },
+              "brier_score": 0.24662665253928687,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 0,
+                  "lower": 0.2,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.4
+                },
+                {
+                  "count": 153,
+                  "lower": 0.4,
+                  "mean_prediction": 0.5202178526497172,
+                  "observed_success_rate": 0.5882352941176471,
+                  "upper": 0.6
+                },
+                {
+                  "count": 0,
+                  "lower": 0.6,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 4,
+              "groups": [
+                "initial"
+              ],
+              "name": "A_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23418976632290947,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2603246576529858
+              },
+              "brier_score": 0.24699871713158128,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 15,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3664472850068723,
+                  "observed_success_rate": 0.4666666666666667,
+                  "upper": 0.4
+                },
+                {
+                  "count": 119,
+                  "lower": 0.4,
+                  "mean_prediction": 0.514450688257358,
+                  "observed_success_rate": 0.5882352941176471,
+                  "upper": 0.6
+                },
+                {
+                  "count": 19,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6173169074232553,
+                  "observed_success_rate": 0.6842105263157895,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "B_initial_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.1086433558340504,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.17926779149068092
+              },
+              "brier_score": 0.14251318840336583,
+              "calibration": [
+                {
+                  "count": 16,
+                  "lower": 0.0,
+                  "mean_prediction": 0.17984392526189644,
+                  "observed_success_rate": 0.1875,
+                  "upper": 0.2
+                },
+                {
+                  "count": 51,
+                  "lower": 0.2,
+                  "mean_prediction": 0.2507605467645591,
+                  "observed_success_rate": 0.23529411764705882,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 32,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7767829240433136,
+                  "observed_success_rate": 0.875,
+                  "upper": 0.8
+                },
+                {
+                  "count": 54,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8261458608278628,
+                  "observed_success_rate": 0.8703703703703703,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 24,
+              "groups": [
+                "initial",
+                "metrics",
+                "state"
+              ],
+              "name": "C_initial_metrics_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.10781433983196247,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.17784897857397927
+              },
+              "brier_score": 0.14147142052084175,
+              "calibration": [
+                {
+                  "count": 14,
+                  "lower": 0.0,
+                  "mean_prediction": 0.17849577689154067,
+                  "observed_success_rate": 0.21428571428571427,
+                  "upper": 0.2
+                },
+                {
+                  "count": 53,
+                  "lower": 0.2,
+                  "mean_prediction": 0.2530285823207373,
+                  "observed_success_rate": 0.22641509433962265,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 33,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7766861636302614,
+                  "observed_success_rate": 0.9090909090909091,
+                  "upper": 0.8
+                },
+                {
+                  "count": 53,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8245636479814478,
+                  "observed_success_rate": 0.8490566037735849,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 20,
+              "groups": [
+                "metrics",
+                "state"
+              ],
+              "name": "C_without_initial",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.10745947962685065,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.1791159995148736
+              },
+              "brier_score": 0.14241726035493343,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 67,
+                  "lower": 0.2,
+                  "mean_prediction": 0.23641854821342895,
+                  "observed_success_rate": 0.22388059701492538,
+                  "upper": 0.4
+                },
+                {
+                  "count": 0,
+                  "lower": 0.4,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.6
+                },
+                {
+                  "count": 23,
+                  "lower": 0.6,
+                  "mean_prediction": 0.7969411456758873,
+                  "observed_success_rate": 0.8260869565217391,
+                  "upper": 0.8
+                },
+                {
+                  "count": 63,
+                  "lower": 0.8,
+                  "mean_prediction": 0.8182266601385505,
+                  "observed_success_rate": 0.8888888888888888,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 11,
+              "groups": [
+                "initial",
+                "state"
+              ],
+              "name": "C_without_metrics",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            },
+            {
+              "brier_interval": {
+                "lower": 0.23418976632290947,
+                "method": "95% percentile task-cluster bootstrap, conditional on frozen fit",
+                "upper": 0.2603246576529858
+              },
+              "brier_score": 0.24699871713158128,
+              "calibration": [
+                {
+                  "count": 0,
+                  "lower": 0.0,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 0.2
+                },
+                {
+                  "count": 15,
+                  "lower": 0.2,
+                  "mean_prediction": 0.3664472850068723,
+                  "observed_success_rate": 0.4666666666666667,
+                  "upper": 0.4
+                },
+                {
+                  "count": 119,
+                  "lower": 0.4,
+                  "mean_prediction": 0.514450688257358,
+                  "observed_success_rate": 0.5882352941176471,
+                  "upper": 0.6
+                },
+                {
+                  "count": 19,
+                  "lower": 0.6,
+                  "mean_prediction": 0.6173169074232553,
+                  "observed_success_rate": 0.6842105263157895,
+                  "upper": 0.8
+                },
+                {
+                  "count": 0,
+                  "lower": 0.8,
+                  "mean_prediction": null,
+                  "observed_success_rate": null,
+                  "upper": 1.0
+                }
+              ],
+              "feature_count": 17,
+              "groups": [
+                "initial",
+                "metrics"
+              ],
+              "name": "C_without_state",
+              "scored_count": 153,
+              "status": "evaluated",
+              "task_count": 153,
+              "training_count": 229
+            }
+          ]
+        }
+      ],
+      "requested_seed_count": 5
+    }
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "train_fraction": 0.6,
+  "version": "task-state-experiment/v1"
+}

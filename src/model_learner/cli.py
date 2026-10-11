@@ -11,6 +11,7 @@ import typer
 from pydantic import BaseModel
 
 from model_learner import __version__
+from model_learner.commands.benchmark import benchmark_app
 from model_learner.commands.learning import learn_app, sim_app
 from model_learner.commands.observation import (
     capture_app,
@@ -21,6 +22,11 @@ from model_learner.commands.observation import (
 )
 from model_learner.commands.observation import (
     show_session as inspect_session,
+)
+from model_learner.commands.task_state import (
+    state_eval,
+    state_experiment,
+    state_fixture,
 )
 from model_learner.commands.tasks import (
     observations_app,
@@ -78,6 +84,10 @@ app.add_typer(run_app, name="run")
 app.add_typer(verify_app, name="verify")
 app.add_typer(outcome_app, name="outcome")
 app.add_typer(observations_app, name="observations")
+app.add_typer(benchmark_app, name="benchmark")
+learn_app.command("state-eval")(state_eval)
+learn_app.command("state-experiment")(state_experiment)
+sim_app.command("state-fixture")(state_fixture)
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,

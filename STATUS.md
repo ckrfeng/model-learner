@@ -1,7 +1,7 @@
 # Model Learner status
 
-Current work: requested Workstreams A/B — coding-task verification and
-execution-state analysis (COMPLETE; stopped after independent review).
+Current work: requested Workstreams A/B — real coding-task evaluation and
+task-state predictive evaluation (COMPLETE; stopped after independent review).
 Last user-confirmed work: historical assessment resolution and drift investigation
 complete.
 Updated: 2026-10-10
@@ -649,6 +649,128 @@ agent control, unrestricted command execution, migration or next milestone was
 implemented. No commit, push, merge, publication or global hook installation was
 performed. Stop after these two workstreams.
 
+## Real coding-task and task-state predictive evaluation — 2026-10-10
+
+The coordinator read the plan, repository instructions, status and existing
+implementation before assigning two separate implementation subagents. A owns
+the new `benchmark/` package, public task fixtures, benchmark tests and operator
+documentation. B owns `learn/task_state.py`, predictive tests, controlled evidence
+and methods documentation. The coordinator owns CLI integration, four CLI tests,
+README and this status. A third, independent reviewer examined statistical
+validity, data integrity, privacy and isolation. Existing domain contracts,
+storage migrations, dependencies, lockfile and master plan are unchanged.
+
+### Workstream A: operator-controlled real coding-task harness
+
+- Two predefined public single-module tasks (`clamp`, `duration`) have versioned
+  objectives and independent acceptance tests. Preparation predeclares exact
+  configuration, task/acceptance, starting fixture and benchmark dataset before
+  an agent runs. New disposable roots and all control/results/ledger files are
+  outside the protected repository; resolved overlapping paths, symlinks and
+  non-regular inputs are rejected.
+- Agent execution is exclusively operator-controlled. No API/CLI command launches
+  an agent, paid API or arbitrary test command. Operators must supply OS/container
+  containment with no repository mount, protect control files, stop/reap the agent
+  and its descendants, then separately run the provided acceptance controller.
+  Source-tree fingerprints detect protected source changes; they do not replace
+  or attest OS containment. Exact inventory exclusions and resource/process
+  boundaries are documented in `docs/CODING_TASK_EVALUATION.md`.
+- A stopped-run snapshot freezes one candidate module with digest and timing
+  checks. The trusted acceptance controller evaluates each test through a separate
+  Python worker, independently compares primitive values/errors and creates JUnit.
+  Candidate code never imports into the controller. Existing bound JUnit
+  verification and append-only assessments are reused; agent completion and
+  self-report supply no acceptance label.
+- Metadata-only Codex capture preserves source/version, events, receipt times,
+  token coverage and native model/provider observations without prompts/outputs.
+  Exact operator configuration attribution is retained, with emitted conflicts
+  explicit. Unknown costs remain unknown. Missing/partial/malformed/skipped
+  evidence, missing telemetry and incomplete executions remain visible; incomplete
+  or unverifiable outcomes are unknown. No learning observation is manufactured.
+- Public coding tasks always use `source_kind=benchmark`. Dataset IDs end in
+  `:real` or `:fixture` to separate real agent runs from controlled fixture checks.
+  Finalization validates in a private staging ledger and can retry rejected
+  evidence without leaving a partial canonical run. A lock prevents parallel
+  finalizers; final publication is not multi-file crash-atomic.
+- Added `benchmark tasks`, `prepare`, `show`, `snapshot`, `finalize`, `cleanup`.
+  Fixture acceptance covers named tests only. No real coding-agent performance
+  run was attempted; the harness is code-complete and fixture-validated, with
+  operator-controlled real integration pending.
+
+### Workstream B: frozen task-state predictive evaluation
+
+- Compares A (initial task group/exact configuration), B (A plus simple observed
+  event/tool/turn/token metrics and missingness), C (B plus observed failure,
+  repeated-failure and failure/unknown-fraction state), and C minus each of the
+  three feature groups. Every variant uses identical chronological fit/score
+  cutoffs, selected rows and fixed checkpoint horizon. This experiment does not
+  replace the existing Beta-Bernoulli learner.
+- Initial configuration/association and feature availability receipts are explicit.
+  Non-simulated checkpoint facts are rebuilt from retained observed/ingested
+  events with run/session/horizon bounds; mismatches and foreign-run leakage are
+  rejected. Final JUnit/test state, terminal execution state, final resources and
+  outcomes are excluded from predictors. Labels already known at checkpoint are
+  excluded. Training-only category vocabulary/scaling, unavailable-future filtering
+  before identity conflicts and disjoint task clusters prevent tested leakage.
+- Fixed L2 logistic reference has predeclared settings. Reports include Brier,
+  calibration bins, label/task counts, exclusion reasons, paired task-cluster
+  bootstrap intervals and feature-group ablations. Sparse/single-class cohorts
+  return `insufficient_data` and null scores. Intervals condition on the fitted
+  model, omit training uncertainty and cross-task time dependence, and ablations
+  are exploratory. Selected/missing labels can remain nonrepresentative.
+- Added `sim state-fixture`, `learn state-eval`, `learn state-experiment`.
+  Portable real/benchmark inputs require prior independently verified,
+  historically resolved labels and prospective availability receipts; JSON
+  validation is not evidence attestation. See `docs/TASK_STATE_EVALUATION.md`.
+
+Actual controlled CLI experiment: seeds **0–4**, **400 independent tasks per seed**,
+60% chronological training prefix, 30-second checkpoint, 300 paired bootstrap
+replicates. Eligible training counts per seed were **222, 228, 231, 231, 229**;
+scored counts were **153, 150, 151, 154, 153**. Equal-seed mean Brier scores:
+
+| Controlled scenario | A | B | C | B minus C |
+| --- | --- | --- | --- | --- |
+| Deliberate state signal | 0.249377 | 0.249568 | 0.133440 | 0.116128 |
+| Null state signal | 0.251462 | 0.251353 | 0.251842 | -0.000489 |
+
+All five state-signal paired intervals were positive; every null-signal interval
+included zero. The favorable fixture shows use of a deliberately generated signal;
+the null fixture provides no evidence of improvement. This establishes neither
+real-task predictive improvement nor real calibration. Per-seed calibration,
+scores, counts, conditional intervals and ablations are retained in the public
+`tests/fixtures/task_state/controlled_reference.json`; no private data is included.
+
+### Actual checks and independent review
+
+Existing macOS arm64 Python 3.12.14 / uv 0.12.24 / Ruff 0.16.10 environment;
+repository-local tool/cache paths, no new dependencies or paid executions.
+
+| Check | Actual result |
+| --- | --- |
+| Baseline `uv run pytest` | **346 passed in 14.06s**. |
+| A owned unit/integration tests | **24 passed in 2.92s**; owned lint/format passed. |
+| B final owned unit/integration tests | **23 passed in 8.22s**; owned lint/format passed. |
+| Coordinator CLI integration tests | **4 passed in 0.51s**. |
+| Coordinator final `uv run pytest` | **397 passed in 21.39s**. |
+| Coordinator `uv run ruff check .` | `All checks passed!` |
+| Coordinator `uv run ruff format --check .` | **91 files already formatted**. |
+| Independent final full suite | **397 passed in 21.56s**; lint/format and whitespace passed. |
+| Actual CLI controlled experiment | Five seeds, two scenarios, six variants per seed; results above. |
+| Independent numerical reproduction | All **60 per-seed variant Brier scores** recomputed directly from saved predictions and regenerated labels; agreement within **1e-14**. |
+
+Review prompted fixes for candidate monkeypatching of evaluator builtins,
+retry-safe finalization after verifier rejection, captured/configuration conflicts,
+origin-specific datasets, candidate/report timing, foreign-run checkpoint
+events and consistent synthetic event/tool/turn/usage projections. Regression
+tests cover these along with repository/control/candidate
+tampering, symlink/path rejection, failure/unknown evidence, capture privacy,
+future records/labels, delayed labels, task retries, preprocessing and empty data.
+The reviewer found no remaining blocking issue in the requested scope.
+
+No automatic routing, Governor, neural fine-tuning, cloud synchronization,
+subsequent milestone, commit, push, merge, publication or global hook installation
+was implemented. Stop after these two workstreams.
+
 ## Known issues / blockers
 
 - No known M0 implementation defects or unresolved blockers.
@@ -697,8 +819,10 @@ performed. Stop after these two workstreams.
 
 ## Next recommended increment (not started)
 
-- The requested coding-verification and execution-analysis workstreams are
-  delivered, independently reviewed, and checked. No next milestone is authorized.
+- The requested coding-verification, execution-analysis, coding-task evaluation
+  and task-state evaluation workstreams are delivered and checked. No next
+  milestone is authorized. Real benchmark executions remain operator-controlled
+  and were not launched; real predictive improvement remains unestablished.
 - Intermediate artifact snapshots and complete declaration/evidence ingestion
   receipts would require separately scoped contracts. No new schema is introduced
   here; no subsequent milestone has started.

@@ -1,12 +1,14 @@
 # Model Learner status
 
-Current work: requested task-understanding annotation workflow and evaluation
-protocol implemented, tested and independently reviewed. Genuine human annotation
-collection remains pending. Real coding-agent execution remains disabled. Stopped
-after this increment; no later milestone has started.
-Last user-confirmed work: versioned local annotations, independent human review
-workflow, group-disjoint retrieval/no-match/abstention evaluation; preserve TF-IDF
-and the existing pinned local Potion encoder without training or downloads.
+Current work: first independent human semantic-review batch prepared locally:
+40 constructed realistic queries, no human labels or accepted reviews yet.
+The existing annotation workflow remains implemented and tested. Genuine human
+annotation/adjudication and final evaluation remain pending. Real coding-agent
+execution remains disabled. Stopped at batch preparation; no later milestone
+has started.
+Last user-confirmed work: prepare a local human-review batch using the existing
+annotation format/CLI, with score-independent review and exact operator commands;
+preserve TF-IDF and pinned local Potion, without implementation changes.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -1542,6 +1544,77 @@ discipline. Retrieval evaluation remains separate from model-utility prediction.
 No fine-tuning, larger model download, paid agent, routing, security-boundary
 change, web GUI, commit, push, merge or publication occurred. Stop here.
 
+## First independent human semantic-review batch prepared — 2026-10-11
+
+Read AGENTS.md, the master plan, status, annotation protocol, original semantic
+evaluation documentation, annotation CLI/contracts/evaluator and workflow tests.
+This is data preparation and review guidance, not a feature milestone. No
+implementation blocker was found, and no source code, dependency, schema,
+database, model, or frozen prior experiment was changed. Pre-existing tracked
+`.DS_Store`, `pyproject.toml`, and `uv.lock` modifications were preserved.
+
+- Prepared ignored local `.model-learner/annotations/semantic-human-review-v1/`:
+  source material, `seed.json`, CLI-created `collection-000.json`, a neutral query
+  inventory, 40 blank forms in the existing query-judgment format, and local
+  inspection/author/reviewer/revision directories. The collection identity is
+  `semantic-human-review-v1`, schema `task-annotations/v1`, source kind `benchmark`.
+- 40 newly agent-authored realistic technical queries and 32 historical snapshots
+  cover eight project/family cohorts. Development has 10 queries and 8 candidates;
+  test has 30 queries and 24 candidates. Complete per-query labeling requires
+  **800 pair judgments**. Project/family/lineage groups are disjoint between splits;
+  correlated variants stay together. IDs are neutral and order is shuffled.
+- Material includes related/independent work, wording traps, different-wording
+  technical equivalents, shared-capability/different-objective comparisons,
+  explicit continuations, absent identity declarations, changed objectives under
+  retained task identity, unrelated tasks, and intended no-history cases. These
+  construction intentions are not judgments: actual relevance/no-match counts
+  await exhaustive human assessment against the full split candidate pool.
+- All descriptions, UUIDs and availability checkpoints are hypothetical benchmark
+  context. No real history, private transcripts, execution facts, or outcomes were
+  collected. Source locators refer to inspectable `authored_descriptions.json`,
+  SHA-256 `2cede15f28ac8f193d7eb1a73a87efab24ba90fc7d515c9be073b6e0a908188b`.
+  No prior retrieval fixture text/labels were reused. All data stays local/ignored.
+- Zero annotations, zero reviews, no selected protocol/freeze, and no scores,
+  rankings, or evaluation reports. Forms have unknown dimensions and empty
+  rationales, intentionally failing submission until completed by a human.
+- `docs/HUMAN_REVIEW_BATCH.md` provides chronological exact commands to inspect,
+  author labels, independently accept/reject, correct, re-review, freeze, and
+  later evaluate. It separates objective similarity, shared capability context
+  in the existing rationale, and explicit identity/continuation. No capability
+  label field or second annotation system was introduced. Two distinct actual
+  humans must review source material without score exposure; software/agent
+  review cannot substitute for human annotation review.
+- The guide proposes a prospective fixed k=3, strict score >0 comparison for
+  TF-IDF and the existing pinned Potion bundle, with separate frozen artifacts
+  before held-out evaluation. This is not a calibrated rejection policy. Freeze
+  and evaluation commands are provided for the operator, **not executed** here.
+
+### Actual preparation checks
+
+Existing macOS/Python 3.12.14 environment; `.tools/bin/uv`, repository-local
+`UV_CACHE_DIR`, and `--no-sync` preserve installed dependencies. No installation
+or model download occurred. Existing tests use separate fixtures, not labels for
+this batch.
+
+| Check | Actual result |
+| --- | --- |
+| `uv run --no-sync model-learner annotation prepare ... --dataset-id semantic-human-review-v1` | Exit 0; exclusively created pending `collection-000.json` with parent seed digest. |
+| `uv run --no-sync model-learner annotation show ... --query-id q-93b477` | Exit 0; one query and all 24 test candidates, with no labels or model scores. |
+| Local structural/source audit | Passed: exact counts, all source hashes/locators, complete candidate forms, checkpoints, split validation, and parent digest; all 40 unchanged blank forms reject submission. Human-review completeness gate rejects the pending collection. No frozen artifact/report exists. |
+| `uv run --no-sync pytest tests/unit/test_task_annotations.py tests/unit/test_semantic_evaluation.py tests/integration/test_annotations_cli.py` | **78 passed, 2 skipped in 1.77s**. Skips are existing explicit local-model opt-ins; no actual-model test was enabled for this data-only activity. |
+| `uv run --no-sync ruff check .` | **All checks passed!** |
+| `uv run --no-sync ruff format --check .` | **147 files already formatted** |
+| `git check-ignore` for seed/collection | Both files ignored under `.model-learner/`. |
+| `git diff --check` | Passed. |
+
+Batch preparation is complete. Manual source/context audit, genuine human labeling
+and independent acceptance are still required before finalizing or evaluating.
+The evidence will remain a small constructed benchmark even after human review;
+it does not establish population accuracy on real task history, continuation
+prediction, shared-capability classification, or model utility. No new models,
+fine-tuning, routing, Governor, subagent, commit, push, merge or publication.
+Stop here; the next action belongs to the human annotator and independent reviewer.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1603,10 +1676,10 @@ change, web GUI, commit, push, merge or publication occurred. Stop here.
 
 ## Next recommended increment (not started)
 
-- The annotation workflow and evaluation protocol above are the latest requested
-  work. The next evidence step is genuine independent human labeling/adjudication
-  on realistic, prospectively held-out groups, then retrieval/no-match/abstention
-  measurement under a development-selected frozen policy. No next increment,
+- The local 40-query human-review batch is prepared; the annotation workflow and
+  protocol remain complete. The next evidence step is genuine independent human
+  labeling/adjudication of that batch, then retrieval/no-match/abstention
+  measurement under a prospectively frozen policy. No next implementation increment,
   semantic classifier, fine-tuning or utility integration is authorized or started.
   Earlier checkpoint entries below are historical.
 - The fixed offline isolation experiment and benchmark evidence pipeline are

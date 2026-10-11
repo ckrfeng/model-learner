@@ -1,11 +1,10 @@
 # Model Learner status
 
-Current work: requested Workstreams A/B — secure real-execution boundary components
-and optional CPU task representation prototype (offline scope validated and
-independently reviewed; real-agent execution disabled; pretrained CPU integration
-pending; stopped after these two workstreams).
-Last user-confirmed work: historical assessment resolution and drift investigation
-complete.
+Current work: requested pretrained CPU semantic C evaluation completed with pinned
+Potion weights and measured synthetic results; A/B unchanged and independently
+reviewed. Real coding-agent execution remains disabled. Stopped after C.
+Last user-confirmed work: offline isolation/evidence export and secure-controller
+components with optional CPU A/B evaluation complete.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -1150,6 +1149,150 @@ was preserved. No AI Governor, automatic switching, fine-tuning, software instal
 paid agent, commit, push, merge or publication was performed. Stop after these
 two workstreams; await user direction.
 
+## Pretrained CPU semantic C evaluation — 2026-10-11
+
+The user confirmed no existing model was configured, accepted the previous A/B
+work, requested completion of C and approved `minishlab/potion-base-8M` weights.
+After compatibility inspection, the user separately approved installing pinned
+CPU dependencies in the repository's optional environment. Read the repository
+instructions, relevant learning/evaluation plan, prior status and C implementation.
+One implementation subagent owns only `representation/potion.py` and its guard/
+actual-model tests; a separate read-only subagent independently reviews model
+provenance, CPU/privacy, evaluation and reproduction. The coordinator owns narrow
+semantic dimension/metadata support, explicit CLI selection, optional dependencies,
+the fixed experiment reproducer, integration tests, reports and documentation.
+
+### Identity, compatibility and delivered behavior
+
+- The original C loader is a strict 384-dimensional MiniLM BERT adapter. Potion is
+  a 256-dimensional pretrained Model2Vec static embedding model, so it is not a
+  direct drop-in. A separate narrow adapter retains the text-to-vector interface;
+  the evaluator now validates either supported dimension. A/B input features,
+  cohorts, numerical fitting, cutoffs, bootstrap policy and old reference artifact
+  are unchanged. The explicitly preferred lightweight model was retained.
+- Confirmed public identity, MIT license, 256-dimensional configuration and file
+  sizes **before downloading**. Model revision is
+  **`bf8b056651a2c21b8d2565580b8569da283cab23`**. Three files total **30,920,628 bytes**;
+  the F32 table is **29,528 × 256**, **30,236,672 bytes** / 7,559,168 parameters.
+  Weights match published upstream SHA-256
+  `f65d0f325faadc1e121c319e2faa41170d3fa07d8c89abd48ca5358d9a223de2`.
+  Approved bundle SHA-256 is
+  `930be259798d5d6e24ee8285a198f4248d9b42ec8544c92b952fa5e2aa5184d2`.
+- Downloaded public unauthenticated revision-pinned `config.json`,
+  `model.safetensors` and `tokenizer.json`, checking exact upstream identities and
+  size. Weights/download receipts are in ignored `.model-learner/models/`; Git
+  exclusion was checked. No private description/transcript was downloaded/uploaded.
+- Added optional `semantic` dependency **`model2vec==0.9.0`**, with all dependencies
+  locked in `uv.lock`. Actual core CPU packages: NumPy **2.5.4**, safetensors
+  **0.8.0**, tokenizers **0.23.3**. Installation changed only the approved local
+  project environment; no global configuration or software was changed.
+- The local loader copies bounded no-follow regular files into a private snapshot
+  and checks the supplied bundle hash plus fixed approved file identities before
+  constructing the audited static model from NumPy arrays/local tokenizer. No Hub
+  loading helper, model-supplied code, pickle, GPU or remote inference is used.
+  Weights are read-only; incomplete/incompatible matrices and tokenizer IDs fail.
+  Missing/bad explicit Potion loads remain unavailable and cannot fall back to
+  another model; reports identify the requested Potion backend correctly.
+- Inference uses only bounded public/sanitized descriptions, max 4096 characters,
+  256 tokens, batch size one, no multiprocessing, mean token pooling and L2
+  normalization. The runtime first truncates characters to
+  `256 * median_token_length`, then tokens. Unknown tokens are removed; no-known-
+  token text produces a zero vector. No fine-tuning, switching or private collection.
+- `learn representation-eval --model-id minishlab/potion-base-8M` requires explicit
+  local model path, full approved revision and bundle hash. The previous optional
+  MiniLM default remains intact. `representation.potion_experiment` reproduces
+  only the same fixed ten public simulated cohorts in fresh subprocesses, refuses
+  output overwrite and fails if original A/B metrics/cohort hashes change.
+
+### Actual held-out predictive evidence
+
+New `tests/fixtures/representation/potion_reference.json` retains all ten
+pretrained reports (state/null scenarios × seeds 0–4), without description text,
+model weights or per-run predictions. Data/settings match the prior reference:
+150 simulated tasks per seed, 60% chronological fit, **2026-01-01 04:30 / 07:30
+UTC** cutoffs, +30-second checkpoint, 300 paired family-bootstrap draws. Training
+counts remain **80, 89, 88, 87, 86**; scored counts **58, 58, 58, 57, 57**; six
+training/six held-out families. All A/B scores, intervals, calibration, paired
+comparisons, counts and cohort hashes match the original artifact exactly.
+
+| Scenario | Mean A Brier | Mean B Brier | Mean C Brier | Mean B minus C |
+| --- | --- | --- | --- | --- |
+| Deliberate state signal | 0.256719 | 0.122489 | 0.122641 | -0.000152 |
+| Null state signal | 0.254266 | 0.258117 | 0.258446 | -0.000329 |
+
+Positive B minus C means C improves. All five state-signal paired 95% intervals
+include zero. Null seed 4 has a positive interval **[0.000056, 0.000736]**;
+the other four include zero. Full per-seed C Brier intervals, paired differences
+and calibration bins are in the artifact and methods document. There is
+**no consistent semantic improvement**. Intervals condition on fixed fits with
+only six scored families and no multiplicity correction; seed means are
+descriptive, not pooled confidence intervals.
+
+The existing invented descriptions are independent of outcomes and struggling
+state, so these fixtures contain no designed semantic outcome signal. This is
+real pretrained **CPU inference on synthetic evaluation data**, not evidence of
+real-world task understanding or model utility. A null/negative result on these
+fixtures cannot show that embeddings are useless on real tasks.
+
+### Actual loading, inference and memory measurements
+
+Ten fresh Python 3.12.14/macOS arm64 workers use a minimal environment, requested
+single-thread CPU limits, disabled tokenizer parallelism/multiprocessing and
+socket connection guards before loading/inference. All reported **zero network
+connection attempts**. OS caches were not cleared. Serial latency measures five
+passes over the same scored public descriptions after evaluation warmup.
+
+| Component | Actual result |
+| --- | --- |
+| Fresh-process model loading, including imports/snapshot/hash checks/construction | **0.167–0.264 s**, mean **0.192 s**. |
+| First-description warmup | Mean **3.83 ms**, separate from loading and steady inference. |
+| Embedding throughput | Mean **52.97 microseconds/description** over selected rows. |
+| Warm serial description latency | Worker medians **58.33–59.88 microseconds**, p95 **62.04–65.71 microseconds**; 285–290 samples per worker. |
+| Fixed C reference prediction | Mean **25.83 microseconds/checkpoint**, separate from embedding. |
+| Fixed C reference fitting | Mean **0.603 s**; not encoder fine-tuning or inference. |
+| Actual F32 embedding-table memory | **30,236,672 bytes**; excludes tokenizer/runtime. |
+| Whole fresh-process peak RSS | **139,575,296–140,345,344 bytes**, including load/features/fits and latency measurements. |
+
+Embedding latency includes output conversion/validation but excludes C feature
+dictionary assembly, B feature extraction, cohort parsing and reference prediction.
+Peak RSS is a process lifetime high-water mark, not incremental model RAM. C
+feature-object census averages **4,055,355 bytes**; object census and timing are
+descriptive measurements, not guaranteed worst-case resource requirements. These
+short public descriptions do not establish long-input latency. All actual phase
+measurements/runtime/model identities are retained; no semantic measurement is null.
+
+### Checks and independent review
+
+Use the approved optional environment (`uv sync --locked --extra semantic`).
+Actual-model tests opt in with `MODEL_LEARNER_TEST_POTION_PATH` pointing to the
+approved ignored bundle; tests never discover/download weights automatically.
+Checks use repository-local cache/tools and `uv run --no-sync` to preserve it.
+
+| Check | Actual result |
+| --- | --- |
+| Adapter owned actual/protocol checks | **31 passed in 0.47s**, including approved pretrained inference with sockets blocked. |
+| Coordinator focused representation/Potion/CLI checks | **57 passed in 5.28s**. |
+| Coordinator full suite with actual-model opt-in | **600 passed, 1 skipped in 37.06s**. Sole skip is unchanged offline Docker runtime opt-in. |
+| Coordinator Ruff lint/format and whitespace | Passed; **129 files already formatted**; `git diff --check` passed. |
+| Independent full suite with actual-model opt-in | **600 passed, 1 skipped in 37.65s**; lint/format/whitespace passed. |
+| Independent canonical numerical reproduction | All **ten reports** match exactly for complete A/B/C score/calibration/interval results, paired comparisons, cohort hashes, counts, exclusions and methods. |
+| Independent privacy/leakage/replay checks | Actual CPU load/encode succeeds with sockets disabled; exact embedding replay; input reversal and held-out label changes preserve predictions. |
+| Protected baseline/boundary diff check | Original A/B reference, feature inputs, benchmark and execution modules unchanged. |
+| Actual installed Potion CLI rehearsal | Exit **0**; seed 1 has 89 training / 58 scored rows, all A/B/C evaluated and C Brier **0.057289**. |
+
+Review found and prompted fixes for unavailable-model identity/estimates and a
+protocol-test compatibility regression, plus a formatting issue; focused/full
+checks pass after repair. Guard tests cover bad revision/hash/file identity,
+unsafe files/paths, incomplete matrices and bounded text/output. Independent
+final documentation review confirms measured results and limitations, with no
+remaining blocking finding. Historical dependency wording and repository-local
+tool instructions were clarified. The pre-existing `.DS_Store` modification was
+preserved.
+
+No real coding agent, cloud/paid inference, Governor, automatic switching,
+fine-tuning, benchmark boundary change, commit, push, merge or publication was
+performed. Stop after C; no additional milestone is authorized.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1157,10 +1300,10 @@ two workstreams; await user direction.
   candidate-only acceptance transport and exact-runtime run-bound validation
   receipts. The validated fixed offline shell probe and new synthetic controller
   receipts do not attest these real-agent boundaries.
-- The CPU semantic adapter remains integration-pending: no approved existing
-  pretrained bundle or compatible local torch/transformers/safetensors runtime
-  was available. A/B synthetic evaluation is validated; C scores and actual
-  semantic overhead/memory remain unavailable. No installation was attempted.
+- Actual Potion CPU semantic C evaluation is complete on synthetic cohorts, with
+  no consistent improvement. Real-world semantic predictive benefit remains
+  unestablished. The optional original MiniLM backend is still integration-pending;
+  its model/torch/transformers were not provisioned or validated here.
 - The pilot is prepared for operator review and controlled fixture rehearsal.
   Manually authorizing payment does not resolve containment or predictive export
   limitations; no real experiment has been authorized or run here.
@@ -1215,9 +1358,9 @@ two workstreams; await user direction.
   delivered. The requested secure controller components and CPU representation
   prototype are also delivered for their offline scope; await new user direction.
   A real pilot still requires the exact agent/credential/artifact/independent
-  acceptance boundary plus prospective checkpoint collection. The optional
-  pretrained CPU adapter still needs actual approved local model/runtime
-  integration. No installation, real run or next milestone is authorized here.
+  acceptance boundary plus prospective checkpoint collection. The requested
+  pretrained Potion C evaluation is complete; optional MiniLM validation was not
+  requested. No real run, further installation or next milestone is authorized.
 - The requested coding-verification, execution-analysis, coding-task evaluation
   and task-state evaluation workstreams are delivered and checked. No next
   milestone is authorized. Real benchmark executions remain operator-controlled

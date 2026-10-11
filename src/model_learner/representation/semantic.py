@@ -75,6 +75,8 @@ def _digest_bundle(path: Path, *, copy_to: Path | None = None) -> tuple[str, int
 class LocalCPUEncoder:
     """Frozen pretrained model; texts only, no outcome/state access."""
 
+    dimensions = 384
+
     def __init__(self, *, model, tokenizer, torch, metadata: dict):
         self._model, self._tokenizer, self._torch = model, tokenizer, torch
         self.metadata = metadata
@@ -235,16 +237,26 @@ def load_cpu_encoder(
         raise SemanticUnavailable("local pinned model could not be loaded") from exc
 
 
-def runtime_availability() -> dict:
+def runtime_availability(model_id: str = MODEL_ID) -> dict:
+    potion = model_id == "minishlab/potion-base-8M"
+    if model_id not in (MODEL_ID, "minishlab/potion-base-8M"):
+        raise ValueError("unsupported CPU embedding model identity")
     return {
         "available_packages": {
             n: importlib.util.find_spec(n) is not None
-            for n in ("torch", "transformers", "safetensors")
+            for n in (
+                ("model2vec", "numpy", "safetensors", "tokenizers")
+                if potion
+                else ("torch", "transformers", "safetensors")
+            )
         },
-        "model_id": MODEL_ID,
-        "estimated_parameter_bytes": 22_700_000 * 4,
+        "model_id": model_id,
+        "estimated_parameter_bytes": 29_528 * 256 * 4 if potion else 22_700_000 * 4,
         "estimate_basis": (
-            "model card rounded 22.7M parameters at FP32; excludes runtime/activations"
+            "approved Potion F32 table shape; excludes runtime/activations"
+            if potion
+            else "model card rounded 22.7M parameters at FP32; "
+            "excludes runtime/activations"
         ),
         "actual_model_memory_bytes": None,
         "actual_load_seconds": None,

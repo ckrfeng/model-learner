@@ -15,3 +15,14 @@ pretrained model/runtime was present. No fake encoder is used for this artifact.
 It establishes neither agent utility nor semantic improvement. Full methodology,
 resource measurement caveats and reproduction are in
 `docs/CPU_TASK_REPRESENTATION.md`.
+
+`potion_reference.json` adds actual pretrained CPU C results for the same ten
+cohorts and settings, with `minishlab/potion-base-8M` pinned to
+`bf8b056651a2c21b8d2565580b8569da283cab23`. Original A/B statistics and cohort hashes
+match exactly; `controlled_reference.json` is unchanged. This new artifact uses
+the real approved model, never a fake encoder. Ten fresh socket-blocked workers
+measure model load, inference, serial latency and whole-process peak RSS. Timing
+varies; scores, calibration and bootstrap intervals are reproducible. Per-seed
+predictions are omitted from both artifacts. No raw descriptions or weights are
+stored in reports; public inputs are regenerated deterministically. No consistent
+C improvement or real-world task-understanding claim follows from these fixtures.

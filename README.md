@@ -243,6 +243,13 @@ or installs dependencies. Without a model, C scores and inference measurements
 remain unavailable; A/B still run. Synthetic held-out results are algorithm
 rehearsal and cannot establish real coding-task improvement.
 
+Actual pretrained CPU C evaluation is now validated with the explicitly selected
+`minishlab/potion-base-8M` model. Install its optional runtime with
+`uv sync --locked --extra semantic`; model loading requires the approved local
+revision/hash pins and never downloads automatically. The same frozen synthetic
+cohorts show no consistent improvement over B. See the
+[measured results, uncertainty and reproduction](docs/CPU_TASK_REPRESENTATION.md#completed-pretrained-potion-c-evaluation--2026-10-11).
+
 ## Simulation and reference learning
 
 Generate observations in an explicitly simulated dataset. Known probabilities

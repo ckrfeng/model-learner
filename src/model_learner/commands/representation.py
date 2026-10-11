@@ -63,6 +63,9 @@ def representation_eval(
     model_revision: Annotated[
         str | None, typer.Option(help="Predeclared pretrained model revision.")
     ] = None,
+    model_id: Annotated[
+        str, typer.Option(help="Explicit supported CPU embedding model identity.")
+    ] = "sentence-transformers/all-MiniLM-L6-v2",
     bootstrap_replicates: Annotated[int, typer.Option(min=100)] = 300,
     seed: Annotated[int, typer.Option()] = 1,
 ) -> None:
@@ -73,11 +76,18 @@ def representation_eval(
     )
 
     try:
+        if model_id not in (
+            "sentence-transformers/all-MiniLM-L6-v2",
+            "minishlab/potion-base-8M",
+        ):
+            raise ValueError("unsupported CPU embedding model identity")
         supplied = (model_path, model_sha256, model_revision)
         if any(value is not None for value in supplied) and not all(
             value is not None for value in supplied
         ):
             raise ValueError("all three model options are required together")
+        if model_id == "minishlab/potion-base-8M" and model_path is None:
+            raise ValueError("Potion requires an explicit local bundle and pins")
         examples = load_representation_examples(input_file)
         budget = (
             ResourceBudget.model_validate_json(budget_file.read_text())
@@ -93,7 +103,12 @@ def representation_eval(
             )
 
             try:
-                encoder = load_cpu_encoder(
+                loader = load_cpu_encoder
+                if model_id == "minishlab/potion-base-8M":
+                    from model_learner.representation.potion import load_potion_encoder
+
+                    loader = load_potion_encoder
+                encoder = loader(
                     model_path, expected_sha256=model_sha256, revision=model_revision
                 )
             except SemanticUnavailable as error:
@@ -114,6 +129,7 @@ def representation_eval(
             resource_budget=budget,
             encoder=encoder,
             semantic_unavailable_reason=semantic_reason,
+            semantic_model_id=model_id,
             bootstrap_replicates=bootstrap_replicates,
             seed=seed,
         )

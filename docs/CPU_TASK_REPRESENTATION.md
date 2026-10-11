@@ -2,7 +2,7 @@
 
 Delivered 2026-10-11. This is a separate observational/predictive experiment in
 `model_learner.representation`; the existing probabilistic learner is unchanged.
-It collects no transcripts, performs no remote inference or download, fine-tunes
+It collects no transcripts, performs no remote inference or automatic downloads, fine-tunes
 no semantic model, switches no agents and implements no Governor.
 
 ## Inputs and comparisons
@@ -69,13 +69,13 @@ labels can select a nonrepresentative cohort. These are predictive associations,
 not causal agent comparisons. Semantic unavailability never drops difficult rows
 from A/B: C stays null with `semantic_unavailable` on a sufficient cohort.
 
-## Optional pretrained CPU adapter and current blocker
+## Original MiniLM adapter (initial integration pending)
 
-The narrow adapter supports only
+The original narrow adapter supports
 [`sentence-transformers/all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2),
 using its 384-dimensional masked mean pooling and L2 normalization. The operator
 must already have an approved local bundle and `torch`, `transformers` and
-`safetensors` installed. This work installed/downloaded none of them. No model
+`safetensors` installed. The initial A/B work installed/downloaded none. No model
 cache, credential store or private session directory is scanned.
 
 Provision an operator-owned directory containing **exactly** `config.json`,
@@ -98,15 +98,16 @@ mismatched or error loading keys are rejected rather than accepting newly random
 initialized weights. The model uses eval/inference mode with gradients disabled.
 Tokenization is capped at 256 word pieces and batch size one.
 
-**Actual local runtime inspection:** torch, transformers and safetensors were all
+**Initial local runtime inspection:** torch, transformers and safetensors were all
 absent. No existing approved bundle was supplied. Therefore actual model loading,
 pretrained inference, C held-out scoring and semantic resource measurement remain
-unavailable. Negative descriptor/configuration/loader protocol tests validate
+unavailable at that checkpoint. Negative descriptor/configuration/loader tests validate
 guards, not compatibility with an actual installed runtime/model. Actual adapter
 integration must be validated with operator-approved existing software/model
-before making any semantic comparison claim. No semantic improvement is claimed.
+before making a MiniLM comparison claim. The approved Potion integration below
+completes actual C evaluation with a separate explicit backend.
 
-## Actual controlled rehearsal and overhead
+## Initial A/B controlled rehearsal and overhead
 
 `tests/fixtures/representation/controlled_reference.json` retains actual reports
 for seeds 0–4, 150 independent simulated tasks per seed, 60% chronological fit
@@ -165,3 +166,126 @@ For an already approved bundle, supply all of `--model-path`, `--model-sha256`,
 Owned checks and independent review evidence are recorded by the coordinator
 with final full-suite/lint/format results in STATUS.md.
 No next milestone is started.
+
+## Completed pretrained Potion C evaluation — 2026-10-11
+
+The user selected [minishlab/potion-base-8M](https://huggingface.co/minishlab/potion-base-8M)
+and approved model download plus project-local optional CPU dependencies. Its
+[pinned configuration](https://huggingface.co/minishlab/potion-base-8M/blob/bf8b056651a2c21b8d2565580b8569da283cab23/config.json)
+is a 256-dimensional Model2Vec static model, rather than the original
+384-dimensional BERT architecture. A narrow `representation.potion` adapter
+preserves the text-to-vector interface and existing A/B implementation. The
+evaluator's semantic dimension check now supports the two explicit adapters;
+no model is automatically selected or substituted when loading fails.
+
+- Model: `minishlab/potion-base-8M`; revision
+  `bf8b056651a2c21b8d2565580b8569da283cab23`; MIT license.
+- The approved bundle is exactly `config.json`, `model.safetensors`, and
+  `tokenizer.json`: **30,920,628 bytes**. Frozen F32 weights have shape
+  **29,528 × 256**, or **30,236,672 bytes** / 7,559,168 parameters.
+- Weights' [upstream SHA-256](https://huggingface.co/minishlab/potion-base-8M/blob/bf8b056651a2c21b8d2565580b8569da283cab23/model.safetensors):
+  `f65d0f325faadc1e121c319e2faa41170d3fa07d8c89abd48ca5358d9a223de2`.
+  Bundle SHA-256: `930be259798d5d6e24ee8285a198f4248d9b42ec8544c92b952fa5e2aa5184d2`.
+  All three files must match hardcoded approved-revision identities and the
+  supplied bundle pin, after bounded no-follow copying to a private snapshot.
+- Weights and download receipts reside under ignored `.model-learner/models/`;
+  no weights, private descriptions or transcripts are committed. This download
+  used only public unauthenticated revision-pinned URLs, with exact file identity
+  and size verification. Runtime loading never downloads or discovers models.
+- Optional runtime is `model2vec==0.9.0`, with all dependencies pinned in
+  `uv.lock`; actual NumPy **2.5.4**, safetensors **0.8.0**, tokenizers **0.23.3**.
+  The adapter directly constructs `StaticModel` from local safetensors NumPy
+  arrays and a local tokenizer, bypassing the Hub loader. It loads no custom
+  model code/pickle, uses no GPU/cloud inference, and marks weights read-only.
+- Text is bounded to 4096 characters; fixed inference uses batch size one,
+  256 tokens, no multiprocessing, UNK removal, mean pooling and L2 normalization.
+  Model2Vec first truncates characters to `256 * median_token_length`, then
+  truncates to 256 tokens. A no-known-token input yields a zero vector. No
+  embedding weights are trained; the same fixed logistic reference fits only
+  its ordinary training partition. See the [pinned runtime implementation](https://raw.githubusercontent.com/MinishLab/model2vec/v0.9.0/model2vec/model.py).
+
+### Same frozen cohort, predictive results and uncertainty
+
+`potion_reference.json` records all ten actual pretrained evaluations: the same
+original two scenarios, seeds 0–4, 150 simulated tasks, cutoffs **04:30 / 07:30
+UTC on 2026-01-01**, +30-second checkpoint, and 300 paired family bootstrap draws.
+Every original A/B score, calibration bin, interval, paired comparison, sample
+count and cohort SHA matches `controlled_reference.json` exactly. The old artifact
+is unchanged. Independent review reproduced all ten complete numerical reports.
+
+| Scenario | Mean A Brier | Mean B Brier | Mean C Brier | Mean B minus C |
+| --- | --- | --- | --- | --- |
+| Deliberate state signal | 0.256719 | 0.122489 | 0.122641 | -0.000152 |
+| Null state signal | 0.254266 | 0.258117 | 0.258446 | -0.000329 |
+
+Positive B minus C means lower C Brier. Per-seed paired 95% intervals:
+
+| Seed | State-signal B minus C interval | Null-signal B minus C interval |
+| --- | --- | --- |
+| 0 | [-0.001283, 0.000962] | [-0.001251, 0.001700] |
+| 1 | [-0.000068, 0.000872] | [-0.000147, 0.001748] |
+| 2 | [-0.002088, 0.000562] | [-0.006240, 0.001969] |
+| 3 | [-0.000470, 0.000267] | [-0.001557, 0.000491] |
+| 4 | [-0.000886, 0.000186] | [0.000056, 0.000736] |
+
+All five state intervals cross zero; one null seed has a positive interval.
+There is **no consistent semantic improvement**. Six held-out families provide
+limited uncertainty evidence, fits are treated as fixed, and the exploratory
+comparisons have no multiplicity correction. Equal-seed means are descriptive,
+not pooled confidence intervals. Each C score interval and all calibration bins
+remain in the artifact.
+
+These public descriptions were generated independently of eventual outcomes
+and struggling state. The existing data has **no designed semantic outcome
+signal**. Results establish actual pretrained integration, overhead and held-out
+numerical behavior, not real-world task understanding. A null/negative result
+here cannot show that embeddings are useless for real tasks. No real coding
+agents were launched, and the blocked benchmark execution system is unchanged.
+
+### Actual CPU overhead and memory
+
+Ten fresh Python 3.12.14/macOS arm64 processes used minimal environments,
+requested single-thread CPU limits, and disabled tokenizer parallelism and
+multiprocessing. Socket connection methods were blocked before loading and
+encoding; **zero connection attempts** occurred in every worker. OS file caches
+were not cleared. Times include adapter conversion/validation; these short
+public task descriptions are not a worst-case performance benchmark.
+
+| Component | Actual measurement |
+| --- | --- |
+| Fresh-process model load | **0.167–0.264 s**, mean **0.192 s**; includes snapshot/hash checks and runtime import/construction. |
+| First description warmup | Mean **3.83 ms**; reported separately. |
+| Bulk embedding throughput, batch size one | Mean **52.97 µs/description** over selected training/scoring inputs. |
+| Serial description latency after warmup | Per-worker median **58.33–59.88 µs**, p95 **62.04–65.71 µs**; five passes over scored descriptions (285–290 samples each). |
+| Frozen C reference prediction | Mean **25.83 µs/checkpoint**, separate from embedding. |
+| Fixed C reference fit | Mean **0.603 s**; training overhead, not inference or encoder fine-tuning. |
+| Actual F32 embedding-table memory | **30,236,672 bytes**; excludes tokenizer/runtime/other objects. |
+| Whole fresh-process peak RSS | **139,575,296–140,345,344 bytes** (139.58–140.35 MB decimal), including load, features, fitting and measurements. |
+
+RSS is a lifetime high-water mark, not incremental model RAM. C feature-object
+census averages **4,055,355 bytes**, versus **415,670 bytes** for B; this is an
+approximate Python object census. The 52.97 µs embedding number excludes C feature
+dictionary construction, B extraction, cohort parsing and C reference prediction.
+All phase measurements, runtime versions and model identities are retained in the
+new report. The initial MiniLM 90.8 MB parameter estimate is not used for Potion.
+
+Reproduce using the approved ignored bundle and existing optional environment:
+
+```sh
+export PATH="$PWD/.tools/bin:$PATH"
+export UV_CACHE_DIR="$PWD/.uv-cache"
+uv sync --locked --extra semantic
+uv run --no-sync python -m model_learner.representation.potion_experiment \
+  --model-path "$PWD/.model-learner/models/potion-base-8M-bf8b056651a2c21b8d2565580b8569da283cab23" \
+  --bundle-sha256 930be259798d5d6e24ee8285a198f4248d9b42ec8544c92b952fa5e2aa5184d2 \
+  --reference tests/fixtures/representation/controlled_reference.json \
+  --output /tmp/new-potion-report.json
+```
+
+The reproducer refuses existing output and fails if frozen A/B metrics or cohort
+bindings differ. It never downloads, launches agents or writes ledger records.
+For an existing input file, `learn representation-eval` accepts explicit
+`--model-id minishlab/potion-base-8M` plus `--model-path`, `--model-sha256` and
+`--model-revision`; default behavior remains the original optional MiniLM choice.
+Tests requiring weights opt in through `MODEL_LEARNER_TEST_POTION_PATH`; default
+tests do not scan caches, install software or download models. Stop after C.

@@ -278,6 +278,7 @@ def evaluate_task_representation(
     resource_budget: ResourceBudget | None = None,
     encoder: LocalCPUEncoder | None = None,
     semantic_unavailable_reason: str | None = None,
+    semantic_model_id: str | None = None,
     bootstrap_replicates: int = 300,
     seed: int = 1,
 ) -> RepresentationReport:
@@ -329,7 +330,24 @@ def evaluate_task_representation(
             "seconds_per_checkpoint": elapsed / len(all_rows) if all_rows else None,
             "feature_python_object_bytes": _feature_bytes(features[name]),
         }
-    semantic = runtime_availability()
+    encoder_id = encoder.metadata.get("model_id") if encoder is not None else None
+    supported_ids = (
+        "sentence-transformers/all-MiniLM-L6-v2",
+        "minishlab/potion-base-8M",
+    )
+    semantic = runtime_availability(
+        semantic_model_id
+        if semantic_model_id is not None
+        else encoder_id
+        if encoder_id in supported_ids
+        else supported_ids[0]
+    )
+    if (
+        encoder is not None
+        and semantic_model_id is not None
+        and (semantic_model_id != encoder_id)
+    ):
+        raise ValueError("semantic encoder differs from the requested model identity")
     semantic.update(
         status="unavailable",
         reason=semantic_unavailable_reason or "no_explicit_local_model",
@@ -342,8 +360,13 @@ def evaluate_task_representation(
             started = time.perf_counter()
             vectors = encoder.encode(tuple(e.description.text for e in all_rows))
             elapsed = time.perf_counter() - started
-            if len(vectors) != len(all_rows) or any(
-                len(v) != 384 or not all(math.isfinite(x) for x in v) for v in vectors
+            if (
+                encoder.dimensions not in (256, 384)
+                or len(vectors) != len(all_rows)
+                or any(
+                    len(v) != encoder.dimensions or not all(math.isfinite(x) for x in v)
+                    for v in vectors
+                )
             ):
                 raise SemanticUnavailable("invalid semantic output shape or values")
             features["C_cpu_semantic"] = [
@@ -360,6 +383,7 @@ def evaluate_task_representation(
                 actual_model_memory_bytes=encoder.metadata.get("parameter_bytes"),
                 actual_load_seconds=encoder.metadata.get("load_seconds"),
                 actual_inference_seconds=elapsed,
+                process_peak_rss_bytes_after_inference=peak_rss_bytes(),
             )
             profiles["C_cpu_semantic"] = {
                 "feature_python_object_bytes": _feature_bytes(

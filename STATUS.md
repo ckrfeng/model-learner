@@ -1,15 +1,18 @@
 # Model Learner status
 
-Current work: first longitudinal task-state increment implemented and evaluated.
+Current work: Codex Desktop and ChatGPT Work Local selected-history feasibility
+assessment complete; controlled conversation validation awaits explicit selection
+and approval. No Desktop/Work history adapter is implemented.
+The first longitudinal task-state increment remains implemented and evaluated.
 Multi-checkpoint projections distinguish observed evidence, deterministic changes,
 explicit author hypotheses and unknowns. Seven synthetic trajectories exercise
 the implementation; no real longitudinal predictive improvement is established.
 The earlier 40-query human-review batch still has no genuine human labels or
 accepted reviews. Real coding-agent benchmark execution remains disabled.
-Last user-confirmed work: audit execution evidence, implement longitudinal state,
-construct and evaluate a small inspectable dataset with existing CPU representations,
-and propose minimal privacy-preserving real-data requirements. This requested
-increment is complete; the proposed data pilot and next milestone are not started.
+Last requested work: investigate supported read-only selected conversation history
+for both desktop sources and its fit with existing task understanding. Investigation
+and the report are complete; no existing conversation was read. The earlier
+longitudinal increment remains complete; its proposed data pilot is not started.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -1731,6 +1734,82 @@ collection, hooks, paid agents, benchmark-security bypass, retrieval expansion,
 model switching, routing, Governor, GUI, commit, push, merge or publication.
 Stopped after the requested implementation/evaluation.
 
+## Selected Desktop and Work conversation feasibility — 2026-10-11
+
+Read the master plan, AGENTS.md, status, existing observation/domain/association
+code, deterministic execution and longitudinal projections, task retrieval,
+annotations and optional local CPU encoder. Investigated Codex Desktop and ChatGPT
+Work Local separately using official documentation, exposed desktop tool contracts,
+public CLI help and freshly generated installed-version protocol schemas.
+
+- `docs/CONVERSATION_INGESTION_FEASIBILITY.md` records source-by-source access,
+  text/event/model/time/usage coverage, storage distinctions, account-export gaps,
+  shared identity semantics, privacy, a bounded validation proposal and adapter
+  tests. The prior Desktop report now points to this selected-history assessment.
+- The exposed desktop `read_thread` reader supports an exact thread/chat ID and
+  older-turn cursors. Its contract describes summaries and truncated optional
+  outputs; complete raw messages/events and historical measurements are not
+  established. This tool is available to an agent session, not a demonstrated
+  callable interface for the standalone Model Learner CLI.
+- Public Codex app-server supports stored reads without resuming. Installed
+  `Thread` exposes optional model/effort explicitly described as current/latest
+  settings, optional native project and source-origin fields, and a separate
+  session-tree ID. `Turn` has nullable times/duration but no usage field. Message
+  item variants lack per-message timestamps. Experimental history pagination
+  needs version/capability checks; stored items cannot invent original lifecycles.
+- Installed CLI remains `0.162.0-alpha.17.2`; help and fresh public schema
+  generation exited 0. Schemas are outside Git under
+  `/private/tmp/model-learner-history-protocol-20261011`. The read-only public
+  daemon-version query exited 1 because its default control socket was absent.
+  This blocks that endpoint only; it does not prove no desktop reader exists.
+- Work Local can have a Codex-backed local task; ChatGPT-backed conversations with
+  local execution are distinct. Official docs describe local-only Work history
+  and cloud coordination with local execution. Product surface, backend, execution
+  and transcript storage must stay separate. No selected Work backend was tested;
+  public standalone Work-history access and account-export coverage remain
+  unestablished. The Responses Conversations API is not established as an export
+  interface for existing desktop chats.
+- Existing Session/task/run/project links preserve the required identity
+  separation. The report proposes a source-aware ordered snapshot with missingness,
+  privacy and actual receipt times. Existing reviewed-text retrieval and explicit
+  summaries can be reused. Execution analysis and the real observation builder
+  currently require the exact Codex CLI source; relabeling snapshots as CLI events
+  would fabricate provenance. No source-neutral projection was implemented.
+- Only optional pinned existing Potion CPU relatedness is proposed. Embeddings
+  cannot establish reasoning, progress, continuation or task identity; reported
+  semantic hypotheses remain distinct from independently verified outcomes.
+- No histories were enumerated, no thread/chat was read, and no private database,
+  rollout, authentication token, intercepted traffic or scraped UI was accessed.
+  No account export was requested, no daemon started, no global setting changed,
+  and no agent execution, adapter, model download, routing or Governor added.
+
+### Actual investigation checks
+
+Existing repository-local uv/cache and `--no-sync` preserved installed dependencies.
+No new tests were written for documentation-only changes.
+
+| Executed check | Actual result |
+| --- | --- |
+| `uv run --no-sync pytest -q` with ten selected observation/domain/workflow/execution/retrieval/annotation/longitudinal test files | **183 passed, 2 skipped in 1.11s**; optional model opt-ins were not enabled. |
+| `uv run --no-sync ruff check .` | Exit 0; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Exit 0; 155 files already formatted. |
+| Documentation diff `git diff --check` | Exit 0; no whitespace errors. |
+
+These are existing regression and schema/help checks, not real Desktop or Work
+history validation. Full suite and actual-model integration were not rerun for
+this documentation-only assessment. The pre-existing `.DS_Store` change remains.
+
+Next permitted step only after selection/approval: read one exact, non-sensitive
+existing conversation per source through the built-in reader, initially one turn,
+at most ten turns and 64 KiB retained text each, outputs/attachments excluded.
+Preserve identity, ordering basis, source provenance, optional times and missing
+fields in ignored local storage. Reader access can place returned text in the
+assistant context/tool history; local inference alone cannot make that read
+device-only. Standalone app-server validation additionally needs an existing
+supported endpoint. No automatic history discovery or speculative integration.
+Stop after this feasibility report; controlled validation and implementation
+remain unstarted.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1760,6 +1839,8 @@ Stopped after the requested implementation/evaluation.
   adding new OS metadata but does not remove files already tracked by Git.
 - The real-agent importer supports explicitly selected Codex CLI streams only;
   existing desktop sessions and passive desktop capture remain unsupported.
+  ChatGPT Work Local history is also unvalidated; supported desktop summary reads
+  are candidates, with no standalone complete-history ingestion interface proven.
   The requested increment now adds a narrow read-only file digest verifier and
   evidence-linked real task-observation builder plus bound JUnit report verification.
   Arbitrary test command execution and whole-repository artifact verification remain
@@ -1791,6 +1872,11 @@ Stopped after the requested implementation/evaluation.
   emitter-version enrichment cannot rewrite already persisted events.
 
 ## Next recommended increment (not started)
+
+- Latest request: selected-history feasibility for Codex Desktop and ChatGPT Work
+  Local is complete. Await exact non-sensitive selections and explicit approval
+  for bounded read-only validation. No history adapter implementation is started
+  or authorized; earlier pilot recommendations below remain historical options.
 
 - First longitudinal state reconstruction and synthetic A/B/C rule evaluation are
   complete. Next: an explicitly authorized manual prospective sanitized-summary

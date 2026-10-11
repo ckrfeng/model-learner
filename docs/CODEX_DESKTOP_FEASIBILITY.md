@@ -1,5 +1,10 @@
 # Codex Desktop capture feasibility
 
+For the 2026-10-11 assessment of selected existing conversations from both Codex
+Desktop and ChatGPT Work Local, see
+[selected conversation ingestion feasibility](CONVERSATION_INGESTION_FEASIBILITY.md).
+The assessment below remains historical evidence about Desktop capture.
+
 Assessed 2026-10-10 on macOS arm64 with installed
 `codex-cli 0.162.0-alpha.17.2`. Workstream C is research-only. No desktop adapter,
 hook, telemetry configuration, daemon, or agent-control integration was installed.

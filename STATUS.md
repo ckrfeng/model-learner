@@ -1,14 +1,15 @@
 # Model Learner status
 
-Current work: first independent human semantic-review batch prepared locally:
-40 constructed realistic queries, no human labels or accepted reviews yet.
-The existing annotation workflow remains implemented and tested. Genuine human
-annotation/adjudication and final evaluation remain pending. Real coding-agent
-execution remains disabled. Stopped at batch preparation; no later milestone
-has started.
-Last user-confirmed work: prepare a local human-review batch using the existing
-annotation format/CLI, with score-independent review and exact operator commands;
-preserve TF-IDF and pinned local Potion, without implementation changes.
+Current work: first longitudinal task-state increment implemented and evaluated.
+Multi-checkpoint projections distinguish observed evidence, deterministic changes,
+explicit author hypotheses and unknowns. Seven synthetic trajectories exercise
+the implementation; no real longitudinal predictive improvement is established.
+The earlier 40-query human-review batch still has no genuine human labels or
+accepted reviews. Real coding-agent benchmark execution remains disabled.
+Last user-confirmed work: audit execution evidence, implement longitudinal state,
+construct and evaluate a small inspectable dataset with existing CPU representations,
+and propose minimal privacy-preserving real-data requirements. This requested
+increment is complete; the proposed data pilot and next milestone are not started.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -1615,6 +1616,121 @@ prediction, shared-capability classification, or model utility. No new models,
 fine-tuning, routing, Governor, subagent, commit, push, merge or publication.
 Stop here; the next action belongs to the human annotator and independent reviewer.
 
+## First longitudinal task-state understanding — 2026-10-11
+
+Read the plan, repository instructions, existing status, task-state/semantic/
+annotation documentation and relevant code before implementation. A review
+subagent independently audited evidence and later reviewed provenance, temporal
+leakage, feature correctness, unsupported semantic inference, privacy and evaluation.
+A separate implementation subagent owned only the synthetic evaluator, fixture
+and its tests; the coordinator owned projections, CLI, integration and documentation.
+No core architecture change or new database migration was needed. The pre-existing
+working-tree changes to `.DS_Store`, `pyproject.toml` and `uv.lock` were preserved;
+this increment did not alter them or add dependencies.
+
+### Evidence audit and delivered behavior
+
+- The real checked-in Codex derivative has four metadata-only buffered smoke
+  events, without tools, code edits, semantic text or verified coding outcomes.
+  Rich execution/JUnit/predictive/retrieval fixtures are explicitly synthetic.
+- Safe aggregate inspection of ignored local ledgers found one genuine verified
+  fixed-reply smoke observation plus its earlier unknown derivation, and a
+  separate operator-run JUnit producer validation without execution events or
+  learning observations. Smoke task/association availability follows captured
+  events and cannot be backdated. There are **zero suitable real longitudinal
+  coding trajectories** for this evaluation, not zero verified records anywhere.
+  The audit read no description, raw payload or private transcript contents.
+- `execution.longitudinal` reuses the existing checkpoint extractor and domain
+  contracts. Identity/objective is separate from evolving state. Observed event
+  receipts and retained tool/test evidence, derived counts/deltas/failure groups,
+  inferred author phase/progress/scope/difficulty hypotheses and unknowns remain
+  explicit. The nested existing execution projection retains compatibility;
+  new `derived` fields give computed counts their proper epistemic classification.
+- Optional `CheckpointSummary` takes explicitly submitted bounded public/sanitized
+  text, SHA-256, actor/source declaration, observation/availability times and
+  optional already visible evidence IDs. Text alone is not parsed into semantic
+  claims. Actor identity/privacy are self-attested, not authenticated or attested
+  by a digest. Unknown fields/tied latest reports remain unknown.
+- Future events/summaries, delayed ingestion, scope/declaration receipts, run
+  bounds, references and conflicts are checked at each cutoff. Raw payloads and
+  arbitrary metadata do not enter outputs or embeddings. Completed turns,
+  successful tools and reported completion never verify task success. No progress
+  percentages, native execution times, unknown costs or identical retry causes
+  are manufactured. Final-artifact JUnit visibility reuses existing checks;
+  intermediate-artifact progression remains unsupported.
+- `TrajectoryInput` is an explicit portable input over existing records, not a
+  ledger schema or automatic collection mechanism. `task trajectory INPUT.json`
+  makes state/changes inspectable; `learn trajectory-eval FIXTURE.json` compares
+  the synthetic variants, with optional explicitly pinned local Potion. Reports
+  use exclusive destinations and private invalid-input excerpts are omitted.
+
+### Evaluation actually established
+
+`tests/fixtures/longitudinal/` contains seven agent-authored **simulated** scenarios,
+fourteen checkpoints, a digest manifest and an actual pinned local CPU reference.
+The cases cover normal reported progression, unsuccessful tool actions, declared
+complexity growth, implementation-to-debugging, reported completion without
+verification, missing evidence and no observed change. They include no fabricated
+verification/outcome records, human labels or accepted reviews.
+
+| Variant / check | Actual result and interpretation |
+| --- | --- |
+| A initial only | Seven abstentions about subsequent change; appropriate lack of evolving evidence. |
+| B metadata only | 6/7 status and 3/7 full dimension agreement with authored rules; zero semantic transitions established. |
+| B including explicit reports | 7/7 status and dimension agreement; four cases obtain semantic hypothesis changes from author declarations. This is software rule agreement, not human-reviewed semantic accuracy. |
+| C with existing Potion | Actual pinned CPU cosine diagnostics computed; identical classifications to B **by construction**, with no semantic threshold/classifier. No additional recognition or predictive benefit demonstrated. |
+| Unsupported-inference checks | 154 implementation invariant checks, zero violations; not a population inference-error rate. |
+| Downstream independently verified outcomes | `insufficient_data`, zero eligible outcomes in this longitudinal dataset and null scores. No outcome model fitted and no real-world improvement claimed. |
+
+The Potion model/revision/bundle pins are unchanged. The actual-model test denies
+socket connections and reproduces reference cosines within 1e-12. Missing weights
+stay unavailable; no model download, alternative model, training or cloud inference.
+The old outcome evaluators remain intact. A future outcome experiment must choose
+one prospective checkpoint horizon per run, resolve labels historically and split
+independent lineages; fourteen checkpoints here are not fourteen outcome trials.
+
+### Validation and independent review
+
+Used the existing local uv/Python environment with `.tools/bin` on PATH and
+repository-local `UV_CACHE_DIR`. Full validation explicitly set
+`MODEL_LEARNER_TEST_POTION_PATH` to the already approved local bundle.
+
+| Executed check | Actual result |
+| --- | --- |
+| Final `uv run pytest` | **770 passed, 1 skipped in 38.37s**; skipped existing opt-in Docker offline isolation test. |
+| `uv run ruff check .` | Exit 0; all checks passed. |
+| `uv run ruff format --check .` | Exit 0; 155 files already formatted. |
+| `git diff --check` | Exit 0; no whitespace errors. |
+| Independent focused suite, actual pinned Potion | **42 passed in 0.63s**; no skips, sockets denied in actual-model test. |
+| Actual installed `learn trajectory-eval` with full Potion pins and new `/tmp` output | Exit 0; A/B/metadata-only/C results, 154 checks / zero violations and `insufficient_data` reproduced. |
+
+Review found a semantic-input visibility bypass in an early evaluator version:
+its separate text filter omitted reference/run-bound/ambiguity eligibility.
+Fixed by using the same projected states for objectives and summaries; encoder-spy
+regressions cover delayed scope/description, late event references, pre-run text,
+future text and tied summaries. Final independent review found no unresolved
+privacy, provenance, temporal, feature or evaluation blockers. Software subagent
+review does not count as human annotation/adjudication.
+
+### Minimum evidence needed next
+
+`docs/LONGITUDINAL_TASK_STATE.md` provides the concrete proposal: a manual opt-in
+pilot on 5–10 independently scoped, already occurring local trajectories to study
+evidence usability. Record a sanitized initial objective/target/configuration and
+association receipts prospectively; submit brief sanitized checkpoint sidecars
+about activity, attempted mechanism, obstacle, progress evidence and scope change;
+keep author hypotheses separate from facts and store private sidecars in ignored
+local storage. Later acquire distinct genuine human trajectory labels/review and
+independently verified outcome/label-availability receipts. Intermediate-artifact
+test evolution requires a separately scoped contract, not relaxed final-verifier
+semantics. Enough independent prospective outcomes are needed before prediction.
+
+The next recommended increment is **manual prospective summary collection and
+evidence-usability review**. This proposal is not started. No raw transcript
+collection, hooks, paid agents, benchmark-security bypass, retrieval expansion,
+model switching, routing, Governor, GUI, commit, push, merge or publication.
+Stopped after the requested implementation/evaluation.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1676,6 +1792,12 @@ Stop here; the next action belongs to the human annotator and independent review
 
 ## Next recommended increment (not started)
 
+- First longitudinal state reconstruction and synthetic A/B/C rule evaluation are
+  complete. Next: an explicitly authorized manual prospective sanitized-summary
+  pilot and independent evidence-usability review, as specified above and in
+  `docs/LONGITUDINAL_TASK_STATE.md`. No pilot or next implementation is started.
+  The earlier retrieval human-review batch remains pending; it need not expand
+  before demonstrating utility. Earlier recommendations below are historical.
 - The local 40-query human-review batch is prepared; the annotation workflow and
   protocol remain complete. The next evidence step is genuine independent human
   labeling/adjudication of that batch, then retrieval/no-match/abstention

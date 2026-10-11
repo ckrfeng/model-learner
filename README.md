@@ -153,6 +153,13 @@ artifact; intermediate snapshots across code edits are unsupported. See
 
 ## Coding-task and task-state evaluation
 
+Multi-checkpoint inspection and the evidence audit are documented in
+[Longitudinal task state](docs/LONGITUDINAL_TASK_STATE.md). Use
+`model-learner task trajectory INPUT.json` for an explicitly supplied local
+trajectory and `model-learner learn trajectory-eval FIXTURE.json` for the seven
+synthetic state-change checks. Summary declarations remain hypotheses; these
+checks establish no real predictive improvement.
+
 `model-learner benchmark tasks` lists small public synthetic coding exercises.
 `benchmark prepare` stages a fresh disposable workspace outside this repository,
 predeclares the configuration and acceptance target, and preserves operator

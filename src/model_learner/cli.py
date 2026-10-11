@@ -14,6 +14,7 @@ from model_learner import __version__
 from model_learner.commands.annotations import annotation_app
 from model_learner.commands.benchmark import benchmark_app
 from model_learner.commands.learning import learn_app, sim_app
+from model_learner.commands.longitudinal import task_trajectory, trajectory_eval
 from model_learner.commands.observation import (
     capture_app,
     import_app,
@@ -98,6 +99,8 @@ sim_app.command("state-fixture")(state_fixture)
 learn_app.command("representation-eval")(representation_eval)
 sim_app.command("representation-fixture")(representation_fixture)
 task_app.command("similar")(task_similar)
+task_app.command("trajectory")(task_trajectory)
+learn_app.command("trajectory-eval")(trajectory_eval)
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,

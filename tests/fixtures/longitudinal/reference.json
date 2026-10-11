@@ -1,0 +1,747 @@
+{
+  "evaluation_version": "synthetic-longitudinal-rule-evaluation/v1",
+  "dataset": {
+    "schema_version": 2,
+    "source_kind": "simulated",
+    "dataset_id": "authored-longitudinal-rule-checks",
+    "dataset_version": "1"
+  },
+  "label_origin": "agent_authored_synthetic_rule_checks",
+  "human_reviewed": false,
+  "state_change_recognition": {
+    "A": {
+      "features": "Initial task information only",
+      "case_count": 7,
+      "unknown_expected_count": 1,
+      "unknown_prediction_count": 7,
+      "abstention_rate": 1.0,
+      "confusion": {
+        "changed": {
+          "changed": 0,
+          "no_observed_change": 0,
+          "unknown": 5
+        },
+        "no_observed_change": {
+          "changed": 0,
+          "no_observed_change": 0,
+          "unknown": 1
+        },
+        "unknown": {
+          "changed": 0,
+          "no_observed_change": 0,
+          "unknown": 1
+        }
+      },
+      "status_rule_agreement": 0.14285714285714285,
+      "status_agreement_on_non_abstentions": null,
+      "dimension_rule_agreement_count": 2,
+      "interpretation": "Synthetic authored rule agreement; not semantic accuracy.",
+      "cases": [
+        {
+          "case_id": "normal_progression",
+          "scenario": "normal_progression",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "phase"
+          ],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "dimensions_match": false,
+          "reason": "Initial objective alone cannot identify a later state change."
+        },
+        {
+          "case_id": "repeated_unsuccessful_approaches",
+          "scenario": "repeated_unsuccessful_approaches",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure"
+          ],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "dimensions_match": false,
+          "reason": "Initial objective alone cannot identify a later state change."
+        },
+        {
+          "case_id": "complexity_growth",
+          "scenario": "complexity_growth",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "scope",
+            "difficulty"
+          ],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "dimensions_match": false,
+          "reason": "Initial objective alone cannot identify a later state change."
+        },
+        {
+          "case_id": "implementation_to_debugging",
+          "scenario": "implementation_to_debugging",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure",
+            "phase"
+          ],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "dimensions_match": false,
+          "reason": "Initial objective alone cannot identify a later state change."
+        },
+        {
+          "case_id": "apparent_progress_unverified",
+          "scenario": "apparent_progress_unverified",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "progress"
+          ],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "dimensions_match": false,
+          "reason": "Initial objective alone cannot identify a later state change."
+        },
+        {
+          "case_id": "missing_evidence",
+          "scenario": "missing_evidence",
+          "expected_status": "unknown",
+          "expected_dimensions": [],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "dimensions_match": true,
+          "reason": "Initial objective alone cannot identify a later state change."
+        },
+        {
+          "case_id": "no_meaningful_change",
+          "scenario": "no_meaningful_change",
+          "expected_status": "no_observed_change",
+          "expected_dimensions": [],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "dimensions_match": true,
+          "reason": "Initial objective alone cannot identify a later state change."
+        }
+      ]
+    },
+    "B": {
+      "features": "Initial information, deterministic execution facts and explicit summary assertions",
+      "case_count": 7,
+      "unknown_expected_count": 1,
+      "unknown_prediction_count": 1,
+      "abstention_rate": 0.14285714285714285,
+      "confusion": {
+        "changed": {
+          "changed": 5,
+          "no_observed_change": 0,
+          "unknown": 0
+        },
+        "no_observed_change": {
+          "changed": 0,
+          "no_observed_change": 1,
+          "unknown": 0
+        },
+        "unknown": {
+          "changed": 0,
+          "no_observed_change": 0,
+          "unknown": 1
+        }
+      },
+      "status_rule_agreement": 1.0,
+      "status_agreement_on_non_abstentions": 1.0,
+      "dimension_rule_agreement_count": 7,
+      "interpretation": "Synthetic authored rule agreement; not semantic accuracy.",
+      "cases": [
+        {
+          "case_id": "normal_progression",
+          "scenario": "normal_progression",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "phase"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "phase"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "repeated_unsuccessful_approaches",
+          "scenario": "repeated_unsuccessful_approaches",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "failure"
+          ],
+          "new_information": [],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "complexity_growth",
+          "scenario": "complexity_growth",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "scope",
+            "difficulty"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "scope",
+            "difficulty"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "implementation_to_debugging",
+          "scenario": "implementation_to_debugging",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure",
+            "phase"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "failure",
+            "phase"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "apparent_progress_unverified",
+          "scenario": "apparent_progress_unverified",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "progress"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "progress"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "missing_evidence",
+          "scenario": "missing_evidence",
+          "expected_status": "unknown",
+          "expected_dimensions": [],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "new_information": [],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "no_meaningful_change",
+          "scenario": "no_meaningful_change",
+          "expected_status": "no_observed_change",
+          "expected_dimensions": [],
+          "predicted_status": "no_observed_change",
+          "dimensions": [],
+          "new_information": [],
+          "dimensions_match": true
+        }
+      ]
+    },
+    "B_metadata_only": {
+      "features": "B with all checkpoint summary declarations removed",
+      "case_count": 7,
+      "unknown_expected_count": 1,
+      "unknown_prediction_count": 2,
+      "abstention_rate": 0.2857142857142857,
+      "confusion": {
+        "changed": {
+          "changed": 4,
+          "no_observed_change": 0,
+          "unknown": 1
+        },
+        "no_observed_change": {
+          "changed": 0,
+          "no_observed_change": 1,
+          "unknown": 0
+        },
+        "unknown": {
+          "changed": 0,
+          "no_observed_change": 0,
+          "unknown": 1
+        }
+      },
+      "status_rule_agreement": 0.8571428571428571,
+      "status_agreement_on_non_abstentions": 1.0,
+      "dimension_rule_agreement_count": 3,
+      "interpretation": "Synthetic authored rule agreement; not semantic accuracy.",
+      "cases": [
+        {
+          "case_id": "normal_progression",
+          "scenario": "normal_progression",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "phase"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity"
+          ],
+          "new_information": [],
+          "dimensions_match": false
+        },
+        {
+          "case_id": "repeated_unsuccessful_approaches",
+          "scenario": "repeated_unsuccessful_approaches",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "failure"
+          ],
+          "new_information": [],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "complexity_growth",
+          "scenario": "complexity_growth",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "scope",
+            "difficulty"
+          ],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "new_information": [],
+          "dimensions_match": false
+        },
+        {
+          "case_id": "implementation_to_debugging",
+          "scenario": "implementation_to_debugging",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure",
+            "phase"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "failure"
+          ],
+          "new_information": [],
+          "dimensions_match": false
+        },
+        {
+          "case_id": "apparent_progress_unverified",
+          "scenario": "apparent_progress_unverified",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "progress"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity"
+          ],
+          "new_information": [],
+          "dimensions_match": false
+        },
+        {
+          "case_id": "missing_evidence",
+          "scenario": "missing_evidence",
+          "expected_status": "unknown",
+          "expected_dimensions": [],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "new_information": [],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "no_meaningful_change",
+          "scenario": "no_meaningful_change",
+          "expected_status": "no_observed_change",
+          "expected_dimensions": [],
+          "predicted_status": "no_observed_change",
+          "dimensions": [],
+          "new_information": [],
+          "dimensions_match": true
+        }
+      ]
+    },
+    "C": {
+      "features": "B plus optional local CPU text diagnostics",
+      "status": "evaluated_diagnostic_only",
+      "reason": null,
+      "case_count": 7,
+      "unknown_expected_count": 1,
+      "unknown_prediction_count": 1,
+      "abstention_rate": 0.14285714285714285,
+      "confusion": {
+        "changed": {
+          "changed": 5,
+          "no_observed_change": 0,
+          "unknown": 0
+        },
+        "no_observed_change": {
+          "changed": 0,
+          "no_observed_change": 1,
+          "unknown": 0
+        },
+        "unknown": {
+          "changed": 0,
+          "no_observed_change": 0,
+          "unknown": 1
+        }
+      },
+      "status_rule_agreement": 1.0,
+      "status_agreement_on_non_abstentions": 1.0,
+      "dimension_rule_agreement_count": 7,
+      "interpretation": "Cosine alone cannot justify a semantic task-state change.",
+      "cases": [
+        {
+          "case_id": "normal_progression",
+          "scenario": "normal_progression",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "phase"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "phase"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "repeated_unsuccessful_approaches",
+          "scenario": "repeated_unsuccessful_approaches",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "failure"
+          ],
+          "new_information": [],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "complexity_growth",
+          "scenario": "complexity_growth",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "scope",
+            "difficulty"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "scope",
+            "difficulty"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "implementation_to_debugging",
+          "scenario": "implementation_to_debugging",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "failure",
+            "phase"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "failure",
+            "phase"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "apparent_progress_unverified",
+          "scenario": "apparent_progress_unverified",
+          "expected_status": "changed",
+          "expected_dimensions": [
+            "activity",
+            "progress"
+          ],
+          "predicted_status": "changed",
+          "dimensions": [
+            "activity",
+            "progress"
+          ],
+          "new_information": [
+            "summary"
+          ],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "missing_evidence",
+          "scenario": "missing_evidence",
+          "expected_status": "unknown",
+          "expected_dimensions": [],
+          "predicted_status": "unknown",
+          "dimensions": [],
+          "new_information": [],
+          "dimensions_match": true
+        },
+        {
+          "case_id": "no_meaningful_change",
+          "scenario": "no_meaningful_change",
+          "expected_status": "no_observed_change",
+          "expected_dimensions": [],
+          "predicted_status": "no_observed_change",
+          "dimensions": [],
+          "new_information": [],
+          "dimensions_match": true
+        }
+      ],
+      "semantic_diagnostics": [
+        {
+          "case_id": "normal_progression",
+          "checkpoints": [
+            {
+              "checkpoint": "2026-10-11T12:00:10+00:00",
+              "summary_id": "normal_progression/summary/1",
+              "objective_summary_cosine": 0.5982536572495917,
+              "previous_summary_cosine": null,
+              "status": "diagnostic_only"
+            },
+            {
+              "checkpoint": "2026-10-11T12:00:20+00:00",
+              "summary_id": "normal_progression/summary/2",
+              "objective_summary_cosine": 0.6843262763062452,
+              "previous_summary_cosine": 0.5343923533138001,
+              "status": "diagnostic_only"
+            }
+          ]
+        },
+        {
+          "case_id": "repeated_unsuccessful_approaches",
+          "checkpoints": [
+            {
+              "checkpoint": "2026-10-11T12:00:10+00:00",
+              "summary_id": null,
+              "objective_summary_cosine": null,
+              "previous_summary_cosine": null,
+              "status": "unknown"
+            },
+            {
+              "checkpoint": "2026-10-11T12:00:20+00:00",
+              "summary_id": null,
+              "objective_summary_cosine": null,
+              "previous_summary_cosine": null,
+              "status": "unknown"
+            }
+          ]
+        },
+        {
+          "case_id": "complexity_growth",
+          "checkpoints": [
+            {
+              "checkpoint": "2026-10-11T12:00:10+00:00",
+              "summary_id": "complexity_growth/summary/1",
+              "objective_summary_cosine": 0.6444374038624373,
+              "previous_summary_cosine": null,
+              "status": "diagnostic_only"
+            },
+            {
+              "checkpoint": "2026-10-11T12:00:20+00:00",
+              "summary_id": "complexity_growth/summary/2",
+              "objective_summary_cosine": 0.3296478342364565,
+              "previous_summary_cosine": 0.36327948323199544,
+              "status": "diagnostic_only"
+            }
+          ]
+        },
+        {
+          "case_id": "implementation_to_debugging",
+          "checkpoints": [
+            {
+              "checkpoint": "2026-10-11T12:00:10+00:00",
+              "summary_id": "implementation_to_debugging/summary/1",
+              "objective_summary_cosine": 0.9277659808430685,
+              "previous_summary_cosine": null,
+              "status": "diagnostic_only"
+            },
+            {
+              "checkpoint": "2026-10-11T12:00:20+00:00",
+              "summary_id": "implementation_to_debugging/summary/2",
+              "objective_summary_cosine": 0.3256723154483833,
+              "previous_summary_cosine": 0.36571023796713154,
+              "status": "diagnostic_only"
+            }
+          ]
+        },
+        {
+          "case_id": "apparent_progress_unverified",
+          "checkpoints": [
+            {
+              "checkpoint": "2026-10-11T12:00:10+00:00",
+              "summary_id": "apparent_progress_unverified/summary/1",
+              "objective_summary_cosine": 0.45468019470156107,
+              "previous_summary_cosine": null,
+              "status": "diagnostic_only"
+            },
+            {
+              "checkpoint": "2026-10-11T12:00:20+00:00",
+              "summary_id": "apparent_progress_unverified/summary/2",
+              "objective_summary_cosine": 0.23910131676554647,
+              "previous_summary_cosine": 0.5144562172611279,
+              "status": "diagnostic_only"
+            }
+          ]
+        },
+        {
+          "case_id": "missing_evidence",
+          "checkpoints": [
+            {
+              "checkpoint": "2026-10-11T12:00:10+00:00",
+              "summary_id": null,
+              "objective_summary_cosine": null,
+              "previous_summary_cosine": null,
+              "status": "unknown"
+            },
+            {
+              "checkpoint": "2026-10-11T12:00:20+00:00",
+              "summary_id": null,
+              "objective_summary_cosine": null,
+              "previous_summary_cosine": null,
+              "status": "unknown"
+            }
+          ]
+        },
+        {
+          "case_id": "no_meaningful_change",
+          "checkpoints": [
+            {
+              "checkpoint": "2026-10-11T12:00:10+00:00",
+              "summary_id": "no_meaningful_change/summary/1",
+              "objective_summary_cosine": 0.5430922794706604,
+              "previous_summary_cosine": null,
+              "status": "diagnostic_only"
+            },
+            {
+              "checkpoint": "2026-10-11T12:00:20+00:00",
+              "summary_id": "no_meaningful_change/summary/1",
+              "objective_summary_cosine": 0.5430922794706604,
+              "previous_summary_cosine": 0.9999999999999998,
+              "status": "diagnostic_only"
+            }
+          ]
+        }
+      ],
+      "encoder_metadata": {
+        "model_id": "minishlab/potion-base-8M",
+        "revision": "bf8b056651a2c21b8d2565580b8569da283cab23",
+        "license": "MIT",
+        "bundle_sha256": "930be259798d5d6e24ee8285a198f4248d9b42ec8544c92b952fa5e2aa5184d2",
+        "bundle_bytes": 30920628,
+        "parameter_bytes": 30236672,
+        "device": "cpu",
+        "dimensions": 256,
+        "vocabulary_size": 29528,
+        "max_tokens": 256,
+        "max_description_characters": 4096,
+        "pooling": "static pretrained token mean; L2 normalization; UNK removed",
+        "truncation": "first 256*median_token_length characters; first 256 tokens",
+        "zero_vector_policy": "retain zero vector for no known tokens",
+        "batch_size": 1,
+        "multiprocessing": false,
+        "remote_inference": false,
+        "automatic_download": false,
+        "load_seconds": null,
+        "process_peak_rss_bytes_after_load": null,
+        "runtime_versions": {
+          "model2vec": "0.9.0",
+          "numpy": "2.5.4",
+          "safetensors": "0.8.0",
+          "tokenizers": "0.23.3"
+        },
+        "available_packages": {
+          "model2vec": true,
+          "numpy": true,
+          "safetensors": true,
+          "tokenizers": true
+        },
+        "estimated_parameter_bytes": 30236672,
+        "estimate_basis": "exact frozen F32 embedding table bytes"
+      },
+      "classification_difference_from_B": 0
+    }
+  },
+  "unsupported_inference_guardrails": {
+    "status": "passed",
+    "checks_by_name": {
+      "category_failure_not_same_operation_retry": 14,
+      "completion_never_verifies_success": 14,
+      "difficulty_requires_visible_declaration": 14,
+      "event_temporal_visibility": 14,
+      "no_manufactured_progress_percentage": 14,
+      "phase_requires_visible_declaration": 14,
+      "progress_requires_visible_declaration": 14,
+      "receipt_time_not_native_duration": 14,
+      "scope_requires_visible_declaration": 14,
+      "summary_temporal_visibility": 14,
+      "unknown_cost_not_zero": 14
+    },
+    "check_count": 154,
+    "violation_count": 0,
+    "violations": [],
+    "interpretation": "Implementation invariants; not a population unsupported-inference rate."
+  },
+  "deterministic_telemetry_sufficiency": {
+    "cases_with_declared_semantic_change": 4,
+    "semantic_changes_in_metadata_only": 0,
+    "interpretation": "Telemetry identifies observed activity/failure changes. Semantic dimensions require explicit author declarations here; this ablation does not establish semantic understanding."
+  },
+  "downstream_outcome_prediction": {
+    "status": "insufficient_data",
+    "eligible_independently_verified_real_outcomes": 0,
+    "eligible_outcomes_in_fixture": 0,
+    "scores": null,
+    "reason": "No verified outcomes in this synthetic rule-check fixture; no predictive claim is supported."
+  },
+  "reference_provenance": {
+    "evaluated_at": "2026-10-11",
+    "fixture_sha256": "3d708ebd5f5321686966967f55f5cd0187aef02b276bc684049e4bc09bb3cdfe",
+    "socket_connections_denied": true,
+    "performance_measurements": "Omitted process-specific load time and RSS for stable reference; no performance claim."
+  }
+}

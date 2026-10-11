@@ -1,0 +1,21 @@
+{
+  "version": "longitudinal-rule-fixture-manifest/v1",
+  "dataset_id": "authored-longitudinal-rule-checks",
+  "dataset_version": "1",
+  "source_kind": "simulated",
+  "fixture_file": "scenarios.json",
+  "fixture_sha256": "3d708ebd5f5321686966967f55f5cd0187aef02b276bc684049e4bc09bb3cdfe",
+  "authorship": "agent_authored_synthetic_rule_checks",
+  "human_reviewed": false,
+  "outcomes_present": false,
+  "counts": {
+    "cases": 7,
+    "checkpoints": 14
+  },
+  "fixture_frozen_before_reference_run": true,
+  "expectations_authored_before_actual_potion_run": true,
+  "semantic_decision_threshold": null,
+  "classification_uses_embeddings": false,
+  "potion_revision": "bf8b056651a2c21b8d2565580b8569da283cab23",
+  "potion_bundle_sha256": "930be259798d5d6e24ee8285a198f4248d9b42ec8544c92b952fa5e2aa5184d2"
+}

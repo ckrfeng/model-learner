@@ -1,0 +1,1053 @@
+{
+  "version": "synthetic-longitudinal-fixture/v1",
+  "dataset": {
+    "schema_version": 2,
+    "source_kind": "simulated",
+    "dataset_id": "authored-longitudinal-rule-checks",
+    "dataset_version": "1"
+  },
+  "authorship": "agent_authored_synthetic_rule_checks",
+  "human_reviewed": false,
+  "outcomes_present": false,
+  "cases": [
+    {
+      "version": "task-trajectory-input/v1",
+      "dataset": {
+        "schema_version": 2,
+        "source_kind": "simulated",
+        "dataset_id": "authored-longitudinal-rule-checks",
+        "dataset_version": "1"
+      },
+      "task": {
+        "schema_version": 2,
+        "task_id": "f8a70a5c-da14-5234-9a9a-c27218733e78",
+        "description": "Add a bounded input validator.",
+        "acceptance_spec": {
+          "schema_version": 2,
+          "identifier": "not-verified-fixture-objective",
+          "version": "1",
+          "description": null
+        },
+        "created_at": "2026-10-11T12:00:00Z",
+        "workspace_id": null,
+        "task_group": null,
+        "resource_budget": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "run": {
+        "schema_version": 2,
+        "run_id": "593d4a80-5108-501e-bfe1-18c72b59caf3",
+        "task_id": "f8a70a5c-da14-5234-9a9a-c27218733e78",
+        "state": "unknown",
+        "started_at": "2026-10-11T12:00:00Z",
+        "ended_at": null,
+        "starting_state_fingerprint": null,
+        "resource_budget": null,
+        "stop_reason": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "session_id": "d4a7ed59-55c8-50d5-a583-9726c08a3a42",
+      "checkpoints": [
+        "2026-10-11T12:00:10Z",
+        "2026-10-11T12:00:20Z"
+      ],
+      "association_available_at": "2026-10-11T12:00:00Z",
+      "task_available_at": "2026-10-11T12:00:00Z",
+      "description": {
+        "task_id": "f8a70a5c-da14-5234-9a9a-c27218733e78",
+        "task_family": "controlled-longitudinal",
+        "text": "Add a bounded input validator.",
+        "text_sha256": "0ed38efa2d409b0d7554ec25cf7dff2abfe0f258d32be9bbe25abf870e39106c",
+        "source": "sanitized",
+        "available_at": "2026-10-11T12:00:00Z"
+      },
+      "events": [
+        {
+          "schema_version": 2,
+          "event_id": "b6b9f7cb-f496-5813-a2e4-a795cf01b387",
+          "observed_at": "2026-10-11T12:00:04Z",
+          "ingested_at": "2026-10-11T12:00:05Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "normal_progression",
+          "session_id": "d4a7ed59-55c8-50d5-a583-9726c08a3a42",
+          "run_id": "593d4a80-5108-501e-bfe1-18c72b59caf3",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-1",
+                "type": "file_change",
+                "status": "completed"
+              }
+            },
+            "capture_id": "synthetic-normal_progression",
+            "sequence": 1,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "6b8522be723be4e9c216e6f6afa70fa6741cafbc4a994a28594f292b656eae0e"
+        },
+        {
+          "schema_version": 2,
+          "event_id": "4d54adb4-7967-5ec6-be37-aaad9d87ba9a",
+          "observed_at": "2026-10-11T12:00:14Z",
+          "ingested_at": "2026-10-11T12:00:15Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "normal_progression",
+          "session_id": "d4a7ed59-55c8-50d5-a583-9726c08a3a42",
+          "run_id": "593d4a80-5108-501e-bfe1-18c72b59caf3",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-2",
+                "type": "file_change",
+                "status": "completed"
+              }
+            },
+            "capture_id": "synthetic-normal_progression",
+            "sequence": 2,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "b6effc25444e2349315820785a821c09f88badd59827a9b54f9d52913834dc29"
+        }
+      ],
+      "summaries": [
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "normal_progression/summary/1",
+          "task_id": "f8a70a5c-da14-5234-9a9a-c27218733e78",
+          "run_id": "593d4a80-5108-501e-bfe1-18c72b59caf3",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:06Z",
+          "available_at": "2026-10-11T12:00:07Z",
+          "text": "Planning the input validator after a small scaffold edit.",
+          "text_sha256": "07abc6621dfb5d51361a6bd27186f9c0ff9b9fdc541f99822b50658847549a98",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#normal_progression",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [
+            "b6b9f7cb-f496-5813-a2e4-a795cf01b387"
+          ],
+          "verification_ids": [],
+          "phase": "planning",
+          "progress": "work_reported",
+          "scope": "single validation function",
+          "difficulty": null
+        },
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "normal_progression/summary/2",
+          "task_id": "f8a70a5c-da14-5234-9a9a-c27218733e78",
+          "run_id": "593d4a80-5108-501e-bfe1-18c72b59caf3",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:16Z",
+          "available_at": "2026-10-11T12:00:17Z",
+          "text": "Implemented input checks in the validator; completion is unverified.",
+          "text_sha256": "fc5cca37ee743430aadb36d86e58d70b70a3e021bcec403551323912aa9dd275",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#normal_progression",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [
+            "b6b9f7cb-f496-5813-a2e4-a795cf01b387",
+            "4d54adb4-7967-5ec6-be37-aaad9d87ba9a"
+          ],
+          "verification_ids": [],
+          "phase": "implementation",
+          "progress": "work_reported",
+          "scope": "single validation function",
+          "difficulty": null
+        }
+      ],
+      "verifications": [],
+      "artifact_available_at": null,
+      "evidence_available_at": {},
+      "case_id": "normal_progression",
+      "scenario": "normal_progression",
+      "expected": {
+        "status": "changed",
+        "dimensions": [
+          "activity",
+          "phase"
+        ],
+        "rationale": "Additional edit observations and an explicit planning-to-implementation report; edits alone do not establish progress."
+      }
+    },
+    {
+      "version": "task-trajectory-input/v1",
+      "dataset": {
+        "schema_version": 2,
+        "source_kind": "simulated",
+        "dataset_id": "authored-longitudinal-rule-checks",
+        "dataset_version": "1"
+      },
+      "task": {
+        "schema_version": 2,
+        "task_id": "f90c26e6-9d88-5a90-84ed-30a68f9674c6",
+        "description": "Repair a failing command-line parsing check.",
+        "acceptance_spec": {
+          "schema_version": 2,
+          "identifier": "not-verified-fixture-objective",
+          "version": "1",
+          "description": null
+        },
+        "created_at": "2026-10-11T12:00:00Z",
+        "workspace_id": null,
+        "task_group": null,
+        "resource_budget": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "run": {
+        "schema_version": 2,
+        "run_id": "0116710e-0b08-539e-9140-3a3fd98214ef",
+        "task_id": "f90c26e6-9d88-5a90-84ed-30a68f9674c6",
+        "state": "unknown",
+        "started_at": "2026-10-11T12:00:00Z",
+        "ended_at": null,
+        "starting_state_fingerprint": null,
+        "resource_budget": null,
+        "stop_reason": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "session_id": "564a4ee3-40ef-54be-a510-6aef8550b0eb",
+      "checkpoints": [
+        "2026-10-11T12:00:10Z",
+        "2026-10-11T12:00:20Z"
+      ],
+      "association_available_at": "2026-10-11T12:00:00Z",
+      "task_available_at": "2026-10-11T12:00:00Z",
+      "description": {
+        "task_id": "f90c26e6-9d88-5a90-84ed-30a68f9674c6",
+        "task_family": "controlled-longitudinal",
+        "text": "Repair a failing command-line parsing check.",
+        "text_sha256": "c7a274622061f1907307ea86422a9ebb8d4f494ac82f99cbdf42171079e9582d",
+        "source": "sanitized",
+        "available_at": "2026-10-11T12:00:00Z"
+      },
+      "events": [
+        {
+          "schema_version": 2,
+          "event_id": "ca08d8b6-4a87-55d6-bd9f-9be30c961d34",
+          "observed_at": "2026-10-11T12:00:04Z",
+          "ingested_at": "2026-10-11T12:00:05Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "repeated_unsuccessful_approaches",
+          "session_id": "564a4ee3-40ef-54be-a510-6aef8550b0eb",
+          "run_id": "0116710e-0b08-539e-9140-3a3fd98214ef",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-1",
+                "type": "command_execution",
+                "status": "completed",
+                "exit_code": 1
+              }
+            },
+            "capture_id": "synthetic-repeated_unsuccessful_approaches",
+            "sequence": 1,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "82a9f4a70ce61f74798b30b41be546948ad351e7cf69476e46268279878510df"
+        },
+        {
+          "schema_version": 2,
+          "event_id": "891db55c-6065-50c3-bec9-157382423164",
+          "observed_at": "2026-10-11T12:00:14Z",
+          "ingested_at": "2026-10-11T12:00:15Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "repeated_unsuccessful_approaches",
+          "session_id": "564a4ee3-40ef-54be-a510-6aef8550b0eb",
+          "run_id": "0116710e-0b08-539e-9140-3a3fd98214ef",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-2",
+                "type": "command_execution",
+                "status": "completed",
+                "exit_code": 1
+              }
+            },
+            "capture_id": "synthetic-repeated_unsuccessful_approaches",
+            "sequence": 2,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "78a60df8757cd3fb04040f8779969e8c8787defbfcfc5ab6c2cb93ccefe82692"
+        }
+      ],
+      "summaries": [],
+      "verifications": [],
+      "artifact_available_at": null,
+      "evidence_available_at": {},
+      "case_id": "repeated_unsuccessful_approaches",
+      "scenario": "repeated_unsuccessful_approaches",
+      "expected": {
+        "status": "changed",
+        "dimensions": [
+          "activity",
+          "failure"
+        ],
+        "rationale": "Two distinct command-category items emitted nonzero exits. Shared arguments, same approach, retry loops and causal difficulty are unavailable."
+      }
+    },
+    {
+      "version": "task-trajectory-input/v1",
+      "dataset": {
+        "schema_version": 2,
+        "source_kind": "simulated",
+        "dataset_id": "authored-longitudinal-rule-checks",
+        "dataset_version": "1"
+      },
+      "task": {
+        "schema_version": 2,
+        "task_id": "baaad946-8f67-56a7-a51e-ebfff0484f82",
+        "description": "Extend a parser to accept one input format.",
+        "acceptance_spec": {
+          "schema_version": 2,
+          "identifier": "not-verified-fixture-objective",
+          "version": "1",
+          "description": null
+        },
+        "created_at": "2026-10-11T12:00:00Z",
+        "workspace_id": null,
+        "task_group": null,
+        "resource_budget": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "run": {
+        "schema_version": 2,
+        "run_id": "b3e602e7-39e3-5e1d-a587-d72c0c890d8b",
+        "task_id": "baaad946-8f67-56a7-a51e-ebfff0484f82",
+        "state": "unknown",
+        "started_at": "2026-10-11T12:00:00Z",
+        "ended_at": null,
+        "starting_state_fingerprint": null,
+        "resource_budget": null,
+        "stop_reason": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "session_id": "6d131f56-e395-5de4-a750-ec91b6a125fc",
+      "checkpoints": [
+        "2026-10-11T12:00:10Z",
+        "2026-10-11T12:00:20Z"
+      ],
+      "association_available_at": "2026-10-11T12:00:00Z",
+      "task_available_at": "2026-10-11T12:00:00Z",
+      "description": {
+        "task_id": "baaad946-8f67-56a7-a51e-ebfff0484f82",
+        "task_family": "controlled-longitudinal",
+        "text": "Extend a parser to accept one input format.",
+        "text_sha256": "16330d543e1798f9693035e850b2801f8d57eac1b0c254257f739b1d049f39bf",
+        "source": "sanitized",
+        "available_at": "2026-10-11T12:00:00Z"
+      },
+      "events": [],
+      "summaries": [
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "complexity_growth/summary/1",
+          "task_id": "baaad946-8f67-56a7-a51e-ebfff0484f82",
+          "run_id": "b3e602e7-39e3-5e1d-a587-d72c0c890d8b",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:06Z",
+          "available_at": "2026-10-11T12:00:07Z",
+          "text": "Implementing one format in one parser module.",
+          "text_sha256": "9d7a07bf55f439642cc936ab7f4db150fcfd327765a0215ab1e1f78ed1c0d45b",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#complexity_growth",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [],
+          "verification_ids": [],
+          "phase": "implementation",
+          "progress": "work_reported",
+          "scope": "one format in one module",
+          "difficulty": "one local transformation"
+        },
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "complexity_growth/summary/2",
+          "task_id": "baaad946-8f67-56a7-a51e-ebfff0484f82",
+          "run_id": "b3e602e7-39e3-5e1d-a587-d72c0c890d8b",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:16Z",
+          "available_at": "2026-10-11T12:00:17Z",
+          "text": "Reported scope now covers two formats and an external API compatibility constraint.",
+          "text_sha256": "6939e7b5545fe2d3be5cbd7b296066a8cb63441311d7328646b17ec40cecafe1",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#complexity_growth",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [],
+          "verification_ids": [],
+          "phase": "implementation",
+          "progress": "work_reported",
+          "scope": "two formats and external API compatibility",
+          "difficulty": "additional cross-module compatibility constraints"
+        }
+      ],
+      "verifications": [],
+      "artifact_available_at": null,
+      "evidence_available_at": {},
+      "case_id": "complexity_growth",
+      "scenario": "complexity_growth",
+      "expected": {
+        "status": "changed",
+        "dimensions": [
+          "scope",
+          "difficulty"
+        ],
+        "rationale": "Explicit author assertions differ in scope and apparent difficulty; this is not independently measured complexity."
+      }
+    },
+    {
+      "version": "task-trajectory-input/v1",
+      "dataset": {
+        "schema_version": 2,
+        "source_kind": "simulated",
+        "dataset_id": "authored-longitudinal-rule-checks",
+        "dataset_version": "1"
+      },
+      "task": {
+        "schema_version": 2,
+        "task_id": "7faea814-6943-505a-a721-e2f0b42dd53a",
+        "description": "Implement a normalization helper.",
+        "acceptance_spec": {
+          "schema_version": 2,
+          "identifier": "not-verified-fixture-objective",
+          "version": "1",
+          "description": null
+        },
+        "created_at": "2026-10-11T12:00:00Z",
+        "workspace_id": null,
+        "task_group": null,
+        "resource_budget": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "run": {
+        "schema_version": 2,
+        "run_id": "3ea20469-e314-50de-b31b-37bf499222cf",
+        "task_id": "7faea814-6943-505a-a721-e2f0b42dd53a",
+        "state": "unknown",
+        "started_at": "2026-10-11T12:00:00Z",
+        "ended_at": null,
+        "starting_state_fingerprint": null,
+        "resource_budget": null,
+        "stop_reason": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "session_id": "8c390f5b-36d7-50a6-bd8c-fb9134c78b6b",
+      "checkpoints": [
+        "2026-10-11T12:00:10Z",
+        "2026-10-11T12:00:20Z"
+      ],
+      "association_available_at": "2026-10-11T12:00:00Z",
+      "task_available_at": "2026-10-11T12:00:00Z",
+      "description": {
+        "task_id": "7faea814-6943-505a-a721-e2f0b42dd53a",
+        "task_family": "controlled-longitudinal",
+        "text": "Implement a normalization helper.",
+        "text_sha256": "6b94463c52438bf57d749e0f1c396be8f4911aa3ae7e7fcf93c395c2ccaf6cb7",
+        "source": "sanitized",
+        "available_at": "2026-10-11T12:00:00Z"
+      },
+      "events": [
+        {
+          "schema_version": 2,
+          "event_id": "fb369ed6-8b9b-5079-85db-dd6ccaed07c3",
+          "observed_at": "2026-10-11T12:00:04Z",
+          "ingested_at": "2026-10-11T12:00:05Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "implementation_to_debugging",
+          "session_id": "8c390f5b-36d7-50a6-bd8c-fb9134c78b6b",
+          "run_id": "3ea20469-e314-50de-b31b-37bf499222cf",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-1",
+                "type": "file_change",
+                "status": "completed"
+              }
+            },
+            "capture_id": "synthetic-implementation_to_debugging",
+            "sequence": 1,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "e47c31720b9f3e79de6176cdad751a7b65f9c2b8b4e3faa05b2d4f4d6fb19472"
+        },
+        {
+          "schema_version": 2,
+          "event_id": "bb8729f2-fdbd-5ea5-88a1-e7d16105621b",
+          "observed_at": "2026-10-11T12:00:14Z",
+          "ingested_at": "2026-10-11T12:00:15Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "implementation_to_debugging",
+          "session_id": "8c390f5b-36d7-50a6-bd8c-fb9134c78b6b",
+          "run_id": "3ea20469-e314-50de-b31b-37bf499222cf",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-2",
+                "type": "command_execution",
+                "status": "completed",
+                "exit_code": 1
+              }
+            },
+            "capture_id": "synthetic-implementation_to_debugging",
+            "sequence": 2,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "205253fab84bf5a463ee7462b213dae34b7bccbdd16df0b76b87879d414a3b03"
+        }
+      ],
+      "summaries": [
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "implementation_to_debugging/summary/1",
+          "task_id": "7faea814-6943-505a-a721-e2f0b42dd53a",
+          "run_id": "3ea20469-e314-50de-b31b-37bf499222cf",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:06Z",
+          "available_at": "2026-10-11T12:00:07Z",
+          "text": "Working on implementation of the normalization helper.",
+          "text_sha256": "788ef33b6b60d22930cf75c20b8066b7c6e3ee649e31596299611b0fd955df07",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#implementation_to_debugging",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [
+            "fb369ed6-8b9b-5079-85db-dd6ccaed07c3"
+          ],
+          "verification_ids": [],
+          "phase": "implementation",
+          "progress": "work_reported",
+          "scope": null,
+          "difficulty": null
+        },
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "implementation_to_debugging/summary/2",
+          "task_id": "7faea814-6943-505a-a721-e2f0b42dd53a",
+          "run_id": "3ea20469-e314-50de-b31b-37bf499222cf",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:16Z",
+          "available_at": "2026-10-11T12:00:17Z",
+          "text": "Investigating the emitted command failure while debugging the helper.",
+          "text_sha256": "92a526481248c90847ec1f37ca743250be8a51451d8035f07b5fe50a0e0baf00",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#implementation_to_debugging",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [
+            "fb369ed6-8b9b-5079-85db-dd6ccaed07c3",
+            "bb8729f2-fdbd-5ea5-88a1-e7d16105621b"
+          ],
+          "verification_ids": [],
+          "phase": "debugging",
+          "progress": "work_reported",
+          "scope": null,
+          "difficulty": null
+        }
+      ],
+      "verifications": [],
+      "artifact_available_at": null,
+      "evidence_available_at": {},
+      "case_id": "implementation_to_debugging",
+      "scenario": "implementation_to_debugging",
+      "expected": {
+        "status": "changed",
+        "dimensions": [
+          "activity",
+          "failure",
+          "phase"
+        ],
+        "rationale": "An explicit implementation-to-debugging declaration accompanies a nonzero command exit; no hidden command or test result is inferred."
+      }
+    },
+    {
+      "version": "task-trajectory-input/v1",
+      "dataset": {
+        "schema_version": 2,
+        "source_kind": "simulated",
+        "dataset_id": "authored-longitudinal-rule-checks",
+        "dataset_version": "1"
+      },
+      "task": {
+        "schema_version": 2,
+        "task_id": "e2586c29-e63d-5680-a6f9-17b0691b59f7",
+        "description": "Implement a small exporter.",
+        "acceptance_spec": {
+          "schema_version": 2,
+          "identifier": "not-verified-fixture-objective",
+          "version": "1",
+          "description": null
+        },
+        "created_at": "2026-10-11T12:00:00Z",
+        "workspace_id": null,
+        "task_group": null,
+        "resource_budget": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "run": {
+        "schema_version": 2,
+        "run_id": "9abbd9e5-73a2-5733-afa5-73b3967a4e3f",
+        "task_id": "e2586c29-e63d-5680-a6f9-17b0691b59f7",
+        "state": "unknown",
+        "started_at": "2026-10-11T12:00:00Z",
+        "ended_at": null,
+        "starting_state_fingerprint": null,
+        "resource_budget": null,
+        "stop_reason": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "session_id": "03bb0bbe-f7b9-5cf3-a479-e707d1bd6587",
+      "checkpoints": [
+        "2026-10-11T12:00:10Z",
+        "2026-10-11T12:00:20Z"
+      ],
+      "association_available_at": "2026-10-11T12:00:00Z",
+      "task_available_at": "2026-10-11T12:00:00Z",
+      "description": {
+        "task_id": "e2586c29-e63d-5680-a6f9-17b0691b59f7",
+        "task_family": "controlled-longitudinal",
+        "text": "Implement a small exporter.",
+        "text_sha256": "94b9bd25571a53ebbcea2fd0a7094a42beee2021bb2ad96e3fa9c296295a3953",
+        "source": "sanitized",
+        "available_at": "2026-10-11T12:00:00Z"
+      },
+      "events": [
+        {
+          "schema_version": 2,
+          "event_id": "4ab888da-b635-505e-8286-4e14500812f3",
+          "observed_at": "2026-10-11T12:00:04Z",
+          "ingested_at": "2026-10-11T12:00:05Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "apparent_progress_unverified",
+          "session_id": "03bb0bbe-f7b9-5cf3-a479-e707d1bd6587",
+          "run_id": "9abbd9e5-73a2-5733-afa5-73b3967a4e3f",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-1",
+                "type": "file_change",
+                "status": "completed"
+              }
+            },
+            "capture_id": "synthetic-apparent_progress_unverified",
+            "sequence": 1,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "4637a95bf86924c712eb5a52a55cf720ad427d3dae54e639e8d80d407930cd90"
+        },
+        {
+          "schema_version": 2,
+          "event_id": "08a2c21b-d39d-5bb5-a236-d28e331b22ad",
+          "observed_at": "2026-10-11T12:00:14Z",
+          "ingested_at": "2026-10-11T12:00:15Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "apparent_progress_unverified",
+          "session_id": "03bb0bbe-f7b9-5cf3-a479-e707d1bd6587",
+          "run_id": "9abbd9e5-73a2-5733-afa5-73b3967a4e3f",
+          "native_event_id": null,
+          "event_type": "turn.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "turn.completed"
+            },
+            "capture_id": "synthetic-apparent_progress_unverified",
+            "sequence": 2,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "034140127ab30e4e2a621067d1837705d4836f1e79be0700a047611650dee9e3"
+        }
+      ],
+      "summaries": [
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "apparent_progress_unverified/summary/1",
+          "task_id": "e2586c29-e63d-5680-a6f9-17b0691b59f7",
+          "run_id": "9abbd9e5-73a2-5733-afa5-73b3967a4e3f",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:06Z",
+          "available_at": "2026-10-11T12:00:07Z",
+          "text": "Exporter work was blocked on a missing input definition.",
+          "text_sha256": "84ed1acb164b335669ba806a5b43a008878e046e4f0c205feb539c990aef42ff",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#apparent_progress_unverified",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [
+            "4ab888da-b635-505e-8286-4e14500812f3"
+          ],
+          "verification_ids": [],
+          "phase": "implementation",
+          "progress": "blocked",
+          "scope": null,
+          "difficulty": null
+        },
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "apparent_progress_unverified/summary/2",
+          "task_id": "e2586c29-e63d-5680-a6f9-17b0691b59f7",
+          "run_id": "9abbd9e5-73a2-5733-afa5-73b3967a4e3f",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:16Z",
+          "available_at": "2026-10-11T12:00:17Z",
+          "text": "The author reports completion after resolving the input definition.",
+          "text_sha256": "57d539270d37245889b74837be608998799fc84ff24b7f95b8264b5ba451e6c5",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#apparent_progress_unverified",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [
+            "4ab888da-b635-505e-8286-4e14500812f3",
+            "08a2c21b-d39d-5bb5-a236-d28e331b22ad"
+          ],
+          "verification_ids": [],
+          "phase": "implementation",
+          "progress": "completion_reported",
+          "scope": null,
+          "difficulty": null
+        }
+      ],
+      "verifications": [],
+      "artifact_available_at": null,
+      "evidence_available_at": {},
+      "case_id": "apparent_progress_unverified",
+      "scenario": "apparent_progress_unverified",
+      "expected": {
+        "status": "changed",
+        "dimensions": [
+          "activity",
+          "progress"
+        ],
+        "rationale": "Reported completion and a completed turn are visible. They create no verification, success outcome or progress percentage."
+      }
+    },
+    {
+      "version": "task-trajectory-input/v1",
+      "dataset": {
+        "schema_version": 2,
+        "source_kind": "simulated",
+        "dataset_id": "authored-longitudinal-rule-checks",
+        "dataset_version": "1"
+      },
+      "task": {
+        "schema_version": 2,
+        "task_id": "a087b561-b000-5f19-b05f-791c2540d1b6",
+        "description": "Investigate intermittent parsing failures.",
+        "acceptance_spec": {
+          "schema_version": 2,
+          "identifier": "not-verified-fixture-objective",
+          "version": "1",
+          "description": null
+        },
+        "created_at": "2026-10-11T12:00:00Z",
+        "workspace_id": null,
+        "task_group": null,
+        "resource_budget": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "run": {
+        "schema_version": 2,
+        "run_id": "a4dfaacd-04f7-5d11-9131-c3f812393887",
+        "task_id": "a087b561-b000-5f19-b05f-791c2540d1b6",
+        "state": "unknown",
+        "started_at": "2026-10-11T12:00:00Z",
+        "ended_at": null,
+        "starting_state_fingerprint": null,
+        "resource_budget": null,
+        "stop_reason": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "session_id": "c13fd5a4-2cbd-57b5-a872-c807d804319b",
+      "checkpoints": [
+        "2026-10-11T12:00:10Z",
+        "2026-10-11T12:00:20Z"
+      ],
+      "association_available_at": "2026-10-11T12:00:00Z",
+      "task_available_at": "2026-10-11T12:00:00Z",
+      "description": {
+        "task_id": "a087b561-b000-5f19-b05f-791c2540d1b6",
+        "task_family": "controlled-longitudinal",
+        "text": "Investigate intermittent parsing failures.",
+        "text_sha256": "8b235f527a89059819c6c7fd6e17f24ec8233816ade9091dbe93939f079e47d6",
+        "source": "sanitized",
+        "available_at": "2026-10-11T12:00:00Z"
+      },
+      "events": [],
+      "summaries": [],
+      "verifications": [],
+      "artifact_available_at": null,
+      "evidence_available_at": {},
+      "case_id": "missing_evidence",
+      "scenario": "missing_evidence",
+      "expected": {
+        "status": "unknown",
+        "dimensions": [],
+        "rationale": "Initial task information is available but no execution observations or checkpoint summaries support a state comparison."
+      }
+    },
+    {
+      "version": "task-trajectory-input/v1",
+      "dataset": {
+        "schema_version": 2,
+        "source_kind": "simulated",
+        "dataset_id": "authored-longitudinal-rule-checks",
+        "dataset_version": "1"
+      },
+      "task": {
+        "schema_version": 2,
+        "task_id": "3398cc6f-cf4c-5074-a6aa-32c97039f0bd",
+        "description": "Inspect the validation helper.",
+        "acceptance_spec": {
+          "schema_version": 2,
+          "identifier": "not-verified-fixture-objective",
+          "version": "1",
+          "description": null
+        },
+        "created_at": "2026-10-11T12:00:00Z",
+        "workspace_id": null,
+        "task_group": null,
+        "resource_budget": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "run": {
+        "schema_version": 2,
+        "run_id": "9c0d9948-3d8b-527b-a99e-4db55032612c",
+        "task_id": "3398cc6f-cf4c-5074-a6aa-32c97039f0bd",
+        "state": "unknown",
+        "started_at": "2026-10-11T12:00:00Z",
+        "ended_at": null,
+        "starting_state_fingerprint": null,
+        "resource_budget": null,
+        "stop_reason": null,
+        "metadata": {
+          "synthetic": true
+        }
+      },
+      "session_id": "b1f61f51-1fe7-5fe2-a6e5-848ed5932d44",
+      "checkpoints": [
+        "2026-10-11T12:00:10Z",
+        "2026-10-11T12:00:20Z"
+      ],
+      "association_available_at": "2026-10-11T12:00:00Z",
+      "task_available_at": "2026-10-11T12:00:00Z",
+      "description": {
+        "task_id": "3398cc6f-cf4c-5074-a6aa-32c97039f0bd",
+        "task_family": "controlled-longitudinal",
+        "text": "Inspect the validation helper.",
+        "text_sha256": "2791b0d967d0a4a61b369d8b4e6b6a9847eebc0d8208d25a202e661a82db7658",
+        "source": "sanitized",
+        "available_at": "2026-10-11T12:00:00Z"
+      },
+      "events": [
+        {
+          "schema_version": 2,
+          "event_id": "b6613a7f-ffff-57c4-9932-8594d0c45273",
+          "observed_at": "2026-10-11T12:00:04Z",
+          "ingested_at": "2026-10-11T12:00:05Z",
+          "source": "codex.exec",
+          "source_version": "synthetic-longitudinal-v1",
+          "machine_id": "synthetic-fixture",
+          "capture_method": "synthetic_metadata_projection",
+          "native_session_id": "no_meaningful_change",
+          "session_id": "b1f61f51-1fe7-5fe2-a6e5-848ed5932d44",
+          "run_id": "9c0d9948-3d8b-527b-a99e-4db55032612c",
+          "native_event_id": null,
+          "event_type": "item.completed",
+          "provenance": "observed",
+          "payload": {
+            "native": {
+              "type": "item.completed",
+              "item": {
+                "id": "item-1",
+                "type": "file_change",
+                "status": "completed"
+              }
+            },
+            "capture_id": "synthetic-no_meaningful_change",
+            "sequence": 1,
+            "timestamp_basis": "capture_receipt"
+          },
+          "raw_payload": null,
+          "adapter_version": "1",
+          "stable_key": "1bf218a104f9e5dcdea985825a2f86ba35343c3a8c3f5b5205d500def22c27fe"
+        }
+      ],
+      "summaries": [
+        {
+          "version": "checkpoint-summary/v1",
+          "summary_id": "no_meaningful_change/summary/1",
+          "task_id": "3398cc6f-cf4c-5074-a6aa-32c97039f0bd",
+          "run_id": "9c0d9948-3d8b-527b-a99e-4db55032612c",
+          "dataset": {
+            "schema_version": 2,
+            "source_kind": "simulated",
+            "dataset_id": "authored-longitudinal-rule-checks",
+            "dataset_version": "1"
+          },
+          "observed_at": "2026-10-11T12:00:06Z",
+          "available_at": "2026-10-11T12:00:07Z",
+          "text": "Working on the same validation helper; no additional checkpoint evidence supplied.",
+          "text_sha256": "bc41c321de1875f4d94c6c1f4e833ac41a7ab82f28d87859cd05df17691c9bac",
+          "source": "sanitized",
+          "source_reference": "tests/fixtures/longitudinal/scenarios.json#no_meaningful_change",
+          "actor_id": "synthetic-fixture-author",
+          "actor_kind": "agent",
+          "event_ids": [
+            "b6613a7f-ffff-57c4-9932-8594d0c45273"
+          ],
+          "verification_ids": [],
+          "phase": "implementation",
+          "progress": "work_reported",
+          "scope": "one helper",
+          "difficulty": null
+        }
+      ],
+      "verifications": [],
+      "artifact_available_at": null,
+      "evidence_available_at": {},
+      "case_id": "no_meaningful_change",
+      "scenario": "no_meaningful_change",
+      "expected": {
+        "status": "no_observed_change",
+        "dimensions": [],
+        "rationale": "The same retained event and declaration occur at both cutoffs. No observed change does not establish latent stasis."
+      }
+    }
+  ]
+}

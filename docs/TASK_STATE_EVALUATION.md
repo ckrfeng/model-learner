@@ -1,5 +1,9 @@
 # Task-state predictive evaluation
 
+For multi-checkpoint reconstruction, evidence auditing and the separate synthetic
+state-change check, see [LONGITUDINAL_TASK_STATE.md](LONGITUDINAL_TASK_STATE.md).
+That increment does not supply real downstream outcomes or change this experiment.
+
 This local experiment compares initial information with checkpoint execution
 features. It writes no ledger records, launches no agent and makes no routing
 recommendation. `learn.task_state` is an independent numerical module; existing

@@ -1,17 +1,21 @@
 # Model Learner status
 
 Current work: Codex Desktop and ChatGPT Work Local selected-history feasibility
-assessment complete; controlled conversation validation awaits explicit selection
-and approval. No Desktop/Work history adapter is implemented.
+assessment and separately approved controlled agent reads complete. Each selected
+test returned three turns; both report Codex backend kind/local host. Supported
+standalone proxy probing found an absent default endpoint, so independent Python
+selected-history access remains unvalidated. No Desktop/Work history adapter is
+implemented; stopped after validation/reporting.
 The first longitudinal task-state increment remains implemented and evaluated.
 Multi-checkpoint projections distinguish observed evidence, deterministic changes,
 explicit author hypotheses and unknowns. Seven synthetic trajectories exercise
 the implementation; no real longitudinal predictive improvement is established.
 The earlier 40-query human-review batch still has no genuine human labels or
 accepted reviews. Real coding-agent benchmark execution remains disabled.
-Last requested work: investigate supported read-only selected conversation history
-for both desktop sources and its fit with existing task understanding. Investigation
-and the report are complete; no existing conversation was read. The earlier
+Last requested work: validate the two exact approved test conversations through
+supported read-only interfaces and distinguish agent-mediated from standalone
+Python access. Agent reads and the report are complete; independent selected-history
+access is not established. The earlier
 longitudinal increment remains complete; its proposed data pilot is not started.
 Updated: 2026-10-11
 
@@ -1810,6 +1814,145 @@ supported endpoint. No automatic history discovery or speculative integration.
 Stop after this feasibility report; controlled validation and implementation
 remain unstarted.
 
+## Selected conversation identifier discovery — 2026-10-11
+
+The user supplied two non-sensitive test descriptions but no IDs/links. Inspected
+exposed tool definitions, official desktop command/app-server documentation and
+the already generated public `ThreadListParams` / `ThreadListResponse` schemas.
+Updated `docs/CONVERSATION_INGESTION_FEASIBILITY.md` with the discovery boundary.
+
+- Desktop `list_threads` has no title/source filter, can return generated summaries
+  and always includes every pinned chat. It does not meet targeted metadata-only
+  discovery limits; it was not called.
+- App-server title filtering is documented, but installed responses include a
+  required preview usually containing the first user message, with no suppression
+  parameter. Selected Desktop connectivity remains unvalidated; `appServer` alone
+  cannot distinguish Codex and Work. No RPC or endpoint probe was performed.
+- Official **Copy chat deep link** (`Cmd+Option+L` on macOS) provides a manual route
+  to a local technical thread ID. The user can copy each selected test's link and
+  label its product/mode. No UI/clipboard inspection, history enumeration, private
+  database/credential access, conversation read or shared-snapshot creation occurred.
+- Both selected access tests, actual returned-field coverage, standalone Python
+  connectivity and automatic local ingestion remain **unvalidated**. No adapter,
+  model, routing, Governor or application setting change was implemented.
+
+Next step: await the two user-supplied deep links, confirm each selected source and
+identity, disclose the exact reader/context exposure and request explicit approval
+per conversation. Only then read one turn with outputs disabled; expansion remains
+bounded by ten turns and 64 KiB retained text per approved conversation. Stop after
+validation/reporting; no adapter implementation is authorized.
+
+Checks used the existing environment with `.tools/bin` on PATH, repository-local
+`UV_CACHE_DIR` and `--no-sync`; no dependency changes or new tests were needed.
+
+| Executed check | Actual result |
+| --- | --- |
+| `uv run --no-sync pytest -q` | **764 passed, 7 skipped in 33.61s**; optional integration opt-ins were not enabled. |
+| `uv run --no-sync ruff check .` | Exit 0; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Exit 0; 156 files already formatted. |
+| `git diff --check` | Exit 0; no whitespace errors. |
+
+These regression checks do not validate selected conversation access. Only this
+status and the feasibility documentation changed; the pre-existing `.DS_Store`
+modification was preserved. No commit, push, merge or publication was performed.
+
+## Controlled selected-conversation validation: pre-read transport stage — 2026-10-11
+
+The user supplied exact local deep links for the Work scheduling-algorithms test
+and Codex CSV-parser test. They confirmed both surfaces use the unified ChatGPT
+macOS application with a mode selector. Shared UI/link scheme, local execution,
+project working directories and guessed `~/Documents/Codex/` / `~/.codex/` paths
+are not evidence of a shared backend or selected transcript storage.
+
+- Requested explicit approval separately for each agent-mediated read, identifying
+  `mcp__codex_app__read_thread`, model-context/tool-history exposure and the exact
+  initial/maximum scope. No read approval is inferred from a supplied link.
+- Installed public help/version checks succeeded. The read-only daemon-version
+  query again found the documented default control socket absent (exit 1).
+- A standalone ordinary Python subprocess invoked the installed supported
+  `codex app-server proxy` with empty input and a ten-second timeout: child exit 1,
+  zero stdout bytes, missing default socket. No conversation RPC was sent.
+- Public stored-history protocol candidates exist, but selected access and source
+  coverage remain unverified. Full `thread/read` lacks a turn limit; paginated
+  request schemas lack output/attachment suppression. No daemon, alternate socket,
+  private history/config/authentication access or application setting change.
+
+At this stage the feasibility document recorded these transport facts and distinguished them
+from successful independent Python conversation access. Both selected-content
+validations remain pending their approvals. No native IDs, raw messages or
+adapter implementation were added to tracked files.
+
+Next permitted work: after each separate approval, read that selected ID with one
+turn and outputs disabled; examine returned coverage and expand only within the
+approved ten-turn/64-KiB limit. Report each source independently and stop without
+implementing an adapter. Standalone automatic ingestion remains unestablished.
+
+Documentation follow-up checks: `uv run --no-sync ruff check .` passed;
+`uv run --no-sync ruff format --check .` reported 156 files already formatted;
+`git diff --check` passed. No new Python test was needed or run for these
+documentation-only changes. Prior regression evidence is recorded above and is
+not evidence of either selected-content read. The pre-existing `.DS_Store` change
+was preserved; no commit, push, merge or publication.
+
+## Controlled selected-conversation validation: completed — 2026-10-11
+
+The user explicitly approved both exact-ID agent reads separately with context
+exposure disclosed. Used `mcp__codex_app__read_thread`, one turn per request,
+`includeOutputs=false`, per-item text cap 3,000 characters, only each selected
+conversation's cursors. No attachments, tool outputs, unrelated enumeration,
+source execution/resumption, private database/authentication access, settings
+change or adapter implementation. Returned text entered model context/tool history;
+no transcripts or snapshot payloads were written to workspace files.
+
+- **Codex CSV-parser sample:** three unique turns across three pages, all returned
+  IDs matching the approved selection. Reader reports `kind=codex`, `hostId=local`.
+  Three user and three assistant message items, plus one separate empty reasoning
+  summary. Expected requirement progression is preserved; implementation remains
+  unverified. Cumulative serialized retained responses: **5,396 UTF-8 bytes**.
+- **Work Local scheduling sample:** three unique turns across three pages, stable
+  matching selected ID. Reader also reports `kind=codex`, `hostId=local`, despite
+  its user-declared Work product surface. Three user and three assistant message
+  items preserve the expected narrowing/incomplete research progression. Cumulative
+  serialized retained responses: **4,415 UTF-8 bytes**.
+- Explicit `newest_first` pagination, native turn/item IDs, user-before-assistant
+  item ordering and increasing start times after reversing the pages establish
+  ordering within returned material. Both final pages have `hasMore=false` and
+  `nextCursor=null`; this does not prove complete original history.
+- Thread creation/update and turn start/completion/duration/status fields returned.
+  No per-message timestamps, model/provider/effort, token usage or cost fields.
+  No tool-call items exposed; zero original tool activity cannot be inferred.
+  No content-truncation marker; longest text items are 460 / 159 characters,
+  below the cap. Source lossless fidelity and omitted details remain unknown.
+- The first Work request's byte-count wrapper failed before retaining/displaying
+  its response; repeated the same one-turn request, without expansion. Four Work
+  reader calls versus three Codex calls; retained scope is three turns each.
+- Message-bearing user/assistant items were returned rather than merely generated
+  retrieval summaries. Exact verbatim equivalence was not independently compared
+  with the UI. Reader backend classification and local host do not locate transcript
+  storage or establish device-only data. Returned cwd is project context.
+- Independent Python history access remains **unvalidated**: the ordinary Python
+  proxy probe in the preceding stage failed at an absent default endpoint before
+  conversation RPC. Public App Server stored-read/pagination protocols are
+  candidates, but neither selected ID was read through that transport. No general
+  standalone interface for the agent-only desktop reader was established.
+
+The updated feasibility report contains separate per-source coverage and smallest
+integration conclusions. A bounded selected-snapshot projection is supported by
+agent-returned evidence but still requires an agent. No autonomous ingestion adapter
+is justified until supported endpoint reachability, selected-source mapping and
+content exclusions are validated. Do not implement the handoff as a substitute for
+the user's ordinary local Python application requirement.
+
+Stopped after controlled validation/reporting. No next implementation milestone is
+authorized; native IDs, working paths and transcripts were omitted from tracked
+documentation. Current checks: `uv run --no-sync ruff check .` passed;
+`uv run --no-sync ruff format --check .` passed (156 files formatted), and
+`git diff --check` passed. No Python behavior changed; the prior full regression
+suite (764 passed, 7 skipped) was not repeated. Actual integration evidence here
+is the selected reader responses and the failed ordinary Python proxy probe,
+not repository test success. No new tests, dependency changes, commit, push,
+merge or publication; the pre-existing `.DS_Store` change was preserved.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1839,8 +1982,9 @@ remain unstarted.
   adding new OS metadata but does not remove files already tracked by Git.
 - The real-agent importer supports explicitly selected Codex CLI streams only;
   existing desktop sessions and passive desktop capture remain unsupported.
-  ChatGPT Work Local history is also unvalidated; supported desktop summary reads
-  are candidates, with no standalone complete-history ingestion interface proven.
+  Bounded selected agent-mediated reads of both Desktop and Work Local tests are
+  now validated. Standalone selected-history ingestion and complete source coverage
+  remain unvalidated; no desktop history adapter is implemented.
   The requested increment now adds a narrow read-only file digest verifier and
   evidence-linked real task-observation builder plus bound JUnit report verification.
   Arbitrary test command execution and whole-repository artifact verification remain
@@ -1873,10 +2017,12 @@ remain unstarted.
 
 ## Next recommended increment (not started)
 
-- Latest request: selected-history feasibility for Codex Desktop and ChatGPT Work
-  Local is complete. Await exact non-sensitive selections and explicit approval
-  for bounded read-only validation. No history adapter implementation is started
-  or authorized; earlier pilot recommendations below remain historical options.
+- Latest request: controlled selected-history validation for Codex Desktop and
+  Work Local is complete after separate approvals. Three turns per selected test
+  returned through the agent reader; ordinary Python selected-history access and
+  automatic ingestion remain unvalidated. No adapter implementation is started or
+  authorized. Any further endpoint/content-boundary validation needs its own
+  explicit scope; earlier pilot recommendations below remain historical options.
 
 - First longitudinal state reconstruction and synthetic A/B/C rule evaluation are
   complete. Next: an explicitly authorized manual prospective sanitized-summary

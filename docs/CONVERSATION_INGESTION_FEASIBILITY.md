@@ -1,18 +1,28 @@
 # Selected conversation ingestion feasibility
 
-Assessed 2026-10-11. Model Learner can investigate selected existing Codex Desktop
-and ChatGPT Work Local conversations through supported readers. Neither source
-has been validated for historical ingestion in this assessment. No conversation
-was selected or read, and no integration was implemented.
+Updated 2026-10-11 after separately approved selected-conversation reads. The
+desktop's supported agent-mediated reader successfully returned three turns each
+for the Codex CSV-parser test and ChatGPT Work Local scheduling-algorithms test.
+Both responses report `kind: codex` and `hostId: local`; product surfaces remain
+user-declared and transcript storage remains unknown. No adapter was implemented.
 
-The smallest next step is an approved read of one non-sensitive conversation per
-source through the desktop's built-in reader. This can establish partial text
-availability. Full ordered history, execution events and historical measurements
-need separate evidence before an adapter promises them. A supported reader inside
-an agent session does not establish an interface callable by Model Learner's
-standalone Python CLI.
+An ordinary Python process could invoke the installed supported app-server proxy,
+but its default endpoint was absent. Independent programmatic access to either
+selected history is therefore **unvalidated**, not impossible. The agent reader's
+success does not establish a transport callable by Model Learner's Python CLI.
+Automatic ingestion without an agent cannot yet be promised. The controlled-read
+coverage below supersedes the earlier untested reader observations.
 
 ## Source and storage boundaries
+
+The user confirms that Codex and ChatGPT/Work are modes of the same unified
+ChatGPT desktop application on macOS, selected through its mode selector. This
+establishes the intended product surfaces, not a shared conversation backend,
+history store, supported API or device-only context. Both selected tests have
+`codex://threads/` links; that shared navigation scheme supplies no backend proof.
+Neither `~/Documents/Codex/` nor `~/.codex/` is established here as the storage
+location of either selected history. Project working directories are not history
+storage evidence. A default control-socket path likewise is not a transcript path.
 
 Record the product surface, conversation backend, coordination location,
 execution location and storage evidence separately. A local executor does not
@@ -41,6 +51,8 @@ Two supported candidates exist:
   status and turn summaries for a thread or chat, with cursors for older turns.
   Optional outputs and chat messages can be truncated. This is an available
   agent tool contract, not a promise of complete original messages or events.
+  The controlled CSV-parser read below returned message-bearing structured items
+  and explicit pagination, beyond what the short tool description guarantees.
 - Public app-server documents `thread/read` without resuming or subscribing.
   `includeTurns=true` requests stored turns/items. Experimental
   `thread/turns/list` and `thread/items/list` support pagination; full item views
@@ -63,7 +75,7 @@ schema definitions, not returned private data:
 
 | Question | Installed schema evidence | Limit |
 | --- | --- | --- |
-| Selected conversation | `ThreadReadParams` requires `threadId`; optional `includeTurns` | No selected Desktop ID tested |
+| Selected conversation | `ThreadReadParams` requires `threadId`; optional `includeTurns` | Selected agent read succeeded; no selected app-server RPC tested |
 | Messages | `ThreadItem` includes `userMessage.content`, `agentMessage.text`, phase and IDs | History may be partial; attachments need separate handling |
 | Tool records | Command, file change, MCP, dynamic-tool and collaboration item variants expose IDs and statuses; some expose exits/durations | Persisted item state does not prove the original complete lifecycle event stream |
 | Model metadata | Thread provider, nullable model and reasoning effort; CLI version | Model/effort descriptions explicitly mean current or latest persisted configuration, not per-turn execution telemetry |
@@ -87,18 +99,18 @@ from ChatGPT-backed conversations, which cannot be forked by that tool even when
 they use a local executor. This is evidence of differing backends, not permission
 to fork or a history-export contract. No fork was performed.
 
-The exposed `read_thread` contract accepts one thread or chat ID and documents
-older-turn cursors. It is therefore a supported candidate for a selected Work
-read in this environment. Its summary/truncation contract cannot establish exact
-original messages, tool arguments/results, event timing, model attribution or
-usage. There is no response schema in that tool description promising these
-fields, and no Work conversation was read to inspect actual coverage.
+The selected scheduling test succeeded through `read_thread`, returning structured
+user/assistant message items, turn IDs/times and page direction. It reports
+`kind: codex` on host `local`. That establishes the reader's backend classification
+for this sample, not an API or storage mapping for every Work chat. Its actual
+coverage is recorded below. The brief tool contract alone still cannot promise
+verbatim fidelity, complete original events, model attribution or usage.
 
 | Question | Work Local conclusion |
 | --- | --- |
 | Documented read-only access | Built-in desktop reader is available to this agent; public standalone Work history API not established |
-| Selected existing conversations | Reader accepts an exact ID; success for a selected local Work conversation is untested |
-| Messages | Chat text/turn summaries are described; exact/full message coverage is untested |
+| Selected existing conversations | Exact-ID agent read succeeded for the scheduling test; reader reports Codex kind/local host |
+| Messages | Three user/assistant text pairs returned as message items; verbatim fidelity and complete source coverage are not independently established |
 | Tool events | Optional truncated outputs are described; native calls, results and lifecycle provenance are not guaranteed |
 | Model metadata | No historical model/settings guarantee in the reader contract; a Codex-backed source may expose thread settings, subject to the same attribution limits |
 | Timestamps and usage | No complete per-message/per-turn measurement guarantee; preserve nulls |
@@ -126,6 +138,92 @@ new collection is outside this assessment.
 
 ## Actual checks and untested capabilities
 
+### Controlled selected-conversation reads
+
+The user explicitly approved each selected conversation separately after source,
+reader, scope and context exposure were disclosed. Used only
+`mcp__codex_app__read_thread` with exact approved IDs, `turnLimit=1`,
+`includeOutputs=false` and `maxOutputCharsPerItem=3000`. Followed only the same
+conversation's returned `page.nextCursor`, keeping each request to one turn.
+No attachment content was requested or returned. Returned text entered this
+agent's model context/tool history; it was not written to local snapshot files.
+Tracked documentation retains sanitized coverage facts, not native identifiers,
+working-directory paths or transcripts. Retrieved messages were treated as data.
+
+| Validation question | Codex CSV-parser test | ChatGPT Work Local scheduling test |
+| --- | --- | --- |
+| Selected access | Succeeded; three unique turns across three one-turn pages | Succeeded; three unique turns across three one-turn pages |
+| Stable identity | Returned thread ID matches approved ID on every page; turn/message IDs present | Returned thread ID matches approved ID on every page; turn/message IDs present |
+| Product/backend/source | User-selected Codex mode; reader `kind=codex`, `hostId=local` | User-selected Work Local mode; reader `kind=codex`, `hostId=local` |
+| Text versus summaries | Three `userMessage.content` text items and three `agentMessage.text` items; one separate `reasoning` item with empty `summary` | Three `userMessage.content` text items and three `agentMessage.text` items |
+| Ordering | Explicit `newest_first` pages; reversing pages yields user-before-assistant turns and increasing turn start times | Same explicit page direction, item role order and increasing turn start times |
+| Observed progression | Ordinary fields, then quoted commas, then multiline quoted fields; final implementation remains unverified | Three algorithms, then FIFO excluded, then two-algorithm comparison remains incomplete |
+| Tool activity | No tool-call items exposed; one empty reasoning-summary item is not tool activity | No tool-call items exposed |
+| Timestamps/status | Thread `createdAt`/`updatedAt`; turn `startedAt`/`completedAt`/`durationMs`, completed status and null error | Same timestamp/status fields |
+| Model/token metadata | No model, provider, reasoning-effort, token counters or cost fields returned | Same fields absent |
+| Truncation/completeness | Final `hasMore=false`, `nextCursor=null`; longest returned message 460 characters, below cap; no explicit content-truncation flag | Final `hasMore=false`, `nextCursor=null`; longest returned message 159 characters, below cap; no explicit content-truncation flag |
+| Retention accounting | 5,396 cumulative UTF-8 serialized response bytes across retained pages, below 64 KiB | 4,415 cumulative UTF-8 serialized response bytes across retained pages, below 64 KiB |
+| Standalone Python selected access | Not established; supported proxy child failed at absent default endpoint before any conversation RPC | Same endpoint limit; Codex backend classification makes app-server a candidate, not a proven Work-history transport |
+| Automatic ingestion/integration | No autonomous live-history adapter justified yet; selected-snapshot projection possible only through current agent path | Same limitation; preserve Work product declaration independently of Codex backend |
+
+The first Work one-turn request reached the tool wrapper, but its byte-counting
+helper failed before retaining/displaying the response. Retried that same initial
+one-turn request; it did not expand scope. Counts above refer to the three retained
+pages and three unique turns. Work had four reader invocations, Codex three.
+
+These are message-bearing source records, not merely generated retrieval summaries;
+they do not independently prove exact equivalence to the original UI transcript.
+Exhausting the reader's visible cursor establishes only the end of its exposed
+history, not a complete original conversation, hidden items or all historical
+measurements. No truncation marker was observed; absence of one does not prove
+lossless capture. Message timestamps, historical model settings, usage and cost
+remain unknown. No exposed tool items does not establish zero original tool calls.
+Thread/turn statuses and textual completion claims do not establish verification.
+The reader's returned working directories describe project context, not transcript
+storage; no transcript-storage location or cloud-copy behavior was established.
+
+### Controlled validation follow-up: transport checks
+
+The user supplied exact deep links for the Work Local scheduling-algorithms test
+and Codex CSV-parser test. Those selections are user-declared sources; the later
+approved reads above establish reader backend classification and returned fields,
+while storage and standalone selected access remain unverified.
+Separate approval requests identify the supported agent reader
+`mcp__codex_app__read_thread`, disclose model-context/tool-history exposure and
+specify one initial turn, outputs disabled, at most ten turns and 64 KiB retained
+text per conversation, without attachments or control operations. Supplying a
+link alone is not treated as read approval. Native identifiers and transcripts
+are not reproduced in this tracked report.
+
+Fresh public CLI help/version checks exited 0 on the installed
+`0.162.0-alpha.17.2`. `codex app-server daemon version` again exited 1: its documented
+default control socket was absent. An ordinary local `python3` process then invoked
+the documented installed `codex app-server proxy` command through `subprocess.run`
+with empty input and a ten-second timeout. The child exited 1 with zero stdout
+bytes and a missing-socket diagnostic; the Python wrapper exited 0. No JSON-RPC
+conversation request was sent. This demonstrates a callable proxy executable,
+not successful history access or an API for the agent-only desktop reader.
+
+Official App Server documentation defines JSONL over stdio and stored-thread reads
+without resuming. Installed public schemas define exact-ID `thread/read` and
+experimental paginated `thread/turns/list` / `thread/items/list`. These are supported
+protocol candidates that a Python client can speak; access to the selected desktop
+histories remains unestablished. `thread/read(includeTurns=true)` has no turn limit;
+full history would violate the one-turn initial bound. Pagination can limit turns,
+but the inspected request schemas have no tool-output/attachment suppression flag,
+so protocol availability alone does not meet this validation's content limits.
+[App Server transports and stored reads](https://learn.chatgpt.com/docs/app-server).
+
+No daemon/server was started, alternate socket or storage root guessed, private
+database/configuration/authentication secret inspected, or network traffic
+intercepted. No supported standalone ChatGPT-backed Work history transport has
+been established. A missing default endpoint does not prove other supported
+endpoints cannot exist. Automatic selected-history ingestion cannot yet be promised
+for either source; an agent snapshot handoff would still require an agent and does
+not fulfill the requested independent local application requirement.
+
+### Earlier feasibility checks
+
 | Executed read-only check | Actual result |
 | --- | --- |
 | Repository audit | Read plan, instructions, status, prior Desktop feasibility, observation adapter/contracts, execution projections, text retrieval, annotations and CPU encoder |
@@ -139,9 +237,10 @@ Help/schema commands emitted a sandbox PATH-alias warning. This does not prove
 history connectivity. The failed daemon query establishes an absent default
 endpoint, not the absence of every supported desktop transport.
 
-No real historical payload, ordering, pagination, archive access, identity mapping,
-timestamp coverage, usage, model changes or privacy projection was tested for
-either source. Existing CLI smoke evidence establishes selected CLI capture only.
+The earlier feasibility stage tested no real historical payload or pagination.
+The approved follow-up above now validates bounded selected agent reads; archive
+access, complete source coverage, usage/model attribution and standalone selected
+history remain untested. Existing CLI smoke evidence establishes CLI capture only.
 Repository regression results are recorded in `STATUS.md`; they are not Desktop
 or Work integration validation.
 
@@ -227,6 +326,51 @@ cross-conversation continuation remain unvalidated inference capabilities.
 
 ## Privacy and controlled validation proposal
 
+### Obtaining the two selected identifiers
+
+Follow-up discovery assessment on 2026-10-11 inspected supported tool contracts,
+official documentation and the previously generated public protocol schemas only.
+At that discovery stage neither test conversation had been identified or read;
+the subsequently approved selected reads are recorded above.
+
+The desktop `list_threads` tool has only a non-pinned result limit: it has no title
+or source filter, returns all pinned chats and may include generated summaries.
+It cannot provide the requested narrowly targeted metadata-only search. Filtering
+its response afterward would not undo access to unrelated entries or summaries.
+
+Public app-server `thread/list` supports an extracted-title `searchTerm`, a page
+limit and source filters. `useStateDbOnly=true` avoids the default rollout
+scan/metadata repair. However, the installed response schema requires `preview`,
+described as usually the first user message, and the request has no field-selection
+or preview-suppression parameter. Such a response is not strictly metadata-only;
+`appServer` also does not identify Codex versus Work. Connectivity to the selected
+desktop history remains unvalidated. No search RPC or endpoint probe was performed.
+[Documented title filtering](https://learn.chatgpt.com/docs/app-server#list-threads-with-pagination--filters).
+
+A supported manual alternative is for the user to open each known test chat and
+invoke **Copy chat deep link**, documented as `Cmd+Option+L` on macOS. The documented
+local link form is `codex://threads/<thread-id>`; its path contains the technical
+thread ID. If locating the chats is necessary, the user can use the app's **Search
+chats** action in the appropriate product surface. That UI search can match content
+when expanded matching is available, so it is not an established metadata-only
+agent search. No UI inspection or clipboard access was performed here.
+[Desktop commands and links](https://learn.chatgpt.com/docs/app/commands).
+
+The user should label the links as the Codex Desktop CSV-parser test and the Work
+Local scheduling-algorithms test, including the observed Work execution mode.
+A `codex://` scheme alone does not establish the product/backend or local-only
+storage. Pasting links exposes their identifiers to this assistant, not the target
+message text. Before each read, confirm the selected identity and declared source,
+name `mcp__codex_app__read_thread` as the agent-mediated reader, disclose that
+returned content enters model context/tool history, and obtain explicit approval
+for that conversation. Any unresolved backend evidence must remain unknown.
+
+No available discovery method is established to satisfy all current metadata-only
+limits, so no broader discovery approval is assumed or requested. Standalone Python
+access to the desktop reader and automatic local ingestion remain unproven.
+
+### Approved reading procedure
+
 Approval must name one existing, non-sensitive Codex conversation and one existing,
 non-sensitive Work Local conversation, preferably by exact ID/link and known local
 mode. A title alone may be ambiguous. Do not enumerate all histories to locate it:
@@ -285,8 +429,20 @@ outcomes. Each source needs its own approved real read in addition to fixtures.
 
 Immediately usable without new integration: manually reviewed sanitized task
 descriptions, related-text retrieval and explicit summary/annotation contracts.
-Ready to propose after validation: a selected-snapshot text adapter. Still blocked:
-validated Desktop/Work ingestion, a standalone Work history transport, complete
-historical event/measurement recovery, general source-neutral execution projection
-and retrospective prospective-learning eligibility. No implementation of those
-features is authorized by this assessment.
+Controlled reads now justify the shape of an agent-mediated selected-snapshot
+projection over message items, page order, native IDs, turn times and missingness.
+That handoff still requires an agent and does not fulfill the user's independent
+local-application requirement; no adapter is implemented or authorized here.
+
+For each tested source, the smallest independent integration candidate is a
+bounded Python client over a user-provided supported existing App Server endpoint,
+restricted to initialization and exact-ID stored-read/pagination operations. It
+first needs selected-ID reachability and product/backend mapping validation, plus
+a way to obey output/attachment exclusions; client-side filtering cannot be
+represented as server-side suppression. Preserve the two product surfaces as
+separate provenance even if both report Codex backend. Do not guess a storage
+root or bypass the missing endpoint through private databases. Until those
+conditions are established, automatic local ingestion remains unvalidated for
+both sources. Complete historical event/measurement recovery, source-neutral
+execution projection and prospective-learning eligibility also remain unproven.
+Stop after this validation report; no adapter, new model, routing or Governor.

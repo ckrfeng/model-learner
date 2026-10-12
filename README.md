@@ -430,3 +430,21 @@ uv run ruff format --check .
 To format code, run `uv run ruff format .`. Implementation lives under
 `src/model_learner/`; tests live under `tests/unit/` and `tests/integration/`.
 Develop one milestone at a time according to [AGENTS.md](AGENTS.md).
+
+### CPU conversation task-state demonstration
+
+Process explicitly opted-in text in memory and inspect an evidence-linked evolving
+scope/progress timeline. No transcript or semantic state is automatically retained.
+The default output omits text; `--emit-text` authorizes evidence display in stdout.
+
+```sh
+uv run model-learner task conversation-state --text-opt-in --emit-text \
+  < tests/fixtures/conversation_state/demo.json
+uv run model-learner learn conversation-state-eval \
+  tests/fixtures/conversation_state/evaluation.json
+```
+
+The demo and evaluation are authored simulated inputs. Independent scoped checks
+are distinct from assistant success claims. See
+[the semantic demonstration](docs/CONVERSATION_TASK_STATE.md) for selected live
+case results, CPU baselines, evaluation errors and limitations.

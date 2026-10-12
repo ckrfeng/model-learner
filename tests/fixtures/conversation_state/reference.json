@@ -1,0 +1,1101 @@
+{
+  "format": "conversation-state-evaluation-report/v1",
+  "dataset_sha256": "3311bab72a1092be5a7e943c01a11ada112ba204c57922a11072f842d59c7a09",
+  "source_kind": "simulated",
+  "label_provenance": "Author manually specified intent and state labels before running experiments; not human annotation or independent real-world ground truth.",
+  "training_examples": 52,
+  "variants": {
+    "keyword": {
+      "intent_correct": 40,
+      "intent_count": 54,
+      "intent_accuracy": 0.7407407407407407,
+      "macro_f1_present_labels": 0.502479571710341,
+      "exact_final_states": 14,
+      "conversation_count": 23,
+      "state_field_correct": {
+        "task": 21,
+        "objective_message": 21,
+        "requirements": 21,
+        "exclusions": 22,
+        "decisions": 22,
+        "unresolved": 20,
+        "progress": 22,
+        "completion_claims": 19,
+        "verification": 23,
+        "uncertainty_min": 19
+      },
+      "error_categories": {
+        "missed_scope_change": 7,
+        "false_progress_or_completion": 2,
+        "other_intent_error": 1,
+        "missed_ambiguity": 4
+      },
+      "confusion": [
+        {
+          "expected": "ambiguous",
+          "predicted": "completion_claim",
+          "count": 2
+        },
+        {
+          "expected": "ambiguous",
+          "predicted": "other",
+          "count": 1
+        },
+        {
+          "expected": "ambiguous",
+          "predicted": "requirement_removed",
+          "count": 1
+        },
+        {
+          "expected": "attempt_failed",
+          "predicted": "attempt_failed",
+          "count": 1
+        },
+        {
+          "expected": "completion_claim",
+          "predicted": "completion_claim",
+          "count": 5
+        },
+        {
+          "expected": "decision",
+          "predicted": "decision",
+          "count": 2
+        },
+        {
+          "expected": "decision_reversed",
+          "predicted": "decision",
+          "count": 1
+        },
+        {
+          "expected": "decision_reversed",
+          "predicted": "objective",
+          "count": 1
+        },
+        {
+          "expected": "objective",
+          "predicted": "objective",
+          "count": 23
+        },
+        {
+          "expected": "other",
+          "predicted": "other",
+          "count": 2
+        },
+        {
+          "expected": "progress",
+          "predicted": "progress",
+          "count": 3
+        },
+        {
+          "expected": "requirement_added",
+          "predicted": "objective",
+          "count": 2
+        },
+        {
+          "expected": "requirement_added",
+          "predicted": "requirement_added",
+          "count": 2
+        },
+        {
+          "expected": "requirement_removed",
+          "predicted": "requirement_removed",
+          "count": 2
+        },
+        {
+          "expected": "requirement_revised",
+          "predicted": "objective",
+          "count": 1
+        },
+        {
+          "expected": "task_changed",
+          "predicted": "objective",
+          "count": 2
+        },
+        {
+          "expected": "unresolved",
+          "predicted": "completion_claim",
+          "count": 2
+        },
+        {
+          "expected": "unresolved",
+          "predicted": "other",
+          "count": 1
+        }
+      ],
+      "cases": [
+        {
+          "id": "parser-add",
+          "category": "new_requirements",
+          "intent_errors": [
+            {
+              "message": 3,
+              "expected": "requirement_added",
+              "predicted": "objective",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "scheduler-remove",
+          "category": "removed_requirements",
+          "intent_errors": [
+            {
+              "message": 2,
+              "expected": "unresolved",
+              "predicted": "completion_claim",
+              "category": "false_progress_or_completion"
+            }
+          ],
+          "incorrect_state_fields": [
+            "unresolved",
+            "completion_claims"
+          ]
+        },
+        {
+          "id": "format-revise",
+          "category": "revised_requirements",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "requirement_revised",
+              "predicted": "objective",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "decision-reverse",
+          "category": "reversed_decisions",
+          "intent_errors": [
+            {
+              "message": 2,
+              "expected": "decision_reversed",
+              "predicted": "decision",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "task-switch",
+          "category": "task_changes",
+          "intent_errors": [
+            {
+              "message": 2,
+              "expected": "task_changed",
+              "predicted": "objective",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task",
+            "objective_message",
+            "requirements",
+            "progress"
+          ]
+        },
+        {
+          "id": "failed-retry",
+          "category": "failed_attempts",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "blocked",
+          "category": "unresolved_tasks",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "unresolved",
+              "predicted": "other",
+              "category": "other_intent_error"
+            }
+          ],
+          "incorrect_state_fields": [
+            "unresolved"
+          ]
+        },
+        {
+          "id": "unverified-done",
+          "category": "completion_claim",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "verified",
+          "category": "verified_completion",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "partial-check",
+          "category": "partial_verification",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "verification-stale",
+          "category": "stale_verification",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "ambiguous-question",
+          "category": "ambiguous_statements",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "ambiguous",
+              "predicted": "requirement_removed",
+              "category": "missed_ambiguity"
+            },
+            {
+              "message": 2,
+              "expected": "ambiguous",
+              "predicted": "completion_claim",
+              "category": "missed_ambiguity"
+            }
+          ],
+          "incorrect_state_fields": [
+            "exclusions",
+            "completion_claims",
+            "uncertainty_min"
+          ]
+        },
+        {
+          "id": "negative-completion",
+          "category": "negation",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "unresolved",
+              "predicted": "completion_claim",
+              "category": "false_progress_or_completion"
+            }
+          ],
+          "incorrect_state_fields": [
+            "unresolved",
+            "completion_claims"
+          ]
+        },
+        {
+          "id": "quoted-success",
+          "category": "indirect_claims",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "ambiguous",
+              "predicted": "completion_claim",
+              "category": "missed_ambiguity"
+            }
+          ],
+          "incorrect_state_fields": [
+            "completion_claims",
+            "uncertainty_min"
+          ]
+        },
+        {
+          "id": "planned-work",
+          "category": "planned_vs_progress",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "assistant-scope",
+          "category": "attribution",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "pronoun-removal",
+          "category": "unresolved_reference",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "implicit-add",
+          "category": "unsupported_paraphrase",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "requirement_added",
+              "predicted": "objective",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "implicit-switch",
+          "category": "implicit_task_change",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "task_changed",
+              "predicted": "objective",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task",
+            "objective_message",
+            "requirements"
+          ]
+        },
+        {
+          "id": "ambiguous-short",
+          "category": "ambiguous_short_reply",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "ambiguous",
+              "predicted": "other",
+              "category": "missed_ambiguity"
+            }
+          ],
+          "incorrect_state_fields": [
+            "uncertainty_min"
+          ]
+        },
+        {
+          "id": "explicit-failure-check",
+          "category": "failed_check",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "scope-constraint",
+          "category": "constraints",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "reversal-unknown",
+          "category": "unresolved_reversal",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "decision_reversed",
+              "predicted": "objective",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "decisions",
+            "uncertainty_min"
+          ]
+        }
+      ]
+    },
+    "rules": {
+      "intent_correct": 51,
+      "intent_count": 54,
+      "intent_accuracy": 0.9444444444444444,
+      "macro_f1_present_labels": 0.9251032655287974,
+      "exact_final_states": 20,
+      "conversation_count": 23,
+      "state_field_correct": {
+        "task": 22,
+        "objective_message": 22,
+        "requirements": 21,
+        "exclusions": 23,
+        "decisions": 23,
+        "unresolved": 23,
+        "progress": 23,
+        "completion_claims": 23,
+        "verification": 23,
+        "uncertainty_min": 22
+      },
+      "error_categories": {
+        "missed_scope_change": 2,
+        "missed_ambiguity": 1
+      },
+      "confusion": [
+        {
+          "expected": "ambiguous",
+          "predicted": "ambiguous",
+          "count": 3
+        },
+        {
+          "expected": "ambiguous",
+          "predicted": "other",
+          "count": 1
+        },
+        {
+          "expected": "attempt_failed",
+          "predicted": "attempt_failed",
+          "count": 1
+        },
+        {
+          "expected": "completion_claim",
+          "predicted": "completion_claim",
+          "count": 5
+        },
+        {
+          "expected": "decision",
+          "predicted": "decision",
+          "count": 2
+        },
+        {
+          "expected": "decision_reversed",
+          "predicted": "decision_reversed",
+          "count": 2
+        },
+        {
+          "expected": "objective",
+          "predicted": "objective",
+          "count": 23
+        },
+        {
+          "expected": "other",
+          "predicted": "other",
+          "count": 2
+        },
+        {
+          "expected": "progress",
+          "predicted": "progress",
+          "count": 3
+        },
+        {
+          "expected": "requirement_added",
+          "predicted": "other",
+          "count": 1
+        },
+        {
+          "expected": "requirement_added",
+          "predicted": "requirement_added",
+          "count": 3
+        },
+        {
+          "expected": "requirement_removed",
+          "predicted": "requirement_removed",
+          "count": 2
+        },
+        {
+          "expected": "requirement_revised",
+          "predicted": "requirement_revised",
+          "count": 1
+        },
+        {
+          "expected": "task_changed",
+          "predicted": "objective",
+          "count": 1
+        },
+        {
+          "expected": "task_changed",
+          "predicted": "task_changed",
+          "count": 1
+        },
+        {
+          "expected": "unresolved",
+          "predicted": "unresolved",
+          "count": 3
+        }
+      ],
+      "cases": [
+        {
+          "id": "parser-add",
+          "category": "new_requirements",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "scheduler-remove",
+          "category": "removed_requirements",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "format-revise",
+          "category": "revised_requirements",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "decision-reverse",
+          "category": "reversed_decisions",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "task-switch",
+          "category": "task_changes",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "failed-retry",
+          "category": "failed_attempts",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "blocked",
+          "category": "unresolved_tasks",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "unverified-done",
+          "category": "completion_claim",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "verified",
+          "category": "verified_completion",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "partial-check",
+          "category": "partial_verification",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "verification-stale",
+          "category": "stale_verification",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "ambiguous-question",
+          "category": "ambiguous_statements",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "negative-completion",
+          "category": "negation",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "quoted-success",
+          "category": "indirect_claims",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "planned-work",
+          "category": "planned_vs_progress",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "assistant-scope",
+          "category": "attribution",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "pronoun-removal",
+          "category": "unresolved_reference",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "implicit-add",
+          "category": "unsupported_paraphrase",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "requirement_added",
+              "predicted": "other",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements"
+          ]
+        },
+        {
+          "id": "implicit-switch",
+          "category": "implicit_task_change",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "task_changed",
+              "predicted": "objective",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task",
+            "objective_message",
+            "requirements"
+          ]
+        },
+        {
+          "id": "ambiguous-short",
+          "category": "ambiguous_short_reply",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "ambiguous",
+              "predicted": "other",
+              "category": "missed_ambiguity"
+            }
+          ],
+          "incorrect_state_fields": [
+            "uncertainty_min"
+          ]
+        },
+        {
+          "id": "explicit-failure-check",
+          "category": "failed_check",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "scope-constraint",
+          "category": "constraints",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "reversal-unknown",
+          "category": "unresolved_reversal",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        }
+      ]
+    },
+    "naive_bayes": {
+      "intent_correct": 36,
+      "intent_count": 54,
+      "intent_accuracy": 0.6666666666666666,
+      "macro_f1_present_labels": 0.5993200730042836,
+      "exact_final_states": 9,
+      "conversation_count": 23,
+      "state_field_correct": {
+        "task": 18,
+        "objective_message": 19,
+        "exclusions": 23,
+        "decisions": 21,
+        "unresolved": 22,
+        "progress": 22,
+        "completion_claims": 22,
+        "verification": 23,
+        "uncertainty_min": 22,
+        "requirements": 13
+      },
+      "error_categories": {
+        "missed_scope_change": 3,
+        "false_scope_change": 4,
+        "other_intent_error": 9,
+        "missed_ambiguity": 1,
+        "false_progress_or_completion": 1
+      },
+      "confusion": [
+        {
+          "expected": "ambiguous",
+          "predicted": "ambiguous",
+          "count": 3
+        },
+        {
+          "expected": "ambiguous",
+          "predicted": "completion_claim",
+          "count": 1
+        },
+        {
+          "expected": "attempt_failed",
+          "predicted": "ambiguous",
+          "count": 1
+        },
+        {
+          "expected": "completion_claim",
+          "predicted": "completion_claim",
+          "count": 5
+        },
+        {
+          "expected": "decision",
+          "predicted": "ambiguous",
+          "count": 2
+        },
+        {
+          "expected": "decision_reversed",
+          "predicted": "decision_reversed",
+          "count": 2
+        },
+        {
+          "expected": "objective",
+          "predicted": "ambiguous",
+          "count": 5
+        },
+        {
+          "expected": "objective",
+          "predicted": "objective",
+          "count": 14
+        },
+        {
+          "expected": "objective",
+          "predicted": "task_changed",
+          "count": 4
+        },
+        {
+          "expected": "other",
+          "predicted": "ambiguous",
+          "count": 1
+        },
+        {
+          "expected": "other",
+          "predicted": "progress",
+          "count": 1
+        },
+        {
+          "expected": "progress",
+          "predicted": "progress",
+          "count": 3
+        },
+        {
+          "expected": "requirement_added",
+          "predicted": "ambiguous",
+          "count": 2
+        },
+        {
+          "expected": "requirement_added",
+          "predicted": "requirement_added",
+          "count": 2
+        },
+        {
+          "expected": "requirement_removed",
+          "predicted": "requirement_removed",
+          "count": 2
+        },
+        {
+          "expected": "requirement_revised",
+          "predicted": "requirement_revised",
+          "count": 1
+        },
+        {
+          "expected": "task_changed",
+          "predicted": "ambiguous",
+          "count": 1
+        },
+        {
+          "expected": "task_changed",
+          "predicted": "task_changed",
+          "count": 1
+        },
+        {
+          "expected": "unresolved",
+          "predicted": "unresolved",
+          "count": 3
+        }
+      ],
+      "cases": [
+        {
+          "id": "parser-add",
+          "category": "new_requirements",
+          "intent_errors": [
+            {
+              "message": 3,
+              "expected": "requirement_added",
+              "predicted": "ambiguous",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements"
+          ]
+        },
+        {
+          "id": "scheduler-remove",
+          "category": "removed_requirements",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "task_changed",
+              "category": "false_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements"
+          ]
+        },
+        {
+          "id": "format-revise",
+          "category": "revised_requirements",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "decision-reverse",
+          "category": "reversed_decisions",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "decision",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements",
+            "decisions"
+          ]
+        },
+        {
+          "id": "task-switch",
+          "category": "task_changes",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task"
+          ]
+        },
+        {
+          "id": "failed-retry",
+          "category": "failed_attempts",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            },
+            {
+              "message": 1,
+              "expected": "attempt_failed",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task",
+            "objective_message",
+            "requirements",
+            "unresolved"
+          ]
+        },
+        {
+          "id": "blocked",
+          "category": "unresolved_tasks",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "task_changed",
+              "category": "false_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements"
+          ]
+        },
+        {
+          "id": "unverified-done",
+          "category": "completion_claim",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "verified",
+          "category": "verified_completion",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "partial-check",
+          "category": "partial_verification",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "verification-stale",
+          "category": "stale_verification",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "ambiguous-question",
+          "category": "ambiguous_statements",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "negative-completion",
+          "category": "negation",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task",
+            "objective_message",
+            "requirements"
+          ]
+        },
+        {
+          "id": "quoted-success",
+          "category": "indirect_claims",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "ambiguous",
+              "predicted": "completion_claim",
+              "category": "missed_ambiguity"
+            }
+          ],
+          "incorrect_state_fields": [
+            "completion_claims",
+            "uncertainty_min"
+          ]
+        },
+        {
+          "id": "planned-work",
+          "category": "planned_vs_progress",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "other",
+              "predicted": "progress",
+              "category": "false_progress_or_completion"
+            }
+          ],
+          "incorrect_state_fields": [
+            "progress"
+          ]
+        },
+        {
+          "id": "assistant-scope",
+          "category": "attribution",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "other",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            }
+          ],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "pronoun-removal",
+          "category": "unresolved_reference",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "implicit-add",
+          "category": "unsupported_paraphrase",
+          "intent_errors": [
+            {
+              "message": 1,
+              "expected": "requirement_added",
+              "predicted": "ambiguous",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements"
+          ]
+        },
+        {
+          "id": "implicit-switch",
+          "category": "implicit_task_change",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            },
+            {
+              "message": 1,
+              "expected": "task_changed",
+              "predicted": "ambiguous",
+              "category": "missed_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task",
+            "objective_message"
+          ]
+        },
+        {
+          "id": "ambiguous-short",
+          "category": "ambiguous_short_reply",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "task_changed",
+              "category": "false_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements"
+          ]
+        },
+        {
+          "id": "explicit-failure-check",
+          "category": "failed_check",
+          "intent_errors": [],
+          "incorrect_state_fields": []
+        },
+        {
+          "id": "scope-constraint",
+          "category": "constraints",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            },
+            {
+              "message": 1,
+              "expected": "decision",
+              "predicted": "ambiguous",
+              "category": "other_intent_error"
+            }
+          ],
+          "incorrect_state_fields": [
+            "task",
+            "objective_message",
+            "requirements",
+            "decisions"
+          ]
+        },
+        {
+          "id": "reversal-unknown",
+          "category": "unresolved_reversal",
+          "intent_errors": [
+            {
+              "message": 0,
+              "expected": "objective",
+              "predicted": "task_changed",
+              "category": "false_scope_change"
+            }
+          ],
+          "incorrect_state_fields": [
+            "requirements"
+          ]
+        }
+      ]
+    }
+  },
+  "selection": "rules remain the default; this small authored test does not establish generalization",
+  "limitations": [
+    "Agent-authored manual labels are not independent human evaluation.",
+    "Topic-separated training/test conversations still share authored cue vocabulary.",
+    "Final states and clause intents do not measure every intermediate state or logical scope accuracy.",
+    "No outcome prediction, embeddings, cloud calls or model routing."
+  ]
+}

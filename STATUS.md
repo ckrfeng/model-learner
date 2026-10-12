@@ -1,24 +1,23 @@
 # Model Learner status
 
-Current work: minimal standalone selected-conversation importer implemented and
-validated for both approved Codex-backed Codex Desktop and Work Local tests.
-Each exposes three turns and six ordered user/assistant messages. Live text stayed
-in Python memory; only metadata entered ignored private storage. Fresh replay
-created no duplicates. Default reads omit turn items server-side; optional text
-retention was tested only with sanitized fixtures. There is no server-side
-message-only filter. Original UI verbatim fidelity, historical model/usage/cost
-and other Work backends remain unverified. Full checks and independent review
-passed; stopped after the requested importer.
-The first longitudinal task-state increment remains implemented and evaluated.
-Multi-checkpoint projections distinguish observed evidence, deterministic changes,
-explicit author hypotheses and unknowns. Seven synthetic trajectories exercise
-the implementation; no real longitudinal predictive improvement is established.
+Current work: the requested CPU conversation semantic task-state demonstration
+and diagnostic evaluation are complete. The pure in-memory analyzer and explicit
+opt-in CLI produce evidence-linked timelines without retaining live text or
+semantic state. The existing importer was reused unchanged. CSV objective/feature
+additions are recognized; Work FIFO removal and remaining comparison scope are
+recognized, but its initial objective wording remains unknown. Neither real
+conversation has independent completion evidence.
+Rules score 51/54 authored intent labels and 20/23 final-state signatures; a small
+Naive Bayes model scores 36/54 and 9/23, so rules remain the default. These manually
+specified agent-authored cases became a diagnostic set during debugging, not an
+untouched holdout or evidence of generalization. Full checks and independent review
+passed. Stopped after this demonstration and evaluation.
+The standalone importer and prior longitudinal/retrieval increments remain intact.
 The earlier 40-query human-review batch still has no genuine human labels or
 accepted reviews. Real coding-agent benchmark execution remains disabled.
-Last requested work: implement the minimal metadata-only importer, validate all
-three turns of both selected tests, keep live text in memory, test opt-in retention
-with sanitized fixtures, run full checks and request independent review. Complete.
-The earlier longitudinal increment remains complete; its data pilot is not started.
+Last requested work: local semantic task-state analysis, both selected demonstrations,
+varied labeled evaluation, baseline/statistical comparison, tests, independent
+review and STATUS update. Complete; no later milestone is started.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -2195,6 +2194,147 @@ Used existing repository-local uv/cache paths; no installation was needed. No
 global scanning, automatic grouping, routing, Governor, new CPU model, fine-tuning,
 cloud inference, commit, push, merge or publication. Stop after the importer.
 
+## CPU conversation semantic task-state demonstration — 2026-10-11
+
+Read the repository instructions, master-plan observation/inference/privacy and
+baseline/evaluation semantics, prior status and conversation feasibility evidence.
+Reused the current checkout, existing environment and completed importer; preserved
+the pre-existing `.DS_Store` change. No dependency, schema, storage, importer or
+core architectural change was needed.
+
+### Delivered behavior
+
+- `understanding/conversation_state.py` is a pure CPU, in-memory analyzer over
+  opted-in ordered user/assistant messages. Each message checkpoint retains its
+  objective hypothesis, positive requirement/revision evidence, removal overlays,
+  actor-attributed decision/reversal evidence, issue/progress/completion reports,
+  ambiguity and missingness. Exact message character spans support interpretations;
+  lexical target links are review candidates, not logical entailment or confidence.
+- Original requirement/decision evidence remains alongside removals and revisions.
+  The schema explicitly calls these evidence lists, not active resolved requirements.
+  Partial list edits/pronouns and implicit scope/task changes remain limitations.
+  Reported obstacles are historical statements; later progress does not prove
+  independent resolution. Assistant proposals cannot impose user requirements.
+- Independent full/partial acceptance sidecars remain outside prose. Completion
+  claims never produce verification. Checks must match the exact checkpoint and
+  inferred revision with a named artifact/acceptance target. Partial-only checks
+  remain visible with unknown completion; contradictions/indeterminate checks stay
+  unknown. A failed check is not a failed task. Passes never carry forward to later
+  messages. Sidecars are explicit caller attestations, not authenticated verifiers
+  or new ledger outcome/observation records.
+- Inputs are bounded to 64 KiB text, 128 messages and 256 non-code clauses. Evidence
+  and timeline construction use only each available prefix. Real, simulated,
+  benchmark and unknown source declarations remain distinct; the live bridge is
+  real and authored evaluation/demo inputs are simulated.
+- `task conversation-state --text-opt-in` accepts stdin JSON or one exact selected
+  live UUID with declared source/machine and the existing executable. No discovery,
+  ingestion, file output or automatic persistence. Default stdout omits text/check
+  identifiers; separate `--emit-text` authorizes display. Invalid-input diagnostics
+  omit private content. Full-view source reads have the existing non-message
+  retrieval exclusion and unknown original-fidelity limits.
+- `understanding/conversation_evaluation.py` and `learn conversation-state-eval`
+  compare a weak keyword baseline, contextual English rules and a dependency-free
+  unigram/bigram/role multinomial NB classifier with fixed smoothing/abstention.
+  Training uses only separate authored training examples. No embeddings-only
+  requirement understanding, optional model load, cloud inference or routing.
+- `docs/CONVERSATION_TASK_STATE.md`, README and authored simulated fixtures provide
+  executable examples, timelines, evaluation/reference reports and limitations.
+  The synthetic end-to-end demo covers a genuine streaming-to-buffered reversal
+  and a synthetic independent acceptance check. It is not real verified evidence.
+
+### Actual selected demonstrations
+
+The existing exact-ID importer performed bounded full reads of the two approved
+samples. The ordinary sandbox initialization failed as before; reviewed escalation
+allowed the bounded existing read-only subprocess. It sent only the existing
+handshake/history allowlist. Both again exposed three turns and six ordered
+user/assistant messages; temporary servers exited 0. Live transcript strings and
+derived state stayed in Python memory. Sanitized signal/count summaries were
+printed; no native identifiers, excerpts, real transcript fixtures or semantic
+snapshots were retained. Existing private metadata storage was not ingested into
+or modified by the analysis code.
+
+- **CSV:** initial parser objective and ordinary comma-field requirement recognized;
+  quoted-comma support added at turn 2 and multiline quoted-field support at turn 3.
+  One user issue report is recognized. Six uncertainty entries remain after turn 3.
+  The final analysis took about **0.47 ms**, excluding retrieval, on 1,530 bytes.
+- **Work Local:** the initial objective wording is **not recognized**. A constraint
+  is extracted; FIFO exclusion is recognized but its initial target is unresolved.
+  The last turn identifies remaining round-robin/shortest-job scope and user plus
+  assistant incompletion reports. Seven uncertainty entries remain after turn 3.
+  The final analysis took about **1.49 ms**, excluding retrieval, on 741 bytes.
+- Both have zero independent check inputs and verification stays **unknown** at
+  every checkpoint. No explicit progress report, decision or completion claim is
+  recognized under these cues; that does not establish absence of real progress.
+  Original UI fidelity, hidden history and original message times remain unknown.
+  Warm timing observations and these two examples do not establish generalization.
+
+### Evaluation actually established
+
+`tests/fixtures/conversation_state/evaluation.json` has **52 training examples** and
+**23 separate varied evaluation conversations / 54 manually specified intent
+labels**, plus expected final-state signatures. Cases cover additions, removals,
+revisions, genuine decision reversals, task switches, failed attempts, unresolved
+work, independent full/partial verification, completion claims,
+negation, planned progress, ambiguity and unresolved references. Labels were
+manually specified by the implementing agent, not independently by human annotators.
+
+| Variant | Intent accuracy | Macro F1 on present labels | Matching final signatures |
+| --- | --- | --- | --- |
+| Keyword baseline | 40/54 (74.1%) | 0.502 | 14/23 |
+| Contextual rules — selected | 51/54 (94.4%) | 0.925 | 20/23 |
+| Naive Bayes | 36/54 (66.7%) | 0.599 | 9/23 |
+
+The first rule run scored 48/54; fixture/demo inspection exposed a quotation cue
+mistaking quoted fields for indirect claims, missing objective phrasing and a
+constraint mistaken for objective. Those defects were corrected. Independent
+review found an example that repeated a choice instead of reversing it; corrected
+SQLite-to-PostgreSQL/streaming-to-buffered examples and regenerated the reference.
+Intent/final-state labels and NB training/features/margin were unchanged. This is
+therefore a **diagnostic regression set**, not an untouched held-out evaluation.
+No statistical improvement or generalized semantic understanding is established.
+
+The rules still miss an implicit accessibility requirement, an implicit task switch
+and ambiguous short approval. NB adds false scope changes, planned-progress and
+indirect-success errors. The report includes per-case errors, confusion/category
+counts, per-field agreement, dataset digest and actual CPU timing. Final signatures
+measure evidence message positions and selected state fields, not fully normalized
+logical requirements, link-target accuracy, all intermediate states or real success.
+The reproducible checked-in reference excludes volatile elapsed fields.
+
+### Checks and independent review
+
+Used existing Python 3.12.14 / uv environment with repository-local cache and
+`UV_NO_SYNC=1` to preserve installed optional capabilities. No model runtime was
+needed; existing optional model/host checks remained disabled.
+
+| Executed check | Actual result |
+| --- | --- |
+| `uv run pytest` | **840 passed, 7 skipped in 48.47s**. Existing optional model/host checks skipped. |
+| Final focused unit/CLI suite after review fixture correction | **35 passed in 0.65s**. |
+| Independent final focused suite | **35 passed in 0.56s**. |
+| `uv run ruff check .` | Passed; all checks passed. |
+| `uv run ruff format --check .` | Passed; 169 files already formatted. |
+| `git diff --check` | Passed. |
+| Installed CPU demo/evaluation commands | Exit 0; authored simulated timeline and references reproduced. |
+
+Coverage includes source attribution, scope overlays/links, negation, conditional
+and quoted ambiguity, fenced-code exclusion, input bounds, future/prefix isolation,
+verification invalidation/conflicts/partial coverage, content-free errors, default
+redaction, explicit display, no retained files, existing fake-stdio bridge, actual
+synthetic demo, no network fitting and exact evaluation reference reproduction.
+Independent review requested changes to stale/partial verification visibility,
+input clause bounds, fixture validation and true reversal coverage; all were fixed.
+Final independent review reports **no remaining actionable findings** and accessed
+no private conversations or ignored storage. Software review is not human labeling.
+
+The next evidence step would be separately authorized genuine independent human
+labels and an untouched, more diverse evaluation, plus better objective/reference
+resolution if requested. None is started. The existing pending human-review batch
+and earlier prospective-summary pilot remain untouched. No ingestion expansion,
+model routing, Governor, paid agent, cloud inference, commit, push, merge or
+publication. Stopped after the requested demonstration and evaluation.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -2262,12 +2402,12 @@ cloud inference, commit, push, merge or publication. Stop after the importer.
 
 ## Next recommended increment (not started)
 
-- Latest request: the minimal selected-conversation importer and bounded full
-  three-turn validation are complete. Live text stayed in memory; only sanitized
-  fixtures tested opt-in retention. Full tests/checks and independent review passed.
-  No next milestone is requested or started. Independent original-text fidelity
-  would need an explicitly supplied baseline; broader sources or capabilities need
-  separate scope. Earlier pilot recommendations below remain historical options.
+- Latest request: CPU semantic conversation-state demonstration and diagnostic
+  evaluation are complete. The existing importer was reused unchanged; live text
+  and derived state stayed in memory. Full tests/checks and independent review
+  passed. Genuine human labels, untouched evaluation and objective/reference
+  resolution are possible future work only after separate instruction. No next
+  milestone is requested or started. Earlier recommendations are historical.
 
 - First longitudinal state reconstruction and synthetic A/B/C rule evaluation are
   complete. Next: an explicitly authorized manual prospective sanitized-summary

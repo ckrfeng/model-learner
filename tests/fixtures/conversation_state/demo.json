@@ -1,0 +1,63 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "text": "Build a CSV parser.",
+      "turn": 1
+    },
+    {
+      "role": "user",
+      "text": "Also support quoted commas.",
+      "turn": 2
+    },
+    {
+      "role": "assistant",
+      "text": "The multiline attempt failed.",
+      "turn": 3
+    },
+    {
+      "role": "user",
+      "text": "Replace line splitting with a state machine.",
+      "turn": 4
+    },
+    {
+      "role": "user",
+      "text": "Exclude automatic type conversion.",
+      "turn": 5
+    },
+    {
+      "role": "user",
+      "text": "Use a streaming implementation.",
+      "turn": 6
+    },
+    {
+      "role": "user",
+      "text": "Reverse the streaming decision and use a buffered implementation.",
+      "turn": 7
+    },
+    {
+      "role": "assistant",
+      "text": "I implemented quoted fields.",
+      "turn": 8
+    },
+    {
+      "role": "assistant",
+      "text": "The parser is complete.",
+      "turn": 9
+    }
+  ],
+  "checks": [
+    {
+      "after_message": 8,
+      "revision": 7,
+      "evidence_id": "simulated-acceptance-check",
+      "artifact_id": "simulated-parser-artifact",
+      "acceptance_spec": "simulated-csv-acceptance-v1",
+      "source": "independent_verifier",
+      "result": "passed",
+      "scope": "full_task"
+    }
+  ],
+  "history_complete": true,
+  "source_kind": "simulated"
+}

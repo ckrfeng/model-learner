@@ -13,6 +13,10 @@ from pydantic import BaseModel
 from model_learner import __version__
 from model_learner.commands.annotations import annotation_app
 from model_learner.commands.benchmark import benchmark_app
+from model_learner.commands.conversation_state import (
+    conversation_eval,
+    conversation_state,
+)
 from model_learner.commands.learning import learn_app, sim_app
 from model_learner.commands.longitudinal import task_trajectory, trajectory_eval
 from model_learner.commands.observation import (
@@ -101,6 +105,8 @@ sim_app.command("representation-fixture")(representation_fixture)
 task_app.command("similar")(task_similar)
 task_app.command("trajectory")(task_trajectory)
 learn_app.command("trajectory-eval")(trajectory_eval)
+task_app.command("conversation-state")(conversation_state)
+learn_app.command("conversation-state-eval")(conversation_eval)
 
 RECORD_TYPES: dict[str, type[BaseModel]] = {
     "task": Task,

@@ -9,10 +9,20 @@ from uuid import UUID
 
 import typer
 
+from model_learner.adapters.app_server import AppServerClient, ConversationError
 from model_learner.adapters.codex import (
     capture_codex_stream,
     ingest_codex_capture,
     summarize_session,
+)
+from model_learner.adapters.conversations import (
+    SOURCE as CONVERSATION_SOURCE,
+)
+from model_learner.adapters.conversations import (
+    ingest_conversation,
+    read_conversation,
+    require_private_database,
+    summarize_conversation,
 )
 from model_learner.commands.common import DEFAULT_DATABASE, repository, write_json
 from model_learner.domain.models import Event, Session
@@ -22,6 +32,64 @@ capture_app = typer.Typer(
     help="Capture an existing agent stream.", no_args_is_help=True
 )
 import_app = typer.Typer(help="Import a captured agent stream.", no_args_is_help=True)
+
+
+@import_app.command("conversation")
+def import_conversation(
+    conversation_id: Annotated[
+        str, typer.Argument(help="Explicit selected native conversation UUID.")
+    ],
+    product_source: Annotated[
+        str,
+        typer.Option(
+            help="codex_desktop or chatgpt_work_local; verified against originator."
+        ),
+    ],
+    machine_id: Annotated[
+        str, typer.Option(help="Explicit stable local machine/scope identity.")
+    ],
+    database: Annotated[Path, typer.Option("--database", "-d")] = DEFAULT_DATABASE,
+    codex_executable: Annotated[
+        str, typer.Option(help="Installed Codex executable.")
+    ] = "codex",
+    read_text: Annotated[
+        bool,
+        typer.Option(
+            help="Receive full items; discard other content. Text stays in memory."
+        ),
+    ] = False,
+    retain_text: Annotated[
+        bool,
+        typer.Option(
+            help="Explicit local text storage opt-in; implies full-item retrieval."
+        ),
+    ] = False,
+) -> None:
+    """Import one bounded conversation; defaults to server-side item omission.
+
+    Full view has no server-side attachment/tool-output filter. Text retention is
+    restricted to the workspace's Git-ignored .model-learner database.
+    """
+    try:
+        require_private_database(database)
+        ledger = repository(database)
+        with AppServerClient(conversation_id, executable=codex_executable) as client:
+            read = read_conversation(
+                client,
+                product_source=product_source,
+                machine_id=machine_id,
+                read_text=read_text or retain_text,
+            )
+        if client.exit_code != 0:
+            raise ConversationError("App Server did not shut down cleanly")
+        report = ingest_conversation(ledger, read, retain_text=retain_text)
+    except Exception:
+        # Never render upstream exceptions, which can contain native payloads.
+        raise typer.BadParameter(
+            "conversation import rejected; check source, protocol bounds "
+            "and private storage"
+        ) from None
+    write_json(report)
 
 
 @capture_app.command("codex")
@@ -100,7 +168,11 @@ def show_session(identifier: UUID, database: Path) -> None:
     write_json(
         {
             "session": session,
-            "summary": summarize_session(session, events),
+            "summary": (
+                summarize_conversation(session, events)
+                if session.source == CONVERSATION_SOURCE
+                else summarize_session(session, events)
+            ),
             "timeline": [
                 {
                     "event_id": e.event_id,

@@ -1,0 +1,128 @@
+{
+  "thread": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "sessionId": "tree-controlled",
+    "cliVersion": "fixture-cli-v1",
+    "originator": "Codex Desktop",
+    "source": "vscode",
+    "threadSource": "user",
+    "historyMode": "paginated",
+    "ephemeral": false,
+    "createdAt": 1800000000,
+    "updatedAt": 1800000200,
+    "turns": [],
+    "preview": "PRIVATE_PREVIEW_SENTINEL",
+    "name": "PRIVATE_TITLE_SENTINEL",
+    "cwd": "PRIVATE_PATH_SENTINEL",
+    "extra": {
+      "secret": "PRIVATE_EXTRA_SENTINEL"
+    },
+    "model": "current-only-model",
+    "modelProvider": "current-only-provider",
+    "reasoningEffort": "high"
+  },
+  "turns": [
+    {
+      "id": "turn-0",
+      "rootTurnId": null,
+      "status": "completed",
+      "startedAt": 1800000010,
+      "completedAt": 1800000020,
+      "durationMs": 10000,
+      "error": null,
+      "itemsView": "full",
+      "items": [
+        {
+          "id": "user-0",
+          "type": "userMessage",
+          "content": [
+            {
+              "type": "text",
+              "text": "Compare two small sorting examples."
+            },
+            {
+              "type": "image",
+              "url": "PRIVATE_ATTACHMENT_SENTINEL"
+            }
+          ]
+        },
+        {
+          "id": "reasoning-0",
+          "type": "reasoning",
+          "content": [
+            "PRIVATE_REASONING_SENTINEL"
+          ],
+          "summary": []
+        },
+        {
+          "id": "agent-0",
+          "type": "agentMessage",
+          "text": "Compare insertion sort and merge sort.",
+          "phase": "final_answer"
+        },
+        {
+          "id": "tool-0",
+          "type": "commandExecution",
+          "command": "PRIVATE_COMMAND_SENTINEL",
+          "aggregatedOutput": "PRIVATE_TOOL_OUTPUT_SENTINEL"
+        }
+      ]
+    },
+    {
+      "id": "turn-1",
+      "rootTurnId": null,
+      "status": "completed",
+      "startedAt": 1800000070,
+      "completedAt": 1800000080,
+      "durationMs": 10000,
+      "error": null,
+      "itemsView": "full",
+      "items": [
+        {
+          "id": "user-1",
+          "type": "userMessage",
+          "content": [
+            {
+              "type": "text",
+              "text": "Preserve comma, newline:\n\"a,b\"\n café 👋"
+            }
+          ]
+        },
+        {
+          "id": "agent-1",
+          "type": "agentMessage",
+          "text": "A quoted field can contain a comma.\nWhitespace stays intact.  ",
+          "phase": "final_answer"
+        }
+      ]
+    },
+    {
+      "id": "turn-2",
+      "rootTurnId": null,
+      "status": "completed",
+      "startedAt": 1800000130,
+      "completedAt": 1800000140,
+      "durationMs": 10000,
+      "error": null,
+      "itemsView": "full",
+      "items": [
+        {
+          "id": "user-2",
+          "type": "userMessage",
+          "content": [
+            {
+              "type": "text",
+              "text": "Keep the original Unicode and trailing spaces.  "
+            }
+          ]
+        },
+        {
+          "id": "agent-2",
+          "type": "agentMessage",
+          "text": "Done is an unverified claim, not evidence.",
+          "phase": "final_answer"
+        }
+      ]
+    }
+  ]
+}

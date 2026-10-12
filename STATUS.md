@@ -1,23 +1,24 @@
 # Model Learner status
 
-Current work: Codex Desktop and ChatGPT Work Local selected-history feasibility
-assessment, approved agent reads and independent Python stdio experiment complete.
-Both selected tests expose three turn records through a temporary Codex App Server;
-IDs and turn times match the prior agent reads. Standalone metadata access is
-validated without AI retrieval; message items were excluded, so complete text
-ingestion remains unvalidated. No Desktop/Work history adapter is implemented;
-stopped after the controlled experiment/report.
+Current work: minimal standalone selected-conversation importer implemented and
+validated for both approved Codex-backed Codex Desktop and Work Local tests.
+Each exposes three turns and six ordered user/assistant messages. Live text stayed
+in Python memory; only metadata entered ignored private storage. Fresh replay
+created no duplicates. Default reads omit turn items server-side; optional text
+retention was tested only with sanitized fixtures. There is no server-side
+message-only filter. Original UI verbatim fidelity, historical model/usage/cost
+and other Work backends remain unverified. Full checks and independent review
+passed; stopped after the requested importer.
 The first longitudinal task-state increment remains implemented and evaluated.
 Multi-checkpoint projections distinguish observed evidence, deterministic changes,
 explicit author hypotheses and unknowns. Seven synthetic trajectories exercise
 the implementation; no real longitudinal predictive improvement is established.
 The earlier 40-query human-review batch still has no genuine human labels or
 accepted reviews. Real coding-agent benchmark execution remains disabled.
-Last requested work: validate independent Python access to the two exact approved
-test conversations using a temporary documented stdio App Server subprocess.
-Selected thread metadata/preview and bounded turn metadata reads succeeded;
-message-body retrieval remains untested under output/attachment exclusions. The earlier
-longitudinal increment remains complete; its proposed data pilot is not started.
+Last requested work: implement the minimal metadata-only importer, validate all
+three turns of both selected tests, keep live text in memory, test opt-in retention
+with sanitized fixtures, run full checks and request independent review. Complete.
+The earlier longitudinal increment remains complete; its data pilot is not started.
 Updated: 2026-10-11
 
 ## Completed milestones
@@ -2030,6 +2031,170 @@ The actual integration evidence is the independent subprocess result and its
 bounded identity/time comparison, not repository regression tests. The pre-existing
 `.DS_Store` change was preserved. No commit, push, merge or publication.
 
+## Selective standalone text validation — 2026-10-11
+
+The user explicitly approved **one full-view turn per selected test** after the
+schema/documentation findings, with a stop for approval before implementing the
+importer. Installed schema generation succeeded for CLI 0.162.0-alpha.17.2.
+`summary` is a display summary; `full` includes every available persisted turn
+item. Neither turn pagination nor item pagination has a message-only, attachment
+or tool-output filter. Client exclusion occurs after the server returns content.
+
+The temporary standard-library Python 3.9.6 client used the same stdio transport
+and allowlist (`initialize`, `initialized`, `thread/read`, `thread/turns/list`).
+After handshake it requested metadata without turns, then one latest full turn
+per selection, with `limit=1` and descending order. No cursor expansion, item-list
+RPC, unrelated enumeration or control method was sent. One notification was
+ignored privately; server-initiated requests were prohibited. Scoped execution-
+sandbox escalation was used for the approved process. Probe and temporary server
+both exited **0**; server shutdown completed on stdin EOF.
+
+| Actual sanitized coverage | Codex test | Work Local test |
+| --- | --- | --- |
+| Identity/source | Selected ID matched; originator `Codex Desktop` | Selected ID matched; originator `codex_work_desktop` |
+| Runtime/history | `source=vscode`, `threadSource=user`, paginated | Same |
+| Turn/item scope | One turn, confirmed full view, older cursor remains | Same |
+| Messages/order | One user then one assistant, source ordinals 0/1, unique IDs | Same |
+| User / assistant text bytes | 117 / 460 | 135 / 144 |
+| Extracted text retained in memory | 577 bytes | 279 bytes |
+| Metadata plus turn response bytes | 2,625 | 2,327 |
+| Turn start/end/duration | Populated | Populated |
+| Message timestamps | Absent / unknown | Absent / unknown |
+| Other items / non-text user parts | Zero / zero in this turn | Zero / zero in this turn |
+| Explicit truncation marker | None exposed | None exposed |
+
+All four text fields were nonempty and survived local JSON round-trip comparison
+without normalization or clipping. This validates extraction, not original-source
+fidelity. The original test-message baseline is unavailable for independent
+equality checks. Codex's 460-character assistant field matches the earlier reported
+maximum length only; that does not establish text equality. Latest user strings
+do not equal the first-message-style thread previews, as expected for later turns.
+No source-completeness claim follows from full persisted view or missing markers.
+
+Responses, previews, text and native errors stayed inside Python memory; only
+coverage facts reached terminal/model context. No body/transcript file, fixture,
+native ID or returned private path was added to Git. The temporary probe was
+removed after use. One turn and under 64 KiB per selection stayed within the
+ten-turn / 64-KiB ceilings. No inference/execution, task/run association, outcome
+or learning record was created. Zero other items here does not imply server-side
+exclusion elsewhere.
+
+One-turn standalone user/assistant text access is supported for both samples.
+Three-turn standalone text history, independent verbatim fidelity, historical
+model/usage/cost attribution and other Work backends remain unvalidated. No
+importer implemented; user approval is required before Phase 2 and bounded Phase 3
+validation. Documentation-only checks: `uv run --no-sync ruff check .` passed;
+`uv run --no-sync ruff format --check .` passed (156 files formatted);
+`git diff --check` passed. Used the existing repository-local uv/cache paths.
+No production Python changed, so pytest was not repeated. Full tests, sanitized
+fixtures and independent importer review remain Phase 3 work after approval.
+The pre-existing `.DS_Store` change was preserved. No commit, push or publication.
+
+## Minimal standalone conversation importer — 2026-10-11
+
+The user approved this narrow implementation and bounded three-turn validation
+after the one-turn full-view probes. Read the repository instructions, M3 plan,
+prior status/feasibility and existing observation/session/storage/CLI boundaries.
+Used the current checkout; the pre-existing `.DS_Store` change was preserved.
+
+### Delivered behavior
+
+- New `adapters/app_server.py`: standard-library JSONL subprocess transport, exact
+  selected UUID, experimental handshake, existing read-only allowlist, no server
+  request responses or control operations. Default turn view is `notLoaded`;
+  explicit full reads are bounded to ten one-turn pages and 64 KiB total response
+  bytes, with timeouts and shutdown. Native response/error/notification bodies are
+  never printed. No global discovery, private format parsing or model inference.
+- New `adapters/conversations.py`: the two validated originators map to separate
+  declared product sources over backend `codex`. Only the observed paginated
+  `vscode`/`user` format is accepted. Native conversation identity includes source,
+  backend, product and machine scope; canonical task identity stays separate.
+  Existing Session/Event contracts hold `codex-conversation-snapshot/v1` snapshots,
+  with ordered turns/messages, IDs, original timestamp units, explicit exclusions,
+  truncation/missingness and retrieval receipt times. Unknown message times,
+  configuration, usage and cost remain null; current thread model fields are dropped.
+- Metadata retention is default. Preview/title/path/opaque extras and non-message
+  bodies are excluded; full reads discard reasoning/attachments/tool results after
+  server retrieval. Only explicit `retain_text` / `--retain-text` stores user and
+  assistant text parts. `--read-text` reads text into memory without storing it.
+  Storage must be under the workspace's ignored, untracked `.model-learner/`, with
+  private directory/database permissions and no symlink paths.
+- `Repository.add_session_snapshot` atomically creates a session and immutable
+  snapshot. Retained-fact identity excludes receipt time and opaque transport
+  cursors; identical fresh replay preserves the first receipt. Changed retained
+  facts/view/retention policy append an explicit new snapshot version, with
+  collision checks and rollback on failure. Native tools are not manufactured as
+  execution lifecycle events. No migration, dependency or lockfile change.
+- `import conversation` accepts one selected UUID, source and stable machine ID;
+  `session show` reports conversation snapshot coverage and unknowns. README
+  documents the exact command and privacy choices. This source remains excluded
+  from existing Codex CLI execution projections and real learning builders.
+  No task/run/project associations, verified outcomes or observations are generated.
+
+### Actual three-turn validation
+
+Used Python 3.12.14 and Codex CLI 0.162.0-alpha.17.2. Two independent full-view reads
+per selection fetched three one-turn pages each, with null final cursors. Every
+temporary server exited **0**, as did the validation wrapper. Scoped execution-
+sandbox escalation covered the approved processes; private replies stayed inside
+Python memory. Only sanitized coverage was emitted; the temporary script was
+removed. Metadata snapshots were retained in a private ignored local ledger.
+
+| Coverage | Codex test | Work Local test |
+| --- | --- | --- |
+| Identities/originators | Validated | Validated |
+| Exposed turns/messages | Three unique turns / six unique messages | Same |
+| Native ordering | User before assistant in each source-ordered turn | Same |
+| Native times | Start/end/duration populated, starts increasing | Same |
+| User/assistant bytes by turn | 159/234, 96/464, 117/460 | 159/105, 120/78, 135/144 |
+| In-memory text per read | 1,530 bytes | 741 bytes |
+| Wire bytes across both reads | 11,712 including handshake/notifications | 9,856 including handshake/notifications |
+| Fresh-read text equality | Exact for all six fields | Same |
+| Latest-turn lengths vs prior probe | Match | Match |
+| First user equals thread preview | No; preview is not an exact baseline | Same |
+| Excluded non-message counts by turn | 0 / 1 / 0 | 0 / 0 / 0 |
+| Non-text user parts | Zero exposed | Zero exposed |
+| Explicit turn truncation marker | None exposed / unknown fidelity | Same |
+| First metadata import / replay | One snapshot / zero new snapshots | Same |
+
+The ledger contains exactly two sessions and two metadata snapshots, all message
+text/raw fields null. No recovered live string appears in retained canonical event
+JSON or SQLite bytes. No task/run/verification/outcome/real-learning row exists.
+No live text was stored. This validates client storage, not zero incidental server
+startup writes or unknown source/cloud copies. Native paths were not followed.
+
+Complete exposed three-turn history and repeatable text are validated for these
+two samples. Original UI equality remains unverified without independent originals;
+preview comparison failed. Codex's middle assistant field is 464 bytes in full view,
+while the earlier agent reader reported a 460-character maximum; interface coverage
+does not resolve original fidelity. Message timestamps, historical configurations,
+usage/cost, hidden history/branches and other Work backends remain unestablished.
+
+### Checks and independent review
+
+Added authored sanitized three-turn fixture/fake stdio peer and unit/integration
+tests for both sources, exact Unicode/multiline/whitespace text, privacy omission,
+opt-in storage, native ordering, null time/resource fields, truncation, bounds,
+malformed data/errors, controlled CLI diagnostics, private paths, transactions,
+snapshot versioning, fresh replay and learning isolation.
+
+An independent subagent reviewed the implementation and ran **41 focused tests**.
+Both review findings were fixed: untrusted type rejection and cursor-independent
+snapshot identity. A further independent varying-cursor regression check passed
+(**1 passed**); final review reported **no remaining actionable findings**. The
+reviewer accessed no live conversation or existing private storage.
+
+| Command | Actual result |
+| --- | --- |
+| `uv run pytest` | **805 passed, 7 skipped in 48.43s**; optional host/model checks remained disabled. |
+| `uv run ruff check .` | Passed; all checks passed. |
+| `uv run ruff format --check .` | Passed; 162 files already formatted. |
+| `git diff --check` | Passed. |
+
+Used existing repository-local uv/cache paths; no installation was needed. No
+global scanning, automatic grouping, routing, Governor, new CPU model, fine-tuning,
+cloud inference, commit, push, merge or publication. Stop after the importer.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -2057,12 +2222,14 @@ bounded identity/time comparison, not repository regression tests. The pre-exist
 - Other operating systems and Python versions have not been tested.
 - The pre-existing tracked `.DS_Store` was left unchanged. `.gitignore` prevents
   adding new OS metadata but does not remove files already tracked by Git.
-- The real-agent importer supports explicitly selected Codex CLI streams only;
-  existing desktop sessions and passive desktop capture remain unsupported.
+- The execution-event importer supports explicitly selected Codex CLI streams only;
+  passive desktop capture remains unsupported.
   Bounded selected agent-mediated reads of both Desktop and Work Local tests are
   now validated. Independent stdio selected thread/turn metadata access is also
-  validated. Standalone message-item ingestion and complete source coverage remain
-  unvalidated; no desktop history adapter is implemented.
+  validated. The standalone selected-ID importer now validates all three exposed
+  turns and six user/assistant messages for each approved sample. Metadata-only
+  live storage and fresh replay are checked. Original UI verbatim fidelity, hidden
+  history completeness, historical measurements and other backends remain unverified.
   The requested increment now adds a narrow read-only file digest verifier and
   evidence-linked real task-observation builder plus bound JUnit report verification.
   Arbitrary test command execution and whole-repository artifact verification remain
@@ -2095,12 +2262,12 @@ bounded identity/time comparison, not repository regression tests. The pre-exist
 
 ## Next recommended increment (not started)
 
-- Latest request: independent Python stdio validation is complete after explicit
-  approval. Both exact selections expose metadata/preview and three turn scaffolds
-  through supported App Server operations. A standalone metadata adapter is
-  justified but unimplemented; message-text ingestion requires further content-
-  boundary validation/approval. No adapter implementation or next milestone is
-  authorized; earlier pilot recommendations below remain historical options.
+- Latest request: the minimal selected-conversation importer and bounded full
+  three-turn validation are complete. Live text stayed in memory; only sanitized
+  fixtures tested opt-in retention. Full tests/checks and independent review passed.
+  No next milestone is requested or started. Independent original-text fidelity
+  would need an explicitly supplied baseline; broader sources or capabilities need
+  separate scope. Earlier pilot recommendations below remain historical options.
 
 - First longitudinal state reconstruction and synthetic A/B/C rule evaluation are
   complete. Next: an explicitly authorized manual prospective sanitized-summary

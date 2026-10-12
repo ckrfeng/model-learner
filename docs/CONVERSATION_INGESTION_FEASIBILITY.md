@@ -1,18 +1,20 @@
 # Selected conversation ingestion feasibility
 
-Updated 2026-10-11 after approved agent and independent stdio experiments. The
-desktop's supported agent-mediated reader successfully returned three turns each
-for the Codex CSV-parser test and ChatGPT Work Local scheduling-algorithms test.
-Both responses report `kind: codex` and `hostId: local`; product surfaces remain
-user-declared and transcript storage remains unknown. No adapter was implemented.
+Updated 2026-10-11 after the approved minimal importer and complete exposed
+three-turn validation. **A standalone selected-ID importer is implemented**, using
+temporary `codex app-server --listen stdio://` processes and documented read-only
+RPCs. Both selected Codex-backed tests expose three turns and six user/assistant
+messages. Exact text matches across two independent reads; original UI verbatim
+fidelity remains unverified. No model invocation or running desktop daemon is
+needed. Product source remains separate from backend and storage-location evidence.
 
-Independent Python access is now **validated for selected thread metadata,
-preview text and paginated turn metadata in both tests**, using a temporary
-`codex app-server --listen stdio://` subprocess and documented handshake/read
-operations. No model invocation or running desktop daemon was needed. Message
-item bodies were excluded to honor attachment/tool-output restrictions, so full
-text ingestion remains unvalidated under that boundary. A narrow standalone
-metadata adapter is justified for these samples; no adapter was implemented.
+Default reads omit turn items server-side and retain metadata only. Explicit text
+reads use full view and retain text only in Python memory unless a separate storage
+opt-in is supplied. **There is no server-side message-only filter**: other item
+content can be returned before local exclusion. Live validation retained only
+metadata in ignored local storage; opt-in text retention was tested exclusively
+with authored sanitized fixtures. Earlier experiments below are historical;
+delivered behavior and final validation are recorded in the last section.
 The earlier proxy failure concerned only an absent default daemon endpoint.
 The standalone findings below supersede earlier endpoint-based limitations.
 
@@ -69,7 +71,8 @@ larger control API and experimental tooling. It is not a read-only server as a
 whole. A future client needs an operation allowlist and must refuse execution,
 resume, mutation and approval requests. Independent stdio reachability of the
 selected CSV-parser thread and its three turn records is now validated. Complete
-message-item coverage and historical measurements are separate, unproven claims.
+original message coverage and historical measurements remain unproven; all three
+exposed turns have now been validated for both samples through the importer.
 
 ### Installed Codex schema evidence
 
@@ -334,6 +337,68 @@ Existing CLI smoke evidence establishes CLI capture only.
 Repository regression results are recorded in `STATUS.md`; they are not Desktop
 or Work integration validation.
 
+### Approved selective text validation: one full turn per source
+
+The user separately approved one full-view turn from each of the same two exact
+test conversations and required another approval before importer implementation.
+Rechecked the installed **Codex CLI 0.162.0-alpha.17.2** public schemas and official
+[App Server documentation](https://learn.chatgpt.com/docs/app-server#list-thread-turns).
+`thread/turns/list` supports `notLoaded`, `summary` and `full`; summary is a display
+summary, while full includes every available persisted item for the requested
+turn. `thread/items/list` supports a turn restriction and item pagination but no
+message-type filter. Neither request schema provides attachment, reasoning or
+tool-output suppression. Client filtering does not prevent server retrieval.
+`thread/items/list` and summary view were inspected, not invoked.
+
+An ordinary Python 3.9.6 standard-library process launched a bounded temporary
+`codex app-server --listen stdio://` subprocess. It completed the documented
+handshake with experimental pagination enabled, then issued exact-ID
+`thread/read(includeTurns=false)` and
+`thread/turns/list(limit=1, sortDirection=desc, itemsView=full)` per selection.
+Only the latest exposed turn was fetched; no continuation cursor was followed.
+The allowlist remained `initialize`, `initialized`, `thread/read` and
+`thread/turns/list`. Server-initiated requests were prohibited; one notification
+was discarded without displaying its payload. Scoped execution-sandbox escalation
+was used for the already approved temporary process, as required in the prior
+experiment. The server exited **0** on stdin EOF; the probe exited **0**.
+
+| Sanitized coverage | Codex test | Work Local test |
+| --- | --- | --- |
+| Identity/product checks | Returned thread ID matches selection; originator matches `Codex Desktop` | Returned ID matches selection; originator matches `codex_work_desktop` |
+| Other source/history checks | `source=vscode`, `threadSource=user`, paginated history | Same |
+| Requested/returned scope | One latest turn; returned `itemsView=full`; older-turn cursor present | Same |
+| Source item ordering | User ordinal 0, assistant ordinal 1; unique native message IDs | Same |
+| User text field | One nonempty string, 117 characters / UTF-8 bytes | One nonempty string, 135 characters / UTF-8 bytes |
+| Assistant text field | One nonempty string, 460 characters / UTF-8 bytes | One nonempty string, 144 characters / UTF-8 bytes |
+| In-memory extracted text | 577 UTF-8 bytes | 279 UTF-8 bytes |
+| Metadata plus full-turn serialized response bytes | 2,625 | 2,327 |
+| Turn times | Start, completion and duration populated | Same |
+| Message timestamps | Absent; remain unknown | Same |
+| Other item / non-text user-part counts | Zero / zero in this returned turn | Zero / zero in this returned turn |
+| Explicit message truncation marker | None exposed | None exposed |
+
+The probe extracted only `userMessage.content` parts with `type=text` and
+`agentMessage.text`, preserving strings without normalization or clipping. Local
+JSON round-trip equality passed for all four strings; this checks extraction,
+not fidelity to the original UI. No original-message baseline was supplied for
+independent equality testing. The Codex assistant length agrees with the earlier
+reader's reported 460-character maximum; matching length does not prove matching
+content. Latest user text differs from thread preview for both, which is expected
+for a preview usually drawn from the first user message, not a fidelity failure.
+
+No response body, preview, extracted text, native ID, returned path or native error
+was printed or written to a file. Bodies remained in Python memory. The temporary
+probe source was removed after execution. Ten-turn / 64-KiB ceilings were enforced;
+actual scope was one turn per conversation. Zero ignored items in these selected
+turns does not promise exclusion or absence elsewhere. No execution, resume,
+mutation, unrelated enumeration, task association or learning record was produced.
+
+Supported standalone message-text access is established for one exposed turn per
+sample. Full three-turn text history, independent verbatim fidelity, historical
+model/usage/cost attribution and other Work backends remain unvalidated. No
+importer or fixture is implemented. Next gate: user approval for the minimal
+importer and bounded three-turn validation of these same two selections.
+
 ## Shared representation proposal
 
 Use an explicitly selected, versioned conversation snapshot before task
@@ -496,53 +561,114 @@ assistant's context and tool-response history. Local embeddings afterward do not
 make that earlier access device-only. Do not echo retrieved payloads into additional
 logs or external exports.
 
-## Smallest viable adapter and tests
+## Delivered minimal importer and three-turn validation
 
-Only if separately authorized after controlled validation, implement one narrow
-importer for the supported selected snapshot actually obtained. Keep separate
-Codex and Work source mappers
-over a common envelope; share validation/privacy logic only where contracts agree.
-An agent-mediated snapshot handoff can use an explicit local file. A standalone
-live reader requires an independently established callable transport.
+The user approved implementation, metadata-only live storage, complete exposed
+three-turn validation for both selections, sanitized fixture text retention, full
+checks and independent review. The delivered code uses existing `Session` and
+immutable `Event` records; no schema migration or dependency was added.
 
-The first adapter should preserve ordered source observations, expose a dry run
-and coverage report, omit raw text/outputs by default, permit explicitly reviewed
-excerpts, and perform idempotent replay. Bind replay to stable snapshot identity;
-reject conflicting retained data. Where native IDs are absent, snapshot-scoped
-ordinal IDs do not prove identity across independently retrieved snapshots.
-Changed source snapshots need explicit versions, not silent ledger updates.
+- `adapters/app_server.py` implements the documented JSONL stdio handshake and
+  exact-ID read subset. The unchanged allowlist permits only `initialize`,
+  `initialized`, `thread/read(includeTurns=false)` and `thread/turns/list`.
+  Requests have one selected UUID, one turn per descending page, at most ten pages,
+  a timeout and a cumulative 64-KiB wire ceiling. It ignores notification bodies,
+  rejects server-initiated requests and suppresses native error text. Each server
+  terminates after its selected read; no persistent daemon, execution or mutation.
+- `adapters/conversations.py` validates the two product-specific originators over
+  the shared, observed Codex backend. Only the tested `vscode`/`user`/`paginated`
+  source shape is supported. Other origins, history formats and unexpected item
+  formats fail closed. `Session` identity includes source, backend, product,
+  machine scope and native conversation ID, independently of task identity.
+- The versioned `codex-conversation-snapshot/v1` payload is one historical snapshot,
+  not a reconstruction of original execution events. It retains native thread/tree,
+  turn and exposed message IDs; reverses descending pages for source turn order;
+  preserves native item ordinals and timestamp units. Retrieval receipts stay
+  distinct from original times. Thread update time never becomes conversation end
+  time. Missing message times/configuration/usage/cost remain unknown. Bounded
+  history, unrequested items, retention-disabled text, non-text exclusion counts
+  and explicit truncation markers remain visible. No marker means unknown fidelity.
+- Default reads use `notLoaded`. Full-item reads are explicit and extract only
+  user text parts and assistant text without normalization. Preview, title, paths,
+  current model settings, raw responses and other item bodies are omitted from
+  storage. Opt-in retains only message strings. The database must be untracked and
+  ignored under the workspace's `.model-learner/`; symlinks/public paths are
+  rejected, with private directory/database permissions.
+- `Repository.add_session_snapshot` performs atomic creation/replay with integrity
+  checks. A deterministic content identity covers retained facts and retention/view
+  policy, independent of receipt time and opaque cursor strings. Identical replay
+  preserves the first receipt. Changed facts append an explicit immutable snapshot
+  version. Unsupported/colliding persisted rows are rejected transactionally.
+- `import conversation` exposes selected ID, declared source and machine identity;
+  optional `--read-text` keeps text in memory, and separate `--retain-text` stores
+  it locally. `sessions` and `session show` inspect imported snapshots with explicit
+  unknowns. No automatic task/project/run links, verifications, outcomes or learning
+  observations are created. Existing CLI execution projections reject this source.
 
-Proposed tests use sanitized supported responses: one selected ID only; identical
-native IDs from different backends stay distinct; multiple tasks per conversation
-and one task across conversations remain explicit; optional projects stay optional;
-page direction/order and truncation survive; missing times/usage/configuration stay
-null; summaries stay summaries; no synthetic lifecycle events; replay/conflict
-handling; private payload omission and content-free diagnostics; no control RPC;
-future receipts cannot enter earlier checkpoints; similarity creates no links or
-outcomes. Each source needs its own approved real read in addition to fixtures.
+### Actual live evidence
 
-Immediately usable without new integration: manually reviewed sanitized task
-descriptions, related-text retrieval and explicit summary/annotation contracts.
-Controlled reads now justify the shape of an agent-mediated selected-snapshot
-projection over message items, page order, native IDs, turn times and missingness.
-That handoff still requires an agent and does not fulfill the user's independent
-local-application requirement; no adapter is implemented or authorized here.
+Used Python **3.12.14**, installed CLI **0.162.0-alpha.17.2** and the existing local
+environment. Four approved temporary servers performed two fresh full-view reads
+per selection. Each read fetched three one-turn pages, ending at a null cursor;
+all server processes exited **0**. Execution-sandbox escalation covered only the
+approved bounded subprocess experiment. Private responses and diagnostics stayed
+in Python memory. The temporary validation script was removed after use.
 
-For both tested sources, a **standalone metadata/turn-record adapter is now
-justified**, using a bounded temporary stdio App Server subprocess, the installed
-CLI and standard-library Python. Restrict its protocol methods to the validated
-handshake and exact-ID stored metadata/turn pagination. Preserve source originator,
-product declaration, native IDs, page direction, time units, current-setting scope
-and unknown usage. Omit preview text by default and use `itemsView=notLoaded` for
-the verified metadata path; nothing in this experiment creates task/run links,
-outcomes or eligible learning rows. Prefer an explicit selected-ID import over
-history discovery. No implementation is authorized in this turn.
+| Sanitized live evidence | Codex test | Work Local test |
+| --- | --- | --- |
+| Identity and product/source validation | Passed | Passed |
+| Exposed history | Three unique turns, six unique messages | Same |
+| Message roles per source-ordered turn | User then assistant, all three turns | Same |
+| Native turn times | All start/completion/duration fields populated; starts increase | Same |
+| User/assistant UTF-8 bytes, oldest to newest | 159/234, 96/464, 117/460 | 159/105, 120/78, 135/144 |
+| Extracted text in memory per read | 1,530 bytes | 741 bytes |
+| Wire bytes across two fresh reads, including handshake/notifications | 11,712 | 9,856 |
+| Exact text equality across fresh reads | All six strings matched | Same |
+| Latest-turn lengths vs approved one-turn probe | Matched | Matched |
+| First user text vs thread preview | Not equal; preview is not an exact baseline | Same |
+| Ignored non-message item counts, oldest to newest | 0, 1, 0 | 0, 0, 0 |
+| User non-text parts | Zero exposed | Zero exposed |
+| Explicit turn truncation markers | None exposed | None exposed |
+| Initial import / fresh replay | One metadata snapshot / zero new snapshots | Same |
 
-A standalone **message-text adapter** still needs validation of a supported way
-to exclude attachments/tool outputs, or a separately approved content scope.
-`includeTurns=true` is unbounded and full/summary item retrieval was not tested.
-Retain Codex and Work product provenance independently; do not extend the Work
-sample's Codex backend evidence to ChatGPT-backed Work histories. Complete
-historical event/measurement recovery, source-neutral execution projection and
-prospective-learning eligibility remain unproven. Stop after this controlled
-experiment/report; no adapter, new model, routing or Governor.
+The ignored private ledger contains exactly two sessions and two metadata
+snapshots. Every retained message text field is null, every raw payload is null,
+and no recovered live string appears in canonical event JSON or SQLite bytes.
+There are zero task/run/verification/outcome/real-learning records. No live text was
+retained. These checks cover the client's storage, not incidental App Server
+startup writes or existing source storage. Native paths were not followed.
+
+All three exposed turns and repeatable text are validated for these two samples.
+Original UI verbatim fidelity is still **unverified**: no independent original
+baseline was supplied, and preview equality failed. Current full-view Codex turn 2
+exposes 464 assistant bytes; the earlier agent reader reported a 460-character
+maximum across its view. Different interface coverage cannot establish original
+equality or explain that difference without another baseline. Do not infer hidden
+history completeness from exhausted cursors. No absence-of-original-tools claim
+follows from the small exposed item counts.
+
+### Checks and independent review
+
+Sanitized authored fixtures and an offline fake stdio peer exercise both source
+originators, exact Unicode/newline/trailing-space fidelity, exclusions, nullable
+timestamps, truncation, native order, bounds, malformed formats, private diagnostics,
+storage restrictions, atomic rollback, fresh replay and text opt-in. Independent
+review ran **41 focused tests**, then rechecked the varying-cursor regression
+(**1 passed**). Both findings were fixed: untrusted types receive content-free
+rejection, and opaque transport tokens cannot change snapshot identity. The final
+review reported **no remaining actionable findings** in scope and accessed no live
+conversation or existing private ledger.
+
+- `uv run pytest`: **805 passed, 7 skipped in 48.43s**. Optional host/model checks
+  remain disabled; this task invoked no new model or real agent execution.
+- `uv run ruff check .`: passed.
+- `uv run ruff format --check .`: passed, **162 files formatted**.
+- `git diff --check`: passed.
+
+Used existing repository-local uv/cache paths. Full/summary content filtering,
+ChatGPT-backed Work history, every Work source/storage mode, original lossless
+coverage, historical model attribution, usage/cost recovery and retrospective
+verified-success eligibility remain unsupported or unestablished. Summary view
+and `thread/items/list` were schema-inspected, not runtime-validated. There is no
+global scanning, project grouping, routing, Governor, new CPU model, fine-tuning or
+cloud inference. Stop after this importer; no later milestone is started.

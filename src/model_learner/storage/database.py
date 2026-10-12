@@ -210,6 +210,70 @@ class Repository:
                 raise StorageError("task and session are already associated") from error
         return link
 
+    def add_session_snapshot(self, session: Session, event: Event) -> tuple[bool, bool]:
+        """Atomically append a source snapshot, preserving the first receipt on replay.
+
+        Snapshot IDs must describe retained source facts, independently of retrieval
+        time. A changed snapshot is another immutable version, not an edited row.
+        """
+        if (
+            event.session_id != session.session_id
+            or event.native_session_id != session.native_session_id
+            or event.source != session.source
+            or event.run_id is not None
+        ):
+            raise StorageError("snapshot/session identity mismatch")
+        with self.database.connection() as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            previous_session = connection.execute(
+                "SELECT data FROM sessions WHERE session_id = ?",
+                (str(session.session_id),),
+            ).fetchone()
+            if previous_session is not None and (
+                Session.model_validate_json(previous_session["data"]) != session
+            ):
+                raise StorageError("snapshot conflicts with session identity")
+            previous = connection.execute(
+                "SELECT data FROM events WHERE stable_key = ? OR event_id = ?",
+                (event.stable_key, str(event.event_id)),
+            ).fetchall()
+            if previous:
+                if len(previous) != 1 or previous_session is None:
+                    raise StorageError("snapshot identity conflict")
+                stored = Event.model_validate_json(previous[0]["data"])
+                excluded = {"observed_at", "ingested_at"}
+                if stored.model_dump(exclude=excluded) != event.model_dump(
+                    exclude=excluded
+                ):
+                    raise StorageError("snapshot retained-data conflict")
+                return False, False
+            created = previous_session is None
+            if created:
+                connection.execute(
+                    "INSERT INTO sessions(session_id, source, native_session_id, data) "
+                    "VALUES (?, ?, ?, ?)",
+                    (
+                        str(session.session_id),
+                        session.source,
+                        session.native_session_id,
+                        self._json(session),
+                    ),
+                )
+            connection.execute(
+                "INSERT INTO events(event_id, stable_key, session_id, run_id, "
+                "observed_at, ingested_at, data) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (
+                    str(event.event_id),
+                    event.stable_key,
+                    str(event.session_id),
+                    None,
+                    event.observed_at.isoformat(),
+                    event.ingested_at.isoformat(),
+                    self._json(event),
+                ),
+            )
+            return created, True
+
     def create_run(self, run: Run) -> Run:
         with self.database.connection() as connection:
             self._require(connection, "tasks", "task_id", run.task_id)

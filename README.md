@@ -49,6 +49,49 @@ records can be checked, imported, and exported through `model-learner records`.
 Use `model-learner records --help` for the exact commands. Measurements that are
 not supplied remain `null`; they are not converted to zero.
 
+## Selected conversation import
+
+The read-only standalone importer supports the validated Codex-backed Codex
+Desktop and Work Local history formats. Select an exact conversation UUID and
+declare its product source and stable local machine identity:
+
+```bash
+model-learner init
+model-learner import conversation <conversation-uuid> \
+  --product-source codex_desktop --machine-id <local-machine-id>
+# Work Local: --product-source chatgpt_work_local
+model-learner sessions
+model-learner session show <returned-local-session-id>
+```
+
+The installed `codex` executable must be on PATH; alternatively provide
+`--codex-executable /absolute/path/to/codex`. The importer launches a temporary
+`codex app-server --listen stdio://` process and sends only the documented
+handshake, exact-ID metadata read and bounded turn pagination. It never resumes,
+executes, modifies or scans conversations.
+
+Defaults omit turn items server-side and store only metadata in the workspace's
+Git-ignored `.model-learner/` database. The metadata endpoint can still return a
+preview, which is discarded in memory. `--read-text` explicitly retrieves full
+items, extracts user/assistant text in memory, and persists only message metadata.
+Full view has **no server-side filter for reasoning, attachments or tool outputs**;
+those bodies are discarded locally after retrieval. `--retain-text` is a separate
+local storage opt-in that implies a full text read and retains only message text
+parts, never raw responses or other item bodies. CLI import reports never print
+message text. Inspecting an opted-in snapshot with `session show` or `records show`
+does display its retained text.
+
+Each import is limited to ten one-turn pages and 64 KiB of response bytes/text.
+Snapshots preserve source page/item order, native identities, timestamps and
+missingness. Reimporting identical retained facts creates no duplicates; changed
+retained facts or retention/view choices append a distinct immutable snapshot.
+Opaque pagination tokens stay in memory. Partial bounded history is marked;
+exhausted pagination establishes only the exposed history, not lossless original
+coverage. Message timestamps, historical configurations, usage, cost and
+verification remain unknown. Conversations never automatically create task links
+or learning labels. Other backends and source formats fail closed. See the
+[feasibility and actual validation report](docs/CONVERSATION_INGESTION_FEASIBILITY.md).
+
 ## Codex observation
 
 Capture the documented `codex exec --json` stream through a metadata-only

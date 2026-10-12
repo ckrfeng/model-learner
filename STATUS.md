@@ -1,21 +1,22 @@
 # Model Learner status
 
 Current work: Codex Desktop and ChatGPT Work Local selected-history feasibility
-assessment and separately approved controlled agent reads complete. Each selected
-test returned three turns; both report Codex backend kind/local host. Supported
-standalone proxy probing found an absent default endpoint, so independent Python
-selected-history access remains unvalidated. No Desktop/Work history adapter is
-implemented; stopped after validation/reporting.
+assessment, approved agent reads and independent Python stdio experiment complete.
+Both selected tests expose three turn records through a temporary Codex App Server;
+IDs and turn times match the prior agent reads. Standalone metadata access is
+validated without AI retrieval; message items were excluded, so complete text
+ingestion remains unvalidated. No Desktop/Work history adapter is implemented;
+stopped after the controlled experiment/report.
 The first longitudinal task-state increment remains implemented and evaluated.
 Multi-checkpoint projections distinguish observed evidence, deterministic changes,
 explicit author hypotheses and unknowns. Seven synthetic trajectories exercise
 the implementation; no real longitudinal predictive improvement is established.
 The earlier 40-query human-review batch still has no genuine human labels or
 accepted reviews. Real coding-agent benchmark execution remains disabled.
-Last requested work: validate the two exact approved test conversations through
-supported read-only interfaces and distinguish agent-mediated from standalone
-Python access. Agent reads and the report are complete; independent selected-history
-access is not established. The earlier
+Last requested work: validate independent Python access to the two exact approved
+test conversations using a temporary documented stdio App Server subprocess.
+Selected thread metadata/preview and bounded turn metadata reads succeeded;
+message-body retrieval remains untested under output/attachment exclusions. The earlier
 longitudinal increment remains complete; its proposed data pilot is not started.
 Updated: 2026-10-11
 
@@ -1953,6 +1954,82 @@ is the selected reader responses and the failed ordinary Python proxy probe,
 not repository test success. No new tests, dependency changes, commit, push,
 merge or publication; the pre-existing `.DS_Store` change was preserved.
 
+## Independent Python stdio history experiment — 2026-10-11
+
+The user explicitly approved temporary App Server startup and exact-ID reads for
+the same two non-sensitive tests before any server process was launched. Read the
+official App Server documentation, current status, relevant M3 plan boundary and
+previously generated public parameter schemas. No runtime/package was installed.
+
+Exact child command used the already installed executable:
+
+```text
+/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex app-server --listen stdio://
+```
+
+An ordinary **Python 3.9.6** standard-library client used subprocess stdin/stdout
+JSONL, `initialize`/`initialized` with experimental pagination opt-in, then both
+exact-ID `thread/read(includeTurns=false)` requests before any turn requests.
+The protocol allowlist contained only those handshake methods and
+`thread/turns/list`. No frontier-model retrieval or inference operation was sent.
+
+| Actual check | Codex CSV-parser test | Work Local scheduling test |
+| --- | --- | --- |
+| Selected metadata access | Success; returned ID equals selected ID | Success; returned ID equals selected ID |
+| Returned originator | `Codex Desktop` | `codex_work_desktop` |
+| Other source/history fields | `source=vscode`, `threadSource=user`, `historyMode=paginated`, status `notLoaded` | Same |
+| Server-limited turns | `limit=1`, `sortDirection=desc`, `itemsView=notLoaded`; three unique turns after cursor expansion | Same |
+| Comparison with agent reader | Latest turn ID and all three start/completion/duration tuples match | Same |
+| End/order | Final cursor null; reversing pages yields increasing start times | Same |
+| Model metadata | `gpt-6.1-sol`, provider `openai`, effort `high`; current/latest thread settings only | Same |
+| Returned/excluded content | Thread preview received privately; all turn items omitted server-side | Same |
+| Measurements | Thread/turn times present; token/usage fields absent | Same |
+| Response bytes in expanded run | 2,705 | 2,725 |
+
+First successful run retrieved metadata plus one turn scaffold per source. The
+second successful bounded run expanded to three turn scaffolds each, always one
+turn per page. Cumulative response accounting across both runs: **4,390 bytes**
+Codex / **4,430 bytes** Work, below 64 KiB each and only three unique turns each.
+All returned items arrays were empty with `itemsView=notLoaded`. No attachment,
+tool-output, message-item body or full-history request was issued. Nonempty thread
+preview establishes limited text availability, not complete original messages.
+No explicit truncation field; source/preview completeness and fidelity remain
+unknown. No per-turn historical model attribution or token/cost recovery claim.
+
+The outer execution sandbox blocked startup before handshake (`Operation not
+permitted`; two startup/diagnostic attempts exited 1 without conversation RPC).
+Scoped execution-sandbox escalation allowed the same approved protocol test.
+Both successful temporary servers terminated on stdin EOF with exit **0**.
+This corrects the earlier endpoint limit: an absent daemon proxy socket does not
+prevent independent stdio access. No internal socket discovery was performed.
+
+Private responses stayed inside Python memory; only sanitized coverage/error
+facts reached terminal output/model context. No private response/log/transcript
+file, native conversation ID or working/history path was added to Git or report
+fixtures. The one-off probe outside Git was removed. No private database,
+credential or undocumented rollout inspected; no unrelated conversation listed;
+no resume/start, model turn, tool execution, mutation method or application setting
+change. Read-only RPC behavior was validated, not zero incidental server startup
+filesystem writes. Native path fields were not followed.
+
+The updated feasibility report now justifies a narrow selected-ID standalone
+**metadata/turn-record adapter** over this temporary stdio transport for these
+samples. It preserves separate product provenance/originator and unknown historical
+fields; it creates no automatic task/run links or verified outcomes. A standalone
+message-text adapter still needs a supported selective-content boundary or a
+separately approved scope: the inspected pagination parameters lack attachment/
+tool-output filters, so summary/full item retrieval was not tested. Evidence for
+this Codex-backed Work record does not establish every Work backend/storage path.
+
+No adapter was implemented. Stop after this experiment/report; no next milestone,
+new model, routing or Governor work is authorized. Documentation-only checks:
+`uv run --no-sync ruff check .` passed; `uv run --no-sync ruff format --check .`
+passed (156 files formatted); `git diff --check` passed. No production Python
+behavior changed, so pytest was not repeated and no new test fixture was added.
+The actual integration evidence is the independent subprocess result and its
+bounded identity/time comparison, not repository regression tests. The pre-existing
+`.DS_Store` change was preserved. No commit, push, merge or publication.
+
 ## Known issues / blockers
 
 - Real benchmark collection is fail-closed pending a supported, validated
@@ -1983,8 +2060,9 @@ merge or publication; the pre-existing `.DS_Store` change was preserved.
 - The real-agent importer supports explicitly selected Codex CLI streams only;
   existing desktop sessions and passive desktop capture remain unsupported.
   Bounded selected agent-mediated reads of both Desktop and Work Local tests are
-  now validated. Standalone selected-history ingestion and complete source coverage
-  remain unvalidated; no desktop history adapter is implemented.
+  now validated. Independent stdio selected thread/turn metadata access is also
+  validated. Standalone message-item ingestion and complete source coverage remain
+  unvalidated; no desktop history adapter is implemented.
   The requested increment now adds a narrow read-only file digest verifier and
   evidence-linked real task-observation builder plus bound JUnit report verification.
   Arbitrary test command execution and whole-repository artifact verification remain
@@ -2017,12 +2095,12 @@ merge or publication; the pre-existing `.DS_Store` change was preserved.
 
 ## Next recommended increment (not started)
 
-- Latest request: controlled selected-history validation for Codex Desktop and
-  Work Local is complete after separate approvals. Three turns per selected test
-  returned through the agent reader; ordinary Python selected-history access and
-  automatic ingestion remain unvalidated. No adapter implementation is started or
-  authorized. Any further endpoint/content-boundary validation needs its own
-  explicit scope; earlier pilot recommendations below remain historical options.
+- Latest request: independent Python stdio validation is complete after explicit
+  approval. Both exact selections expose metadata/preview and three turn scaffolds
+  through supported App Server operations. A standalone metadata adapter is
+  justified but unimplemented; message-text ingestion requires further content-
+  boundary validation/approval. No adapter implementation or next milestone is
+  authorized; earlier pilot recommendations below remain historical options.
 
 - First longitudinal state reconstruction and synthetic A/B/C rule evaluation are
   complete. Next: an explicitly authorized manual prospective sanitized-summary

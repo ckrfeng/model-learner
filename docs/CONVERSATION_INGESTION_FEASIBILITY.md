@@ -1,17 +1,20 @@
 # Selected conversation ingestion feasibility
 
-Updated 2026-10-11 after separately approved selected-conversation reads. The
+Updated 2026-10-11 after approved agent and independent stdio experiments. The
 desktop's supported agent-mediated reader successfully returned three turns each
 for the Codex CSV-parser test and ChatGPT Work Local scheduling-algorithms test.
 Both responses report `kind: codex` and `hostId: local`; product surfaces remain
 user-declared and transcript storage remains unknown. No adapter was implemented.
 
-An ordinary Python process could invoke the installed supported app-server proxy,
-but its default endpoint was absent. Independent programmatic access to either
-selected history is therefore **unvalidated**, not impossible. The agent reader's
-success does not establish a transport callable by Model Learner's Python CLI.
-Automatic ingestion without an agent cannot yet be promised. The controlled-read
-coverage below supersedes the earlier untested reader observations.
+Independent Python access is now **validated for selected thread metadata,
+preview text and paginated turn metadata in both tests**, using a temporary
+`codex app-server --listen stdio://` subprocess and documented handshake/read
+operations. No model invocation or running desktop daemon was needed. Message
+item bodies were excluded to honor attachment/tool-output restrictions, so full
+text ingestion remains unvalidated under that boundary. A narrow standalone
+metadata adapter is justified for these samples; no adapter was implemented.
+The earlier proxy failure concerned only an absent default daemon endpoint.
+The standalone findings below supersede earlier endpoint-based limitations.
 
 ## Source and storage boundaries
 
@@ -64,8 +67,9 @@ Two supported candidates exist:
 Public app-server is a documented protocol with read-only operations, within a
 larger control API and experimental tooling. It is not a read-only server as a
 whole. A future client needs an operation allowlist and must refuse execution,
-resume, mutation and approval requests. Reachability of this desktop's actual
-history through that protocol remains unestablished.
+resume, mutation and approval requests. Independent stdio reachability of the
+selected CSV-parser thread and its three turn records is now validated. Complete
+message-item coverage and historical measurements are separate, unproven claims.
 
 ### Installed Codex schema evidence
 
@@ -75,7 +79,7 @@ schema definitions, not returned private data:
 
 | Question | Installed schema evidence | Limit |
 | --- | --- | --- |
-| Selected conversation | `ThreadReadParams` requires `threadId`; optional `includeTurns` | Selected agent read succeeded; no selected app-server RPC tested |
+| Selected conversation | `ThreadReadParams` requires `threadId`; optional `includeTurns` | Agent read and independent stdio metadata/paginated-turn reads succeeded for both tests |
 | Messages | `ThreadItem` includes `userMessage.content`, `agentMessage.text`, phase and IDs | History may be partial; attachments need separate handling |
 | Tool records | Command, file change, MCP, dynamic-tool and collaboration item variants expose IDs and statuses; some expose exits/durations | Persisted item state does not prove the original complete lifecycle event stream |
 | Model metadata | Thread provider, nullable model and reasoning effort; CLI version | Model/effort descriptions explicitly mean current or latest persisted configuration, not per-turn execution telemetry |
@@ -108,8 +112,8 @@ verbatim fidelity, complete original events, model attribution or usage.
 
 | Question | Work Local conclusion |
 | --- | --- |
-| Documented read-only access | Built-in desktop reader is available to this agent; public standalone Work history API not established |
-| Selected existing conversations | Exact-ID agent read succeeded for the scheduling test; reader reports Codex kind/local host |
+| Documented read-only access | Agent reader succeeded; independent public App Server stdio metadata/turn reads succeeded for this Codex-backed Work test |
+| Selected existing conversations | Exact-ID agent and standalone reads succeeded; App Server reports originator `codex_work_desktop` |
 | Messages | Three user/assistant text pairs returned as message items; verbatim fidelity and complete source coverage are not independently established |
 | Tool events | Optional truncated outputs are described; native calls, results and lifecycle provenance are not guaranteed |
 | Model metadata | No historical model/settings guarantee in the reader contract; a Codex-backed source may expose thread settings, subject to the same attribution limits |
@@ -118,11 +122,10 @@ verbatim fidelity, complete original events, model attribution or usage.
 | Local or remote | Local-only history is documented as a category; a ChatGPT-backed chat with local execution must not be classified from execution location alone |
 | Account export | No evidence that export is mandatory, or that it includes local-only Work history and tool events; export coverage and account eligibility are untested |
 
-A Codex-backed Work Local sample might be readable through app-server, but that
-is a hypothesis requiring exact-ID validation and source identification. Do not
-apply the Codex adapter to all Work chats. A ChatGPT-backed source currently has
-only the agent-mediated reader candidate in this assessment, with no established
-standalone ingestion transport.
+The selected Codex-backed Work Local sample is now independently readable through
+App Server for metadata and turn records. This is sample-specific evidence; do not
+apply it to all Work chats or infer shared storage from the mode selector. A
+ChatGPT-backed source still has no established standalone history transport here.
 
 OpenAI's Conversations API stores conversation objects created for Responses
 API workflows. Its documentation does not establish access to existing desktop
@@ -163,8 +166,8 @@ working-directory paths or transcripts. Retrieved messages were treated as data.
 | Model/token metadata | No model, provider, reasoning-effort, token counters or cost fields returned | Same fields absent |
 | Truncation/completeness | Final `hasMore=false`, `nextCursor=null`; longest returned message 460 characters, below cap; no explicit content-truncation flag | Final `hasMore=false`, `nextCursor=null`; longest returned message 159 characters, below cap; no explicit content-truncation flag |
 | Retention accounting | 5,396 cumulative UTF-8 serialized response bytes across retained pages, below 64 KiB | 4,415 cumulative UTF-8 serialized response bytes across retained pages, below 64 KiB |
-| Standalone Python selected access | Not established; supported proxy child failed at absent default endpoint before any conversation RPC | Same endpoint limit; Codex backend classification makes app-server a candidate, not a proven Work-history transport |
-| Automatic ingestion/integration | No autonomous live-history adapter justified yet; selected-snapshot projection possible only through current agent path | Same limitation; preserve Work product declaration independently of Codex backend |
+| Standalone Python selected access | Later independent stdio experiment below succeeds for selected thread/turn metadata; message bodies untested | Same later success for this Codex-backed Work sample |
+| Automatic ingestion/integration | Later stdio evidence justifies narrow metadata ingestion; full text ingestion needs further validation | Same scope; preserve Work product declaration independently of Codex backend |
 
 The first Work one-turn request reached the tool wrapper, but its byte-counting
 helper failed before retaining/displaying the response. Retried that same initial
@@ -183,6 +186,9 @@ The reader's returned working directories describe project context, not transcri
 storage; no transcript-storage location or cloud-copy behavior was established.
 
 ### Controlled validation follow-up: transport checks
+
+This earlier stage tested a proxy to an existing daemon, not an independent stdio
+server. The later approved stdio result below supersedes its selected-access limit.
 
 The user supplied exact deep links for the Work Local scheduling-algorithms test
 and Codex CSV-parser test. Those selections are user-declared sources; the later
@@ -214,13 +220,96 @@ but the inspected request schemas have no tool-output/attachment suppression fla
 so protocol availability alone does not meet this validation's content limits.
 [App Server transports and stored reads](https://learn.chatgpt.com/docs/app-server).
 
-No daemon/server was started, alternate socket or storage root guessed, private
-database/configuration/authentication secret inspected, or network traffic
+At that stage no daemon/server was started, alternate socket or storage root
+guessed, private database/configuration/authentication secret inspected, or network traffic
 intercepted. No supported standalone ChatGPT-backed Work history transport has
 been established. A missing default endpoint does not prove other supported
 endpoints cannot exist. Automatic selected-history ingestion cannot yet be promised
 for either source; an agent snapshot handoff would still require an agent and does
 not fulfill the requested independent local application requirement.
+
+### Approved independent Python stdio experiment
+
+The user explicitly approved launching a bounded temporary server and reading
+these two exact selections, with private content excluded from terminal output,
+reports, Git and model context. Used existing **Python 3.9.6 standard library** and
+the installed **Codex CLI 0.162.0-alpha.17.2**, without another runtime or package.
+Exact child command:
+
+```text
+/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex app-server --listen stdio://
+```
+
+Transport was newline-delimited JSON over Python-created subprocess stdin/stdout
+pipes. Sent `initialize` with client metadata and `experimentalApi=true`, waited
+for its successful response, then sent `initialized`. No authentication secret
+was inspected. Sent **both** exact-ID `thread/read(includeTurns=false)` requests
+before pagination. Metadata responses contain preview text even though turns
+are excluded; Python received that privately and emitted only coverage facts.
+
+Next sent `thread/turns/list(limit=1, sortDirection=desc, itemsView=notLoaded)` per
+selected ID. Each initial page had one turn. A second bounded run followed only
+those selected turn cursors, still one turn per request, until three unique turns
+and null continuation cursors per conversation. `itemsView=notLoaded` omitted
+all items server-side. Installed request schemas expose no message-type,
+attachment or tool-output filter, so `summary`, `full` and `thread/items/list`
+were not used. Client-side filtering would not prevent initial retrieval.
+[Documented stdio, handshake and stored-history pagination](https://learn.chatgpt.com/docs/app-server).
+
+| Validation | Codex CSV-parser test | Work Local scheduling test |
+| --- | --- | --- |
+| Independent thread read | Success; returned ID equals approved ID | Success; returned ID equals approved ID |
+| Backend/source fields | `originator="Codex Desktop"`, `source="vscode"`, `threadSource="user"` | `originator="codex_work_desktop"`, `source="vscode"`, `threadSource="user"` |
+| History/runtime | `historyMode="paginated"`, status `notLoaded`, metadata read has empty turns | Same |
+| Turn availability | Three unique persisted turn records, one per page | Same |
+| Comparison to agent reader | Latest turn ID and all three start/completion/duration tuples match | Same |
+| Order/completeness | Descending pagination; reversing pages produces increasing start times; final cursor null | Same |
+| Text availability | Nonempty thread preview received privately; message items intentionally omitted | Same |
+| Model fields | `model="gpt-6.1-sol"`, `modelProvider="openai"`, `reasoningEffort="high"` | Same |
+| Time/identity fields | Thread creation/update/recency, fields for sessionId/path/projectId; turn ID/rootTurnId/status/error/start/completion/duration | Same |
+| Missing/excluded fields | No thread/turn token or usage fields; no message items, message timestamps or tool events fetched | Same |
+| Truncation | No explicit turn-truncation field; end of exposed pagination only; preview truncation/fidelity unknown | Same |
+| Expanded-run response accounting | 2,705 UTF-8 bytes total, including metadata response and three turn pages | 2,725 UTF-8 bytes total |
+
+Across both successful stdio runs, cumulative response accounting was 4,390 bytes
+for Codex and 4,430 bytes for Work, well below 64 KiB each; repeated initial pages
+still covered only three unique turns. One-turn pages are server-limited; ten-turn
+and retained-text ceilings were enforced by the temporary client. No raw response
+files were produced. The one-off probe lived outside Git and was removed after
+execution; it is not a Model Learner adapter or retained test fixture.
+
+The `source=vscode` value is a returned runtime/source classification, not evidence
+that the user opened VS Code. Preserve it alongside product originator and the
+earlier agent reader's `kind=codex`/`hostId=local`; these fields have different
+semantics. This Work test demonstrates independent access to one Codex-backed
+Work record, not all Work records or every backend. API-returned native paths
+were not opened or used to inspect storage. No history directory was guessed.
+
+Thread model/effort fields describe current/latest persisted settings under the
+public schema; they do not attribute each historical turn to that configuration.
+No token/cost measurements were recovered; opaque extra/environment fields were
+not interpreted, and optional field presence does not prove populated values.
+The null final cursor exhausts exposed turn pagination but does not establish
+complete original messages, branches,
+hidden events, tool activity, model changes or usage. Message items were omitted
+deliberately, not absent from the original conversation. Preview text alone is
+not a full conversation or a validated text-ingestion projection.
+
+Read-only behavior was checked through the sent-method allowlist: only
+`initialize`, `initialized`, `thread/read` and `thread/turns/list`; unexpected
+server-initiated client requests would stop the probe. There was no thread listing,
+resume/start, turn execution, mutation, tool execution, private database/rollout
+parsing, credential inspection or socket discovery. The server returned
+`notLoaded` status after metadata reads. No model inference operation was sent.
+This is an RPC behavior check, not an audit proving the server performs zero
+incidental filesystem writes during startup.
+
+The enclosing execution sandbox initially blocked server initialization with an
+`Operation not permitted` diagnostic; a diagnostic-only retry also exited 1 before
+any conversation RPC. The same approved supported stdio experiment then ran with
+scoped execution-sandbox escalation. Both successful server processes shut down
+on stdin EOF and exited **0**, with termination confirmed. No persistent daemon,
+new runtime, application setting change or unsupported access method was added.
 
 ### Earlier feasibility checks
 
@@ -238,9 +327,10 @@ history connectivity. The failed daemon query establishes an absent default
 endpoint, not the absence of every supported desktop transport.
 
 The earlier feasibility stage tested no real historical payload or pagination.
-The approved follow-up above now validates bounded selected agent reads; archive
-access, complete source coverage, usage/model attribution and standalone selected
-history remain untested. Existing CLI smoke evidence establishes CLI capture only.
+The approved follow-ups above now validate bounded selected agent reads and
+independent selected metadata/turn reads. Archive access, complete source coverage,
+historical usage/model attribution and standalone message bodies remain untested.
+Existing CLI smoke evidence establishes CLI capture only.
 Repository regression results are recorded in `STATUS.md`; they are not Desktop
 or Work integration validation.
 
@@ -366,8 +456,9 @@ returned content enters model context/tool history, and obtain explicit approval
 for that conversation. Any unresolved backend evidence must remain unknown.
 
 No available discovery method is established to satisfy all current metadata-only
-limits, so no broader discovery approval is assumed or requested. Standalone Python
-access to the desktop reader and automatic local ingestion remain unproven.
+limits, so no broader discovery approval is assumed or requested. The later
+independent stdio experiment validates selected metadata ingestion without making
+the agent-only desktop reader callable by Python.
 
 ### Approved reading procedure
 
@@ -395,9 +486,11 @@ For each approved sample:
    attachments require their own inclusion in the approval. Use reviewed sanitized
    fixtures in Git; metadata IDs, tool names and paths can also be sensitive.
 
-This validation checks reader access and usable text. A separate standalone
-app-server test requires an existing supported endpoint and the selected exact ID;
-do not start a daemon, search private sockets or enable remote control to obtain it.
+This validation checks reader access and usable text. A standalone app-server
+test requires separate explicit process/read approval and the selected exact ID.
+The user approved the independent temporary stdio subprocess experiment above;
+an existing daemon socket is not required. Do not start a persistent daemon,
+search private sockets or enable remote control to obtain access.
 Read-only source access can still send returned conversation content into this
 assistant's context and tool-response history. Local embeddings afterward do not
 make that earlier access device-only. Do not echo retrieved payloads into additional
@@ -405,8 +498,9 @@ logs or external exports.
 
 ## Smallest viable adapter and tests
 
-After controlled validation, implement one narrow importer for the supported
-selected snapshot actually obtained. Keep separate Codex and Work source mappers
+Only if separately authorized after controlled validation, implement one narrow
+importer for the supported selected snapshot actually obtained. Keep separate
+Codex and Work source mappers
 over a common envelope; share validation/privacy logic only where contracts agree.
 An agent-mediated snapshot handoff can use an explicit local file. A standalone
 live reader requires an independently established callable transport.
@@ -434,15 +528,21 @@ projection over message items, page order, native IDs, turn times and missingnes
 That handoff still requires an agent and does not fulfill the user's independent
 local-application requirement; no adapter is implemented or authorized here.
 
-For each tested source, the smallest independent integration candidate is a
-bounded Python client over a user-provided supported existing App Server endpoint,
-restricted to initialization and exact-ID stored-read/pagination operations. It
-first needs selected-ID reachability and product/backend mapping validation, plus
-a way to obey output/attachment exclusions; client-side filtering cannot be
-represented as server-side suppression. Preserve the two product surfaces as
-separate provenance even if both report Codex backend. Do not guess a storage
-root or bypass the missing endpoint through private databases. Until those
-conditions are established, automatic local ingestion remains unvalidated for
-both sources. Complete historical event/measurement recovery, source-neutral
-execution projection and prospective-learning eligibility also remain unproven.
-Stop after this validation report; no adapter, new model, routing or Governor.
+For both tested sources, a **standalone metadata/turn-record adapter is now
+justified**, using a bounded temporary stdio App Server subprocess, the installed
+CLI and standard-library Python. Restrict its protocol methods to the validated
+handshake and exact-ID stored metadata/turn pagination. Preserve source originator,
+product declaration, native IDs, page direction, time units, current-setting scope
+and unknown usage. Omit preview text by default and use `itemsView=notLoaded` for
+the verified metadata path; nothing in this experiment creates task/run links,
+outcomes or eligible learning rows. Prefer an explicit selected-ID import over
+history discovery. No implementation is authorized in this turn.
+
+A standalone **message-text adapter** still needs validation of a supported way
+to exclude attachments/tool outputs, or a separately approved content scope.
+`includeTurns=true` is unbounded and full/summary item retrieval was not tested.
+Retain Codex and Work product provenance independently; do not extend the Work
+sample's Codex backend evidence to ChatGPT-backed Work histories. Complete
+historical event/measurement recovery, source-neutral execution projection and
+prospective-learning eligibility remain unproven. Stop after this controlled
+experiment/report; no adapter, new model, routing or Governor.

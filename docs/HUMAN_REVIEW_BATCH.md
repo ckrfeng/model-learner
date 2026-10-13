@@ -113,7 +113,7 @@ command was **already executed**, so start with inspection of `collection-000.js
 It is shown for provenance, not as a command to rerun over an existing output:
 
 ```sh
-cd /Users/carterfeng/Documents/Code/model-learner
+cd /absolute/path/to/model-learner
 export PATH="$PWD/.tools/bin:$PATH"
 export UV_CACHE_DIR="$PWD/.uv-cache"
 BATCH="$PWD/.model-learner/annotations/semantic-human-review-v1"

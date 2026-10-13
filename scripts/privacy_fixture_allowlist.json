@@ -1,0 +1,19 @@
+{
+  "tests/fixtures/codex/exec_capture.jsonl": "fd203c78497980053f751b872353e802e303e8e38800c5cdd303f0c39b87d08b",
+  "tests/fixtures/codex/real_smoke_capture.jsonl": "98c041f23b81b689923cdf3dbde7da75348d1e58cfcc7490c23d3ffab8397981",
+  "tests/fixtures/conversation_state/demo.json": "f6f3655685017dc54b384bd1b073605644fde924e7e06e30e70b2e1b0011392c",
+  "tests/fixtures/conversation_state/evaluation.json": "6da820d344a768db4240f02bd0b0a383568ac9ea6c7810547f7f5b54fd10556f",
+  "tests/fixtures/conversation_state/frozen_v1/evaluation.json": "6da820d344a768db4240f02bd0b0a383568ac9ea6c7810547f7f5b54fd10556f",
+  "tests/fixtures/conversation_state/holdout_v1.json": "0d6a7d4fbd7ca9e4aa220af0531622131bd8e0b98badcfc663c56d864e6bc524",
+  "tests/fixtures/conversation_state/holdout_v1_baseline.json": "b009f7811cbe2465d9127baf79cc9c24e2a64e23858e5d2a4dd1db41dd9472e3",
+  "tests/fixtures/conversation_state/holdout_v1_baseline_audited.json": "57634bf52ca3fa3b92558815c898633cea4f8fe8ca11d074a8cb12d67231c826",
+  "tests/fixtures/conversation_state/holdout_v1_revised.json": "87c3043003f09373917b871a53f0d473b039e3160da96a252f7e7a3c0d43b5cc",
+  "tests/fixtures/conversation_state/post_holdout_v1.json": "306bd487d0e57af6860f39451c3164a414b66a100cf8dcafd716acc1f1f9991e",
+  "tests/fixtures/conversation_state/post_holdout_v1_baseline.json": "39b63cfa4ec8d76e313337f0be979e280e74f837f0d08a6f571bd7b5ecc160a3",
+  "tests/fixtures/conversation_state/post_holdout_v1_revised.json": "a9ad74e757ff15eb96e8f6a5e8aae897b2af238f8dd3d1b1d094df01948f6531",
+  "tests/fixtures/conversation_state/scope_reversal_holdout_v1.json": "ebd6d7ef3d6a28379c4cd0c0763f0b1afa502eeac2a38dd053ecd7cafa91a02f",
+  "tests/fixtures/conversation_state/scope_reversal_holdout_v1_baseline.json": "ab74649c0cf5689c73bb6ecdac6a0c85e3b2b6ce2f948cdeb74ca55d1704f5f9",
+  "tests/fixtures/conversation_state/scope_reversal_holdout_v1_revised.json": "e09b0ca48ce97ba2b98701d042ec8de10f9ef49627a97db019a735e1169652fb",
+  "tests/fixtures/conversations/history.json": "69c69cd72794a11bdd8eb59ba803eb34822661bee767b4596d7e6d0fcdf40e3f",
+  "tests/fixtures/execution/controlled_capture.jsonl": "1165d3d54b65c0cc3b7f84c1749d6c8f6078aeb5898176392e751c6c973231a7"
+}

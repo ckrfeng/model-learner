@@ -1,0 +1,3 @@
+#!/bin/sh
+# Git runs pre-commit at the worktree root. Never fall through after a failure.
+exec python3 scripts/privacy_guard.py --staged

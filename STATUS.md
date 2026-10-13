@@ -1,6 +1,22 @@
 # Model Learner status
 
-Current work: authorized comparison of frozen predictions with independent
+Current work: bounded local CPU semantic-extraction comparison complete.
+Qwen2.5-1.5B-Instruct Q4_K_M was downloaded with explicit approval and evaluated
+with a frozen zero-shot prompt/schema on 15 consumed diagnostic and 16 fresh
+prediction-blind simulated checkpoints. It did not improve extraction: holdout
+positive-obligation alignment is 3/25 precision and 3/31 recall, versus frozen
+rules 10/16 and 10/31, structural parsing 12/13 and 12/31. Known objectives are
+0/15, 0/15 and 4/15 respectively; all have 0/9 earlier-link recovery.
+Only 4/33 local-model holdout events satisfy message-local evidence validation;
+all 31 model generations are schema-valid, illustrating why JSON validity is
+insufficient. Median holdout inference is 4.98 seconds and peak runtime RSS about
+2.2 GiB. These are AI-reference agreement findings, not human-verified accuracy.
+No production analyzer, estimator, dependency or routing change. Sanitized report
+is docs/LOCAL_TASK_STATE_COMPARISON.md; private evidence and independent final
+review remain ignored. Stopped after comparison/recommendation. No further model
+or milestone started.
+
+Prior work: authorized comparison of frozen predictions with independent
 AI-authored Work annotations complete. All 15 exposed user messages and 150
 reference fields validated; inputs and analyzer hashes remain unchanged. Private
 report separates semantic agreement, missing/incomplete predictions, unsupported
@@ -55,7 +71,7 @@ accepted reviews. Real coding-agent benchmark execution remains disabled.
 Last requested work: diagnose coverage for the same four selected conversations,
 freeze separate evidence views, evaluate the unchanged analyzer, report limitations
 and recommend whether to human-adjudicate. No later milestone is started.
-Updated: 2026-10-12
+Updated: 2026-10-13
 
 ## Completed milestones
 
@@ -2986,3 +3002,165 @@ rerunning the analyzer. Artifact validation is the relevant test and invokes no
 analyzer code. Pre-existing working-tree changes are preserved. No commit, push,
 merge or publication. Stop after the private comparison report; no next experiment
 or milestone started.
+
+
+## Git repository privacy/security audit — 2026-10-13
+
+Completed the explicitly requested audit and safe preventive implementation only.
+Read the repository instructions/status/plan privacy sections, README, ignore rules
+and existing benchmark/observation privacy guidance. Initial state: main, 233
+tracked files, zero staged changes and one modified Finder metadata file. Locally
+available history: 28 refs, 25 reachable commits, 233 historical paths, 339 unique
+blobs, 343 path/blob/mode combinations and 7,312,448 bytes. Every reachable blob
+and commit metadata was locally scanned without emitting secret or transcript
+contents. No historical-only deleted paths, special index modes or LFS pointers.
+No high-confidence credentials or raw private transcripts confirmed. Broad
+conversation/credential-canary matches were resolved through fixture provenance
+and source context; existing real sanitized smoke metadata remains distinct from
+simulated fixtures.
+
+Two findings: tracked `.DS_Store` in two historical versions, and one identifying
+absolute home-path reference in public developer documentation. Both are reachable
+from cached origin history; live GitHub exposure/public visibility was not checked.
+Finder metadata is removed from the index only; its modified local bytes, size and
+mtime are unchanged. The public documentation prefix is now portable. Earlier
+copies remain in Git history. No rotation indicated by the detected findings;
+optional historical cleanup needs separate approval and human metadata-risk review.
+
+Delivered strengthened ignores, a standard-library actual-index/committed-tree
+privacy guard, 17 exact reviewed fixture digests, executable versioned pre-commit
+hook, push/PR GitHub CI workflow, permanent AGENTS policy, developer instructions
+and sanitized report in `docs/REPOSITORY_PRIVACY.md`. Local hooksPath is activated
+as `.githooks`; no global Git settings changed. Hook/CI failures propagate nonzero.
+Tests run only harmless synthetic fixtures in isolated temporary repositories.
+They demonstrate path/content rejection, force-add protection, real staged bytes,
+index policy provenance, safe source/docs/fixtures, nonleaking diagnostics, local
+preservation, unusual names, hook and committed-tree enforcement, fail-closed
+special/large/invalid entries, and replacement-object resistance.
+
+| Executed check | Actual result |
+| --- | --- |
+| Local object/history inventory and content scan | 25 commits / 339 unique blobs inspected; no detected credentials; two sanitized hygiene/privacy findings. No fetch or external scanning. |
+| `uv run --no-sync pytest` | 927 passed, 7 existing opt-in skips in 90.74 s. Collected before the final two guard regressions; final affected tests rerun below. Includes concurrently present unrelated experiment tests. |
+| Final `uv run --no-sync pytest tests/integration/test_privacy_guard.py -q` | 55 passed in 10.28 s. |
+| `uv run --no-sync ruff check .` | Passed; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Passed; 188 files already formatted. |
+| `git diff --check` and `git diff --cached --check` | Passed. |
+| Scoped proposed index and tree, isolated temporary index/object store | 238 entries inspected, zero rejections in both modes; no implementation files staged in the actual checkout. |
+| Actual index / hook state | Only `.DS_Store` deletion staged; hook active. Until reviewed policy is staged, guard rejects 17 existing session-format fixtures as expected. |
+| Independent security review and recheck | Reproduced replacement-ref bypass; fixed every Git reader and added index/tree regression. Proposed-tree source-field false positive corrected with structural JSON parsing and acceptance regression. Final independent 55-test/Ruff recheck passed; no remaining blockers. |
+
+Existing environment/cache used; no dependency installations or AI calls. The
+initial uv invocation could not access its default out-of-workspace cache; reran
+successfully with the existing repository-local `.uv-cache`. A non-UTF-8 filename
+creation test hit a local filesystem restriction; its final test exercises Git's
+index directly, without weakening filename handling. No private datasets deleted,
+private data staged for testing, fetch, history rewrite, commit, push, merge or
+GitHub setting changes. Unrelated concurrently appearing experiment files are
+preserved and excluded from the recommended security commit.
+
+Limits: heuristic detection cannot prove arbitrary prose/encoded secrets are
+public; exact fixture exemptions require provenance review. Local hooks can be
+bypassed; CI needs enforced GitHub rules and protected policy/workflow reviews.
+CI checks final trees, not earlier intermediate commits or external copies. Only
+locally reachable history and cached origin refs were audited; unfetched/deleted
+remote refs, forks/releases and unreachable/reflog-only objects remain uninspected.
+Stop after the audit; await approval before committing/pushing or any historical
+remediation. Next development experiment/milestone remains separately authorized.
+
+
+## Bounded local CPU semantic-extraction comparison — 2026-10-13
+
+Completed only the explicitly authorized experiment. Read AGENTS/status/master
+plan (especially observation/inference/verification boundaries), requested
+conversation-state/holdout/projection documentation and the prior private
+AI-reference comparison. The initial checkout's Finder modification and later
+concurrent repository privacy-audit changes were preserved; this task did not
+create their hook, CI, privacy guard or staged Finder deletion.
+
+Delivered isolated experimental code under `experiments/local_task_state/`, a
+compact evidence-bearing schema, one frozen zero-shot prompt, deterministic
+structural parsing and a read-only frozen-analyzer adapter. The common schema
+separates requested actions, obligations/constraints, choices/reversals, changes,
+reinstatement, reports, conditionals, earlier references and uncertainty. Exact
+original quotes, message identities, roles/turns and half-open source spans are
+validated. Targets stay nullable; no candidate link is promoted into accepted
+active scope or independent verification. Production source remains unchanged:
+analyzer SHA-256 `9f90a466de5e0bc0957277a453afb304491213fccb1ca517d7c1ca992978319b`.
+
+Investigated Qwen2.5-1.5B-Instruct, Qwen3-1.7B and SmolLM2-1.7B using primary
+model/runtime documentation. Explicit user approval permitted only the selected
+official Qwen2.5 Q4_K_M weights: 1,117,320,736 bytes, Apache-2.0, publisher hash
+verified. Local official llama.cpp b11580 ARM64 runtime uses CPU only (device
+none, zero GPU layers, no KV offload), six threads, one slot, no prompt cache,
+8,192-token context and bounded output. Runtime/weights remain ignored; project
+dependencies and lockfile unchanged. No cloud/paid inference or fine-tuning.
+
+The 15 original real user checkpoints remain consumed diagnostics. A separate
+prediction-blind AI author created four fresh simulated topics, 16 checkpoints,
+56 events and nine earlier links. Original and synthetic sources/references,
+prompt, schema, extractors, runtime configuration and initial scorer froze before
+prediction generation. An independent pre-output-inspection review required
+scorer integrity fixes (unique coverage, nonnegative indices, match reasons) and
+a request-only positive-obligation denominator amendment; original scorer/freeze
+were retained. Original-denominator sensitivities are disclosed. No prediction-
+informed prompt/rule tuning or reference relabeling. A distinct final reviewer
+checked all input receipts, validations, metrics and semantic matching ledgers;
+one B uncertainty match was corrected. Original private comparison/input bytes
+and the independent synthetic labels remain unchanged.
+
+| Audited finding | Frozen rules A | Structural B | Local model C |
+| --- | --- | --- | --- |
+| Fresh holdout objectives / known objectives | 1/16; 0/15 | 5/16; 4/15 | 1/16; 0/15 |
+| Holdout positive-obligation precision / recall | 10/16; 10/31 | 12/13; 12/31 | 3/25; 3/31 |
+| Holdout earlier-link recovery | 0/9 | 0/9 | 0/9 |
+| Holdout valid local event citations | 56/56 | 24/24 | 4/33 |
+| Holdout false failure / completion events | 3 / 0 | 0 / 0 | 0 / 0 |
+| Diagnostic objectives | 3/15 | 8/15 | 0/15 |
+| Diagnostic positive-obligation precision / recall | 23/30; 23/84 | 35/43; 35/84 | 2/30; 2/84 |
+| Diagnostic canonical scope-target recovery | 0/6 | 1/6 | 0/6 |
+| Diagnostic valid local event citations | 139/139 | 95/95 | 4/32 |
+
+These are common-schema, one-to-one AI-reference matches. Old post-hoc typed
+21/24 and 21/84/overlay32/84 measurements remain historical and unchanged; they
+are not directly interchangeable with the new scorer. Invalid C events remain
+in precision denominators, with raw outputs retained. They usually repeat earlier
+messages or confuse message ordinals with exact-quote occurrences. All C
+objectives are null. Zero false status claims coexists with missing all three
+holdout failures and both completion claims. Verification is null by contract at
+all 93 candidate checkpoints; this is a safeguard, not semantic accuracy evidence.
+
+C holdout median/p95 is 4.98/14.53 s (16 trials), diagnostics 9.07/14.17 s (15).
+Runtime lifetime peak RSS is 2,344,894,464 and 2,353,102,848 bytes respectively;
+fresh-process loads 7.11 and 1.55 s. macOS getrusage measures the sole runtime
+child separately from the driver (~1.1 GiB transient hashing peak). Every prompt
+cache count is zero, every generation ends normally, and none is truncated.
+Initial sandbox startup failed to bind loopback without producing predictions;
+scoped approved execution succeeded and both measured servers exited zero.
+Repository checks overlapped early holdout inference, so timings are observational
+rather than idle-machine benchmarks. Post-run runner/scorer hardening preserves
+the actually executed versions and changes no saved prediction.
+
+The sanitized report and design are `docs/LOCAL_TASK_STATE_COMPARISON.md` and
+`docs/LOCAL_TASK_STATE_EXPERIMENT.md`. All private source/diagnostic annotations,
+raw results, comparison ledgers, model/runtime, freeze/version receipts, resource
+logs and independent final review stay in ignored local storage. Public fixtures
+are independently authored simulated material, never copied private conversations.
+The new permanent privacy instructions were read when concurrent changes appeared.
+
+| Executed check | Actual result |
+| --- | --- |
+| Final `uv run --no-sync pytest` | 931 passed, 7 existing opt-in skips in 56.00 s; includes concurrent privacy-guard tests. |
+| Final focused experiment tests | 6 passed in 0.08 s after all reporting/hardening changes; independent reviewer rerun: 6 passed in 0.11 s. |
+| `uv run --no-sync ruff check .` | Passed; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Passed; 189 files already formatted. |
+| `git diff --check` | Passed. |
+| Private input/output/artifact validation | Passed: 93 identical-prefix receipts, every saved extraction/metric reproduced, 31 cache-zero stopped generations, prior comparison manifest and source/reference/prompt freezes unchanged. |
+| Independent semantic/code/methodology review | Accepted with denominator/context sensitivities, partial objective/reference-population limits, and one B uncertainty correction; no extractor/label tuning. |
+
+Recommendation: C fails the semantic improvement screen despite practical CPU
+resources. Keep production and trusted estimators unchanged. Structure/evidence
+parsing can support human review, but a local-inference/state-update hybrid remains
+unproven. Any later candidate/prompt experiment needs separate authorization and
+fresh prediction-blind, preferably human-adjudicated cases. No next milestone,
+model download, commit, push, merge, publication or outcome integration started.

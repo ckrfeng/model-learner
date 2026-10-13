@@ -431,6 +431,18 @@ To format code, run `uv run ruff format .`. Implementation lives under
 `src/model_learner/`; tests live under `tests/unit/` and `tests/integration/`.
 Develop one milestone at a time according to [AGENTS.md](AGENTS.md).
 
+Activate the repository-local privacy hook once per checkout:
+
+```sh
+git config --local core.hooksPath .githooks
+python3 scripts/privacy_guard.py --staged
+```
+
+Review staged changes and run the guard before every commit. The hook checks the
+actual index, including ignored files added with `-f`; CI checks the committed
+tree. Keep private messages, annotations, reports, databases and models under
+ignored `.model-learner/`. See [the privacy policy, limitations and audit](docs/REPOSITORY_PRIVACY.md).
+
 ### CPU conversation task-state demonstration
 
 Process explicitly opted-in text in memory and inspect an evidence-linked evolving

@@ -1,0 +1,976 @@
+{
+  "format": "local-task-state-reference/v1",
+  "authorship": "independent AI; not human verified",
+  "checkpoints": [
+    {
+      "conversation_id": "holdout_museum_audio",
+      "message_id": "museum_u1",
+      "objective": {
+        "summary": "Sketch a two-stop audio tour for the railway museum.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "museum_u1",
+          "quote": "Would you be able to sketch a two-stop audio tour for the small railway museum?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requested_action",
+          "summary": "Sketch a two-stop audio tour for the railway museum.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u1",
+            "quote": "Would you be able to sketch a two-stop audio tour for the small railway museum?",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Keep each stop under ninety seconds.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u1",
+            "quote": "Each stop should last under ninety seconds.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_museum_audio",
+      "message_id": "museum_u2",
+      "objective": {
+        "summary": "Sketch a two-stop audio tour for the railway museum.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "museum_u1",
+          "quote": "Would you be able to sketch a two-stop audio tour for the small railway museum?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requirement_added",
+          "summary": "Include one tactile prompt at each stop.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u2",
+            "quote": "Add one tactile prompt at each stop.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Do not assume permission to touch museum objects.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u2",
+            "quote": "Do not assume that visitors may touch the objects.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "decision",
+          "summary": "Use a calm, conversational voice.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u2",
+            "quote": "I have settled on a calm, conversational voice.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_museum_audio",
+      "message_id": "museum_u3",
+      "objective": {
+        "summary": "Sketch a two-stop audio tour for the railway museum.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "museum_u1",
+          "quote": "Would you be able to sketch a two-stop audio tour for the small railway museum?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requirement_removed",
+          "summary": "Remove the tactile prompt from each stop.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u3",
+            "quote": "Drop the tactile prompt at each stop",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "museum_u2",
+            "quote": "Add one tactile prompt at each stop.",
+            "occurrence": 0
+          },
+          "condition": null
+        },
+        {
+          "kind": "requirement_revised",
+          "summary": "Replace the per-stop ninety-second ceiling with a sixty-second ceiling.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u3",
+            "quote": "Replace the ninety-second ceiling with a sixty-second ceiling.",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "museum_u1",
+            "quote": "Each stop should last under ninety seconds.",
+            "occurrence": 0
+          },
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_museum_audio",
+      "message_id": "museum_u4",
+      "objective": {
+        "summary": "Plan recording the remaining, second audio-tour stop.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "museum_u4",
+          "quote": "Now help me plan the recording of that remaining stop.",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requirement_reinstated",
+          "summary": "Restore the tactile prompt at each stop.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u4",
+            "quote": "Put the tactile prompt back in",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "museum_u2",
+            "quote": "Add one tactile prompt at each stop.",
+            "occurrence": 0
+          },
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Phrase the tactile prompt as an invitation to imagine texture.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u4",
+            "quote": "phrase it as an invitation to imagine texture.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "reported_progress",
+          "summary": "The first stop has been recorded.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "museum_u4",
+            "quote": "I have recorded the first stop",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "reported_progress",
+          "summary": "The second stop remains unrecorded.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "museum_u4",
+            "quote": "the second has not been recorded yet.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requested_action",
+          "summary": "Plan recording the remaining, second stop.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u4",
+            "quote": "Now help me plan the recording of that remaining stop.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "earlier_reference",
+          "summary": "The tactile prompt refers to the prompt requested in the earlier museum list.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "museum_u4",
+            "quote": "By tactile prompt, I mean the one from my earlier list.",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "museum_u2",
+            "quote": "Add one tactile prompt at each stop.",
+            "occurrence": 0
+          },
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_seed_exchange",
+      "message_id": "seed_u1",
+      "objective": null,
+      "events": [
+        {
+          "kind": "uncertainty",
+          "summary": "The intended task is unknown because the user cannot remember it.",
+          "mode": "unknown",
+          "evidence": {
+            "message_id": "seed_u1",
+            "quote": "I cannot remember which task I wanted help with.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_seed_exchange",
+      "message_id": "seed_u2",
+      "objective": {
+        "summary": "Prepare a one-page seed exchange handout for Saturday.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "seed_u2",
+          "quote": "Could we get a one-page seed exchange handout ready for Saturday?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requested_action",
+          "summary": "Prepare a one-page seed exchange handout for Saturday.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u2",
+            "quote": "Could we get a one-page seed exchange handout ready for Saturday?",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "Use crop_name as a field name with beans as its sample value.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u2",
+            "quote": "crop_name: beans",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "Use harvest_year as a field name with 2024 as its sample value.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u2",
+            "quote": "harvest_year: 2024",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "Use printing_status as a field name with failed as its sample value.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u2",
+            "quote": "printing_status: failed",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "Use packing_status as a field name with completed as its sample value.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u2",
+            "quote": "packing_status: completed",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "decision",
+          "summary": "Order crop entries alphabetically.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u2",
+            "quote": "I choose alphabetical order for the crop entries.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Treat sample status words as examples rather than event reports.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u2",
+            "quote": "The sample status words are not reports about our event.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_seed_exchange",
+      "message_id": "seed_u3",
+      "objective": {
+        "summary": "Prepare a one-page seed exchange handout for Saturday.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "seed_u2",
+          "quote": "Could we get a one-page seed exchange handout ready for Saturday?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "conditional",
+          "summary": "Permission to email the handout to volunteers if the printer jams.",
+          "mode": "hypothetical",
+          "evidence": {
+            "message_id": "seed_u3",
+            "quote": "If the printer jams, you may email the handout to the volunteers",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": "The printer jams."
+        },
+        {
+          "kind": "constraint",
+          "summary": "Keep the handout as a print draft before the printer jams.",
+          "mode": "hypothetical",
+          "evidence": {
+            "message_id": "seed_u3",
+            "quote": "until then, keep it as a print draft.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": "The printer has not jammed."
+        },
+        {
+          "kind": "uncertainty",
+          "summary": "The user cannot identify whether the confusing label is the crop-name or harvest-year heading.",
+          "mode": "unknown",
+          "evidence": {
+            "message_id": "seed_u3",
+            "quote": "The label is confusing, but I cannot tell whether I mean the crop-name heading or the harvest-year heading.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Do not rename either heading until the user clarifies.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u3",
+            "quote": "Please do not rename either heading until I clarify.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": "Until the user clarifies which heading is meant."
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_seed_exchange",
+      "message_id": "seed_u4",
+      "objective": {
+        "summary": "Email the handout to volunteers now.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "seed_u4",
+          "quote": "Please email the handout to the volunteers now.",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "reported_failure",
+          "summary": "The print run failed because the printer jammed after three pages.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "seed_u4",
+            "quote": "The printer jammed after three pages, so the print run failed.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "completion_claim",
+          "summary": "All fifty packet labels are finished.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "seed_u4",
+            "quote": "All fifty packet labels are finished.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requested_action",
+          "summary": "Email the handout to volunteers now.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "seed_u4",
+            "quote": "Please email the handout to the volunteers now.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_tabletop_puzzle",
+      "message_id": "puzzle_u1",
+      "objective": {
+        "summary": "Draft three clue cards for the lighthouse tabletop puzzle.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "puzzle_u1",
+          "quote": "We need three clue cards for the lighthouse tabletop puzzle. Could you draft them?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requested_action",
+          "summary": "Draft three clue cards for the lighthouse tabletop puzzle.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u1",
+            "quote": "We need three clue cards for the lighthouse tabletop puzzle. Could you draft them?",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "Put a numbered hint on the reverse of every card.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u1",
+            "quote": "Put a numbered hint on the reverse of every card.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_tabletop_puzzle",
+      "message_id": "puzzle_u2",
+      "objective": {
+        "summary": "Draft three clue cards for the lighthouse tabletop puzzle.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "puzzle_u1",
+          "quote": "We need three clue cards for the lighthouse tabletop puzzle. Could you draft them?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "decision",
+          "summary": "Use blue-backed cards.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u2",
+            "quote": "I have chosen blue-backed cards.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "Make hints use wordplay rather than arithmetic.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u2",
+            "quote": "Make the hints wordplay rather than arithmetic",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Limit each hint to one sentence.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u2",
+            "quote": "each hint should be a single sentence.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_tabletop_puzzle",
+      "message_id": "puzzle_u3",
+      "objective": {
+        "summary": "Draft three clue cards for the lighthouse tabletop puzzle.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "puzzle_u1",
+          "quote": "We need three clue cards for the lighthouse tabletop puzzle. Could you draft them?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "decision_reversed",
+          "summary": "Undo the choice of blue-backed cards.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u3",
+            "quote": "Undo my choice of blue-backed cards.",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "puzzle_u2",
+            "quote": "I have chosen blue-backed cards.",
+            "occurrence": 0
+          },
+          "condition": null
+        },
+        {
+          "kind": "decision",
+          "summary": "Use cream card backs.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u3",
+            "quote": "I choose cream backs instead.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_removed",
+          "summary": "Remove the numbered hint from every card.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u3",
+            "quote": "Delete the numbered hint from every card.",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "puzzle_u1",
+            "quote": "Put a numbered hint on the reverse of every card.",
+            "occurrence": 0
+          },
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_tabletop_puzzle",
+      "message_id": "puzzle_u4",
+      "objective": {
+        "summary": "Suggest a revision for the third puzzle clue.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "puzzle_u4",
+          "quote": "Suggest a revision for that clue.",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requirement_reinstated",
+          "summary": "Restore the numbered hint on every card.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u4",
+            "quote": "Restore the numbered hint on every card.",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "puzzle_u1",
+            "quote": "Put a numbered hint on the reverse of every card.",
+            "occurrence": 0
+          },
+          "condition": null
+        },
+        {
+          "kind": "reported_progress",
+          "summary": "Players solved the first two clues in the trial.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "puzzle_u4",
+            "quote": "In our trial, players solved the first two clues",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "reported_failure",
+          "summary": "Nobody solved the third clue in the trial.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "puzzle_u4",
+            "quote": "nobody solved the third.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requested_action",
+          "summary": "Consider whether making the third clue gentler would help.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u4",
+            "quote": "Would a gentler third clue help?",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requested_action",
+          "summary": "Suggest a revision for the third clue.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "puzzle_u4",
+            "quote": "Suggest a revision for that clue.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_textile_cards",
+      "message_id": "textile_u1",
+      "objective": {
+        "summary": "Draft care cards for the linen runner and cotton napkins.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "textile_u1",
+          "quote": "Please draft care cards for the linen runner and the cotton napkins.",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requested_action",
+          "summary": "Draft care cards for the linen runner and cotton napkins.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u1",
+            "quote": "Please draft care cards for the linen runner and the cotton napkins.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Leave a washing temperature blank when absent from the supplied label.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u1",
+            "quote": "Leave washing temperatures blank whenever the supplied label gives no temperature.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": "The supplied label gives no washing temperature."
+        },
+        {
+          "kind": "constraint",
+          "summary": "Use only the supplied labels as sources.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u1",
+            "quote": "Use only the supplied labels as the source.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_textile_cards",
+      "message_id": "textile_u2",
+      "objective": {
+        "summary": "Draft care cards for the linen runner and cotton napkins.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "textile_u1",
+          "quote": "Please draft care cards for the linen runner and the cotton napkins.",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requirement_added",
+          "summary": "State air dry flat on the linen-runner card.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u2",
+            "quote": "For the linen runner, say \"air dry flat\".",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "State tumble dry low on the cotton-napkin card.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u2",
+            "quote": "For the cotton napkins, say \"tumble dry low\".",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requirement_added",
+          "summary": "Add an introductory note explaining that cards summarize the supplied labels.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u2",
+            "quote": "The introductory note should explain\nthat these cards summarize the supplied labels.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_textile_cards",
+      "message_id": "textile_u3",
+      "objective": {
+        "summary": "Draft care cards for the linen runner and cotton napkins.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "textile_u1",
+          "quote": "Please draft care cards for the linen runner and the cotton napkins.",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "requirement_revised",
+          "summary": "Replace the linen instruction air dry flat with hang dry.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u3",
+            "quote": "Change the linen instruction from \"air dry flat\" to \"hang dry\".",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "textile_u2",
+            "quote": "For the linen runner, say \"air dry flat\".",
+            "occurrence": 0
+          },
+          "condition": null
+        },
+        {
+          "kind": "requirement_removed",
+          "summary": "Remove the introductory note.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u3",
+            "quote": "Remove the introductory note.",
+            "occurrence": 0
+          },
+          "target": {
+            "message_id": "textile_u2",
+            "quote": "The introductory note should explain\nthat these cards summarize the supplied labels.",
+            "occurrence": 0
+          },
+          "condition": null
+        },
+        {
+          "kind": "requirement_revised",
+          "summary": "A change to an unidentified other instruction is pending; its content is unspecified.",
+          "mode": "unknown",
+          "evidence": {
+            "message_id": "textile_u3",
+            "quote": "change that other instruction; I am not sure which item I was thinking of, so leave that change pending.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "uncertainty",
+          "summary": "The user is unsure which other instruction is meant.",
+          "mode": "unknown",
+          "evidence": {
+            "message_id": "textile_u3",
+            "quote": "I am not sure which item I was thinking of",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Leave the unidentified instruction change pending.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u3",
+            "quote": "leave that change pending.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    },
+    {
+      "conversation_id": "holdout_textile_cards",
+      "message_id": "textile_u4",
+      "objective": {
+        "summary": "Review the reported printing and linen-care results.",
+        "mode": "request",
+        "evidence": {
+          "message_id": "textile_u4",
+          "quote": "Can you review these results with me?",
+          "occurrence": 0
+        },
+        "target": null,
+        "condition": null
+      },
+      "events": [
+        {
+          "kind": "completion_claim",
+          "summary": "Both care cards have been printed.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "textile_u4",
+            "quote": "I finished printing both care cards.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "reported_failure",
+          "summary": "Following the linen card did not preserve the runner size; it shrank.",
+          "mode": "report",
+          "evidence": {
+            "message_id": "textile_u4",
+            "quote": "After following the linen card, the runner still shrank, so that attempt did not preserve its size.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "requested_action",
+          "summary": "Review the reported printing and linen-care results.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u4",
+            "quote": "Can you review these results with me?",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        },
+        {
+          "kind": "constraint",
+          "summary": "Do not treat printing completion as proof that either care method works.",
+          "mode": "request",
+          "evidence": {
+            "message_id": "textile_u4",
+            "quote": "Do not treat the printed cards as proof that either care method works.",
+            "occurrence": 0
+          },
+          "target": null,
+          "condition": null
+        }
+      ]
+    }
+  ]
+}

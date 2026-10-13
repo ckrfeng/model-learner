@@ -1,6 +1,38 @@
 # Model Learner status
 
-Current work: focused semantic task-state generalization evaluation complete.
+Current work: authorized comparison of frozen predictions with independent
+AI-authored Work annotations complete. All 15 exposed user messages and 150
+reference fields validated; inputs and analyzer hashes remain unchanged. Private
+report separates semantic agreement, missing/incomplete predictions, unsupported
+fields, contextual matching and annotation policy. Typed positive-obligation
+agreement is 21/24 normalized predicted units and 21/84 reference obligations;
+alternate positive evidence covers 32/84. Current core-action objective agreement
+is 3/15; topic compatibility is separately 8/15. These are post-hoc AI-reference
+agreement measurements, not human-adjudicated accuracy or generalization.
+No analyzer execution, implementation, training or outcome integration occurred.
+Validation and independent methodology review are recorded at the end. Stop after
+the comparison report; human adjudication and any further experiment are unstarted.
+
+Prior work: blind human-adjudication worksheet preparation complete, with all
+15 exposed user messages and 150 blank annotation cells. No human labels were
+filled. The later comparison was separately authorized by the user and uses
+independent AI annotations; genuine human adjudication remains pending.
+
+Prior work: selected-conversation coverage recovery and projected evaluation
+complete. All 15 exposed user messages across the same four selections now have
+predictions (3/3, 4/4, 4/4, 4/4); original full-text results remain separate and
+unchanged. A prediction-frozen all-user-prefix policy omits assistant text into a
+separate message-local report view. The analyzer, rules and default importer
+limits are unchanged. Approved diagnostic transport reads used a separate 256-KiB
+allowance; non-message payloads caused the two original wire failures, and earlier
+assistant prose caused the research clause failure. Objectives still remain unknown
+for two selections; omission loses one user-to-assistant candidate edge. No human
+labels or independent outcomes inspected; semantic accuracy remains unmeasured.
+Checks: 870 passed, 7 existing opt-in skips; Ruff and formatting clean.
+Independent review is recorded below. Stop after evaluation and recommendations;
+human adjudication and outcome integration remain unstarted.
+
+Prior focused semantic task-state generalization evaluation is complete.
 The baseline and original diagnostic
 results are frozen. Prediction-blind independently agent-authored synthetic
 holdouts expose substantial failures: opening objectives 5/11 on the first 12
@@ -20,9 +52,9 @@ evaluation and recommendations.
 The standalone importer and prior longitudinal/retrieval increments remain intact.
 The earlier 40-query human-review batch still has no genuine human labels or
 accepted reviews. Real coding-agent benchmark execution remains disabled.
-Last requested work: frozen baseline, independent unseen evaluation, scheduling
-root cause, bounded corrections, untouched reevaluation, integration assessment,
-tests/review and documentation. No later milestone is started.
+Last requested work: diagnose coverage for the same four selected conversations,
+freeze separate evidence views, evaluate the unchanged analyzer, report limitations
+and recommend whether to human-adjudicate. No later milestone is started.
 Updated: 2026-10-12
 
 ## Completed milestones
@@ -2411,6 +2443,13 @@ publication. Stopped after the requested demonstration and evaluation.
 
 ## Next recommended increment (not started)
 
+- Latest request: private selected-real-conversation reports are produced, with
+  explicit incomplete evaluation due to existing importer/analyzer bounds. Next
+  unstarted step requires separate direction for a supported bounded strategy
+  covering rejected text reads and the unsupported final prefix, followed by
+  human adjudication. Independent outcome integration remains unstarted. No
+  limits, rules, models or estimators were changed.
+
 - Latest request: frozen semantic baseline and independent holdout evaluation,
   scheduling root cause, bounded corrections and untouched reevaluation are
   complete. Full checks and independent review passed. Next recommendation:
@@ -2614,3 +2653,336 @@ Changes are limited to the two source corrections, focused synthetic evaluator,
 freeze/holdout/report artifacts, meaningful regression tests, this status and
 linked evaluation documentation. Existing observation/probabilistic estimators
 remain unchanged. No commit, push, merge, publication or later milestone started.
+
+## First selected real-conversation evaluation reports — 2026-10-12
+
+Read AGENTS.md, the existing status, M3/M4 plan semantics and the conversation
+importer/task-state/holdout documentation. Used the current checkout, preserving
+the pre-existing `.DS_Store` modification. Read only the four user-selected IDs
+through the supported standalone `AppServerClient` / `read_conversation`; no
+history enumeration, desktop reader fallback, private storage parsing or project
+artifact/test-result access. Selected identifiers, titles, message excerpts and
+semantic snapshots remain exclusively in ignored private local storage.
+
+### Freeze and privacy
+
+- Saved the current production analyzer and importer source copies, SHA-256
+  digests, Git/runtime versions, default rule configuration and source selection
+  before analysis. The original historical baseline archive is not substituted
+  for the current analyzer. No source, classifier, limit, dependency or model edit.
+- Processed opted-in extracted user/assistant text in Python memory. Full item
+  retrieval receives other content before local exclusion; non-message bodies
+  never reach semantic inference. No raw response, full transcript, preview,
+  attachment body, tool result or unnecessary assistant prose was persisted.
+- Saved immutable predictions, input/prediction hashes and version bindings before
+  rendering or reviewing reports. No selected reference labels or independent
+  project verification results were inspected before or after freezing. Only
+  supporting semantic/uncertainty excerpts and source metadata are retained.
+- Private artifacts include four source-specific prediction/coverage reports,
+  aggregate coverage and transition summary, human-interpretation queue,
+  limitations and a file-hash manifest under `.model-learner/`. Directories/files
+  have private permissions and every artifact is Git-ignored. Nothing is committed.
+
+### Actual coverage and incomplete evaluation
+
+The rows below are anonymized selection positions, not invented task identities.
+
+| Selection | Successful source coverage | Semantic coverage / gate |
+| --- | --- | --- |
+| Codex A | Metadata-only: 3 native turns, cursor exhausted; message count unknown | Full-view read rejected after 67,887 wire bytes crossed 65,536; no predictions. Metadata fallback: 3,874 bytes. |
+| Codex B | Metadata-only: 4 native turns, cursor exhausted; message count unknown | Full-view read rejected after 69,123 wire bytes crossed 65,536; no predictions. Metadata fallback: 4,078 bytes. |
+| Codex C | 4 native turns, 12 messages, 4 user messages; 35,482 wire bytes / 6,372 extracted text bytes | All 12 messages and 4 user turns analyzed. |
+| Work Local D | 4 native turns, 11 messages, 4 user messages; 52,058 wire bytes / 20,417 extracted text bytes | First 9 messages / 3 user turns analyzed; fourth user's prefix has 261 clauses, full input 297, above 256. |
+
+Every successful read validates the selected product originator and Codex backend,
+preserves reversed descending turn pages and original item order, and exhausts
+exposed cursors. This does not prove complete original history, hidden branches or
+UI fidelity. Source truncation flags remain null/not emitted; application-bound
+rejections are reported separately. Message timestamps, historical model/settings,
+tokens and cost remain unknown. Native thread/turn time fields are retained as
+source history metadata; retrieval receipts are not execution timestamps.
+Non-message item counts for the two full-view successful reads are 19 and 17;
+their bodies were excluded. Such counts are not reconstructed tool telemetry.
+
+The initial sandboxed server exited 1 before any selected read. Scoped execution
+permission enabled the same bounded process; successful temporary servers exited
+0. A private report-writing mapping error interrupted the batch after one source's
+predictions were saved. It was repaired, and the repeated selected read confirmed
+identical input/predictions without replacing that original freeze. The Work
+source was reread only to capture coverage and freeze admissible original prefixes
+after its full analysis failed. No message/clause clipping or summarization was
+used to evade the bounds; later checkpoints are explicitly unavailable.
+
+### Reported transitions and interpretation limits
+
+- The completely analyzed source never establishes an objective: it recognizes
+  3 added-requirement facts, 4 decision facts, 2 failure reports, 5 progress reports
+  and 7 completion claims. Two completion claims are user-attributed and five
+  assistant-attributed. Its final positive evidence includes the two user decisions,
+  for 5 requirement evidence entries; these are not normalized active requirements.
+- The partial Work source establishes an initial objective and retains it through
+  the analyzed prefix. It recognizes 2 removals, 1 addition, 1 revision, 7 decisions,
+  1 unresolved report, 2 progress reports and 3 assistant completion claims.
+  Two scope edits have unresolved target links. The fourth user turn has no state
+  prediction and is not silently assigned the earlier scope.
+- Neither analyzed source recognizes a decision reversal or task switch. This is
+  a detection count, not proof of absence. Unparsed/ambiguous statements, missing
+  objectives, candidate targets, proposed versus accepted assistant choices, and
+  instruction/status-example versus event-report distinctions require human review.
+- All **21 available message checkpoints** have `verification=unknown` and zero
+  independent check inputs. Assistant statements about tests/completion never
+  become verified outcomes. User-reported status is not independent verification.
+- Per-user-turn reports distinguish request-prefix state from subsequent assistant
+  response state, preserving cumulative evidence and exact message/character spans.
+  Blocked sources expose only native-turn coverage slots; no user turns, objectives
+  or semantic zeros are fabricated from metadata. No human labels, accuracy scores,
+  causal claims or real predictive benefit are established.
+
+### Actual checks and stopping point
+
+Existing Python 3.12.14 / uv-managed environment; used repository-local uv/cache
+paths and `--no-sync`. No installation, paid execution, network inference or model
+download. Model Learner's own regression tests are separate from independent tests
+of the selected projects and do not supply semantic inputs or project outcomes.
+
+| Executed check | Actual result |
+| --- | --- |
+| `uv run --no-sync pytest` | **865 passed, 7 skipped in 46.49s**; existing opt-in host/model checks skipped. |
+| `uv run --no-sync ruff check .` | Passed; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Passed; 174 files already formatted. |
+| Private artifact integrity/privacy check | Passed: manifest and prediction hashes, unchanged source hashes, private permissions, Git ignore, source-role/turn/span references, no raw text in prediction/metadata snapshots and unknown verification. |
+
+Reports are produced; full requested semantic evaluation remains incomplete under
+the supported bounds. Next unstarted step: separate direction for a supported
+bounded strategy covering both rejected text reads and the final Work prefix,
+then human adjudication. No rules/models were tuned, no estimators connected,
+and no Task/Run/Attempt associations, execution telemetry or historical model
+attribution were invented. No outcome integration, commit, push, merge, publication
+or subsequent milestone. Stop after these reports.
+
+
+## Selected-input coverage recovery — 2026-10-12
+
+Read repository instructions/status, relevant M3/M4 provenance semantics,
+conversation task-state/holdout/importer documentation and prior selected-report
+metadata. Preserved the pre-existing `.DS_Store` modification and prior STATUS
+content. Implemented only input selection/coverage reporting in
+`understanding/conversation_projection.py`, five regressions reusing existing
+fixtures, and `docs/CONVERSATION_INPUT_PROJECTION.md`. No new semantic evaluation
+conversation or reference label. Production analyzer/importer/transport source
+hashes exactly match the original private evaluation freeze.
+
+### Privacy and deterministic freeze
+
+Requested and received explicit approval for one bounded reread of only the same
+four IDs: temporary read-only App Server, ten one-turn pages, at most 256 KiB
+cumulative transport per source. The diagnostic runner loads unchanged transport
+code in an isolated module namespace with the approved byte allowance; production
+64-KiB default and importer extracted-text bounds stay unchanged. No discovery,
+related conversation, datastore, project artifact or independent outcome access.
+Full-item responses are received before local non-message exclusion; only numeric
+item-type/count/byte statistics survive. No private text/raw response/excerpt is
+printed or retained. Native source mapping and text-free predictions are private
+under ignored `.model-learner/projected-real-evaluation-20261012/`, with 0700/0600
+permissions and exclusive artifact writes. Original artifacts remain immutable.
+
+Policy/helper/runner hashes and original manifest digest froze before the read or
+prediction evaluation. Each source's predictions/hash/input digest froze before
+comparison to old predictions. No human labels or independent project checks were
+inspected before or after freeze. No classifier tuning, new model, estimator,
+Governor, canonical task association, outcome inference or verified claim.
+
+### Actual diagnosis and recovered coverage
+
+| Original selection | User messages / UTF-8 bytes / clauses | Assistant messages / bytes / clauses | Actual wire bytes | Projected user checkpoints |
+| --- | --- | --- | --- | --- |
+| Codex A | 3 / 1,326 / 30 | 9 / 3,247 / 48 | 93,795 | 3/3 |
+| Codex B | 4 / 1,272 / 28 | 10 / 4,366 / 62 | 110,337 | 4/4 |
+| Codex C | 4 / 1,791 / 44 | 8 / 4,581 / 59 | 35,482 | 4/4 |
+| Work Local D | 4 / 1,578 / 37 | 7 / 18,839 / 260 | 52,058 | 4/4 |
+
+All temporary servers exited 0 and exposed pagination exhausted. That does not
+prove complete original history or UI fidelity; truncation markers were not
+emitted. No text, clause, message-count or per-message-character limit was reached
+in any projected user prefix or any of 34 separate whole-assistant-message reads.
+No arbitrary truncation, summarization or omitted user requirements/decisions.
+
+A/B exceeded original transport bounds because command/file-change items dominate
+wire input. Compact reserialized command/file item bytes were 53,899/27,203 for A
+and 64,876/29,698 for B; whole extracted message text was only 4,573/5,638 bytes.
+Documented per-item metrics distinguish reserialized sizes from exact wire bytes.
+All source message IDs are unique, bridge strings equal source-part newline joins,
+and joining expansion is zero in all four sources. No parsing duplication,
+normalization or lexical expansion. Source-authored repetition is not excluded.
+
+D's fourth user text is 246 bytes/6 clauses; the prior full prefix already has 255
+clauses and rises to 261. Three earlier assistant messages contribute 15,808 bytes
+and 218 clauses. All four user messages together have 37 clauses, recovering the
+fourth checkpoint without processing those explanations as task-intent input.
+The original complete full-input total is 297 clauses. Short clause distributions
+are recorded, and no clause splitting rule was modified.
+
+### Predictions and limits
+
+- Frozen policy: every unchanged user message in source order, every full user
+  prefix, original native IDs/item ordinals/turns/full-message evidence-span mapping.
+  Checkpoints list included users, omitted assistants, bounds and available versus
+  unavailable fields. Assistant reports are analyzed separately per whole message,
+  with no cumulative execution state. Independent evidence stays null/unavailable.
+- Final user intent counts (add/revise/remove; decision/reversal): A 10/1/0 and 1/0;
+  B 3/0/0 and 2/0; C 3/0/0 and 2/0; D 3/1/2 and 2/0. Objectives are recognized
+  only for B/D. A/C remain unknown; many clauses remain other/ambiguous. No detected
+  reversal/task switch is a recognition count, not proof of absence.
+- Separate assistant reported progress/completion counts: A 2/4, B 5/5, C 4/5,
+  D 4/3. Test results have no dedicated field in this frozen analyzer; these reports
+  never become independent execution checks or outcomes. All 49 analyzed
+  user-prefix/assistant-message endpoints have verification unknown.
+- User-clause classifications agree with original frozen predictions on 44/44
+  shared C clauses and 31/31 shared D clauses. This is reproducibility, not accuracy.
+  A/B have no original semantic baseline; D's fourth user is newly covered.
+- C loses one candidate user-decision link to an omitted assistant decision.
+  D's overlapping user candidate links are unchanged, but one removal and one
+  revision target remain unresolved. Original full-text predictions stay separate;
+  no projected output is relabeled as the historical baseline.
+- Short approvals, implicit requirements/objectives, instruction/status-example
+  versus event reports, proposed versus accepted assistant decisions, lexical
+  targets and cross-message context need human adjudication. Missing independent
+  checks, execution histories, historical settings/cost, source fidelity and task/
+  run associations remain unknown. No semantic accuracy score is supported.
+
+Recommendation: useful enough for human-adjudicated semantic review of the same
+selected sources with both views and original references. Freeze the adjudication
+policy before reviewing. Not ready as trusted success/utility features. Human
+adjudication, outcome integration and all later milestones remain unstarted.
+
+### Actual checks and independent review
+
+Existing Python 3.12.14 environment; repository-local uv cache and `--no-sync`.
+No installs, cloud inference or model downloads.
+
+| Executed check | Actual result |
+| --- | --- |
+| Focused projection/analyzer/importer tests | 57 passed in 0.20s. |
+| `uv run --no-sync pytest` | 870 passed, 7 existing opt-in skips in 51.54s. |
+| `uv run --no-sync ruff check .` | Passed; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Passed; 177 files already formatted. |
+| `git diff --check` | Passed. |
+| Freeze/private artifact integrity | Source hashes, original manifest, prediction digests, exact source mappings, no retained message text, unknown verification and ignored private permissions checked. |
+| Independent code/report review | No actionable defects; 5 projection tests and Ruff lint/format passed. Numeric totals and omission/baseline qualifications reviewed. One turn-number wording correction applied. Reviewer read no private artifacts/labels/outcomes and did not rerun the full suite. |
+
+Stop after this evaluation and recommendations. No commit, push, merge,
+publication or later milestone started.
+
+## Blind human-adjudication worksheet — 2026-10-12
+
+Phase 1 only. Read repository instructions and the requested conversation-state,
+holdout and input-projection documentation. Existing approved evaluation data
+omitted full original message text, so requested and received explicit permission
+to reread only the same four selections: at most ten one-turn pages and 256 KiB
+cumulative transport per conversation, retaining user text only in ignored local
+storage. The initial sandboxed attempt failed with a content-free diagnostic;
+the scoped approved run succeeded and all four temporary servers exited 0.
+
+Created one Markdown worksheet under ignored `.model-learner/annotations/`.
+It contains 3, 4, 4 and 4 unchanged user messages, native message/evidence IDs,
+conversation IDs and original turn/message/item positions. All ten annotation
+fields per message are blank; multiple entries and earlier requirement/decision
+references are supported. No predictions, reference labels or AI interpretations
+are included. No assistant prose, tool body, preview or raw response was retained.
+Original text is the unchanged source-part newline join. Chronological ordering
+uses native turn-start metadata across conversations and preserves source order
+within each conversation. Exact message timestamps, hidden history and original
+UI fidelity remain unknown and are described in the worksheet.
+
+The one-off preparation script reused the existing read-only importer and an
+isolated transport module with the explicitly approved 256-KiB allowance. No
+production source or default was edited, and the semantic analyzer was never
+loaded or run. Frozen evaluation/prediction artifacts were not opened; metadata-
+only inode/size/mtime/mode checks confirmed both existing artifact trees stayed
+unchanged. No labeling, prediction comparison, tuning, training or outcome
+integration occurred. Private output directory/file permissions are 0700/0600.
+The temporary preparation script was removed after validation.
+
+| Check | Actual result |
+| --- | --- |
+| Bounded selected-source reads | All four completed within the approved bounds; exposed cursors exhausted. |
+| Worksheet structural/text verification | 15 distinct native message IDs, exact rendered text round-trips, 150 blank annotation fields, source order preserved; user text byte totals match the documented source totals. |
+| Privacy and unchanged-artifact checks | Output Git-ignored, private permissions confirmed, no private contents printed; existing evaluation artifact metadata unchanged. |
+| Preparation-script Ruff | Passed after formatting and correcting long lines; collector was not rerun. |
+| `uv run --no-sync ruff check .` | Passed; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Passed; 177 files already formatted. |
+
+No pytest run: this task changes only a private worksheet and this status note;
+relevant validation is the source/text/order/blinding verification above. No
+implementation milestone started. Stop with the worksheet ready. Genuine human
+annotation is pending; Phase 2 comparison requires separate user authorization.
+
+## Frozen prediction / independent AI-reference comparison — 2026-10-12
+
+The user separately authorized comparison against completed independent Work
+annotations. Read AGENTS, status and conversation task-state/holdout/projection
+documentation; used only existing private artifacts and the earlier blank source
+worksheet. No conversation retrieval, analyzer import/execution, implementation,
+rule tuning, training, model download or outcome/utility/Governor integration.
+The AI annotations remain explicitly distinct from human-adjudicated truth.
+
+Delivered a detailed private report, reproducible matching ledger, input/hash
+inventory, validation evidence and independent methodology review under ignored
+`.model-learner/`. No private text, annotations, native IDs or per-conversation
+interpretations were added to tracked files. Both original result sets retain
+their bytes, size and modification timestamps. The prediction manifest's 20
+entries, original source hashes and projection hash validate unchanged. Native
+message IDs, source positions, complete user-prefix order and unchanged worksheet
+text align for 15/15 messages; all 150 reference cells are populated. All 139
+unique new user-fact spans validate. Local freeze receipts predate the annotation
+file; blindness is supported by attestations, not an authenticated audit of when
+annotation began. Assistant context and independent execution evidence remain
+unavailable.
+
+Measurements use explicit post-hoc atomization, semantic equivalence and disclosed
+same-message contextual matching. They separate new events from cumulative state,
+incomplete/missing predictions from incorrect events, unsupported representations
+from misses, and annotation-policy overlap from distinct changes. They do not
+collapse 150 cells into one accuracy score:
+
+- Current core-action objective agreement: **3/15**; broader topic compatibility
+  separately **8/15**.
+- Typed positive-obligation alignment: **21/24** normalized predicted semantic
+  units and **21/84** reference obligations. Raw fragment alignment is **21/25**;
+  the extra unit is an adjacent duplicate fragment, not a semantic false positive.
+  Alternative positive evidence covers **32/84** obligations.
+- Choice-content alignment: **6/8** predicted units and **6/28** reference choices;
+  explicit reversal recall **0/2**, with precision unavailable at **0/0**.
+- Narrow supported-operation scope-change alignment: **2/3** predicted changes
+  and **2/5** reference transitions. The broader reference revision policy is not
+  directly comparable; unsupported reinstatement has no semantic precision/recall.
+- Native-message attribution of matched obligations: **32/32**, distinct from
+  semantic target-link agreement. The one emitted user scope-target candidate is
+  unsupported (**0/1**). Source traceability is not semantic correctness.
+- Nominal field mappings: **135/150**, including partial mappings; descriptive
+  nonempty field presence **49/150**. Neither is accuracy. Full active-scope,
+  unresolved-work inventory and semantic uncertainty agreement are unavailable.
+
+The report documents every message's substantive disagreements and evidence,
+five ranked human-review priorities, representation limits and a minimal next
+experiment. Rules can support an inspectable evidence-review subset; they do not
+reliably resolve task scope, temporal changes or speech acts. Recommended next
+step, unstarted: human adjudication/policy freeze, then a separately authorized
+bounded local semantic-extractor comparison with this baseline unchanged. New
+blind cases are needed for any subsequent generalization claim. No predictive
+utility improvement is claimed and no semantic features enter outcome estimators.
+
+| Executed check | Actual result |
+| --- | --- |
+| Read-only comparison artifact validation | Passed: unchanged inputs/source hashes, 15 native IDs, 150 cells, 139 facts, turn ordering, metric sums, table structure, private permissions and Git ignore. |
+| `uv run --no-sync ruff check .` | Passed; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Passed; 177 files already formatted. |
+| Explicit private report-script Ruff checks | Passed; four scripts lint-clean and formatted. Initial local script formatting/lint issues were repaired without changing either input set. |
+| `git diff --check` | Passed. |
+| Independent methodology/ledger/report review | Accepted after distinguishing duplicate fragments, unsupported reinstatement and topic versus objective agreement; numeric sums, source mappings and hashes independently checked. No remaining substantive blockers. |
+
+No pytest run: there is no implementation change, and this task explicitly forbids
+rerunning the analyzer. Artifact validation is the relevant test and invokes no
+analyzer code. Pre-existing working-tree changes are preserved. No commit, push,
+merge or publication. Stop after the private comparison report; no next experiment
+or milestone started.

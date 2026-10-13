@@ -1,6 +1,18 @@
 # Model Learner status
 
-Current work: bounded local CPU semantic-extraction comparison complete.
+Current work: real execution/outcome readiness assessment complete. Existing
+capture, task/run/attempt, JUnit verification, assessment resolution and learning
+contracts support a minimal prospective 5–10-run ordinary Codex CLI collection
+pilot without new infrastructure. Read-only inventory/resolution establishes one
+eligible real fixed-reply smoke run and zero eligible real coding runs. With user
+approval, the three selected project artifacts passed fresh independent checks;
+passing current checks does not establish historical configuration/attempt binding.
+Sanitized assessment and exact operator sequence: docs/REAL_DATA_READINESS.md.
+Private reports, snapshots and receipts remain ignored. No production code,
+training, semantic integration, routing or Governor changes. Stopped after the
+assessment/recommendation; prospective collection is unstarted.
+
+Prior work: bounded local CPU semantic-extraction comparison complete.
 Qwen2.5-1.5B-Instruct Q4_K_M was downloaded with explicit approval and evaluated
 with a frozen zero-shot prompt/schema on 15 consumed diagnostic and 16 fresh
 prediction-blind simulated checkpoints. It did not improve extraction: holdout
@@ -3164,3 +3176,89 @@ parsing can support human review, but a local-inference/state-update hybrid rema
 unproven. Any later candidate/prompt experiment needs separate authorization and
 fresh prediction-blind, preferably human-adjudicated cases. No next milestone,
 model download, commit, push, merge, publication or outcome integration started.
+
+## Real execution/outcome readiness assessment — 2026-10-13
+
+Read AGENTS, STATUS, relevant plan identity/provenance/learning and M3/M4/M6
+sections, existing observation/verification/learning documentation and implementation.
+Delivered only the sanitized assessment in docs/REAL_DATA_READINESS.md and this
+status update; no runtime or schema changes. Preserved the pre-existing untracked
+experiment source file without reading or modifying it.
+
+### Actual evidence and privacy scope
+
+- Six existing local SQLite ledgers were queried read-only for aggregate counts;
+  the eligible smoke cohort was revalidated through read-only repository assessment
+  resolution. **One eligible real fixed-reply execution; zero eligible real coding
+  executions**. An unknown smoke derivation is the same run, not another trial.
+  The separate actual JUnit producer-validation assessment has no learner rows and
+  is not a coding-agent execution. Counts are scoped to inspected local evidence.
+- User explicitly approved the three selected chat reads, local project inspection
+  and verification. Returned views expose 3/4/4 turns with timestamps, but no
+  configuration/usage fields. Turns/tool activity do not create attempts; no
+  historical task/run/configuration attribution or native timing was invented.
+- Independently authored synthetic probes executed outside the producing chats on
+  byte-identical private copies: **JSONL Validator 3/3**, **Markdown Indexer 4/4**,
+  **Job Status Selection 3/3** passed. Separately rerun existing agent-authored
+  suites: **27**, **22**, **8** passed respectively. All processes exited zero.
+  Job-selection probes include all 24 interleavings of the offset-aware fixture.
+  Markdown's current final scope is JSONL plus exclusions, distinct from its
+  earlier CSV request; acceptance versions must not be retroactively merged.
+- Original artifacts and tested copies remained unchanged under before/after
+  content manifests. Private JUnit XML, report/artifact/test-source hashes,
+  process timestamps/exit/completion receipts, copied code, and bounded chat
+  metadata are retained under ignored `.model-learner/real-data-readiness-20261013/`.
+  No transcript or project source is copied into public documentation/fixtures.
+  Fresh checks establish current named-check results, not historical acceptance,
+  agent execution outcomes, universal correctness or independent trial counts.
+  No new ledger observations/associations/assessments were created.
+
+### Recommendation, blockers and next user-directed step
+
+Use the existing ordinary operator-run CLI capture/JUnit workflow for the next
+5–10 genuine coding executions. Create the task and freeze trusted acceptance
+before execution; retain actual launch/configuration/starting-state receipts;
+import capture; explicitly declare bounded run/attempt coverage; freeze and
+independently check the final artifact; import JUnit binding evidence; assess,
+build and resolve real observations. Keep unknown cost/native times/model versions
+null and manual settings labeled declarations. No collector or infrastructure
+layer is needed for this collection pilot.
+
+Historical project eligibility remains blocked by supported execution capture,
+known configuration/segment attribution and per-execution artifact/acceptance/report
+bindings. Passing final code today cannot repair those omissions. Desktop-only
+collection would need separately authorized execution-observation support. The
+separate benchmark real-execution containment gate remains unchanged; the ordinary
+observation path does not bypass it.
+
+Existing estimators can consume correctly eligible coding rows under exact dataset,
+acceptance/version, budget and configuration selectors. Unrelated acceptance
+criteria cannot be pooled by renaming them; ordinary new tasks may yield only one
+row per target. Five to ten rows test collection coverage, not predictive benefit.
+Future semantic comparison needs frozen pre-outcome inputs and independent labels,
+comparable targets, prospective availability receipts, chronological/task-family
+holdout and adequate sample size; current task-state floors remain 30 training,
+20 scored, five task clusters per partition and both training classes. After-close
+CLI associations alone cannot satisfy initial checkpoint availability. No semantic
+state is integrated and no models were trained.
+
+Next unstarted step: user selects the first five upcoming tasks and explicit
+configuration, then follows the documented operator sequence for one execution
+before repeating it. Stop at the collection/quality report; training/evaluation
+expansion remains separately directed. No paid agent launch, commit, push, merge,
+publication, new model, routing, Governor or next milestone was performed.
+
+### Actual checks
+
+- Initial `uv run --no-sync` invocations could not access the default external uv
+  cache; retried successfully with repository-local `UV_CACHE_DIR=.uv-cache`.
+  No installation or escalation was needed.
+- `UV_CACHE_DIR=.uv-cache uv run --no-sync pytest`: **931 passed, 7 existing opt-in
+  skips in 60.53s**. These repository tests are distinct from project acceptance.
+- `UV_CACHE_DIR=.uv-cache uv run --no-sync ruff check .`: passed.
+- `UV_CACHE_DIR=.uv-cache uv run --no-sync ruff format --check .`: passed,
+  **189 files already formatted**.
+- Private project check driver: three existing suites and the fresh **10-test**
+  independent pytest/JUnit suite passed, zero failures/errors/skips; original and
+  copy integrity checks passed. Checks are post-hoc and do not run a coding agent.
+- `git diff --check`: passed; private receipt/XML paths confirmed Git-ignored.

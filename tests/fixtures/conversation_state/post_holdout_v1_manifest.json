@@ -1,0 +1,7 @@
+{
+  "format": "conversation-state-holdout-freeze/v1",
+  "phase": "independently authored after revision freeze; first execution after labels completed",
+  "file_sha256": "306bd487d0e57af6860f39451c3164a414b66a100cf8dcafd716acc1f1f9991e",
+  "scorer_sha256": "bbbeef69e9dd037ee1f8fee313fb2d7317d0efa92c69871c09e7702965d2e9ba",
+  "revision_rule_sha256": "9f90a466de5e0bc0957277a453afb304491213fccb1ca517d7c1ca992978319b"
+}

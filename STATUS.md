@@ -1,24 +1,29 @@
 # Model Learner status
 
-Current work: the requested CPU conversation semantic task-state demonstration
-and diagnostic evaluation are complete. The pure in-memory analyzer and explicit
-opt-in CLI produce evidence-linked timelines without retaining live text or
-semantic state. The existing importer was reused unchanged. CSV objective/feature
-additions are recognized; Work FIFO removal and remaining comparison scope are
-recognized, but its initial objective wording remains unknown. Neither real
-conversation has independent completion evidence.
-Rules score 51/54 authored intent labels and 20/23 final-state signatures; a small
-Naive Bayes model scores 36/54 and 9/23, so rules remain the default. These manually
-specified agent-authored cases became a diagnostic set during debugging, not an
-untouched holdout or evidence of generalization. Full checks and independent review
-passed. Stopped after this demonstration and evaluation.
+Current work: focused semantic task-state generalization evaluation complete.
+The baseline and original diagnostic
+results are frozen. Prediction-blind independently agent-authored synthetic
+holdouts expose substantial failures: opening objectives 5/11 on the first 12
+cases; typed requirement precision 13/18 and recall 13/23. Two bounded corrections
+recognize progressive objective verbs and flag multiple candidate change targets.
+On eight untouched cases the revision and baseline have identical recognition
+results: opening objectives 3/7, typed requirement precision 5/6 and recall 5/10.
+A separately untouched requirement-reinstatement case also shows no improvement.
+No false verified claims occur; reference-policy artifacts are documented.
+The user-supplied scheduling sentence reproduces an objective-rule morphology
+defect with intact text and is fixed in a synthetic bridge regression. The private
+original was not reread. No real outcome/predictive benefit is established.
+Do not integrate these semantic hypotheses as trusted utility features yet.
+Full checks passed: 865 tests, 7 existing opt-in skips, clean Ruff and formatting.
+Independent final code/evaluation review found no blockers. Stopped after
+evaluation and recommendations.
 The standalone importer and prior longitudinal/retrieval increments remain intact.
 The earlier 40-query human-review batch still has no genuine human labels or
 accepted reviews. Real coding-agent benchmark execution remains disabled.
-Last requested work: local semantic task-state analysis, both selected demonstrations,
-varied labeled evaluation, baseline/statistical comparison, tests, independent
-review and STATUS update. Complete; no later milestone is started.
-Updated: 2026-10-11
+Last requested work: frozen baseline, independent unseen evaluation, scheduling
+root cause, bounded corrections, untouched reevaluation, integration assessment,
+tests/review and documentation. No later milestone is started.
+Updated: 2026-10-12
 
 ## Completed milestones
 
@@ -2337,6 +2342,10 @@ publication. Stopped after the requested demonstration and evaluation.
 
 ## Known issues / blockers
 
+- Independent synthetic holdouts expose substantial semantic objective/change/
+  decision failures. The bounded fixes show no broad recognition gain on untouched
+  examples. Trusted semantic utility integration remains unsupported; eligible
+  paired real conversation-prefix/outcome data is not demonstrated.
 - Real benchmark collection is fail-closed pending a supported, validated
   agent backend, credential relay, hostile artifact freezing/extraction, separate
   candidate-only acceptance transport and exact-runtime run-bound validation
@@ -2402,12 +2411,13 @@ publication. Stopped after the requested demonstration and evaluation.
 
 ## Next recommended increment (not started)
 
-- Latest request: CPU semantic conversation-state demonstration and diagnostic
-  evaluation are complete. The existing importer was reused unchanged; live text
-  and derived state stayed in memory. Full tests/checks and independent review
-  passed. Genuine human labels, untouched evaluation and objective/reference
-  resolution are possible future work only after separate instruction. No next
-  milestone is requested or started. Earlier recommendations are historical.
+- Latest request: frozen semantic baseline and independent holdout evaluation,
+  scheduling root cause, bounded corrections and untouched reevaluation are
+  complete. Full checks and independent review passed. Next recommendation:
+  human-adjudicated prospective prefixes, conservative reported-signal validation,
+  and independent outcomes with checkpoint/attempt receipts before any predictive
+  comparison or trusted utility integration. Await separate instruction; no next
+  milestone is started. Earlier recommendations are historical.
 
 - First longitudinal state reconstruction and synthetic A/B/C rule evaluation are
   complete. Next: an explicitly authorized manual prospective sanitized-summary
@@ -2447,3 +2457,160 @@ publication. Stopped after the requested demonstration and evaluation.
   runtime intervention control, or AI Governor was implemented. No commit, push,
   merge, publication, or global hook installation was made. Stop at the requested
   workstreams; await user direction.
+
+## Focused conversation task-state holdout evaluation — 2026-10-12
+
+Read MODEL_LEARNER_PLAN.md, AGENTS.md, STATUS.md and the conversation task-state
+methodology/implementation before edits. Kept observation, inference and outcomes
+separate; no estimator, ingestion, contract, migration, dependency, routing or
+Governor change. The pre-existing `.DS_Store` change remains untouched.
+
+### Frozen baseline and independent reference labeling
+
+- Archived original rules/state logic, diagnostic evaluator, dataset and reference
+  in `tests/fixtures/conversation_state/frozen_v1/`, with SHA-256 manifest, runtime
+  and NB/default-rule configuration. Before any rule edits, original keyword/rule/
+  NB results reproduced exactly: **40/54, 51/54, 36/54**, final states
+  **14/23, 20/23, 9/23**. Archive replay tests bind its evaluator imports to archived
+  rules, avoiding mutable-production imports. Existing diagnostic files unchanged.
+- Confirmed original evaluation leakage: shared agent/cue authorship, inspected
+  examples and fixture corrections during development; final-state scores omitted
+  intermediate states, logical scope and target links. This was not a holdout.
+- A separate agent with no inherited conversation context authored/froze labels
+  without implementation, previous examples or predictions: **12 scenarios /
+  63 messages / 85 events**. A different independent agent audited the scorer,
+  freeze, metric semantics and reported artifacts. No human annotation is claimed.
+- Frozen baseline ran on the first set before implementation changed. Only then
+  two bounded corrections were made and revision hash frozen. The blind author
+  independently produced **8 untouched scenarios / 38 messages / 46 events**;
+  both archived and revised rules were evaluated. A later **1 untouched scenario /
+  6 messages / 8 events** closes explicit removal/reinstatement coverage. Neither
+  earlier set nor its labels was modified. No later rule tuning occurred.
+- `understanding/conversation_holdout.py` is a small pure synthetic scoring/replay
+  module, runnable with `python -m`; it adds no CLI infrastructure or persistence.
+  Scores span-aligned events, intermediate objective/verification state, all target
+  candidate edges, completion, uncertainty and subtype-tolerant supplemental
+  recognition. Invalid references fail; missing denominators are null.
+
+### Actual results and failures
+
+| Measurement | Frozen first 12 | Frozen untouched 8 | Revised untouched 8 |
+| --- | --- | --- | --- |
+| Explicit opening objectives | **5/11** | **3/7** | **3/7** |
+| Objective checkpoint agreement | **27/63** | **14/38** | **14/38** |
+| Typed requirement precision / recall | **13/18 / 13/23** | **5/6 / 5/10** | **5/6 / 5/10** |
+| Subtype-tolerant requirement detection | **15/18 / 15/23** | **5/6 / 5/10** | **5/6 / 5/10** |
+| Typed decision precision / recall | **2/6 / 2/8** | **0/2 / 0/3** | **0/2 / 0/3** |
+| Decision reversal recall | **1/2** | **0/1** | **0/1** |
+| Typed change false positives / misses | **9 / 18** | **3 / 10** | **3 / 10** |
+| Task-switch recall | **0/2** | **0/2** | **0/2** |
+| Semantic target precision / recall | **3/8 / 3/7** | **null / 0/4** | **null / 0/4** |
+| Source-span / actor integrity | **81/81** | **47/47** | **47/47** |
+| Completion recall / false claims | **7/10 / 0** | **4/5 / 0** | **4/5 / 0** |
+| Verification checkpoint agreement | **62/63** | **38/38** | **38/38** |
+| False verified claims | **0** | **0** | **0** |
+| Required uncertainty coverage | **1/2** | **2/2** | **2/2** |
+
+The first-set revision improves required uncertainty from **1/2 to 2/2**, while
+recognition metrics remain unchanged. This is diagnostic, after inspection.
+All untouched eight-case metrics are identical across versions: **no broad
+recognition gain demonstrated**. The additional reinstatement case also has
+identical results: opening objective **0/1**, typed requirements **1/2 precision /
+1/3 recall**, subtype-tolerant edits **2/2 precision / 2/3 recall**; the actual
+reinstatement is missed. No false completion/verification claims; **6/6**
+verification checkpoints agree. Small curated sets are not a real population
+estimate, and dependent checkpoints are not independent accuracy trials.
+
+Concrete failures include missing “Help me organize …”, treating “could use …” as
+a decision, merging “Now make …” into old scope, missing failed-attempt and
+unresolved paraphrases, over-abstaining on indirect requests and ordinary “example”
+wording, missing natural changed decisions, and unresolved concurrent-task identity.
+Evidence boundaries are intact, but that does not establish semantic correctness.
+
+Scoring artifacts are preserved/documented in
+`docs/CONVERSATION_TASK_STATE_HOLDOUT.md`: one first-set reference expects
+verification to persist after a thanks, contrary to the exact-checkpoint contract;
+latest-paraphrase objective provenance differs from initial-source retention;
+addition/revision subtypes are arguable in two cases; same-span reversal/choice
+labels duplicate two decision regions. Supplemental decision-region detection is
+**2/6 precision / 2/6 recall**. Strict ambiguous-act agreement is **0/6 precision /
+0/1 recall** in the first set and **0/2 / 0/1** in the untouched eight, but assistant
+clarification questions and unparsed-user uncertainty are separate policy issues.
+No labels were corrected against predictions. No verification semantics changed.
+
+Independent scorer review found one emitted ordinary-decision edge omitted from
+target precision. The original `holdout_v1_baseline.json` remains preserved;
+`holdout_v1_baseline_audited.json` counts all edges and exact matched target
+identity (**3/8**, not initial **3/7** precision), with unchanged model predictions.
+Freeze manifests distinguish the original and audited scorer digests. Reviewed
+revised/post/supplement reports and all synthetic references are retained separately.
+
+### Scheduling investigation and narrow improvements
+
+Used only the supplied scheduling sentence, not the private original. Frozen rules
+preserve the entire **92-character** clause, classify it `other`, and consequently
+leave objective unknown. `research` is recognized but `researching` is absent under
+a word-boundary regex; there is no threshold in that path. Synthetic importer
+bridge evidence preserves the same text exactly. The reference objective is
+explicit. This isolates an extraction defect for intact input; original source
+fidelity/missing text cannot be fully excluded without an approved fresh read.
+
+Added progressive forms of existing objective verbs and explicit uncertainty when
+more than one lexical candidate could be a removal/revision/reversal target.
+Retained original evidence and candidate links; selected no target and added no
+logical scope solver. Question/conditional/assistant guards remain tested. Known
+supplied wording now establishes an objective with verification unknown. No
+conversation-specific algorithm rule or broader cue fitting was introduced.
+
+### Integration assessment and stopping point
+
+- Useful future candidates: actor-separated reported obstacle/progress/scope
+  signals, objective availability and coverage/uncertainty masks, with exact source
+  spans for audit. They remain inferred reports. Active scope, automatic task
+  identity, definitive links, semantic difficulty and inferred success are too
+  unreliable. Missing data stays null plus an explicit reason/mask; a recognized
+  count of zero is not proof of zero real events. Final outcome/checks must not
+  leak into earlier predictors.
+- Associate prospective prefixes with explicit Task/Run/Attempt, acceptance
+  version and availability receipts. Source turn order is not an execution attempt
+  boundary; current conversation segments create no ledger associations. Exclude
+  ambiguous multiple-task or mixed-configuration attribution.
+- Existing synthetic outcomes and `learn.task_state` can exercise plumbing and
+  controlled ablation, not establish real semantic benefit. Recorded prior audit
+  has one verified fixed-reply smoke observation and no suitable real longitudinal
+  coding trajectories; selected conversations have no independently verified
+  outcomes or run associations. No new private datastore or historical conversation
+  enumeration occurred. Sufficient eligible paired real prefix/outcome data is
+  **not demonstrated**, so no predictive model was fitted or gain claimed.
+- Next recommendation, **unstarted**: human-adjudicate a small explicit prospective
+  selection, resolve label policy, verify a conservative reported-signal subset on
+  another frozen semantic set, and collect independent artifacts/outcomes with
+  checkpoint/attempt receipts. With adequate paired labels, use the existing
+  chronological metadata-versus-semantic-subset comparison and identical cohort/
+  cutoffs; default floors are 30 training and 20 scored labels, five task clusters
+  per split and both training classes, not a power guarantee. No larger neural
+  network is justified yet. Stop after this evaluation/recommendation.
+
+### Actual checks and review
+
+Existing macOS arm64 Python **3.12.14**, Pydantic **2.14.0**, uv-managed environment;
+used repository-local `UV_CACHE_DIR` and `uv run --no-sync` to preserve installed
+optional capabilities. No installation, model download, cloud or paid execution.
+
+| Executed check | Actual result |
+| --- | --- |
+| Frozen original diagnostic execution before implementation edits | Exact equality with original reference; baseline results above. |
+| Focused new scorer tests before corrections | **7 passed in 0.13s**. |
+| Focused scorer/analyzer/CLI suite after corrections | **57 passed in 1.06s**. |
+| Final new holdout regression suite | **25 passed in 0.13s**. |
+| `uv run --no-sync pytest` | **865 passed, 7 skipped in 50.49s**. Existing model/host opt-in tests skipped. |
+| `uv run --no-sync ruff check .` | Passed; all checks passed. |
+| `uv run --no-sync ruff format --check .` | Passed; 174 files already formatted. |
+| `git diff --check` | Passed; no whitespace errors. |
+| Independent initial scorer/freeze audit | Reproduced baseline/reference and hashes; focused **37 passed**. Target-edge issue corrected, other artifacts documented. |
+| Independent final code/evaluation review | **60 focused tests passed in 0.91s**, whole-repo Ruff/format/diff clean; source/dataset/scorer freezes and all six audited reports reproduced. No actionable blockers. Reviewer did not rerun the full suite. |
+
+Changes are limited to the two source corrections, focused synthetic evaluator,
+freeze/holdout/report artifacts, meaningful regression tests, this status and
+linked evaluation documentation. Existing observation/probabilistic estimators
+remain unchanged. No commit, push, merge, publication or later milestone started.

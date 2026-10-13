@@ -1,0 +1,185 @@
+{
+  "format": "conversation-state-holdout/v1",
+  "source_kind": "simulated",
+  "label_provenance": "independent prediction-blind agent author; not human ground truth",
+  "cases": [
+    {
+      "id": "scope-reversal-holdout-01",
+      "category": "removed-requirement-reinstated",
+      "messages": [
+        {
+          "role": "user",
+          "text": "I'm assembling a pretend community recipe booklet and could use a short introduction. Include a note about swapping ingredients.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I have drafted the welcome paragraph and the ingredient-swapping note.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Leave the ingredient-swapping note out for now.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "The welcome paragraph is drafted without that note. The closing invitation still needs to be written.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Thinking about first-time cooks, I would like the ingredient-swapping note included after all.",
+          "turn": 5
+        },
+        {
+          "role": "assistant",
+          "text": "The booklet introduction is finished, including the ingredient-swapping note and the closing invitation.",
+          "turn": 6
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 85,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 86,
+          "end": 128,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial requirement established with the objective."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 70,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 47,
+          "label": "requirement_removed",
+          "targets": [
+            1
+          ]
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 51,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 52,
+          "end": 101,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 94,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Reinstates the same ingredient-swapping-note requirement introduced in event 1 and removed in event 3; this is not a different note or a new objective."
+        },
+        {
+          "message": 5,
+          "start": 0,
+          "end": 104,
+          "label": "completion_claim",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        },
+        {
+          "after_message": 5,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 5,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        },
+        {
+          "message": 5,
+          "required": false
+        }
+      ],
+      "notes": "The objective remains the recipe-booklet introduction throughout. The user first removes and then reinstates the exact same note requirement. Reinstatement is labeled requirement_added with an explicit provenance note; its targets are empty because definite target references are reserved for removals, revisions, and reversals. The assistant completion claim provides no independent verification."
+    }
+  ]
+}

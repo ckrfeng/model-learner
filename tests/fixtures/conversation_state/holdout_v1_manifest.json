@@ -1,0 +1,10 @@
+{
+  "format": "conversation-state-holdout-freeze/v1",
+  "phase": "baseline before implementation changes",
+  "file_sha256": "0d6a7d4fbd7ca9e4aa220af0531622131bd8e0b98badcfc663c56d864e6bc524",
+  "label_provenance": "independent prediction-blind agent author; not human ground truth",
+  "scorer_sha256": "ee2647aba149417da20c5e319d293b48e6bd9c0f998f368597096037805e2319",
+  "baseline_rule_sha256": "5eec4ad510a40f7247b8de8f045022fde63966530a969e4a64e915d4da5b6e6c",
+  "audited_scorer_sha256": "bbbeef69e9dd037ee1f8fee313fb2d7317d0efa92c69871c09e7702965d2e9ba",
+  "scorer_audit": "Preserve original baseline output. Audited report includes all emitted links, exact matched target identity, requirement-family and unique decision-region detection; references and frozen rules unchanged."
+}

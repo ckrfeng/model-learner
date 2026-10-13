@@ -1,5 +1,10 @@
 # Local conversation task-state demonstration
 
+The subsequent [prediction-blind holdout evaluation](CONVERSATION_TASK_STATE_HOLDOUT.md)
+freezes these results, documents substantial generalization failures and the
+bounded researching/ambiguous-target corrections. The selected demonstrations
+below remain historical observations; neither source was reread for that evaluation.
+
 Delivered 2026-10-11. This increment analyzes explicitly opted-in text with CPU
 rules and evaluates a small statistical alternative. It adds no ingestion
 infrastructure, persistence, routing, Governor, cloud inference or model download.

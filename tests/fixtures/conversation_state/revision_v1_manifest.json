@@ -1,0 +1,10 @@
+{
+  "format": "conversation-state-revision-freeze/v1",
+  "frozen_on": "2026-10-12",
+  "backend_sha256": "9f90a466de5e0bc0957277a453afb304491213fccb1ca517d7c1ca992978319b",
+  "corrections": [
+    "Progressive forms of existing objective verb vocabulary; known user-supplied researching failure.",
+    "Multiple lexical candidate targets explicitly carry uncertainty; no target selected or original evidence deleted."
+  ],
+  "untouched_evaluation": "post_holdout_v1.json must be independently authored after this freeze; no further rule tuning."
+}

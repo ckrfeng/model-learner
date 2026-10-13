@@ -1,0 +1,1154 @@
+{
+  "format": "conversation-state-holdout/v1",
+  "source_kind": "simulated",
+  "label_provenance": "independent prediction-blind agent author; not human ground truth",
+  "cases": [
+    {
+      "id": "post-holdout-01",
+      "category": "ongoing-objective-and-content-revisions",
+      "messages": [
+        {
+          "role": "user",
+          "text": "I'm gathering material for a pretend museum audio tour and could use a short script for the entrance hall. Mention the coat room.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I can help with that script.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "A quick orientation to the two galleries would be useful too.",
+          "turn": 3
+        },
+        {
+          "role": "user",
+          "text": "Leave out the coat-room mention. Describe only the east gallery instead of both galleries.",
+          "turn": 4
+        },
+        {
+          "role": "assistant",
+          "text": "The entrance-hall script is finished.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 106,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 107,
+          "end": 129,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial constraint stated alongside the objective."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 28,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 61,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Indirect but definite addition to the existing script."
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 32,
+          "label": "requirement_removed",
+          "targets": [
+            1
+          ]
+        },
+        {
+          "message": 3,
+          "start": 33,
+          "end": 90,
+          "label": "requirement_revised",
+          "targets": [
+            3
+          ]
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 37,
+          "label": "completion_claim",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-02",
+      "category": "decision-proposal-and-reversal",
+      "messages": [
+        {
+          "role": "user",
+          "text": "For a fictional choir workshop, I would like a clear practice schedule.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "My suggestion is to group the exercises by difficulty.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Arrange them by vocal section.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I have grouped the warm-ups and songs by section.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "On second thought, replace the section grouping with a difficulty order.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 71,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 54,
+          "label": "decision",
+          "targets": [],
+          "note": "Assistant proposal, not an accepted user scope requirement."
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 30,
+          "label": "decision",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 49,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 72,
+          "label": "decision_reversed",
+          "targets": [
+            2
+          ],
+          "note": "One organizational choice is replaced; this single semantic reversal is not also duplicated as a separate decision event."
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-03",
+      "category": "failed-attempt-and-open-debugging",
+      "messages": [
+        {
+          "role": "user",
+          "text": "The sample route reader skips the final stop. Could you get it to include every stop in the synthetic file?",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I tried appending an empty line to the input. The reader still omitted the final stop.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "The same fix needs to work when the file has no trailing newline.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I have changed the loop so the final row is processed. The no-trailing-newline case remains untested.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "I am still after a reader that includes every stop, including the last one.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 45,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 46,
+          "end": 107,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 45,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 46,
+          "end": 86,
+          "label": "attempt_failed",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 65,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 54,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 55,
+          "end": 101,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 75,
+          "label": "objective",
+          "targets": [],
+          "note": "Equivalent restatement of the original objective; the checkpoint may retain the original evidence message."
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ],
+      "notes": "The assistant describes a failed attempt and subsequent progress, with no independent check establishing current verification."
+    },
+    {
+      "id": "post-holdout-04",
+      "category": "ambiguous-request-and-unclear-removal",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Something about the donation form feels awkward.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "Which part should I change?",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Rewrite the donation form help text in everyday language. Include a gift-frequency explanation. Include a receipt-delivery explanation.",
+          "turn": 3
+        },
+        {
+          "role": "user",
+          "text": "Actually, take that explanation out.",
+          "turn": 4
+        },
+        {
+          "role": "assistant",
+          "text": "The explanation to remove is still unclear.",
+          "turn": 5
+        },
+        {
+          "role": "user",
+          "text": "I mean the receipt-delivery explanation; remove that one.",
+          "turn": 6
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 48,
+          "label": "ambiguous",
+          "targets": [],
+          "note": "The concern does not specify what work is requested."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 27,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 57,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 58,
+          "end": 95,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial constraint."
+        },
+        {
+          "message": 2,
+          "start": 96,
+          "end": 135,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial constraint."
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 36,
+          "label": "requirement_removed",
+          "targets": [],
+          "note": "Clearly requests a removal, but either explanation could be meant; targets stay empty."
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 43,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 5,
+          "start": 0,
+          "end": 57,
+          "label": "requirement_removed",
+          "targets": [
+            4
+          ],
+          "note": "Clarifies the definite removal target."
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": null
+        },
+        {
+          "after_message": 1,
+          "message": null
+        },
+        {
+          "after_message": 2,
+          "message": 2
+        },
+        {
+          "after_message": 3,
+          "message": 2
+        },
+        {
+          "after_message": 4,
+          "message": 2
+        },
+        {
+          "after_message": 5,
+          "message": 2
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 5,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": true,
+          "note": "Desired action is unspecified."
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": true,
+          "note": "The singular referent could identify either of two explanations."
+        },
+        {
+          "message": 4,
+          "required": false
+        },
+        {
+          "message": 5,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-05",
+      "category": "full-independent-check-at-completion",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a unit converter between inches and centimeters.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The unit converter is complete.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Thanks, I have seen the update.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "You are welcome.",
+          "turn": 4
+        }
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "synthetic-inch-converter-check-02",
+          "artifact_id": "synthetic-inch-converter",
+          "acceptance_spec": "synthetic-inch-converter-acceptance-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "full_task"
+        }
+      ],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 54,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 31,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 31,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 16,
+          "label": "other",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "verified"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        }
+      ],
+      "notes": "The full passed independent check is attached to the completion checkpoint. Later checkpoints are unknown because this checkpoint interface does not carry a check forward without fresh attached evidence."
+    },
+    {
+      "id": "post-holdout-06",
+      "category": "partial-independent-check-at-completion",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a flashcard widget with card flipping and a shuffle control.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The flashcard widget is complete.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "I will look at the widget after lunch.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "That works.",
+          "turn": 4
+        }
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "synthetic-flashcard-flip-check-02",
+          "artifact_id": "synthetic-flashcard-widget",
+          "acceptance_spec": "synthetic-flashcard-widget-acceptance-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "partial"
+        }
+      ],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 66,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 33,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 38,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 11,
+          "label": "other",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        }
+      ],
+      "notes": "The independent passed check covers the flip behavior only. Partial evidence does not verify the full task, and later messages introduce no new scope."
+    },
+    {
+      "id": "post-holdout-07",
+      "category": "failed-independent-check-despite-claim",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a word counter that counts words in pasted text.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The word counter is complete.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "The counter still needs work.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I am investigating the remaining counting error.",
+          "turn": 4
+        }
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "synthetic-word-counter-check-02",
+          "artifact_id": "synthetic-word-counter",
+          "acceptance_spec": "synthetic-word-counter-acceptance-v1",
+          "source": "independent_verifier",
+          "result": "failed",
+          "scope": "full_task"
+        }
+      ],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 54,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 29,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 29,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 48,
+          "label": "progress",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "failed_check"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        }
+      ],
+      "notes": "A full independent failed check overrides the assistant claim at that checkpoint. Later verification is unknown under the per-message checkpoint interface; the open problem remains represented by the unresolved event."
+    },
+    {
+      "id": "post-holdout-08",
+      "category": "sequential-task-and-return-to-prior-work",
+      "messages": [
+        {
+          "role": "user",
+          "text": "I could use a friendly name-tag instruction card for a pretend science fair.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The name-tag instruction card is ready.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Next, draft a short thank-you note for the volunteer judges.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I have drafted the greeting and the closing for the thank-you note.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Set the thank-you note aside and return to the name-tag card. Add a reminder to write names in large letters.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 76,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 39,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 60,
+          "label": "task_changed",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 67,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 61,
+          "label": "task_changed",
+          "targets": [],
+          "note": "Changes active work back to an earlier task; this does not assert completion of the thank-you note."
+        },
+        {
+          "message": 4,
+          "start": 62,
+          "end": 109,
+          "label": "requirement_added",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 2
+        },
+        {
+          "after_message": 3,
+          "message": 2
+        },
+        {
+          "after_message": 4,
+          "message": 4
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ],
+      "notes": "The final instruction explicitly makes the earlier card the active task again. Message 4 is current objective evidence because it identifies that return and adds work to that task."
+    }
+  ]
+}

@@ -1,0 +1,2286 @@
+{
+  "format": "conversation-state-holdout-report/v1",
+  "source_kind": "simulated",
+  "label_provenance": "independent prediction-blind agent author; not human ground truth",
+  "backend_sha256": "5eec4ad510a40f7247b8de8f045022fde63966530a969e4a64e915d4da5b6e6c",
+  "dataset_sha256": "1a7620bba3898dc0f8d749cc5003670eec4f5c534a259de7bb9b2565ef39dc0b",
+  "conversation_count": 8,
+  "metrics": {
+    "initial_objective_accuracy": {
+      "correct": 3,
+      "count": 7,
+      "rate": 0.42857142857142855
+    },
+    "objective_checkpoint_accuracy": {
+      "correct": 14,
+      "count": 38,
+      "rate": 0.3684210526315789
+    },
+    "requirements": {
+      "true_positive": 5,
+      "predicted": 6,
+      "reference": 10,
+      "false_positive": 1,
+      "missed": 5,
+      "precision": 0.8333333333333334,
+      "recall": 0.5
+    },
+    "requirement_change_detection": {
+      "true_positive": 5,
+      "predicted": 6,
+      "reference": 10,
+      "false_positive": 1,
+      "missed": 5,
+      "precision": 0.8333333333333334,
+      "recall": 0.5
+    },
+    "decisions": {
+      "true_positive": 0,
+      "predicted": 2,
+      "reference": 3,
+      "false_positive": 2,
+      "missed": 3,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "decision_region_detection": {
+      "true_positive": 0,
+      "predicted": 2,
+      "reference": 3,
+      "false_positive": 2,
+      "missed": 3,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "decision_reversals": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": null,
+      "recall": 0.0
+    },
+    "changes": {
+      "true_positive": 5,
+      "predicted": 8,
+      "reference": 15,
+      "false_positive": 3,
+      "missed": 10,
+      "precision": 0.625,
+      "recall": 0.3333333333333333
+    },
+    "completion_claims": {
+      "true_positive": 4,
+      "predicted": 4,
+      "reference": 5,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": 1.0,
+      "recall": 0.8
+    },
+    "abstention": {
+      "true_positive": 0,
+      "predicted": 2,
+      "reference": 1,
+      "false_positive": 2,
+      "missed": 1,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "required_uncertainty_coverage": {
+      "correct": 2,
+      "count": 2,
+      "rate": 1.0
+    },
+    "source_span_role_integrity": {
+      "correct": 47,
+      "count": 47,
+      "rate": 1.0
+    },
+    "exact_spans_among_aligned_intents": {
+      "correct": 16,
+      "count": 17,
+      "rate": 0.9411764705882353
+    },
+    "target_links": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 4,
+      "false_positive": 0,
+      "missed": 4,
+      "precision": null,
+      "recall": 0.0
+    },
+    "verification_checkpoint_accuracy": {
+      "correct": 38,
+      "count": 38,
+      "rate": 1.0
+    },
+    "incorrect_verified_claims": 0,
+    "missed_verified_checkpoints": 0
+  },
+  "per_label": {
+    "objective": {
+      "true_positive": 3,
+      "predicted": 3,
+      "reference": 9,
+      "false_positive": 0,
+      "missed": 6,
+      "precision": 1.0,
+      "recall": 0.3333333333333333
+    },
+    "requirement_added": {
+      "true_positive": 3,
+      "predicted": 3,
+      "reference": 6,
+      "false_positive": 0,
+      "missed": 3,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "requirement_removed": {
+      "true_positive": 1,
+      "predicted": 1,
+      "reference": 3,
+      "false_positive": 0,
+      "missed": 2,
+      "precision": 1.0,
+      "recall": 0.3333333333333333
+    },
+    "requirement_revised": {
+      "true_positive": 1,
+      "predicted": 2,
+      "reference": 1,
+      "false_positive": 1,
+      "missed": 0,
+      "precision": 0.5,
+      "recall": 1.0
+    },
+    "decision": {
+      "true_positive": 0,
+      "predicted": 2,
+      "reference": 2,
+      "false_positive": 2,
+      "missed": 2,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "decision_reversed": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": null,
+      "recall": 0.0
+    },
+    "task_changed": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 2,
+      "false_positive": 0,
+      "missed": 2,
+      "precision": null,
+      "recall": 0.0
+    },
+    "progress": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 5,
+      "false_positive": 0,
+      "missed": 5,
+      "precision": null,
+      "recall": 0.0
+    },
+    "attempt_failed": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": null,
+      "recall": 0.0
+    },
+    "unresolved": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 4,
+      "false_positive": 0,
+      "missed": 4,
+      "precision": null,
+      "recall": 0.0
+    },
+    "completion_claim": {
+      "true_positive": 4,
+      "predicted": 4,
+      "reference": 5,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": 1.0,
+      "recall": 0.8
+    },
+    "ambiguous": {
+      "true_positive": 0,
+      "predicted": 2,
+      "reference": 1,
+      "false_positive": 2,
+      "missed": 1,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "other": {
+      "true_positive": 5,
+      "predicted": 30,
+      "reference": 6,
+      "false_positive": 25,
+      "missed": 1,
+      "precision": 0.16666666666666666,
+      "recall": 0.8333333333333334
+    }
+  },
+  "cases": [
+    {
+      "id": "post-holdout-01",
+      "category": "ongoing-objective-and-content-revisions",
+      "errors": [
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s0-106",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              0,
+              106
+            ],
+            "text": "I'm gathering material for a pretend museum audio tour and could use a short script for the entrance hall.",
+            "intent": "decision",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 0,
+              "end": 106,
+              "label": "objective",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s107-129",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              107,
+              129
+            ],
+            "text": "Mention the coat room.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 107,
+              "end": 129,
+              "label": "requirement_added",
+              "targets": [],
+              "note": "Initial constraint stated alongside the objective."
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m2:s0-61",
+            "message": 2,
+            "turn": 3,
+            "role": "user",
+            "span": [
+              0,
+              61
+            ],
+            "text": "A quick orientation to the two galleries would be useful too.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 2,
+              "start": 0,
+              "end": 61,
+              "label": "requirement_added",
+              "targets": [],
+              "note": "Indirect but definite addition to the existing script."
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s0-32",
+            "message": 3,
+            "turn": 4,
+            "role": "user",
+            "span": [
+              0,
+              32
+            ],
+            "text": "Leave out the coat-room mention.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 0,
+              "end": 32,
+              "label": "requirement_removed",
+              "targets": [
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 0,
+            "end": 106,
+            "label": "objective",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 107,
+            "end": 129,
+            "label": "requirement_added",
+            "targets": [],
+            "note": "Initial constraint stated alongside the objective."
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 2,
+            "start": 0,
+            "end": 61,
+            "label": "requirement_added",
+            "targets": [],
+            "note": "Indirect but definite addition to the existing script."
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 0,
+            "end": 32,
+            "label": "requirement_removed",
+            "targets": [
+              1
+            ]
+          }
+        }
+      ],
+      "objective_errors": [
+        {
+          "after_message": 0,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 1,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 2,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 3,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 4,
+          "expected": 0,
+          "predicted": null
+        }
+      ],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-106",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            106
+          ],
+          "text": "I'm gathering material for a pretend museum audio tour and could use a short script for the entrance hall.",
+          "intent": "decision",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m0:s107-129",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            107,
+            129
+          ],
+          "text": "Mention the coat room.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-28",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            28
+          ],
+          "text": "I can help with that script.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-61",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            61
+          ],
+          "text": "A quick orientation to the two galleries would be useful too.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-32",
+          "message": 3,
+          "turn": 4,
+          "role": "user",
+          "span": [
+            0,
+            32
+          ],
+          "text": "Leave out the coat-room mention.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s33-90",
+          "message": 3,
+          "turn": 4,
+          "role": "user",
+          "span": [
+            33,
+            90
+          ],
+          "text": "Describe only the east gallery instead of both galleries.",
+          "intent": "requirement_revised",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m4:s0-37",
+          "message": 4,
+          "turn": 5,
+          "role": "assistant",
+          "span": [
+            0,
+            37
+          ],
+          "text": "The entrance-hall script is finished.",
+          "intent": "completion_claim",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-02",
+      "category": "decision-proposal-and-reversal",
+      "errors": [
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s0-71",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              0,
+              71
+            ],
+            "text": "For a fictional choir workshop, I would like a clear practice schedule.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 0,
+              "end": 71,
+              "label": "objective",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m1:s0-54",
+            "message": 1,
+            "turn": 2,
+            "role": "assistant",
+            "span": [
+              0,
+              54
+            ],
+            "text": "My suggestion is to group the exercises by difficulty.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 1,
+              "start": 0,
+              "end": 54,
+              "label": "decision",
+              "targets": [],
+              "note": "Assistant proposal, not an accepted user scope requirement."
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m2:s0-30",
+            "message": 2,
+            "turn": 3,
+            "role": "user",
+            "span": [
+              0,
+              30
+            ],
+            "text": "Arrange them by vocal section.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 2,
+              "start": 0,
+              "end": 30,
+              "label": "decision",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s0-49",
+            "message": 3,
+            "turn": 4,
+            "role": "assistant",
+            "span": [
+              0,
+              49
+            ],
+            "text": "I have grouped the warm-ups and songs by section.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 0,
+              "end": 49,
+              "label": "progress",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m4:s0-72",
+            "message": 4,
+            "turn": 5,
+            "role": "user",
+            "span": [
+              0,
+              72
+            ],
+            "text": "On second thought, replace the section grouping with a difficulty order.",
+            "intent": "requirement_revised",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 4,
+              "start": 0,
+              "end": 72,
+              "label": "decision_reversed",
+              "targets": [
+                2
+              ],
+              "note": "One organizational choice is replaced; this single semantic reversal is not also duplicated as a separate decision event."
+            }
+          ]
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 0,
+            "end": 71,
+            "label": "objective",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 1,
+            "start": 0,
+            "end": 54,
+            "label": "decision",
+            "targets": [],
+            "note": "Assistant proposal, not an accepted user scope requirement."
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 2,
+            "start": 0,
+            "end": 30,
+            "label": "decision",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 0,
+            "end": 49,
+            "label": "progress",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 4,
+            "start": 0,
+            "end": 72,
+            "label": "decision_reversed",
+            "targets": [
+              2
+            ],
+            "note": "One organizational choice is replaced; this single semantic reversal is not also duplicated as a separate decision event."
+          }
+        }
+      ],
+      "objective_errors": [
+        {
+          "after_message": 0,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 1,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 2,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 3,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 4,
+          "expected": 0,
+          "predicted": null
+        }
+      ],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-71",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            71
+          ],
+          "text": "For a fictional choir workshop, I would like a clear practice schedule.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-54",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            54
+          ],
+          "text": "My suggestion is to group the exercises by difficulty.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-30",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            30
+          ],
+          "text": "Arrange them by vocal section.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-49",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            0,
+            49
+          ],
+          "text": "I have grouped the warm-ups and songs by section.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m4:s0-72",
+          "message": 4,
+          "turn": 5,
+          "role": "user",
+          "span": [
+            0,
+            72
+          ],
+          "text": "On second thought, replace the section grouping with a difficulty order.",
+          "intent": "requirement_revised",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-03",
+      "category": "failed-attempt-and-open-debugging",
+      "errors": [
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s0-45",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              0,
+              45
+            ],
+            "text": "The sample route reader skips the final stop.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 0,
+              "end": 45,
+              "label": "unresolved",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s46-107",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              46,
+              107
+            ],
+            "text": "Could you get it to include every stop in the synthetic file?",
+            "intent": "ambiguous",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 46,
+              "end": 107,
+              "label": "objective",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m1:s0-45",
+            "message": 1,
+            "turn": 2,
+            "role": "assistant",
+            "span": [
+              0,
+              45
+            ],
+            "text": "I tried appending an empty line to the input.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 1,
+              "start": 0,
+              "end": 45,
+              "label": "progress",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m1:s46-86",
+            "message": 1,
+            "turn": 2,
+            "role": "assistant",
+            "span": [
+              46,
+              86
+            ],
+            "text": "The reader still omitted the final stop.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 1,
+              "start": 46,
+              "end": 86,
+              "label": "attempt_failed",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m2:s0-65",
+            "message": 2,
+            "turn": 3,
+            "role": "user",
+            "span": [
+              0,
+              65
+            ],
+            "text": "The same fix needs to work when the file has no trailing newline.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 2,
+              "start": 0,
+              "end": 65,
+              "label": "requirement_added",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s0-54",
+            "message": 3,
+            "turn": 4,
+            "role": "assistant",
+            "span": [
+              0,
+              54
+            ],
+            "text": "I have changed the loop so the final row is processed.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 0,
+              "end": 54,
+              "label": "progress",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s55-101",
+            "message": 3,
+            "turn": 4,
+            "role": "assistant",
+            "span": [
+              55,
+              101
+            ],
+            "text": "The no-trailing-newline case remains untested.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 55,
+              "end": 101,
+              "label": "unresolved",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m4:s0-75",
+            "message": 4,
+            "turn": 5,
+            "role": "user",
+            "span": [
+              0,
+              75
+            ],
+            "text": "I am still after a reader that includes every stop, including the last one.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 4,
+              "start": 0,
+              "end": 75,
+              "label": "objective",
+              "targets": [],
+              "note": "Equivalent restatement of the original objective; the checkpoint may retain the original evidence message."
+            }
+          ]
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 0,
+            "end": 45,
+            "label": "unresolved",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 46,
+            "end": 107,
+            "label": "objective",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 1,
+            "start": 0,
+            "end": 45,
+            "label": "progress",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 1,
+            "start": 46,
+            "end": 86,
+            "label": "attempt_failed",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 2,
+            "start": 0,
+            "end": 65,
+            "label": "requirement_added",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 0,
+            "end": 54,
+            "label": "progress",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 55,
+            "end": 101,
+            "label": "unresolved",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 4,
+            "start": 0,
+            "end": 75,
+            "label": "objective",
+            "targets": [],
+            "note": "Equivalent restatement of the original objective; the checkpoint may retain the original evidence message."
+          }
+        }
+      ],
+      "objective_errors": [
+        {
+          "after_message": 0,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 1,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 2,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 3,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 4,
+          "expected": 0,
+          "predicted": null
+        }
+      ],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-45",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            45
+          ],
+          "text": "The sample route reader skips the final stop.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m0:s46-107",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            46,
+            107
+          ],
+          "text": "Could you get it to include every stop in the synthetic file?",
+          "intent": "ambiguous",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-45",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            45
+          ],
+          "text": "I tried appending an empty line to the input.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s46-86",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            46,
+            86
+          ],
+          "text": "The reader still omitted the final stop.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-65",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            65
+          ],
+          "text": "The same fix needs to work when the file has no trailing newline.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-54",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            0,
+            54
+          ],
+          "text": "I have changed the loop so the final row is processed.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s55-101",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            55,
+            101
+          ],
+          "text": "The no-trailing-newline case remains untested.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m4:s0-75",
+          "message": 4,
+          "turn": 5,
+          "role": "user",
+          "span": [
+            0,
+            75
+          ],
+          "text": "I am still after a reader that includes every stop, including the last one.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-04",
+      "category": "ambiguous-request-and-unclear-removal",
+      "errors": [
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s0-48",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              0,
+              48
+            ],
+            "text": "Something about the donation form feels awkward.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 0,
+              "end": 48,
+              "label": "ambiguous",
+              "targets": [],
+              "note": "The concern does not specify what work is requested."
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m1:s0-27",
+            "message": 1,
+            "turn": 2,
+            "role": "assistant",
+            "span": [
+              0,
+              27
+            ],
+            "text": "Which part should I change?",
+            "intent": "ambiguous",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 1,
+              "start": 0,
+              "end": 27,
+              "label": "other",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m2:s0-57",
+            "message": 2,
+            "turn": 3,
+            "role": "user",
+            "span": [
+              0,
+              57
+            ],
+            "text": "Rewrite the donation form help text in everyday language.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 2,
+              "start": 0,
+              "end": 57,
+              "label": "objective",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s0-36",
+            "message": 3,
+            "turn": 4,
+            "role": "user",
+            "span": [
+              0,
+              36
+            ],
+            "text": "Actually, take that explanation out.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 0,
+              "end": 36,
+              "label": "requirement_removed",
+              "targets": [],
+              "note": "Clearly requests a removal, but either explanation could be meant; targets stay empty."
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m4:s0-43",
+            "message": 4,
+            "turn": 5,
+            "role": "assistant",
+            "span": [
+              0,
+              43
+            ],
+            "text": "The explanation to remove is still unclear.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 4,
+              "start": 0,
+              "end": 43,
+              "label": "unresolved",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m5:s0-39",
+            "message": 5,
+            "turn": 6,
+            "role": "user",
+            "span": [
+              0,
+              39
+            ],
+            "text": "I mean the receipt-delivery explanation",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 5,
+              "start": 0,
+              "end": 57,
+              "label": "requirement_removed",
+              "targets": [
+                4
+              ],
+              "note": "Clarifies the definite removal target."
+            }
+          ]
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 0,
+            "end": 48,
+            "label": "ambiguous",
+            "targets": [],
+            "note": "The concern does not specify what work is requested."
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 1,
+            "start": 0,
+            "end": 27,
+            "label": "other",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 2,
+            "start": 0,
+            "end": 57,
+            "label": "objective",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 0,
+            "end": 36,
+            "label": "requirement_removed",
+            "targets": [],
+            "note": "Clearly requests a removal, but either explanation could be meant; targets stay empty."
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 4,
+            "start": 0,
+            "end": 43,
+            "label": "unresolved",
+            "targets": []
+          }
+        }
+      ],
+      "objective_errors": [
+        {
+          "after_message": 2,
+          "expected": 2,
+          "predicted": null
+        },
+        {
+          "after_message": 3,
+          "expected": 2,
+          "predicted": null
+        },
+        {
+          "after_message": 4,
+          "expected": 2,
+          "predicted": null
+        },
+        {
+          "after_message": 5,
+          "expected": 2,
+          "predicted": null
+        }
+      ],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-48",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            48
+          ],
+          "text": "Something about the donation form feels awkward.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-27",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            27
+          ],
+          "text": "Which part should I change?",
+          "intent": "ambiguous",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-57",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            57
+          ],
+          "text": "Rewrite the donation form help text in everyday language.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s58-95",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            58,
+            95
+          ],
+          "text": "Include a gift-frequency explanation.",
+          "intent": "requirement_added",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s96-135",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            96,
+            135
+          ],
+          "text": "Include a receipt-delivery explanation.",
+          "intent": "requirement_added",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-36",
+          "message": 3,
+          "turn": 4,
+          "role": "user",
+          "span": [
+            0,
+            36
+          ],
+          "text": "Actually, take that explanation out.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m4:s0-43",
+          "message": 4,
+          "turn": 5,
+          "role": "assistant",
+          "span": [
+            0,
+            43
+          ],
+          "text": "The explanation to remove is still unclear.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m5:s0-39",
+          "message": 5,
+          "turn": 6,
+          "role": "user",
+          "span": [
+            0,
+            39
+          ],
+          "text": "I mean the receipt-delivery explanation",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m5:s41-57",
+          "message": 5,
+          "turn": 6,
+          "role": "user",
+          "span": [
+            41,
+            57
+          ],
+          "text": "remove that one.",
+          "intent": "requirement_removed",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-05",
+      "category": "full-independent-check-at-completion",
+      "errors": [],
+      "objective_errors": [],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-54",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            54
+          ],
+          "text": "Build a unit converter between inches and centimeters.",
+          "intent": "objective",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-31",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            31
+          ],
+          "text": "The unit converter is complete.",
+          "intent": "completion_claim",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-31",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            31
+          ],
+          "text": "Thanks, I have seen the update.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-16",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            0,
+            16
+          ],
+          "text": "You are welcome.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-06",
+      "category": "partial-independent-check-at-completion",
+      "errors": [],
+      "objective_errors": [],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-66",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            66
+          ],
+          "text": "Build a flashcard widget with card flipping and a shuffle control.",
+          "intent": "objective",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-33",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            33
+          ],
+          "text": "The flashcard widget is complete.",
+          "intent": "completion_claim",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-38",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            38
+          ],
+          "text": "I will look at the widget after lunch.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-11",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            0,
+            11
+          ],
+          "text": "That works.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-07",
+      "category": "failed-independent-check-despite-claim",
+      "errors": [
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m2:s0-29",
+            "message": 2,
+            "turn": 3,
+            "role": "user",
+            "span": [
+              0,
+              29
+            ],
+            "text": "The counter still needs work.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 2,
+              "start": 0,
+              "end": 29,
+              "label": "unresolved",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s0-48",
+            "message": 3,
+            "turn": 4,
+            "role": "assistant",
+            "span": [
+              0,
+              48
+            ],
+            "text": "I am investigating the remaining counting error.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 0,
+              "end": 48,
+              "label": "progress",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 2,
+            "start": 0,
+            "end": 29,
+            "label": "unresolved",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 0,
+            "end": 48,
+            "label": "progress",
+            "targets": []
+          }
+        }
+      ],
+      "objective_errors": [],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-54",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            54
+          ],
+          "text": "Build a word counter that counts words in pasted text.",
+          "intent": "objective",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-29",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            29
+          ],
+          "text": "The word counter is complete.",
+          "intent": "completion_claim",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-29",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            29
+          ],
+          "text": "The counter still needs work.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-48",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            0,
+            48
+          ],
+          "text": "I am investigating the remaining counting error.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "post-holdout-08",
+      "category": "sequential-task-and-return-to-prior-work",
+      "errors": [
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s0-76",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              0,
+              76
+            ],
+            "text": "I could use a friendly name-tag instruction card for a pretend science fair.",
+            "intent": "decision",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 0,
+              "end": 76,
+              "label": "objective",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m1:s0-39",
+            "message": 1,
+            "turn": 2,
+            "role": "assistant",
+            "span": [
+              0,
+              39
+            ],
+            "text": "The name-tag instruction card is ready.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 1,
+              "start": 0,
+              "end": 39,
+              "label": "completion_claim",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m2:s0-60",
+            "message": 2,
+            "turn": 3,
+            "role": "user",
+            "span": [
+              0,
+              60
+            ],
+            "text": "Next, draft a short thank-you note for the volunteer judges.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 2,
+              "start": 0,
+              "end": 60,
+              "label": "task_changed",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s0-67",
+            "message": 3,
+            "turn": 4,
+            "role": "assistant",
+            "span": [
+              0,
+              67
+            ],
+            "text": "I have drafted the greeting and the closing for the thank-you note.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 0,
+              "end": 67,
+              "label": "progress",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m4:s0-61",
+            "message": 4,
+            "turn": 5,
+            "role": "user",
+            "span": [
+              0,
+              61
+            ],
+            "text": "Set the thank-you note aside and return to the name-tag card.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 4,
+              "start": 0,
+              "end": 61,
+              "label": "task_changed",
+              "targets": [],
+              "note": "Changes active work back to an earlier task; this does not assert completion of the thank-you note."
+            }
+          ]
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 0,
+            "end": 76,
+            "label": "objective",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 1,
+            "start": 0,
+            "end": 39,
+            "label": "completion_claim",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 2,
+            "start": 0,
+            "end": 60,
+            "label": "task_changed",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 0,
+            "end": 67,
+            "label": "progress",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 4,
+            "start": 0,
+            "end": 61,
+            "label": "task_changed",
+            "targets": [],
+            "note": "Changes active work back to an earlier task; this does not assert completion of the thank-you note."
+          }
+        }
+      ],
+      "objective_errors": [
+        {
+          "after_message": 0,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 1,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 2,
+          "expected": 2,
+          "predicted": null
+        },
+        {
+          "after_message": 3,
+          "expected": 2,
+          "predicted": null
+        },
+        {
+          "after_message": 4,
+          "expected": 4,
+          "predicted": null
+        }
+      ],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-76",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            76
+          ],
+          "text": "I could use a friendly name-tag instruction card for a pretend science fair.",
+          "intent": "decision",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-39",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            39
+          ],
+          "text": "The name-tag instruction card is ready.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-60",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            60
+          ],
+          "text": "Next, draft a short thank-you note for the volunteer judges.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-67",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            0,
+            67
+          ],
+          "text": "I have drafted the greeting and the closing for the thank-you note.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m4:s0-61",
+          "message": 4,
+          "turn": 5,
+          "role": "user",
+          "span": [
+            0,
+            61
+          ],
+          "text": "Set the thank-you note aside and return to the name-tag card.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m4:s62-109",
+          "message": 4,
+          "turn": 5,
+          "role": "user",
+          "span": [
+            62,
+            109
+          ],
+          "text": "Add a reminder to write names in large letters.",
+          "intent": "requirement_added",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Independent blind agent labels, not human annotation or population ground truth.",
+    "Overlap alignment tolerates segmentation differences; exact spans reported separately.",
+    "Multi-act labels expose single-intent limitations; checkpoint references audit state separately.",
+    "Source span integrity does not establish semantic correctness; target candidates are scored separately.",
+    "Synthetic checks attest a named checkpoint only; no real outcomes or predictive benefit."
+  ]
+}

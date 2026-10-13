@@ -1,0 +1,1227 @@
+{
+  "format": "conversation-state-evaluation/v1",
+  "source_kind": "simulated",
+  "label_provenance": "Author manually specified intent and state labels before running experiments; not human annotation or independent real-world ground truth.",
+  "training": [
+    {
+      "role": "user",
+      "text": "Build a garden shelter.",
+      "intent": "objective"
+    },
+    {
+      "role": "user",
+      "text": "Write a lunch menu.",
+      "intent": "objective"
+    },
+    {
+      "role": "user",
+      "text": "Compare soil treatments.",
+      "intent": "objective"
+    },
+    {
+      "role": "user",
+      "text": "Create a household inventory.",
+      "intent": "objective"
+    },
+    {
+      "role": "user",
+      "text": "Also support shade plants.",
+      "intent": "requirement_added"
+    },
+    {
+      "role": "user",
+      "text": "Keep the lunch budget below twenty.",
+      "intent": "requirement_added"
+    },
+    {
+      "role": "user",
+      "text": "The shelter must resist rain.",
+      "intent": "requirement_added"
+    },
+    {
+      "role": "user",
+      "text": "Only include reusable containers.",
+      "intent": "requirement_added"
+    },
+    {
+      "role": "user",
+      "text": "Remove tomatoes from the garden.",
+      "intent": "requirement_removed"
+    },
+    {
+      "role": "user",
+      "text": "Exclude peanuts from the menu.",
+      "intent": "requirement_removed"
+    },
+    {
+      "role": "user",
+      "text": "Drop the waterproofing requirement.",
+      "intent": "requirement_removed"
+    },
+    {
+      "role": "user",
+      "text": "Do not include glass containers.",
+      "intent": "requirement_removed"
+    },
+    {
+      "role": "user",
+      "text": "Replace tomatoes with beans.",
+      "intent": "requirement_revised"
+    },
+    {
+      "role": "user",
+      "text": "Use paper instead of plastic.",
+      "intent": "requirement_revised"
+    },
+    {
+      "role": "user",
+      "text": "Change the lunch budget to thirty.",
+      "intent": "requirement_revised"
+    },
+    {
+      "role": "user",
+      "text": "Revise the shelter height.",
+      "intent": "requirement_revised"
+    },
+    {
+      "role": "assistant",
+      "text": "Use cedar for the shelter.",
+      "intent": "decision"
+    },
+    {
+      "role": "assistant",
+      "text": "I decided to serve soup.",
+      "intent": "decision"
+    },
+    {
+      "role": "assistant",
+      "text": "Choose clay pots.",
+      "intent": "decision"
+    },
+    {
+      "role": "assistant",
+      "text": "We prefer a wooden frame.",
+      "intent": "decision"
+    },
+    {
+      "role": "user",
+      "text": "Go back to cedar.",
+      "intent": "decision_reversed"
+    },
+    {
+      "role": "user",
+      "text": "I changed my mind about soup.",
+      "intent": "decision_reversed"
+    },
+    {
+      "role": "user",
+      "text": "Reverse the clay pot decision.",
+      "intent": "decision_reversed"
+    },
+    {
+      "role": "user",
+      "text": "Revert to the wooden frame.",
+      "intent": "decision_reversed"
+    },
+    {
+      "role": "user",
+      "text": "New task: design a picnic.",
+      "intent": "task_changed"
+    },
+    {
+      "role": "user",
+      "text": "Switch tasks and write a shopping list.",
+      "intent": "task_changed"
+    },
+    {
+      "role": "user",
+      "text": "Forget this task and plan a walk.",
+      "intent": "task_changed"
+    },
+    {
+      "role": "user",
+      "text": "Different task: compare bicycles.",
+      "intent": "task_changed"
+    },
+    {
+      "role": "assistant",
+      "text": "I added the seedlings.",
+      "intent": "progress"
+    },
+    {
+      "role": "assistant",
+      "text": "I implemented the menu generator.",
+      "intent": "progress"
+    },
+    {
+      "role": "assistant",
+      "text": "I fixed the frame.",
+      "intent": "progress"
+    },
+    {
+      "role": "assistant",
+      "text": "I updated the inventory.",
+      "intent": "progress"
+    },
+    {
+      "role": "assistant",
+      "text": "The shelter collapsed and is broken.",
+      "intent": "attempt_failed"
+    },
+    {
+      "role": "assistant",
+      "text": "The menu generator failed.",
+      "intent": "attempt_failed"
+    },
+    {
+      "role": "assistant",
+      "text": "The water pump crashes.",
+      "intent": "attempt_failed"
+    },
+    {
+      "role": "assistant",
+      "text": "The inventory does not work.",
+      "intent": "attempt_failed"
+    },
+    {
+      "role": "assistant",
+      "text": "The planting is not done.",
+      "intent": "unresolved"
+    },
+    {
+      "role": "assistant",
+      "text": "The menu is still incomplete.",
+      "intent": "unresolved"
+    },
+    {
+      "role": "assistant",
+      "text": "I am blocked on the frame.",
+      "intent": "unresolved"
+    },
+    {
+      "role": "assistant",
+      "text": "The inventory is pending.",
+      "intent": "unresolved"
+    },
+    {
+      "role": "assistant",
+      "text": "The shelter is done.",
+      "intent": "completion_claim"
+    },
+    {
+      "role": "assistant",
+      "text": "The menu is complete.",
+      "intent": "completion_claim"
+    },
+    {
+      "role": "assistant",
+      "text": "All tests passed.",
+      "intent": "completion_claim"
+    },
+    {
+      "role": "assistant",
+      "text": "I finished the inventory.",
+      "intent": "completion_claim"
+    },
+    {
+      "role": "assistant",
+      "text": "Maybe use cedar.",
+      "intent": "ambiguous"
+    },
+    {
+      "role": "assistant",
+      "text": "Should we plant beans?",
+      "intent": "ambiguous"
+    },
+    {
+      "role": "assistant",
+      "text": "If the menu is done, serve lunch.",
+      "intent": "ambiguous"
+    },
+    {
+      "role": "assistant",
+      "text": "The neighbor said the shelter is finished.",
+      "intent": "ambiguous"
+    },
+    {
+      "role": "assistant",
+      "text": "Cedar is a tree.",
+      "intent": "other"
+    },
+    {
+      "role": "assistant",
+      "text": "Lunch is at noon.",
+      "intent": "other"
+    },
+    {
+      "role": "assistant",
+      "text": "The garden receives sunlight.",
+      "intent": "other"
+    },
+    {
+      "role": "assistant",
+      "text": "Here is a sketch.",
+      "intent": "other"
+    }
+  ],
+  "evaluation": [
+    {
+      "id": "parser-add",
+      "topic": "software",
+      "category": "new_requirements",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a CSV parser.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I added ordinary fields.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Also support quoted commas.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Keep newlines inside quoted fields.",
+          "turn": 2
+        }
+      ],
+      "intents": [
+        "objective",
+        "progress",
+        "requirement_added",
+        "requirement_added"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0,
+          2,
+          3
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [
+          1
+        ],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "scheduler-remove",
+      "topic": "algorithms",
+      "category": "removed_requirements",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Compare FIFO and round robin.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Exclude FIFO from the comparison.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The comparison is still incomplete.",
+          "turn": 2
+        }
+      ],
+      "intents": [
+        "objective",
+        "requirement_removed",
+        "unresolved"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [
+          1
+        ],
+        "decisions": [],
+        "unresolved": [
+          2
+        ],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "format-revise",
+      "topic": "data",
+      "category": "revised_requirements",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Create a JSON report.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Replace JSON with YAML.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "requirement_revised"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0,
+          1
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "decision-reverse",
+      "topic": "database",
+      "category": "reversed_decisions",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a database client.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Use SQLite.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Reverse the SQLite decision and use PostgreSQL.",
+          "turn": 2
+        }
+      ],
+      "intents": [
+        "objective",
+        "decision",
+        "decision_reversed"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0,
+          1,
+          2
+        ],
+        "exclusions": [],
+        "decisions": [
+          1,
+          2
+        ],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "task-switch",
+      "topic": "research",
+      "category": "task_changes",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Summarize a physics paper.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I added a summary.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "New task: compare telescope designs.",
+          "turn": 2
+        }
+      ],
+      "intents": [
+        "objective",
+        "progress",
+        "task_changed"
+      ],
+      "checks": [],
+      "final": {
+        "task": 2,
+        "objective_message": 2,
+        "requirements": [],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "failed-retry",
+      "topic": "network",
+      "category": "failed_attempts",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Write a connection handler.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The connection attempt failed.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I fixed the timeout.",
+          "turn": 2
+        }
+      ],
+      "intents": [
+        "objective",
+        "attempt_failed",
+        "progress"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [
+          1
+        ],
+        "progress": [
+          2
+        ],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "blocked",
+      "topic": "travel",
+      "category": "unresolved_tasks",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Plan a train journey.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I am blocked on the timetable.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "unresolved"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [
+          1
+        ],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "unverified-done",
+      "topic": "testing",
+      "category": "completion_claim",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a checksum validator.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "All tests passed.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "completion_claim"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [
+          1
+        ],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "verified",
+      "topic": "acceptance",
+      "category": "verified_completion",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a checksum validator.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The validator is complete.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "completion_claim"
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "authored-independent-1",
+          "artifact_id": "authored-artifact",
+          "acceptance_spec": "checksum-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "full_task"
+        }
+      ],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [
+          1
+        ],
+        "verification": "verified",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "partial-check",
+      "topic": "acceptance-partial",
+      "category": "partial_verification",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a checksum validator.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The validator is complete.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "completion_claim"
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "authored-independent-1",
+          "artifact_id": "authored-artifact",
+          "acceptance_spec": "checksum-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "partial"
+        }
+      ],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [
+          1
+        ],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "verification-stale",
+      "topic": "acceptance-revision",
+      "category": "stale_verification",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a checksum validator.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The validator is complete.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Also support SHA256.",
+          "turn": 2
+        }
+      ],
+      "intents": [
+        "objective",
+        "completion_claim",
+        "requirement_added"
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "authored-independent-1",
+          "artifact_id": "authored-artifact",
+          "acceptance_spec": "checksum-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "full_task"
+        }
+      ],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0,
+          2
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [
+          1
+        ],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "ambiguous-question",
+      "topic": "interface",
+      "category": "ambiguous_statements",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a search interface.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Should we remove filtering?",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "Maybe it is done.",
+          "turn": 2
+        }
+      ],
+      "intents": [
+        "objective",
+        "ambiguous",
+        "ambiguous"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 2
+      }
+    },
+    {
+      "id": "negative-completion",
+      "topic": "publication",
+      "category": "negation",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Write a literature review.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The review is not done.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "unresolved"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [
+          1
+        ],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "quoted-success",
+      "topic": "editing",
+      "category": "indirect_claims",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Create an editing checklist.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The editor said all tests passed.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "ambiguous"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 1
+      }
+    },
+    {
+      "id": "planned-work",
+      "topic": "mobile",
+      "category": "planned_vs_progress",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a mobile app.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I will implement authentication.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "other"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "assistant-scope",
+      "topic": "security",
+      "category": "attribution",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a backup tool.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "Remove encryption.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "other"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "pronoun-removal",
+      "topic": "storage",
+      "category": "unresolved_reference",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a disk monitor.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Remove that requirement.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "requirement_removed"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [
+          1
+        ],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 1
+      }
+    },
+    {
+      "id": "implicit-add",
+      "topic": "accessibility",
+      "category": "unsupported_paraphrase",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a reading app.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Screen readers matter too.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "requirement_added"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0,
+          1
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "implicit-switch",
+      "topic": "education",
+      "category": "implicit_task_change",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Explain recursion.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Translate this recipe into French.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "task_changed"
+      ],
+      "checks": [],
+      "final": {
+        "task": 2,
+        "objective_message": 1,
+        "requirements": [],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "ambiguous-short",
+      "topic": "hardware",
+      "category": "ambiguous_short_reply",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Design a sensor.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "That looks good.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "ambiguous"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 1
+      }
+    },
+    {
+      "id": "explicit-failure-check",
+      "topic": "acceptance-failure",
+      "category": "failed_check",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a checksum validator.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The validator is complete.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "completion_claim"
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "authored-independent-1",
+          "artifact_id": "authored-artifact",
+          "acceptance_spec": "checksum-v1",
+          "source": "independent_verifier",
+          "result": "failed",
+          "scope": "full_task"
+        }
+      ],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0
+        ],
+        "exclusions": [],
+        "decisions": [],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [
+          1
+        ],
+        "verification": "failed_check",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "scope-constraint",
+      "topic": "libraries",
+      "category": "constraints",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Write a date parser.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "Only use the standard library.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "decision"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0,
+          1
+        ],
+        "exclusions": [],
+        "decisions": [
+          1
+        ],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 0
+      }
+    },
+    {
+      "id": "reversal-unknown",
+      "topic": "graphics",
+      "category": "unresolved_reversal",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Design a chart.",
+          "turn": 1
+        },
+        {
+          "role": "user",
+          "text": "I changed my mind.",
+          "turn": 1
+        }
+      ],
+      "intents": [
+        "objective",
+        "decision_reversed"
+      ],
+      "checks": [],
+      "final": {
+        "task": 1,
+        "objective_message": 0,
+        "requirements": [
+          0,
+          1
+        ],
+        "exclusions": [],
+        "decisions": [
+          1
+        ],
+        "unresolved": [],
+        "progress": [],
+        "completion_claims": [],
+        "verification": "unknown",
+        "uncertainty_min": 1
+      }
+    }
+  ]
+}

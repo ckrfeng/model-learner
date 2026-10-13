@@ -1,0 +1,1930 @@
+{
+  "format": "conversation-state-holdout/v1",
+  "source_kind": "simulated",
+  "label_provenance": "independent prediction-blind agent author; not human ground truth",
+  "cases": [
+    {
+      "id": "holdout-01",
+      "category": "natural-objective-and-requirement-changes",
+      "messages": [
+        {
+          "role": "user",
+          "text": "I am putting together a neighborhood seed-swap flyer and could use a draft people can skim. Keep the event date and venue in a compact box.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I can draft that flyer.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Please include a short note saying unopened seed packets are welcome.",
+          "turn": 3
+        },
+        {
+          "role": "user",
+          "text": "Leave out the boxed treatment for the date and venue. Put those details in the opening line instead.",
+          "turn": 4
+        },
+        {
+          "role": "assistant",
+          "text": "I have drafted the introduction and the exchange instructions. The accessibility information still needs to be filled in.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 91,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 92,
+          "end": 139,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial constraint supplied with the objective."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 23,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 69,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 53,
+          "label": "requirement_removed",
+          "targets": [
+            1
+          ]
+        },
+        {
+          "message": 3,
+          "start": 54,
+          "end": 100,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 62,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 63,
+          "end": 121,
+          "label": "unresolved",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "holdout-02",
+      "category": "proposed-and-changed-decisions",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Help me organize a small synthetic book catalog. The catalog should be easy to edit by hand.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I suggest using a YAML file for the catalog.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Use CSV as the storage format.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I have mapped the title, author, and shelf columns.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "I have changed my mind about CSV; go with JSON.",
+          "turn": 5
+        },
+        {
+          "role": "assistant",
+          "text": "Understood. The JSON conversion is still pending.",
+          "turn": 6
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 48,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 49,
+          "end": 92,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial constraint."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 44,
+          "label": "decision",
+          "targets": [],
+          "note": "Assistant proposal; it is not an accepted user requirement."
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 30,
+          "label": "decision",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 51,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 47,
+          "label": "decision_reversed",
+          "targets": [
+            3
+          ],
+          "note": "The sentence both revokes CSV and selects JSON."
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 47,
+          "label": "decision",
+          "targets": [],
+          "note": "Shared span with the reversal because one sentence performs both acts."
+        },
+        {
+          "message": 5,
+          "start": 0,
+          "end": 11,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 5,
+          "start": 12,
+          "end": 49,
+          "label": "unresolved",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        },
+        {
+          "after_message": 5,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 5,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        },
+        {
+          "message": 5,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "holdout-03",
+      "category": "debugging-failure-and-open-work",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Fix the sample expense importer so repeated header lines are skipped.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I tried filtering every row that contained the word amount. That attempt also discarded a legitimate description, so it did not fix the importer.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Compare the entire header row rather than matching a single word.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "The exact-row comparison now preserves the description in the local example. I have not yet checked whether whitespace-only differences are handled.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Please make the comparison ignore leading and trailing spaces too.",
+          "turn": 5
+        },
+        {
+          "role": "assistant",
+          "text": "The importer fix is complete.",
+          "turn": 6
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 69,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 59,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 60,
+          "end": 145,
+          "label": "attempt_failed",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 65,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 76,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 77,
+          "end": 148,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 66,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 5,
+          "start": 0,
+          "end": 29,
+          "label": "completion_claim",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        },
+        {
+          "after_message": 5,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 5,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        },
+        {
+          "message": 5,
+          "required": false
+        }
+      ],
+      "notes": "An assistant report about one local example is progress, not independent full-task verification. The final completion claim has no attached external evidence."
+    },
+    {
+      "id": "holdout-04",
+      "category": "sequential-new-task",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Draft a two-sentence welcome note for a fictional pottery club.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The welcome note is ready.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Now make a packing checklist for a weekend camping trip.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I have grouped the checklist into shelter, food, and clothing.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Keep the checklist short enough to print on one page.",
+          "turn": 5
+        },
+        {
+          "role": "assistant",
+          "text": "The one-page checklist is finished.",
+          "turn": 6
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 63,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 26,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 56,
+          "label": "task_changed",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 62,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 53,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 5,
+          "start": 0,
+          "end": 35,
+          "label": "completion_claim",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 2
+        },
+        {
+          "after_message": 3,
+          "message": 2
+        },
+        {
+          "after_message": 4,
+          "message": 2
+        },
+        {
+          "after_message": 5,
+          "message": 2
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 5,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        },
+        {
+          "message": 5,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "holdout-05",
+      "category": "concurrent-task-limitation",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Prepare a short agenda for a fictional garden-club meeting.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I am arranging the discussion topics.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "While you work on the agenda, also draft a reminder about returning library books.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "The library reminder is drafted. The agenda still needs time estimates.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Continue both, and include a five-minute break in the agenda.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 59,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 37,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 82,
+          "label": "task_changed",
+          "targets": [],
+          "note": "Adds a concurrent task explicitly; the agenda remains active."
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 32,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 33,
+          "end": 71,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 61,
+          "label": "other",
+          "targets": [],
+          "note": "Continue both preserves the two existing tasks; it does not introduce another task."
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 61,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Shared span: the sentence also adds a specific agenda requirement."
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 2
+        },
+        {
+          "after_message": 3,
+          "message": 2
+        },
+        {
+          "after_message": 4,
+          "message": 2
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ],
+      "notes": "Two tasks remain active after message 2. A single current-objective message cannot represent both; checkpoints use the latest introduced task at message 2 without implying the agenda was canceled."
+    },
+    {
+      "id": "holdout-06",
+      "category": "external-full-verification",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a temperature conversion widget with Celsius and Fahrenheit inputs.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I will build the widget.",
+          "turn": 2
+        },
+        {
+          "role": "assistant",
+          "text": "The conversion widget is complete.",
+          "turn": 3
+        },
+        {
+          "role": "user",
+          "text": "Thanks for the update.",
+          "turn": 4
+        }
+      ],
+      "checks": [
+        {
+          "after_message": 2,
+          "revision": 2,
+          "evidence_id": "synthetic-temperature-check-01",
+          "artifact_id": "synthetic-temperature-widget",
+          "acceptance_spec": "synthetic-temperature-widget-acceptance-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "full_task"
+        }
+      ],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 73,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 24,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 34,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 22,
+          "label": "other",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "verified"
+        },
+        {
+          "after_message": 3,
+          "expected": "verified"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "holdout-07",
+      "category": "external-partial-verification",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a timer widget with a reset button and keyboard access to every control.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The timer widget is complete.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Keyboard navigation still does not reach the reset button.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I am repairing the focus order. The keyboard-access requirement remains unfinished.",
+          "turn": 4
+        }
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "synthetic-timer-display-check-01",
+          "artifact_id": "synthetic-timer-widget",
+          "acceptance_spec": "synthetic-timer-widget-acceptance-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "partial"
+        }
+      ],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 78,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 0,
+          "end": 78,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Shared span with objective: this initial sentence also states the required controls and access."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 29,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 58,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 31,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 32,
+          "end": 83,
+          "label": "unresolved",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        }
+      ],
+      "notes": "The partial verifier passed only the display-and-timing portion. It does not establish completion of the full task; the user report is unresolved work, not an independent failed check."
+    },
+    {
+      "id": "holdout-08",
+      "category": "verification-invalidated-by-new-scope",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a count-up widget with start and stop buttons.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "The count-up widget is complete.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Add a reset button to the widget as well.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "The reset button has been added and the widget is complete.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "I will review it later.",
+          "turn": 5
+        }
+      ],
+      "checks": [
+        {
+          "after_message": 1,
+          "revision": 2,
+          "evidence_id": "synthetic-count-up-check-01",
+          "artifact_id": "synthetic-count-up-widget",
+          "acceptance_spec": "synthetic-count-up-widget-acceptance-v1",
+          "source": "independent_verifier",
+          "result": "passed",
+          "scope": "full_task"
+        }
+      ],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 52,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 32,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 41,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 59,
+          "label": "completion_claim",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 23,
+          "label": "other",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "verified"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ],
+      "notes": "The full passed check applies to the prior scope. Adding reset invalidates its use as verification of the current requirements; a new completion claim does not renew it."
+    },
+    {
+      "id": "holdout-09",
+      "category": "ambiguous-then-indirect-instruction",
+      "messages": [
+        {
+          "role": "user",
+          "text": "The sign-up page could use some attention.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "Which part of the sign-up page should change?",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Rewrite the sign-up page introduction so first-time visitors know what the club does.",
+          "turn": 3
+        },
+        {
+          "role": "user",
+          "text": "It would help if the opening mentioned that beginners are welcome.",
+          "turn": 4
+        },
+        {
+          "role": "assistant",
+          "text": "I have written an opening that explains the club and welcomes beginners.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 42,
+          "label": "ambiguous",
+          "targets": [],
+          "note": "Mentions a concern without identifying the requested change or desired outcome."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 45,
+          "label": "other",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 85,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 66,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Indirect wording still clearly requests specific content for the established draft."
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 72,
+          "label": "progress",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": null
+        },
+        {
+          "after_message": 1,
+          "message": null
+        },
+        {
+          "after_message": 2,
+          "message": 2
+        },
+        {
+          "after_message": 3,
+          "message": 2
+        },
+        {
+          "after_message": 4,
+          "message": 2
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": true,
+          "note": "The desired task cannot be determined from the opening concern alone."
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "holdout-10",
+      "category": "paraphrased-objective-and-revision",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Can you put together a concise guide to watering the imaginary greenhouse beds? Use a numbered list.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I have sketched the morning and evening steps.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "What I need is a quick watering guide for those greenhouse beds. Use brief paragraphs in place of the numbered list.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I have converted the steps into paragraphs.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Include a reminder to check the soil before adding water.",
+          "turn": 5
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 79,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 80,
+          "end": 100,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial formatting constraint."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 46,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 64,
+          "label": "objective",
+          "targets": [],
+          "note": "Restates the same objective in normal paraphrase; this is not a new task."
+        },
+        {
+          "message": 2,
+          "start": 65,
+          "end": 116,
+          "label": "requirement_revised",
+          "targets": [
+            1
+          ]
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 43,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 57,
+          "label": "requirement_added",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 2
+        },
+        {
+          "after_message": 3,
+          "message": 2
+        },
+        {
+          "after_message": 4,
+          "message": 2
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "holdout-11",
+      "category": "multi-sentence-multi-act-reversal",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Create a short reference sheet for a fictional board game. Include a glossary.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "I propose organizing the sheet by player turn.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Organize it by game phase. Give each phase an example.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "The phase headings and examples are drafted.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Switch from phase order to player-turn order. Drop the glossary. Keep each example under two sentences.",
+          "turn": 5
+        },
+        {
+          "role": "assistant",
+          "text": "The reference sheet is ready.",
+          "turn": 6
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 58,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 59,
+          "end": 78,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial scope constraint."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 46,
+          "label": "decision",
+          "targets": [],
+          "note": "Assistant proposal retains assistant authorship; it is not a user requirement."
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 26,
+          "label": "decision",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 27,
+          "end": 54,
+          "label": "requirement_added",
+          "targets": []
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 44,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 45,
+          "label": "decision_reversed",
+          "targets": [
+            3
+          ],
+          "note": "This sentence reverses the prior organizational decision and selects its replacement."
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 45,
+          "label": "decision",
+          "targets": [],
+          "note": "Shared span with decision_reversed."
+        },
+        {
+          "message": 4,
+          "start": 46,
+          "end": 64,
+          "label": "requirement_removed",
+          "targets": [
+            1
+          ]
+        },
+        {
+          "message": 4,
+          "start": 65,
+          "end": 103,
+          "label": "requirement_revised",
+          "targets": [
+            4
+          ],
+          "note": "Narrows the existing example requirement; examples remain required."
+        },
+        {
+          "message": 5,
+          "start": 0,
+          "end": 29,
+          "label": "completion_claim",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        },
+        {
+          "after_message": 5,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 5,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": false
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        },
+        {
+          "message": 5,
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "holdout-12",
+      "category": "unclear-removal-referent",
+      "messages": [
+        {
+          "role": "user",
+          "text": "Build a small note sorter. Include a topic filter. Include a date filter.",
+          "turn": 1
+        },
+        {
+          "role": "assistant",
+          "text": "Both filters are wired up.",
+          "turn": 2
+        },
+        {
+          "role": "user",
+          "text": "Remove that filter.",
+          "turn": 3
+        },
+        {
+          "role": "assistant",
+          "text": "I am leaving both filters in place until the intended one is identified.",
+          "turn": 4
+        },
+        {
+          "role": "user",
+          "text": "Keep the topic filter and remove the date filter.",
+          "turn": 5
+        },
+        {
+          "role": "assistant",
+          "text": "The note sorter is complete.",
+          "turn": 6
+        }
+      ],
+      "checks": [],
+      "events": [
+        {
+          "message": 0,
+          "start": 0,
+          "end": 26,
+          "label": "objective",
+          "targets": []
+        },
+        {
+          "message": 0,
+          "start": 27,
+          "end": 50,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial scope constraint."
+        },
+        {
+          "message": 0,
+          "start": 51,
+          "end": 73,
+          "label": "requirement_added",
+          "targets": [],
+          "note": "Initial scope constraint."
+        },
+        {
+          "message": 1,
+          "start": 0,
+          "end": 26,
+          "label": "progress",
+          "targets": []
+        },
+        {
+          "message": 2,
+          "start": 0,
+          "end": 19,
+          "label": "requirement_removed",
+          "targets": [],
+          "note": "A removal is clearly requested, but either of two filters could be the referent. No definite target is labeled."
+        },
+        {
+          "message": 3,
+          "start": 0,
+          "end": 72,
+          "label": "unresolved",
+          "targets": []
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 49,
+          "label": "other",
+          "targets": [],
+          "note": "Confirms retention of an existing requirement; it is not a new requirement."
+        },
+        {
+          "message": 4,
+          "start": 0,
+          "end": 49,
+          "label": "requirement_removed",
+          "targets": [
+            2
+          ],
+          "note": "Shared span: the same sentence definitively removes the date filter."
+        },
+        {
+          "message": 5,
+          "start": 0,
+          "end": 28,
+          "label": "completion_claim",
+          "targets": []
+        }
+      ],
+      "objectives": [
+        {
+          "after_message": 0,
+          "message": 0
+        },
+        {
+          "after_message": 1,
+          "message": 0
+        },
+        {
+          "after_message": 2,
+          "message": 0
+        },
+        {
+          "after_message": 3,
+          "message": 0
+        },
+        {
+          "after_message": 4,
+          "message": 0
+        },
+        {
+          "after_message": 5,
+          "message": 0
+        }
+      ],
+      "verification": [
+        {
+          "after_message": 0,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 1,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 2,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 3,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 4,
+          "expected": "unknown"
+        },
+        {
+          "after_message": 5,
+          "expected": "unknown"
+        }
+      ],
+      "uncertainty": [
+        {
+          "message": 0,
+          "required": false
+        },
+        {
+          "message": 1,
+          "required": false
+        },
+        {
+          "message": 2,
+          "required": true,
+          "note": "The requested removal lacks a definite referent until the later clarification."
+        },
+        {
+          "message": 3,
+          "required": false
+        },
+        {
+          "message": 4,
+          "required": false
+        },
+        {
+          "message": 5,
+          "required": false
+        }
+      ],
+      "notes": "The removal request at message 2 has no definite semantic target. The later clarification selects the date filter. The final assistant completion claim is not independent verification."
+    }
+  ]
+}

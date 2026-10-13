@@ -1,0 +1,640 @@
+{
+  "format": "conversation-state-holdout-report/v1",
+  "source_kind": "simulated",
+  "label_provenance": "independent prediction-blind agent author; not human ground truth",
+  "backend_sha256": "5eec4ad510a40f7247b8de8f045022fde63966530a969e4a64e915d4da5b6e6c",
+  "dataset_sha256": "b3deab18b8356ea3afa513cbf612ef866893dc80a2753a4d8c7c0b27dc5c45ea",
+  "conversation_count": 1,
+  "metrics": {
+    "initial_objective_accuracy": {
+      "correct": 0,
+      "count": 1,
+      "rate": 0.0
+    },
+    "objective_checkpoint_accuracy": {
+      "correct": 0,
+      "count": 6,
+      "rate": 0.0
+    },
+    "requirements": {
+      "true_positive": 1,
+      "predicted": 2,
+      "reference": 3,
+      "false_positive": 1,
+      "missed": 2,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    "requirement_change_detection": {
+      "true_positive": 2,
+      "predicted": 2,
+      "reference": 3,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": 1.0,
+      "recall": 0.6666666666666666
+    },
+    "decisions": {
+      "true_positive": 0,
+      "predicted": 1,
+      "reference": 0,
+      "false_positive": 1,
+      "missed": 0,
+      "precision": 0.0,
+      "recall": null
+    },
+    "decision_region_detection": {
+      "true_positive": 0,
+      "predicted": 1,
+      "reference": 0,
+      "false_positive": 1,
+      "missed": 0,
+      "precision": 0.0,
+      "recall": null
+    },
+    "decision_reversals": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 0,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": null,
+      "recall": null
+    },
+    "changes": {
+      "true_positive": 1,
+      "predicted": 3,
+      "reference": 3,
+      "false_positive": 2,
+      "missed": 2,
+      "precision": 0.3333333333333333,
+      "recall": 0.3333333333333333
+    },
+    "completion_claims": {
+      "true_positive": 1,
+      "predicted": 1,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "abstention": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 0,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": null,
+      "recall": null
+    },
+    "required_uncertainty_coverage": {
+      "correct": 0,
+      "count": 0,
+      "rate": null
+    },
+    "source_span_role_integrity": {
+      "correct": 8,
+      "count": 8,
+      "rate": 1.0
+    },
+    "exact_spans_among_aligned_intents": {
+      "correct": 2,
+      "count": 2,
+      "rate": 1.0
+    },
+    "target_links": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": null,
+      "recall": 0.0
+    },
+    "verification_checkpoint_accuracy": {
+      "correct": 6,
+      "count": 6,
+      "rate": 1.0
+    },
+    "incorrect_verified_claims": 0,
+    "missed_verified_checkpoints": 0
+  },
+  "per_label": {
+    "objective": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": null,
+      "recall": 0.0
+    },
+    "requirement_added": {
+      "true_positive": 1,
+      "predicted": 2,
+      "reference": 2,
+      "false_positive": 1,
+      "missed": 1,
+      "precision": 0.5,
+      "recall": 0.5
+    },
+    "requirement_removed": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": null,
+      "recall": 0.0
+    },
+    "requirement_revised": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 0,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": null,
+      "recall": null
+    },
+    "decision": {
+      "true_positive": 0,
+      "predicted": 1,
+      "reference": 0,
+      "false_positive": 1,
+      "missed": 0,
+      "precision": 0.0,
+      "recall": null
+    },
+    "decision_reversed": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 0,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": null,
+      "recall": null
+    },
+    "task_changed": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 0,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": null,
+      "recall": null
+    },
+    "progress": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 2,
+      "false_positive": 0,
+      "missed": 2,
+      "precision": null,
+      "recall": 0.0
+    },
+    "attempt_failed": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 0,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": null,
+      "recall": null
+    },
+    "unresolved": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 1,
+      "precision": null,
+      "recall": 0.0
+    },
+    "completion_claim": {
+      "true_positive": 1,
+      "predicted": 1,
+      "reference": 1,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "ambiguous": {
+      "true_positive": 0,
+      "predicted": 0,
+      "reference": 0,
+      "false_positive": 0,
+      "missed": 0,
+      "precision": null,
+      "recall": null
+    },
+    "other": {
+      "true_positive": 0,
+      "predicted": 4,
+      "reference": 0,
+      "false_positive": 4,
+      "missed": 0,
+      "precision": 0.0,
+      "recall": null
+    }
+  },
+  "cases": [
+    {
+      "id": "scope-reversal-holdout-01",
+      "category": "removed-requirement-reinstated",
+      "errors": [
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m0:s0-85",
+            "message": 0,
+            "turn": 1,
+            "role": "user",
+            "span": [
+              0,
+              85
+            ],
+            "text": "I'm assembling a pretend community recipe booklet and could use a short introduction.",
+            "intent": "decision",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 0,
+              "start": 0,
+              "end": 85,
+              "label": "objective",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m1:s0-70",
+            "message": 1,
+            "turn": 2,
+            "role": "assistant",
+            "span": [
+              0,
+              70
+            ],
+            "text": "I have drafted the welcome paragraph and the ingredient-swapping note.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 1,
+              "start": 0,
+              "end": 70,
+              "label": "progress",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m2:s0-47",
+            "message": 2,
+            "turn": 3,
+            "role": "user",
+            "span": [
+              0,
+              47
+            ],
+            "text": "Leave the ingredient-swapping note out for now.",
+            "intent": "requirement_added",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 2,
+              "start": 0,
+              "end": 47,
+              "label": "requirement_removed",
+              "targets": [
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s0-51",
+            "message": 3,
+            "turn": 4,
+            "role": "assistant",
+            "span": [
+              0,
+              51
+            ],
+            "text": "The welcome paragraph is drafted without that note.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 0,
+              "end": 51,
+              "label": "progress",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m3:s52-101",
+            "message": 3,
+            "turn": 4,
+            "role": "assistant",
+            "span": [
+              52,
+              101
+            ],
+            "text": "The closing invitation still needs to be written.",
+            "intent": "other",
+            "evidence_kind": "assistant_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 3,
+              "start": 52,
+              "end": 101,
+              "label": "unresolved",
+              "targets": []
+            }
+          ]
+        },
+        {
+          "kind": "unmatched_prediction",
+          "fact": {
+            "id": "m4:s0-94",
+            "message": 4,
+            "turn": 5,
+            "role": "user",
+            "span": [
+              0,
+              94
+            ],
+            "text": "Thinking about first-time cooks, I would like the ingredient-swapping note included after all.",
+            "intent": "other",
+            "evidence_kind": "user_statement",
+            "interpretation": "inferred",
+            "links": []
+          },
+          "overlapping_reference": [
+            {
+              "message": 4,
+              "start": 0,
+              "end": 94,
+              "label": "requirement_added",
+              "targets": [],
+              "note": "Reinstates the same ingredient-swapping-note requirement introduced in event 1 and removed in event 3; this is not a different note or a new objective."
+            }
+          ]
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 0,
+            "start": 0,
+            "end": 85,
+            "label": "objective",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 1,
+            "start": 0,
+            "end": 70,
+            "label": "progress",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 2,
+            "start": 0,
+            "end": 47,
+            "label": "requirement_removed",
+            "targets": [
+              1
+            ]
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 0,
+            "end": 51,
+            "label": "progress",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 3,
+            "start": 52,
+            "end": 101,
+            "label": "unresolved",
+            "targets": []
+          }
+        },
+        {
+          "kind": "missed_reference",
+          "event": {
+            "message": 4,
+            "start": 0,
+            "end": 94,
+            "label": "requirement_added",
+            "targets": [],
+            "note": "Reinstates the same ingredient-swapping-note requirement introduced in event 1 and removed in event 3; this is not a different note or a new objective."
+          }
+        }
+      ],
+      "objective_errors": [
+        {
+          "after_message": 0,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 1,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 2,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 3,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 4,
+          "expected": 0,
+          "predicted": null
+        },
+        {
+          "after_message": 5,
+          "expected": 0,
+          "predicted": null
+        }
+      ],
+      "verification_errors": [],
+      "predictions": [
+        {
+          "id": "m0:s0-85",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            0,
+            85
+          ],
+          "text": "I'm assembling a pretend community recipe booklet and could use a short introduction.",
+          "intent": "decision",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m0:s86-128",
+          "message": 0,
+          "turn": 1,
+          "role": "user",
+          "span": [
+            86,
+            128
+          ],
+          "text": "Include a note about swapping ingredients.",
+          "intent": "requirement_added",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m1:s0-70",
+          "message": 1,
+          "turn": 2,
+          "role": "assistant",
+          "span": [
+            0,
+            70
+          ],
+          "text": "I have drafted the welcome paragraph and the ingredient-swapping note.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m2:s0-47",
+          "message": 2,
+          "turn": 3,
+          "role": "user",
+          "span": [
+            0,
+            47
+          ],
+          "text": "Leave the ingredient-swapping note out for now.",
+          "intent": "requirement_added",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s0-51",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            0,
+            51
+          ],
+          "text": "The welcome paragraph is drafted without that note.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m3:s52-101",
+          "message": 3,
+          "turn": 4,
+          "role": "assistant",
+          "span": [
+            52,
+            101
+          ],
+          "text": "The closing invitation still needs to be written.",
+          "intent": "other",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m4:s0-94",
+          "message": 4,
+          "turn": 5,
+          "role": "user",
+          "span": [
+            0,
+            94
+          ],
+          "text": "Thinking about first-time cooks, I would like the ingredient-swapping note included after all.",
+          "intent": "other",
+          "evidence_kind": "user_statement",
+          "interpretation": "inferred",
+          "links": []
+        },
+        {
+          "id": "m5:s0-104",
+          "message": 5,
+          "turn": 6,
+          "role": "assistant",
+          "span": [
+            0,
+            104
+          ],
+          "text": "The booklet introduction is finished, including the ingredient-swapping note and the closing invitation.",
+          "intent": "completion_claim",
+          "evidence_kind": "assistant_statement",
+          "interpretation": "inferred",
+          "links": []
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Independent blind agent labels, not human annotation or population ground truth.",
+    "Overlap alignment tolerates segmentation differences; exact spans reported separately.",
+    "Multi-act labels expose single-intent limitations; checkpoint references audit state separately.",
+    "Source span integrity does not establish semantic correctness; target candidates are scored separately.",
+    "Synthetic checks attest a named checkpoint only; no real outcomes or predictive benefit."
+  ]
+}

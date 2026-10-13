@@ -148,7 +148,9 @@ def rule_intent(text: str, role: str) -> Intent:
             r"\b(build|write|implement|create|compare|explain|design|develop|ma"
             r"ke|summarize|building|writing|implementing|creating|comparing|"
             r"studying|learning|developing|working on|understand|learn|study|"
-            r"research|evaluate|analyze|plan|translate|explore|investigate)\b",
+            r"research|evaluate|analyze|plan|translate|explore|investigate|"
+            r"researching|evaluating|analyzing|planning|translating|exploring|"
+            r"investigating|explaining|designing|making|summarizing|understanding)\b",
             t,
         ):
             return "objective"
@@ -290,6 +292,10 @@ def analyze(conversation: Conversation, *, classifier=None) -> dict:
                         state["uncertainty"].append(
                             {"evidence": fid, "reason": "change_target_unresolved"}
                         )
+                    elif len(fact["links"]) > 1:
+                        state["uncertainty"].append(
+                            {"evidence": fid, "reason": "change_target_ambiguous"}
+                        )
                 else:
                     state["requirement_evidence"].append(fid)
                 state["revision"] += 1
@@ -324,6 +330,10 @@ def analyze(conversation: Conversation, *, classifier=None) -> dict:
                     if not fact["links"]:
                         state["uncertainty"].append(
                             {"evidence": fid, "reason": "reversal_target_unresolved"}
+                        )
+                    elif len(fact["links"]) > 1:
+                        state["uncertainty"].append(
+                            {"evidence": fid, "reason": "reversal_target_ambiguous"}
                         )
             if intent in {"attempt_failed", "unresolved"}:
                 state["unresolved"].append(fid)

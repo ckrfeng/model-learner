@@ -1,0 +1,56 @@
+{
+  "format": "conversation-state-baseline-freeze/v1",
+  "frozen_on": "2026-10-12",
+  "git_head": "f5d389a860597b1ee6200c5692d62a2f5bef6c4b",
+  "files": {
+    "src/model_learner/understanding/conversation_state.py": "5eec4ad510a40f7247b8de8f045022fde63966530a969e4a64e915d4da5b6e6c",
+    "src/model_learner/understanding/conversation_evaluation.py": "feb19589176c82e6a4dab4432cad4b9ff33b31b3e2fab42799e253021fe32a64",
+    "tests/fixtures/conversation_state/evaluation.json": "6da820d344a768db4240f02bd0b0a383568ac9ea6c7810547f7f5b54fd10556f",
+    "tests/fixtures/conversation_state/reference.json": "204fa7ddf112e05414b30c842c6da64836cce166ca38436276dafebbefe42862"
+  },
+  "configuration": {
+    "backend": "local_cpu",
+    "default_classifier": "rule_intent",
+    "language": "English",
+    "models_downloaded": false,
+    "naive_bayes": {
+      "features": "role, token unigrams and bigrams",
+      "smoothing": 1,
+      "abstention_log_margin": 0.7,
+      "training_examples": 52
+    },
+    "limits": {
+      "messages": 128,
+      "utf8_bytes": 65536,
+      "clauses": 256
+    }
+  },
+  "diagnostic_results": {
+    "keyword": {
+      "intent_correct": 40,
+      "intent_count": 54,
+      "exact_final_states": 14,
+      "conversation_count": 23
+    },
+    "rules": {
+      "intent_correct": 51,
+      "intent_count": 54,
+      "exact_final_states": 20,
+      "conversation_count": 23
+    },
+    "naive_bayes": {
+      "intent_correct": 36,
+      "intent_count": 54,
+      "exact_final_states": 9,
+      "conversation_count": 23
+    }
+  },
+  "methodology": "Agent-authored diagnostic labels; implementation and fixture corrections after initial execution; shared cue vocabulary; final-state signatures omit intermediate states, logical scope and target attribution.",
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Darwin arm64",
+    "pydantic": "2.14.0",
+    "package_version": "0.1.0",
+    "dependencies_changed": false
+  }
+}

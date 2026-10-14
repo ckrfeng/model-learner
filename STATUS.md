@@ -1,6 +1,22 @@
 # Model Learner status
 
-Current work: real execution/outcome readiness assessment complete. Existing
+Current work: first supervised real CSV coding experiment complete after explicit
+user approval. One Codex CLI invocation requested gpt-6.1-sol with low reasoning,
+produced a standalone standard-library CSV comparison script, and exited 0.
+Metadata capture exited 0; import stored 11 events and one session without
+diagnostics. All 18 independent acceptance tests, frozen before execution, passed
+on the exact final script snapshot without failures/errors/skips or source changes.
+Bound JUnit evidence produced one verified-success assessment and one eligible
+single-configuration real observation. Existing reference learner consumption
+selected one eligible success with no exclusions. Capture replay added zero events.
+Operator agent wall time was 123.44 seconds; native latency, dollar cost and native
+configuration/version confirmation remain unknown. Full repository checks:
+931 passed, 7 existing skips; Ruff and formatting clean. Private experiment files
+remain ignored. No production implementation, semantic analyzer, new trained model,
+Governor, commit or publication changes. Stopped after this one experiment; no
+additional run or milestone is authorized.
+
+Prior work: real execution/outcome readiness assessment complete. Existing
 capture, task/run/attempt, JUnit verification, assessment resolution and learning
 contracts support a minimal prospective 5–10-run ordinary Codex CLI collection
 pilot without new infrastructure. Read-only inventory/resolution establishes one
@@ -3262,3 +3278,69 @@ publication, new model, routing, Governor or next milestone was performed.
   independent pytest/JUnit suite passed, zero failures/errors/skips; original and
   copy integrity checks passed. Checks are post-hoc and do not run a coding agent.
 - `git diff --check`: passed; private receipt/XML paths confirmed Git-ignored.
+
+## First supervised real CSV coding experiment — 2026-10-13
+
+After reading AGENTS, status, readiness guidance and relevant plan contracts, the
+operator prepared one ordinary supervised CLI coding task. This uses the existing
+real observation workflow documented in docs/REAL_DATA_READINESS.md; the separate
+benchmark controller and its blocked containment gate are unchanged.
+
+- Independently authored 18 synthetic black-box acceptance tests before execution.
+  Froze the CLI interface, JSON schema, exact comparison behavior, CSV quoting,
+  validation/error behavior and dependency constraint. Required pytest/JUnit
+  identities, test/criteria digests, configuration, prompt, launch arguments and
+  starting-state manifest were recorded before approval. A constant-output negative
+  control failed 15 checks; all 18 report identities matched the task declaration.
+- Actual unpaid local Codex sandbox canary allowed working-directory writes and
+  denied writes to acceptance source, the control directory and neighboring
+  temporary storage. The agent's working directory was separate from this
+  repository. This demonstrates the selected write boundary, not a VM or complete
+  host-read isolation. Agent tool networking, escalation, web/apps/plugins/hooks
+  and additional agents were disabled; provider access used existing ChatGPT auth.
+- The user explicitly approved one execution and subsequent verification/audit.
+  Executed exactly one fresh ephemeral Codex CLI invocation requesting OpenAI
+  gpt-6.1-sol, low reasoning, CLI 0.162.0-alpha.17.2. Agent and live metadata capture
+  each exited 0, with no timeout. Operator agent-process wall time: 123.44 seconds.
+  Receipt timestamps and operator wall measurements are not native latency.
+- Capture/import retained 11 supported events for one session, one completed turn
+  and three observed tool items, with zero import diagnostics. Native cumulative
+  usage: 91,335 input tokens, including 60,416 cached input; 6,587 output tokens,
+  including 199 reasoning output. Subsets are not added to their parent totals.
+  Model/provider/reasoning/version were not emitted by the stream: requested
+  settings are explicitly operator declarations, not observed native configuration.
+- Stopped the agent and copied its sole standalone module to an exact private
+  snapshot before independent testing. Original/snapshot digests agree; starting
+  instructions, frozen acceptance/configuration/command files and final code remain
+  unchanged. Executed the frozen suite under a local filesystem/network sandbox:
+  **18 passed in 0.99s**, exit 0, zero failures/errors/skips. No candidate repair or
+  second coding-agent invocation followed the independent result.
+- Used existing `run create`, `run attempt`, `verify junit`, `outcome assess` and
+  `observations build`. An actual operator receipt binds task/run, acceptance
+  version, final artifact/report digests, report generation time, completion and
+  exit status. The persisted outcome is **success / verified**, with one matching
+  verification; the real observation has **single_configuration** attribution,
+  eligibility true and no exclusions.
+- `observations quality` and historical `observations resolve` confirm one eligible
+  real execution in this new private dataset. Existing `learn predict` consumed
+  exactly one selected eligible success, zero failures and zero exclusions. This
+  exercises the existing fixed-prior reference; it creates no new trained model
+  or model weights and establishes no predictive accuracy or model superiority.
+- Replay inserted zero events and recognized all 11 duplicates. Final ledger audit:
+  one Task, Run, Attempt, Session, Verification, Outcome and Observation; 11 Events.
+  Dollar cost and canonical attempt/observation latency remain null. Native usage
+  is retained on captured events; the existing attempt convenience CLI does not
+  fabricate resource measurements from the stream or operator clock.
+- Private tests, configuration, command/launch receipts, metadata capture, snapshot,
+  XML/binding, ledger, returned CLI records and compact experiment result remain
+  under ignored `.model-learner/first-real-csv-20261013/`. Public status contains only
+  sanitized behavior and aggregate evidence. Preserved the pre-existing untracked
+  experiment file without reading or modifying it.
+
+Validation: relevant capture/JUnit tests **80 passed**; full repository tests
+**931 passed, 7 existing opt-in skips in 58.60s**; Ruff and formatting clean;
+`git diff --check` clean. No production code, dependencies, semantic analyzer,
+benchmark infrastructure, new model training, AI Governor, commit, push, merge,
+publication or global hook changes. The requested single experiment is complete.
+Next step remains unstarted and requires separate user direction; do not run
+another task or expand evaluation automatically.

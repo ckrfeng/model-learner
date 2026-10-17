@@ -1,6 +1,21 @@
 # Model Learner status
 
-Current work: first supervised real CSV coding experiment complete after explicit
+Current work: experiment 2 complete after explicit user approval. One ordinary
+Codex CLI execution fixed ShortcutLens DataLoader seed validation. All 172 frozen
+required checks passed (60 independent acceptance cases, 112 initial regressions),
+with zero failures/errors/skips. Candidate and applied-code scoped regressions each
+passed 129 cases; Ruff passed. The verified two-file patch is applied; unrelated
+concurrent project work was preserved. Capture/import retained 18 events with no
+diagnostics; replay added zero. One real single-configuration verified-success
+observation is eligible and consumed by the existing learner with no exclusions.
+Prior-only mean 0.5 [0.025, 0.975] became 0.667 [0.158, 0.987] after one label;
+this establishes workflow operation, not predictive accuracy. Operator wall time
+was 31.64 seconds; native latency, dollar cost and effective native configuration
+remain unknown. Relevant Model Learner checks: 95 passed; Ruff/format clean.
+No new Model Learner infrastructure, semantic changes, additional agents, training,
+commit or publication. Stopped after this one experiment; no further run authorized.
+
+Prior work: first supervised real CSV coding experiment complete after explicit
 user approval. One Codex CLI invocation requested gpt-6.1-sol with low reasoning,
 produced a standalone standard-library CSV comparison script, and exited 0.
 Metadata capture exited 0; import stored 11 events and one session without
@@ -3344,3 +3359,96 @@ benchmark infrastructure, new model training, AI Governor, commit, push, merge,
 publication or global hook changes. The requested single experiment is complete.
 Next step remains unstarted and requires separate user direction; do not run
 another task or expand evaluation automatically.
+
+## Experiment 2: ShortcutLens seed-validation preparation — 2026-10-16
+
+The user selected one real project maintenance task and authorized preparation
+only. Installed Python 3.13.9 / PyTorch 2.14.1 CPU Generator probes accept the
+tested Python-integer endpoints -2**63 and 2**64-1 and reject adjacent values.
+ShortcutLens's existing nonnegative policy is preserved. Direct NumPy Integral
+inputs fail at the Torch boundary and require normalization. With a synthetic
+source, both oversized Torch-bound seeds load data, render 12 images and write
+a temporary manifest before raising ValueError. No real dataset was accessed.
+
+Prepared a byte-identical temporary working copy and initial manifest of 30
+project/instruction files from a clean original repository. Independently authored
+60 synthetic acceptance cases and copied the 112 existing regression cases outside
+the agent's writable workspace. Baseline: 160 passed, 12 failed, no errors/skips;
+all failures are the selected seed defects. Required JUnit identities are declared
+in the existing Task ledger. The existing pre-execution predictor selected zero
+labels for this new real target and returned Beta(1,1): probability 0.5, 95%
+credible interval [0.025, 0.975]. Prior CSV acceptance is not pooled.
+
+Requested configuration: OpenAI gpt-6.1-sol / low reasoning, existing Codex CLI
+0.162.0-alpha.17.2 and ChatGPT authentication. Effective native settings and model
+version remain unknown until emitted. The existing metadata-only capture pipeline
+is prepared with one-off operator supervision, a 600-second safety stop and no
+automatic second invocation. Local no-model sandbox canaries confirm working-copy
+writes allowed, protected/original/environment/neighbor writes denied and tool
+network denied. Web/apps/plugins/hooks/additional agents are disabled.
+
+The strict agent sandbox produces an OpenMP temporary-registration warning that
+affects three existing empty-stderr import checks. This is disclosed in the prompt;
+source/test changes or warning suppression to hide it are prohibited. The separate
+trusted verification sandbox permits standard temporary files while keeping the
+final snapshot and frozen tests read-only. Its preflight reproduces exactly the
+same 12 seed failures, with no extra failures and no changed acceptance tests.
+
+Private tests, source snapshots, manifests, declared settings, prediction, command
+scripts and receipts remain under ignored local experiment storage. Relevant
+Model Learner capture/JUnit checks: **95 passed in 1.43s**; Ruff lint/format clean
+(190 files). No ShortcutLens source changes, production infrastructure, semantic
+analyzer change, dependency installation, model call, additional agent, commit or
+publication occurred. Launch count is zero. Next step is explicit user approval
+of this single prepared execution; final verification, outcome, observation and
+learner consumption remain unstarted.
+
+## Experiment 2: approved execution, verification and learner consumption
+
+After explicit approval, executed exactly one prepared ephemeral Codex CLI
+invocation requesting OpenAI gpt-6.1-sol / low reasoning. The supervisor checked
+frozen preparation and starting-file hashes before launch. Agent and metadata
+capture both exited 0, with no timeout; operator pipeline wall time was 31.64
+seconds. No second invocation or coordinator repair followed independent results.
+
+- The helper now rejects oversized Torch-bound seeds before source/manifest access
+  and converts valid Integral scalars to Python integers at the Torch boundary.
+  Default behavior, negative-seed policy and large NumPy-only seeds are preserved.
+- Froze a canonical final archive and per-file manifest with the agent stopped.
+  Independent verification passed all **172 required cases**, no failures, errors
+  or skips, with exact JUnit identity agreement. Frozen inputs and final source
+  remained unchanged. The 60 independent cases use synthetic verification inputs;
+  the coding execution and observation are real, not simulated or benchmark data.
+- The final candidate's repository suite, including 17 agent-added cases, passed
+  **129 tests**. Ruff passed. Applied only the two verified task files after
+  checking their initial hashes. Device work committed after preparation and new
+  unrelated training files were preserved. Earlier global clean/head guards
+  aborted before writing; scoped transfer and post-apply checks succeeded.
+  Retained scoped regressions against the applied code passed **129 tests**;
+  unrelated new training tests were not executed as part of this experiment.
+- Capture/import stored **18 events**, one session and one completed turn, with
+  six observed tool items and no diagnostics. Replay inserted zero events and
+  recognized 18 duplicates. Native turn usage emitted 124,382 input tokens,
+  including 98,688 cached, and 1,721 output tokens, including 47 reasoning.
+  Subsets are not added to parent totals. Model/provider/reasoning/version were
+  absent from the stream; configuration remains an operator declaration.
+- Existing run/attempt, bound JUnit verifier, outcome assessor and observation
+  builder produced **success / verified**, single-configuration attribution,
+  eligibility true and no exclusions. Report/artifact digests and actual process
+  receipts bind the required checks to the exact final archive. Cost and canonical
+  observation latency remain null; operator wall time is not native latency.
+- Existing quality/resolution/prediction commands selected one eligible success,
+  zero failures and no exclusions. Baseline was Beta(1,1), mean 0.5 and 95%
+  interval [0.025, 0.975]; after recording it is Beta(2,1), mean 0.667 and interval
+  [0.158, 0.987]. The resolver's deterministic snapshot UUID/cutoff differ from
+  the persisted row identity/time; every other field, including stable key, run,
+  outcome, evidence, configuration and eligibility, matches. The ledger contains
+  only one observation. No cross-target pooling or predictive-accuracy claim.
+
+Private evidence and result report remain in ignored experiment storage. Ledger
+audit: one Task, Run, Attempt, Session, Verification, Outcome and Observation;
+18 Events. Final relevant capture/JUnit tests **95 passed in 1.41s**; Ruff lint
+passed and formatting reports 190 files formatted. No Model Learner production
+code, semantic analyzer, dependency, benchmark controller, extra coding agent,
+training, commit, push or publication changes. The selected task and experiment
+are complete. No additional run or milestone is started or authorized.

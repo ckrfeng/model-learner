@@ -3452,3 +3452,33 @@ passed and formatting reports 190 files formatted. No Model Learner production
 code, semantic analyzer, dependency, benchmark controller, extra coding agent,
 training, commit, push or publication changes. The selected task and experiment
 are complete. No additional run or milestone is started or authorized.
+
+## Reviewed synthetic holdout fixture approval — 2026-10-17
+
+Approved only `experiments/local_task_state/holdout_sources.json` in the privacy
+fixture allowlist, using the unchanged SHA-256 from its independent AI authorship
+review: `45c03da6e66ac39461fcea7cefbb8c91cf28ff30b51915b19ca6c6b531fa7942`.
+Full inspection found four simulated conversations / 16 user messages and no
+private conversation information. The review documents fresh authoring without
+private diagnostic access; it is not human-verified provenance. Fixture bytes
+remain unchanged. The guard now permits this exact experiment path in the policy;
+other experiment paths remain invalid. Exemptions still require the exact digest
+and cover conversation structure only, preserving secret/path/binary checks.
+
+Added index/tree regressions for exact reviewed acceptance and rejection of
+modified content, new unapproved conversation content (even when labeled
+simulated), identical bytes at an unapproved path, and missing approval. A separate
+regression rejects an attempt to approve another experiment path.
+
+Validation: privacy integration and local-task-state unit tests **72 passed in
+14.16s**; repository Ruff lint and formatting passed (**190 files formatted**);
+`git diff --check` passed. Current `HEAD` privacy check passed (250 files). The
+actual index contains the already-staged fixture but the old allowlist, so its
+privacy check rejects that fixture as expected until the updated policy is staged.
+An isolated proposed index and tree with the scoped changes each passed privacy
+checks (**251 files, zero rejections**). Actual index bytes/mtime and reviewed
+fixture bytes were preserved. Initial uv checks required approved cache access
+outside the workspace. No commit or push was performed in this repository.
+
+This approval is complete. No further milestone or experiment is started; the
+next action is the user's review and staging of the scoped approval changes.

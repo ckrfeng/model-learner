@@ -1,0 +1,122 @@
+{
+  "format": "local-task-state-sources/v1",
+  "source_kind": "simulated",
+  "conversations": [
+    {
+      "id": "holdout_museum_audio",
+      "messages": [
+        {
+          "id": "museum_u1",
+          "role": "user",
+          "turn": 1,
+          "text": "Would you be able to sketch a two-stop audio tour for the small railway museum? Each stop should last under ninety seconds."
+        },
+        {
+          "id": "museum_u2",
+          "role": "user",
+          "turn": 2,
+          "text": "For the tour:\n- Add one tactile prompt at each stop.\n- Do not assume that visitors may touch the objects.\nI have settled on a calm, conversational voice."
+        },
+        {
+          "id": "museum_u3",
+          "role": "user",
+          "turn": 3,
+          "text": "Drop the tactile prompt at each stop; the curator is concerned about confusion. Replace the ninety-second ceiling with a sixty-second ceiling."
+        },
+        {
+          "id": "museum_u4",
+          "role": "user",
+          "turn": 4,
+          "text": "By tactile prompt, I mean the one from my earlier list. Put the tactile prompt back in, but phrase it as an invitation to imagine texture. I have recorded the first stop; the second has not been recorded yet. Now help me plan the recording of that remaining stop."
+        }
+      ]
+    },
+    {
+      "id": "holdout_seed_exchange",
+      "messages": [
+        {
+          "id": "seed_u1",
+          "role": "user",
+          "turn": 1,
+          "text": "I have a crop-name heading and a harvest-year heading on my desk. I cannot remember which task I wanted help with."
+        },
+        {
+          "id": "seed_u2",
+          "role": "user",
+          "turn": 2,
+          "text": "Could we get a one-page seed exchange handout ready for Saturday? Use this example only to specify the field names and sample values:\n```yaml\ncrop_name: beans\nharvest_year: 2024\nprinting_status: failed\npacking_status: completed\n```\nI choose alphabetical order for the crop entries. The sample status words are not reports about our event."
+        },
+        {
+          "id": "seed_u3",
+          "role": "user",
+          "turn": 3,
+          "text": "If the printer jams, you may email the handout to the volunteers; until then, keep it as a print draft. The label is confusing, but I cannot tell whether I mean the crop-name heading or the harvest-year heading. Please do not rename either heading until I clarify."
+        },
+        {
+          "id": "seed_u4",
+          "role": "user",
+          "turn": 4,
+          "text": "The printer jammed after three pages, so the print run failed. All fifty packet labels are finished. Please email the handout to the volunteers now."
+        }
+      ]
+    },
+    {
+      "id": "holdout_tabletop_puzzle",
+      "messages": [
+        {
+          "id": "puzzle_u1",
+          "role": "user",
+          "turn": 1,
+          "text": "We need three clue cards for the lighthouse tabletop puzzle. Could you draft them? Put a numbered hint on the reverse of every card."
+        },
+        {
+          "id": "puzzle_u2",
+          "role": "user",
+          "turn": 2,
+          "text": "I have chosen blue-backed cards. Make the hints wordplay rather than arithmetic; each hint should be a single sentence."
+        },
+        {
+          "id": "puzzle_u3",
+          "role": "user",
+          "turn": 3,
+          "text": "Undo my choice of blue-backed cards. I choose cream backs instead. Delete the numbered hint from every card."
+        },
+        {
+          "id": "puzzle_u4",
+          "role": "user",
+          "turn": 4,
+          "text": "Restore the numbered hint on every card. In our trial, players solved the first two clues, but nobody solved the third. Would a gentler third clue help? Suggest a revision for that clue."
+        }
+      ]
+    },
+    {
+      "id": "holdout_textile_cards",
+      "messages": [
+        {
+          "id": "textile_u1",
+          "role": "user",
+          "turn": 1,
+          "text": "Please draft care cards for the linen runner and the cotton napkins. Leave washing temperatures blank whenever the supplied label gives no temperature. Use only the supplied labels as the source."
+        },
+        {
+          "id": "textile_u2",
+          "role": "user",
+          "turn": 2,
+          "text": "Add these separate instructions to the cards:\n- For the linen runner, say \"air dry flat\".\n- For the cotton napkins, say \"tumble dry low\".\nThe introductory note should explain\nthat these cards summarize the supplied labels."
+        },
+        {
+          "id": "textile_u3",
+          "role": "user",
+          "turn": 3,
+          "text": "Change the linen instruction from \"air dry flat\" to \"hang dry\". Remove the introductory note. Also, change that other instruction; I am not sure which item I was thinking of, so leave that change pending."
+        },
+        {
+          "id": "textile_u4",
+          "role": "user",
+          "turn": 4,
+          "text": "I finished printing both care cards. After following the linen card, the runner still shrank, so that attempt did not preserve its size. Can you review these results with me? Do not treat the printed cards as proof that either care method works."
+        }
+      ]
+    }
+  ]
+}

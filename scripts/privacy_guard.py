@@ -319,7 +319,10 @@ def fixture_allowlist(entries: list[Entry], blobs: Blobs) -> dict[str, str]:
         values = json.loads(data) if data is not None else None
         if not isinstance(values, dict) or any(
             not isinstance(path, str)
-            or not path.startswith("tests/fixtures/")
+            or (
+                not path.startswith("tests/fixtures/")
+                and path != "experiments/local_task_state/holdout_sources.json"
+            )
             or ".." in PurePosixPath(path).parts
             or not isinstance(digest, str)
             or not re.fullmatch(r"[0-9a-f]{64}", digest)

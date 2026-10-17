@@ -1,4 +1,5 @@
 {
+  "experiments/local_task_state/holdout_sources.json": "45c03da6e66ac39461fcea7cefbb8c91cf28ff30b51915b19ca6c6b531fa7942",
   "tests/fixtures/codex/exec_capture.jsonl": "fd203c78497980053f751b872353e802e303e8e38800c5cdd303f0c39b87d08b",
   "tests/fixtures/codex/real_smoke_capture.jsonl": "98c041f23b81b689923cdf3dbde7da75348d1e58cfcc7490c23d3ffab8397981",
   "tests/fixtures/conversation_state/demo.json": "f6f3655685017dc54b384bd1b073605644fde924e7e06e30e70b2e1b0011392c",

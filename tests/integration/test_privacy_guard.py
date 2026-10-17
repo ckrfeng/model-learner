@@ -244,6 +244,66 @@ def test_fixture_policy_is_read_from_index(repo):
     assert check(repo).returncode == 1
 
 
+@pytest.mark.parametrize("mode", ["index", "tree"])
+@pytest.mark.parametrize(
+    "variant",
+    ["reviewed", "modified", "unapproved_content", "unapproved_path", "no_approval"],
+)
+def test_local_task_state_fixture_requires_exact_reviewed_approval(repo, mode, variant):
+    # Fresh AI-authored simulated data; provenance and frozen digest are recorded
+    # in experiments/local_task_state/independent-review.md, not private histories.
+    path = "experiments/local_task_state/holdout_sources.json"
+    content = (ROOT / path).read_bytes()
+    reviewed_digest = "45c03da6e66ac39461fcea7cefbb8c91cf28ff30b51915b19ca6c6b531fa7942"
+    assert hashlib.sha256(content).hexdigest() == reviewed_digest
+    policy = json.loads((ROOT / "scripts/privacy_fixture_allowlist.json").read_bytes())
+    assert policy[path] == reviewed_digest
+    if variant == "modified":
+        data = json.loads(content)
+        data["conversations"][0]["messages"][0]["text"] += " Synthetic revision."
+        content = json.dumps(data).encode()
+    elif variant == "unapproved_content":
+        content = json.dumps(
+            {
+                "source_kind": "simulated",
+                "conversations": [
+                    {"messages": [{"role": "user", "text": "Unreviewed public canary"}]}
+                ],
+            }
+        ).encode()
+    elif variant == "unapproved_path":
+        path = "experiments/local_task_state/unapproved_sources.json"
+    elif variant == "no_approval":
+        del policy[path]
+    stage(repo, path, content)
+    stage(repo, "scripts/privacy_fixture_allowlist.json", json.dumps(policy))
+    args = ("--tree", git(repo, "write-tree").stdout.strip()) if mode == "tree" else ()
+    result = check(repo, *args)
+    if variant == "reviewed":
+        assert result.returncode == 0, result.stdout
+    else:
+        assert result.returncode == 1, result.stdout
+        assert (
+            "raw session/conversation format without reviewed fixture digest"
+            in result.stdout
+        )
+        assert "Unreviewed public canary" not in result.stdout + result.stderr
+
+
+def test_experiment_fixture_approval_does_not_allow_other_policy_paths(repo):
+    path = "experiments/local_task_state/unapproved_sources.json"
+    content = '{"role":"user","text":"Unreviewed public canary"}'
+    stage(repo, path, content)
+    stage(
+        repo,
+        "scripts/privacy_fixture_allowlist.json",
+        json.dumps({path: hashlib.sha256(content.encode()).hexdigest()}),
+    )
+    result = check(repo)
+    assert result.returncode == 2
+    assert "Unreviewed public canary" not in result.stdout + result.stderr
+
+
 @pytest.mark.parametrize("mode", ["120000", "160000"])
 def test_special_entries_fail_closed(repo, mode):
     stage(repo, "safe.py", "safe = True\n")

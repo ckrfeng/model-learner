@@ -1,6 +1,47 @@
 # Model Learner status
 
-Current work: experiment 2 complete after explicit user approval. One ordinary
+Current work: experiment 3 complete after separate explicit approvals for A and B.
+Exactly two sequential supervised Codex CLI invocations requested gpt-6.1-sol,
+A low reasoning and B high reasoning, each with the frozen 600-second safety stop.
+Both used identical clean 35-file exports of the original prepared commit, task
+instructions and protected tests. Before B, original snapshot/runtime/input hashes
+matched; fresh no-model canaries denied reads of A's actual solutions/results,
+ledger snapshot, protected tests and original source, including symlink escape.
+The newer original Git HEAD was not used. Both unchanged forecasts were frozen
+before A: zero selected observations, Beta(1,1), mean 0.5, 95% interval
+[0.025, 0.975]. B did not use a prediction updated after A.
+
+Both agent/capture processes exited 0 without timeout. Each candidate passed all
+51 independent acceptance and 168 frozen regression cases, with exact required
+identities and no failures/errors/skips. Scoped changes preserve existing exports;
+Ruff lint passed for both. The same additional formatting check failed on each
+agent-added test file. No candidate repair or retry followed acceptance testing.
+Operator wall times: A 61.455 seconds, B 144.989 seconds (B/A 2.36).
+Native usage: A 190,626 input (142,336 cached subset), 3,223 output (120 reasoning
+subset); B 303,549 input (245,376 cached subset), 7,335 output (1,828 reasoning
+subset). B used 1.59 times the input and 2.28 times the output tokens on this pair.
+Nonzero internal command exits: A five, B six. Their command text/output is absent
+from the frozen metadata capture, so causes remain unknown. Native effective
+configuration/version, latency and dollar cost remain unknown. Frozen supervision
+retains stderr counts/hashes rather than text. No missing telemetry was fabricated.
+
+Imports retained 26/36 events without diagnostics; both replays added zero.
+Existing tools recorded two eligible single-configuration success / verified real
+observations for one paired Task. The unpooled estimator consumed both with no
+exclusions and one success per exact arm: each Beta(2,1), mean 0.667, 95% interval
+[0.158, 0.987]. Collection and consumption work; one run per configuration does
+not establish predictive accuracy, calibration, general superiority or cost savings.
+Fixed order, cache/backend effects and stochastic variation remain limitations.
+Both final archives/snapshots and A's prior evidence are unchanged. Original file
+contents match before-run hashes; during A, Git HEAD/status changed externally
+and was preserved; during B, original contents/HEAD/status remained unchanged.
+Relevant Model Learner checks: 95 passed; Ruff/format clean. Private comparison,
+JUnit bindings, captures, manifests, full workspace archives and after-run ledger
+snapshots remain ignored. No original-repository mutation, patch transfer, new
+infrastructure, extra coding agent, commit, push or publication. Stopped after
+Experiment 3; no additional execution or milestone is started or authorized.
+
+Prior work: experiment 2 complete after explicit user approval. One ordinary
 Codex CLI execution fixed ShortcutLens DataLoader seed validation. All 172 frozen
 required checks passed (60 independent acceptance cases, 112 initial regressions),
 with zero failures/errors/skips. Candidate and applied-code scoped regressions each

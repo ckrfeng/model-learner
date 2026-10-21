@@ -30,6 +30,29 @@ sim_app = typer.Typer(help="Generate explicitly simulated data.", no_args_is_hel
 learn_app = typer.Typer(help="Estimate verified binary outcomes.", no_args_is_help=True)
 
 
+@learn_app.command("advise")
+def configuration_advisory(
+    input_file: Annotated[
+        Path,
+        typer.Option(help="Explicit AdvisoryInput JSON; no default ledger access."),
+    ],
+) -> None:
+    """Show read-only configuration estimates and abstention; launch nothing."""
+    from model_learner.learn.advisory import AdvisoryInput, advise
+
+    try:
+        payload = AdvisoryInput.model_validate_json(input_file.read_text())
+        result = advise(
+            payload.request, observations=payload.observations, bundles=payload.bundles
+        )
+    except (OSError, ValueError, ArithmeticError, StorageError) as error:
+        # Validation errors can include arbitrary source values. Do not echo them.
+        raise typer.BadParameter(
+            "invalid advisory input or evidence contract"
+        ) from error
+    write_json(result)
+
+
 @sim_app.command("generate")
 def generate_simulation(
     seed: Annotated[int | None, typer.Option(help="Default: 1.")] = None,

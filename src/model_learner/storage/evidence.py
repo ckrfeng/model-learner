@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from dataclasses import replace
 from datetime import UTC, datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -17,6 +18,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from model_learner.adapters.codex import ADAPTER_VERSION, SOURCE, _supported_event
 from model_learner.domain.models import (
     Attempt,
     DatasetReference,
@@ -44,7 +46,7 @@ KINDS = (Task, Session, Run, Attempt, Event, Verification, Outcome, Observation)
 TYPES = {kind.__name__: kind for kind in (*KINDS, TaskSessionLink, RunSessionLink)}
 METADATA = {
     Task: {"junit_verifier", "file_digest_verifier"},
-    Session: set(),
+    Session: {"machine_id", "adapter_version", "native_timestamp_coverage"},
     Run: {"final_artifact_fingerprint"},
     Attempt: {"configuration_provenance"},
     Outcome: {"assessment_method"},
@@ -110,8 +112,39 @@ def _public(record: BaseModel) -> BaseModel:
             data[field] = None
     if type(record) in METADATA and set(data["metadata"]) - METADATA[type(record)]:
         raise ValueError("unsupported public metadata; review a sanitized source")
+    if isinstance(record, Session) and record.metadata:
+        if (
+            record.source != SOURCE
+            or record.metadata.get("adapter_version") != ADAPTER_VERSION
+            or record.metadata.get("native_timestamp_coverage") != "unavailable"
+            or not isinstance(record.metadata.get("machine_id"), str)
+            or not record.metadata["machine_id"]
+        ):
+            raise ValueError("unsupported public session metadata")
     if isinstance(record, Event) and (record.payload or record.raw_payload):
-        raise ValueError("public evidence requires metadata-only events")
+        # Production capture stores its allowlisted metadata in payload AND
+        # raw_payload by default. Preserve it for attribution conflict checks;
+        # erasing native model/provider fields would change learning eligibility.
+        payload = record.payload
+        if (
+            record.source != SOURCE
+            or not _supported_event(record)
+            or set(payload)
+            != {
+                "native",
+                "capture_id",
+                "sequence",
+                "timestamp_basis",
+                "native_observed_at",
+                "redacted_fields",
+            }
+            or payload["native_observed_at"] is not None
+            or payload["sequence"] < 1
+            or not isinstance(payload["redacted_fields"], list)
+            or any(not isinstance(field, str) for field in payload["redacted_fields"])
+            or record.raw_payload not in (None, payload["native"])
+        ):
+            raise ValueError("public evidence requires supported metadata-only events")
     if isinstance(record, (Attempt, Observation)) and record.configuration.metadata:
         raise ValueError(
             "public evidence requires reviewed empty configuration metadata"
@@ -480,4 +513,14 @@ def resolve_bundle(bundle: EvidenceBundle, *, cutoff: datetime) -> ResolutionSna
         db.initialize()
         _replay(Repository(db), bundle)
     view = _ReceivedView(bundle, cutoff)
-    return resolve_real_observations(view, dataset=bundle.dataset, cutoff=cutoff)
+    snapshot = resolve_real_observations(view, dataset=bundle.dataset, cutoff=cutoff)
+    return replace(
+        snapshot,
+        method="receipt-gated-" + snapshot.method,
+        availability_limitations=(
+            "Every record and association requires a non-null receipt "
+            "at or before cutoff",
+            "Declared source and assessment timestamps must also pass as-of checks",
+            "Imported receipts are declarations, not authenticated time attestations",
+        ),
+    )

@@ -1,5 +1,145 @@
 # Model Learner status
 
+## W6A offline read-only configuration advisory — 2026-10-21
+
+**PASS for W6A's bounded offline advisory. W4B launch remains BLOCKED.**
+Delivered a functioning library/CLI using existing estimators and receipt-aware
+real-contract resolution, with 44 fictional acceptance cases and an executable
+three-configuration example. This does not complete W4B/W5, full W6 or W7, prove
+predictive superiority, or authorize real execution. Stop at this increment.
+
+Preflight confirmed this chat's Model Learner project ID
+`5e9ee82f-ab79-435f-a8c9-8bb3c4b689d3`, clean `main`, HEAD and cached `origin/main`
+both `bde6656da4f9b0b4e5e6482adcd5c1cf5c35a4a8`, empty index diff, no tracked
+modifications or untracked files. No fetch occurred. The coordinator confirmed
+the current turn's effective model `gpt-6.1-sol` before implementation; only
+read-only preflight preceded that confirmation. No pre-existing or unrelated edits
+needed preservation. No Git/index/ref mutation, subagent, installation, private
+historical-data read, network call, paid inference or runtime probe occurred.
+
+Existing interface inspection: `learn predict` provides a single configuration/
+group prediction with declared-time real-ledger resolution. The existing pure
+`forecast` already provides A/B/C with a frozen membership policy and target-Task
+exclusion. Neither offers the requested multi-candidate receipt-input advisory.
+Initial new acceptance collection failed with `ModuleNotFoundError` for the absent
+advisory module before production edits. The implementation reuses those actual
+estimators and `storage.evidence.resolve_bundle`; no underlying learning,
+eligibility, domain, storage or security architecture was changed.
+
+Public entry points:
+
+- `model_learner.learn.advisory.advise(AdvisoryRequest, observations=(), bundles=())`.
+- `model-learner learn advise --input-file INPUT.json`, using the versioned
+  `AdvisoryInput` envelope and emitting `configuration-advisory/v1` JSON.
+- `scripts/advisory_example.py`, with `--with-evidence` and `--input` options.
+
+Six calculations are supported: fixed Beta(1,1), admitted global cumulative,
+exact-configuration cumulative, exact-cell A, declared compatible-family B and
+broad task-family C. Probabilities and conditional 95% posterior intervals come
+from the unchanged existing implementations. Each retains exact target/source/
+candidate/policy identities, eligible counts and source evidence references.
+The explicit global comparator pools admitted arms; A/B/C preserve the existing
+model/effort compatibility rules. All use the same cutoff, source universe,
+acceptance and budget, excluding the target Task's runs and paired arms.
+
+Real-contract input must be scoped receipt bundles; caller-asserted raw real rows
+are rejected. Existing verification, assessment-head, persisted derivation and
+Attempt-binding gates are revalidated in disposable SQLite, without modifying the
+source. Null/late receipts remain unavailable despite old declared timestamps;
+corrections cannot replace retained earlier advice. Missing receipt dependency
+counts and resolution exclusions remain visible. Imported receipts do not attest
+authentic historical time. Simulated rows explicitly use declared times only.
+Source kinds/datasets never pool. Benchmark resolution is unsupported and yields
+prior-only estimates with reasons; complete W4A.2 receipts do not upgrade labels
+or budget coverage. The actual fictional 600-second budgeted exporter/receipt test
+retains `budget_measurements_not_supported` and zero eligible evidence.
+
+`abstain-only/v1` always leaves human choice explicit, including cold start and
+unapproved decision-policy requests; probabilities/evidence remain visible.
+No five-label threshold, ranking, selection authority or saved shadow decision was
+invented. Known eligible-evidence cost/latency summaries retain coverage counts;
+unavailable means, token measurements and effective backend revisions stay null.
+Output omits task prose, arbitrary metadata, private locators and unrelated rows;
+projected labels use a conservative public-identifier profile and still require
+human review. CLI validation does not echo source payloads.
+
+Exact public inventory, all left uncommitted:
+
+| Path | State and scope |
+| --- | --- |
+| `src/model_learner/learn/advisory.py` | New narrow public request/input API and deterministic JSON projection. |
+| `src/model_learner/commands/learning.py` | Modified; adds only the explicit-file `learn advise` command. |
+| `tests/unit/test_advisory.py` | New synthetic contract/estimator/exclusion/missingness/privacy tests. |
+| `tests/integration/test_advisory.py` | New receipt/correction/read-only/benchmark/CLI cases using reviewed fictional helpers. |
+| `scripts/advisory_example.py` | New executable fictional cold-start/prior-evidence example. |
+| `docs/CONFIGURATION_ADVISORY.md` | New input/output, predictor, availability, example and 18-case coverage guide. |
+| `docs/REAL_DATA_READINESS.md` | Modified; appends consolidated five-decision real-execution register. |
+| `STATUS.md` | Modified; this checkpoint only, historical evidence preserved. |
+
+Actual validation with the already installed environment:
+
+| Check | Result |
+| --- | --- |
+| W6A acceptance | **44 passed**, 2.13 s; all 18 requested case groups mapped in the guide. |
+| Focused learning/prospective/assessment/receipt/W2/W3/CLI regressions | **281 passed**, zero skips, 17.76 s, including all new cases. |
+| Broader offline repository selection | **1,090 passed, 7 existing opt-in skips**, 70.09 s. |
+| Actual executable CLI examples | Cold and prior-evidence JSON each exactly equals the public API result; command help passed. |
+| Repository Ruff lint / format | Passed; **211 files checked** in the final run. |
+| Whitespace and non-staged privacy | Passed on all eight public changes; generated cold/prior advisory outputs pass pure privacy checks without exemptions. |
+| Staged privacy guard | Not run because this executor may not stage; coordinator must run after exact Desktop review/staging. |
+
+Both focused/broad invocations explicitly unset `MODEL_LEARNER_TEST_POTION_PATH`
+and `MODEL_LEARNER_OFFLINE_DOCKER_TEST`. Broader checks exclude
+`tests/integration/test_privacy_guard.py` (55 Git/index/commit-mutating cases),
+`test_w4a_containment.py`, `test_w4a_process_boundaries.py` and
+`test_benchmark_host_access.py` (nine completed containment/process diagnostics).
+The seven skips remain six optional local Potion tests and one optional actual
+Docker test. No model-weight load, container launch, historical experiment rerun
+or unqualified full-suite claim. Ordinary trusted synthetic verifier regressions
+are included. Checks use `.venv/bin/python -B -m pytest -q -p no:cacheprovider`
+with bytecode and plugin auto-loading disabled, and local Ruff with `--no-cache`;
+no dependency sync/download was necessary.
+
+Initial expanded tests exposed fixture construction mistakes (a string replacing
+an enum without validation, Task versus Run budget location, and absent explicit
+reasoning effort in a reused benchmark fixture). Corrected only the new fixtures
+against the actual contracts. Initial Ruff formatting/import/unused-import issues
+were corrected. Final product tests and checks above passed without skips in W6A.
+
+The executable example admits one fictional Low success and one High failure
+from separate prior Tasks, with a third distinct lower-model arm. A/B/C means are
+**2/3, 1/3, 1/2**; global is 1/2 with two labels; cold start is 1/2 for every
+configuration. Conditional exact-cell intervals are approximately
+[0.158114, 0.987421], [0.012579, 0.841886], [0.025, 0.975]. Cost, latency, tokens
+and backend revisions are unknown. These are calculated synthetic quantities,
+never measurements of actual Sol/Luna performance. Both cases abstain.
+
+New ignored artifacts only under `.model-learner/w6a-advisory-v1/`:
+`acceptance.xml`, `focused.xml`, `regressions.xml`, `cold-input.json`,
+`cold-advisory.json`, `verified-input.json`, `verified-advisory.json`,
+`privacy.json` and `inventory.json`. Disposable real-contract reconstruction,
+fictional artifacts/reports and databases remain in pytest/system temporary
+storage. No earlier ignored research/experiment directory was opened or changed.
+
+Proposed coherent nonempty Desktop commit groups, coordinator alone operates Git:
+
+1. `feat: add offline configuration advisory` — advisory API, CLI, both required
+   test files and executable fictional example together.
+2. `docs: document advisory and real execution decisions` — advisory guide,
+   appended decision register and STATUS.
+
+The [decision register](docs/REAL_DATA_READINESS.md#w6a-real-execution-decision-register--2026-10-21)
+consolidates supported runtime, protected verifier, whole-tree termination,
+duration and exact resource authorization, each with known evidence, smallest
+option, next validation and what approval would authorize. Retain duration
+**Option A** and the canonical 600-second budget. No budget adapter, Option B/C,
+migration or weakening of missing-measurement exclusions occurred.
+Smallest remaining work toward working v1 is a human-selected supported execution
+backend and bounded protected-worker/whole-boundary termination design, followed
+by separately authorized offline validation. Security/runtime/verifier/stop/resource
+gates still block W4B; later real runs and API spending require their exact separate
+authorizations. No next milestone is started.
+
 ## W4A.2 benchmark first-receipt provenance — 2026-10-21
 
 **PASS for the bounded receipt-only increment. W4B launch remains BLOCKED.**

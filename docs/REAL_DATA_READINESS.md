@@ -262,3 +262,29 @@ Private source identifiers, project code, test sources, XML, manifests, commands
 local paths and per-turn evidence remain under ignored local storage. Public
 findings contain only sanitized behavior and aggregate counts. No production code,
 dependencies, model configuration, database history or acceptance semantics changed.
+
+## W6A real-execution decision register — 2026-10-21
+
+The [offline advisory](CONFIGURATION_ADVISORY.md) is useful with properly scoped
+evidence and abstains from model selection. It authorizes no execution. Earlier
+collection suggestions in this historical document are not approval to launch
+W4B or bypass its current security/resource gates. The following decisions remain
+human decisions; no runtime, architecture or spending choice was implemented in
+W6A. Known evidence below comes from the completed public W4A.1/W4A.2 reports;
+no runtime inventory or containment probe was repeated for this register.
+
+| Decision | Current known evidence | Smallest actionable option | Next validation after a separate bounded engineering authorization | What approval would authorize |
+| --- | --- | --- | --- | --- |
+| Security runtime | macOS sandbox bootstrap failed with exit 71; Docker Desktop socket was absent. Neither execution boundary is verified. Same-user controls read all seven canary categories. [Evidence](W4A_CONTAINMENT.md#backend-and-boundary-evidence). | Name and provide one supported isolated backend and pinned runtime/image, with an explicit filesystem/network/credential access contract. | Verify backend availability, then fictional C1–C14 boundary controls in that exact environment, including symlinks, traversal and descendants. | Only the specified backend setup/design and offline canary validation; installation/image acquisition or agent execution needs its own explicit scope. |
+| Protected verifier | Existing verifier imports arbitrary candidate Python in the process holding the oracle; a read-only oracle remains readable. No separate restricted worker is implemented. [Evidence](W4A_CONTAINMENT.md#backend-and-boundary-evidence). | Approve a separate candidate worker with bounded request/result channel and trusted external driver/report writer; candidate has no tests, oracle, credentials or report-writing facilities. | Fictional candidate attempts to read oracle/test/credential canaries, forge a report, crash or escape the worker; trusted driver must retain authoritative results. | A specified worker/driver design and adversarial offline tests, after selecting the runtime; no blanket permission to execute arbitrary submissions or models. |
+| Whole-tree termination | Direct-child timeout leaves descendants; process-group kill misses a new-session child. Controller-crash cleanup and the hard 600-second stop are unproven. [Evidence](W4A_CONTAINMENT.md#process-controls-and-watchdog-limits). | Select an OS-enforced owned boundary whose teardown covers all descendants even after session escape and controller failure. | W1–W10 controls plus boundary teardown on timeout, cancellation and controller crash; independently observe all descendants absent and preserve stop receipts. | Bounded supervisor/boundary engineering and finite synthetic controls; no real-agent launch or claim of a reliable watchdog before those pass. |
+| Duration target | Canonical Option A uses complete attributed Attempt latency. Benchmark export rejects every non-null budget; complete first-receipt coverage leaves the 600-second result ineligible. [Options and evidence](BENCHMARK_RECEIPTS.md#duration-policy-decision-only). | **Recommend retaining Option A**, including `ResourceBudget(max_duration_seconds=600)` and `budget_measurements_not_supported`, until supported measurements exist. | Separately specify and test complete attributed measurement/coverage without substituting operator process time. B/C would require a newly approved versioned estimand/target and engineering scope. | Retaining A changes nothing. Choosing B/C would authorize only an explicit target-design increment, not retroactive relabeling, budget removal, schema migration or W4B execution. |
+| Real-agent resources | No W6A model call or entitlement probe; subscription allowance, exact effective configurations, token enforcement and actual charges remain unknown. Security/verifier/termination gates still block launch. | After engineering gates pass, select exact configuration snapshots, existing subscription allowance if desired, finite attempts and explicit duration/token/cost exposure limits; decide whether any unenforceable token/cost exposure is acceptable. | Prelaunch gate review of approved configurations, remaining allowance, enforceable caps/stop conditions, verifier isolation and receipts; unknown charges stay unknown. | Only the enumerated real runs against the approved allowance and accepted exposure. New API spending requires separate explicit authorization; no retries, substitutions or expanding cohort by default. |
+
+Smallest remaining work toward working v1: choose one supported execution backend
+and a bounded protected-worker/whole-boundary termination design, then separately
+authorize its offline validation. Only after those gates and supported resource
+coverage pass can an exact finite real-run resource request be reviewed. Predictive
+evaluation and any model-selection policy require their own future evidence and
+approval. W4B/W5, full W6 and W7 remain incomplete; this register is not a launch
+request or authorization.

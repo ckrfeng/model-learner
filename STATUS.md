@@ -1,5 +1,254 @@
 # Model Learner status
 
+## W1 evidence reconciliation and draft protocol — 2026-10-20
+
+Current bounded increment: three documentary phases delivered for human review;
+**historical receipt/binding reconciliation remains incomplete**. No existing
+plan milestone is newly declared complete. W1 is a working-v1 review gate, not a
+renumbering of the master plan. W2–W7 remain outside this execution authorization.
+The historical checkpoints below are preserved verbatim and retain their earlier
+scope; their “current” or “next” statements are historical, not new authorization.
+
+Delivered only:
+
+- `docs/experiments/experiment_4_reconciliation.json`: one versioned sanitized
+  sidecar in the existing aggregate-artifact directory because no public
+  Experiment 4 reconciliation manifest was available. Four paired Tasks T1–T4,
+  eight reported executions, Low/High arms distinct from A/B/C policies.
+- `docs/PROSPECTIVE_FAMILY_EVALUATION.md`: appended W1 reconciliation, prospective
+  DRAFT, provenance decision gates and compact W1–W7 mapping to actual plan
+  §§4–5, M1/M3/M4/M5/M6-B/M7 and §§7–8. M8 remains optional; M9/M10+ excluded.
+  Original adapter documentation is unchanged. No plan or source/test edits.
+
+Evidence: earlier research corroborated T1/T2 from sanitized summaries; this is
+inherited corroboration, not a new raw audit. Newly inspected STATUS summaries
+supply reported T1/T2 forecasts, verification counts and native token aggregates.
+Operator process times are attributed to the earlier report. T3/T4 remain later
+user-reported successes; earlier T3-unstarted scope is preserved. No permitted
+final T3/T4 artifact, duration or token total was supplied. Exact IDs, frozen
+hashes/cutoffs, availability receipts, effective settings, artifact/report binding
+and correction chains remain explicit unknowns. No private evidence was accessed.
+
+New offline arithmetic: conditional all-success sequences yield A/B mean Brier
+**0.180556**, natural-log loss **0.549306**; C **0.115903 / 0.402359**. Four-task
+paired averaging equals eight-arm averaging, without eight independent tasks.
+C exactly ties the cumulative matching-arm Beta(1,1) baseline under the same
+prior-success sequence. T1/T2 summary values agree with the first two positions;
+original frozen files for all tasks remain unavailable, so no complete original
+score audit is claimed. No superiority, calibration, difficulty learning,
+compatibility transfer, failure prediction or Low/High equivalence established.
+
+The future protocol is **DRAFT — NOT PREREGISTERED; NO TASKS SELECTED OR FROZEN;
+NO RUN AUTHORIZED**. Luna Low / Sol Low / Sol High are unverified candidate labels.
+Proposed feasibility: 12 tasks, 24/36 attempts, 6/9 process-hours plus overhead;
+confirmation uses a fixed precision rule and proposed 60-task hard cap. Unresolved
+token, monetary and operator limits block runs. No new infrastructure required
+for this documentary scope; any specific receipt/association repair needs its
+own demonstrated gap and separate bounded authorization.
+
+Actual checks after inspecting the focused test and import definitions:
+
+| Command/check | Actual result |
+| --- | --- |
+| `PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -B -m pytest tests/unit/test_prospective.py --noconftest -p no:cacheprovider --basetemp=/private/tmp/model-learner-w1-pytest -q` | 19 passed in 0.14 s; synthetic fixtures only, temporary output isolated. No model or experiment executed. |
+| `.venv/bin/ruff check --no-cache src/model_learner/learn/prospective.py tests/unit/test_prospective.py` | Passed. |
+| `.venv/bin/ruff format --check --no-cache src/model_learner/learn/prospective.py tests/unit/test_prospective.py` | Passed; 2 files already formatted. |
+| Temporary standard-library W1 validator, invoked through installed Python with bytecode disabled | Passed: manifest fields, IDs/counts, source-tier/null reasons, permitted links, summary metrics, exact formulas/six-decimal tolerance, task/arm averaging, Beta equality and document consistency. Baseline preservation and HEAD/branch/index entry hash checked. |
+| Scoped working-tree privacy check using existing guard's `path_reasons`, `secret_reasons`, `content_reasons` on the three deliverables, without exemptions | Passed; no rejected content. Manual incremental review found no private transcripts, credentials or personal absolute paths. Scanner coverage is limited, not proof of perfect privacy. |
+| `GIT_OPTIONAL_LOCKS=0 git diff --no-ext-diff --check` plus explicit new-file whitespace validation | Passed. |
+| Full `uv run pytest`, repository-wide Ruff and `uv sync` | Not run: this increment prohibits installation/cache access and uninspected broad checks/private traversal. Existing local executables and inspected focused checks used instead. No full-suite result claimed. |
+| `python3 scripts/privacy_guard.py --staged` | Pending coordinator after reviewed staging; not run and nothing staged. Guard has no working-tree CLI mode; scoped pure content functions above do not replace the required staged guard. |
+
+Baseline: branch `main`, HEAD `bedfaca887228e314de592533bef1149b031b3f6`, empty
+staged diff. Pre-existing changes were modified `STATUS.md` (+169 lines versus
+HEAD), untracked 63-line prospective document, untracked 337-line
+`src/model_learner/learn/prospective.py`, and untracked 313-line
+`tests/unit/test_prospective.py`. Their original bytes were preserved. The new
+increment consists only of this STATUS section, the appended document sections
+and the new sidecar. The source/test hashes and index entries match startup;
+HEAD/branch are unchanged. No staging, commit, branch/worktree operation, private
+read, network, agent launch, model call, inference, experiment, purchase or
+publication occurred. Temporary baseline/check files remain outside Git.
+
+Next human decision: review these additions; optionally supply the smallest
+sanitized frozen/association/verification export described in the document;
+approve or revise arms, selection/holdout, verifier and hard budgets; decide
+whether any narrow provenance repair is necessary. Stop here. Future runs or
+implementation require a separate Model Learner project prompt. The coordinator
+alone selects/stages reviewed content, runs the staged privacy guard, and may
+commit/verify through GitHub Desktop. No push is authorized.
+
+## Historical checkpoints — preserved pre-W1 content
+
+Current work: T2 matched pair complete after separate approval of HIGH. Fresh
+preflight confirmed unchanged A/B=0.5 and C=2/3 forecasts, exact clean starting
+snapshot, frozen gpt-6.1-sol high configuration/runtime hashes, and **24 no-model
+isolation probes**, including denial of Low's actual solution/results. Exactly one
+High execution, agent/capture exits 0, no timeout, retry or repair. High independently
+passed all **63 acceptance + 14 regressions**, exact identities, compilation and
+scope; zero failures/errors/skips. Low previously passed the same 77 cases.
+High operator wall **128.693 seconds** versus Low **88.488 seconds**; Low finished
+40.205 seconds faster in this pair. High native input **216,696** (cached subset
+200,576), output **6,532** (reasoning subset 1,991), versus Low 238,667 input
+(214,400 cached), 4,189 output (260 reasoning). Derived uncached input: High
+16,120, Low 24,267. No cost inference; effective native configuration/version,
+native latency and dollar cost remain unknown. High had three nonzero internal
+command exits versus Low eight; command text/output absent, causes unknown.
+High frozen A/B scores: Brier **0.25**, natural-log loss **0.693147**. C scores:
+Brier **0.111111**, log loss **0.405465**. These match Low's scores. High's scores
+were preserved BEFORE its observation insertion/refitting; High's forecast used
+only pre-T2 evidence and never used Low's outcome. C has lower losses for these
+two successful executions of one matched task; this does not establish general
+predictive improvement, calibration or configuration superiority.
+High import stored 33 events without diagnostics, replay inserted zero. Both T2
+real verified-success observations correctly retain separate Runs/configurations
+under the same Task, eligible without exclusions. Resolver/CLI consumes all four
+pilot observations across two Tasks. Each exact T2 group/configuration cell has
+one success, Beta(2,1), mean 0.667, 95% interval [0.158,0.987]. Neither post-update
+summary replaces a forecast. Original repository tracked contents/HEAD/status,
+protected tests, earlier evidence, runtime hashes, adapter and all frozen inputs
+are unchanged; Low candidate/evidence preserved. Private per-arm archives/reports,
+score-order records, comparison, manifests and immutable ledger snapshots remain
+ignored. Relevant workflow checks **114 passed**, Ruff lint/format clean (193
+files). No original-repository edit, algorithm change, patch transfer, additional
+agent, commit or push. **STOP: T2 complete; T3 has not started and requires separate
+explicit approval.**
+
+T2 Low-only checkpoint follows.
+
+T2 LOW execution complete after separate explicit approval. Exactly
+one frozen gpt-6.1-sol low-reasoning run; agent/capture exits 0, no timeout, repair
+or retry. Independent preserved-candidate evaluation passed **63 acceptance + 14
+regression cases**, exact identities, source compilation and scope; zero failures,
+errors/skips. Frozen A/B probabilities 0.5 scored Brier **0.25**, log loss
+**0.693147**; frozen C probability 2/3 scored Brier **0.111111**, log loss
+**0.405465**. Scores were preserved BEFORE inserting the new learning observation
+or fitting a new posterior. C's lower losses apply to this one held-out success;
+they do not establish general predictive improvement or task exchangeability.
+Operator wall **88.488 seconds**. Native input **238,667** (cached subset 214,400),
+output **4,189** (reasoning subset 260). Eight internal commands exited nonzero;
+their text/output is absent from metadata capture, so causes remain unknown.
+Effective native model/version/configuration, native latency and dollar cost remain
+unknown; configuration is retained as the exact frozen operator declaration.
+Import stored 40 events without diagnostics; replay inserted zero. New real
+success/verified observation is correctly associated with the second Task, its
+prospectively assigned Run and Low configuration; eligible with no exclusions.
+Existing resolver/CLI consumes all three observations across two Tasks without
+exclusions; the new exact group/Low cell uses one success, Beta(2,1), mean 0.667
+and 95% interval [0.158,0.987]. This post-update estimate replaces no forecast.
+All frozen preparation files, prior evidence, original repository tracked contents/
+HEAD/status, protected tests, runtime hashes and learner adapter are unchanged.
+High's workspace remains pristine and both pre-T2 forecasts are unchanged.
+Private final archive, bound JUnit report, scoring-order evidence, usage, result,
+manifest and immutable after-Low ledger snapshot remain ignored. Relevant
+forecast/JUnit/ingestion checks **114 passed**; Ruff lint/format clean (193 files).
+No production algorithm change, original-repository edit, patch transfer, extra
+agent, commit or push. **STOP: T2 High and all later executions remain unlaunched
+and require separate explicit approval.**
+
+T2 preparation checkpoint follows.
+
+Second prospective matched task preparation complete; **no T2
+coding-agent execution**. Existing CLI and resolver confirm both T1 real verified
+successes remain eligible, correctly associated with task/configuration, with no
+exclusions. Reused unchanged compatibility policy, configurations and adapter.
+Both forecasts were frozen from the same pre-T2 ledger snapshot: A/B remain
+Beta(1,1), mean 0.5 [0.025,0.975]; C uses only the matching-effort T1 success,
+Beta(2,1), mean 0.667 [0.158,0.987]. C's cross-task exchangeability is an explicit
+assumption, not learned difficulty. Both arms are frozen before either executes;
+Low's later outcome must not change High's forecast. Runtime transfer remains
+untested because only one runtime is admitted.
+Identical clean task-specific source exports reproduce the same **63 acceptance
++ 14 regression cases**: each untouched baseline has 29 passes and 48 expected
+acceptance failures, zero errors/skips, all regressions pass. Exact test identities
+and protected digests are frozen. Both arms pass **19 no-model isolation probes**,
+including previous solutions, other arm, protected tests, ledger and forecasts.
+Original selected source/HEAD/status, earlier frozen evidence and runtime hashes
+are unchanged; preexisting unrelated repository edits remain present. Active
+ledger now contains two declared Tasks and only the original two T1 observations;
+no T2 Run or outcome. All private preparation/evidence remain ignored.
+User explicitly selected **Low then High** to balance T1's order. Both check-only
+execution gates pass. Adapter tests **19 passed**; Ruff lint/format clean (193
+files). No production code/algorithm or original task repository changes, agents,
+commits or pushes. **STOP: separate approval required for T2 Low first; High and
+later tasks remain unauthorized.**
+
+T1 completed checkpoint follows.
+
+T1 prospective matched pair complete. LOW executed exactly once
+following separate approval and fresh High-solution/evidence isolation probes.
+Low independently passed **36 acceptance + 6 regressions**, zero failures/errors/
+skips, exact identities and scope passed; no repair or retry. Agent/capture exits
+0, no timeout. Low operator wall **51.994 seconds**, versus High **96.723 seconds**
+(44.729 seconds / 46.2% less in this pair). Low native input **117,743** (cached
+subset 86,784), output **2,690** (reasoning subset 355). High input 205,955 (cached
+180,608), output 4,854 (reasoning 1,595). Derived uncached input is higher for Low
+(30,959 vs 25,347); native latency and dollar cost remain unknown. No savings claim.
+Low has three nonzero internal command exits versus High five; their text/output
+is absent, so causes remain unknown. Final independent checks passed for both.
+Low imported 30 events without diagnostics; replay added zero. Active real ledger
+has one Task and two eligible success/verified observations, no exclusions. Existing
+CLI consumes both but each arm retains **one success**: Beta(2,1), mean 0.667,
+95% interval [0.158,0.987]. Low frozen A/B/C forecasts stayed 0.5 and each scored
+Brier 0.25/log loss 0.693147 BEFORE Low observation persistence/refitting. Both
+forecasts were frozen before High; High never informed Low's forecast.
+All frozen inputs, High evidence, original task source/HEAD/status, runtime hashes
+and learner adapter code are unchanged. Private final artifacts, bound reports,
+scores, comparison and immutable per-arm ledger snapshots remain ignored.
+This single-task pair does not distinguish prior-only predictors or establish
+configuration superiority/generalization. No algorithm changes, commits, pushes,
+patch transfer or additional agent/task execution. **STOP: T2 remains unstarted;
+separate explicit approval required.**
+
+Earlier High-only checkpoint follows.
+
+High-only checkpoint: first prospective matched task HIGH execution complete after
+explicit approval. Exactly one gpt-6.1-sol high-reasoning CLI run; agent/capture
+exits 0, no timeout or retry, operator pipeline wall **96.723 seconds**. All
+**36 frozen independent acceptance and 6 regression cases passed**, no failures,
+errors/skips; exact required identities and scoped algorithm preservation passed.
+Stored one real success/verified observation, single-configuration eligible with
+no exclusions; existing CLI consumed one success. Frozen A/B/C probabilities each
+0.5 scored Brier **0.25**, natural-log loss **0.693147**, before observation
+persistence/fitting. Reference High cell is Beta(2,1), mean 0.667 and 95% interval
+[0.158,0.987]. Identical prior-only forecasts do not establish predictive gain.
+Native input **205,955** (cached subset 180,608); output **4,854** (reasoning subset
+1,595). Native effective configuration/version, latency and dollar cost unknown.
+Five nonzero internal command exits retained; command text/output was not captured,
+so causes remain unknown. Import stored 33 events without diagnostics; replay
+added zero. Relevant forecast/capture/JUnit checks **114 passed**; Ruff/format clean.
+All frozen preparation files, Low forecasts and clean Low workspace are unchanged;
+original task repository source/HEAD/status unchanged. Private final archive,
+report, scores, execution ledger and immutable after-High snapshot remain ignored.
+No repairs, production algorithm changes, patch transfer, commit, push or other
+agent launch. Stop: LOW remains unlaunched and needs separate explicit approval.
+
+Preparation checkpoint (before the High execution) follows.
+
+Preparation work: minimal prospective configuration/task-family adapter and first
+matched-task preparation complete; coding-agent executions remain **zero**.
+Added a pure API over the unchanged Beta-Bernoulli estimator: exact-cell A,
+explicit compatible-configuration-family B, and broader task-family C. Policies
+preserve model/effort and behavioral distinctions; canonical records are unchanged.
+Exclusive read-only forecast files carry external hashes; bound verified labels
+are scored without refitting. Real callers must first resolve ledger evidence.
+Four genuine boundary-hardening tasks across three repositories are selected in
+ignored private storage. First low/high workspaces and protected tests match;
+36 independent acceptance plus 6 regression cases reproduce 25 failures and
+17 passes in each untouched baseline, no errors/skips. Both final forecasts are
+prior-only 0.5 with 95% interval [0.025,0.975]; no historical data was relabelled.
+Only one runtime is admitted, so B=A until a later separately reviewed runtime
+contrast exists. Operator safety stop is separate from a null learner budget;
+unknown native latency/cost remain null. Isolation canaries pass for both arms.
+Checks: **961 passed, 7 existing skips**; Ruff lint/format clean (192 files), CLI
+help exit 0. Documentation: docs/PROSPECTIVE_FAMILY_EVALUATION.md. Private drafts,
+preflight transport failures and authoritative final manifests are retained.
+No task repository edits, dependency changes, agents, neural models, Governor,
+commits or pushes. Next step is separate explicit approval of the first arm;
+no execution or later implementation is authorized by preparation.
+
+Prior completed experiment status follows.
+
 Current work: experiment 3 complete after separate explicit approvals for A and B.
 Exactly two sequential supervised Codex CLI invocations requested gpt-6.1-sol,
 A low reasoning and B high reasoning, each with the frozen 600-second safety stop.

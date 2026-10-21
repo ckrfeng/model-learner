@@ -1,5 +1,135 @@
 # Model Learner status
 
+## W6B external verified-evidence handoff — 2026-10-21
+
+**PASS for bounded fictional offline handoff. Actual working-v1 end-to-end
+acceptance remains integration pending; W4B launch remains BLOCKED.** Existing
+production interfaces completed the required handoff without a reproduced missing
+capability. Added only an executable fictional operator example, 42 integration
+tests and a runbook. No production source, schema/migration, canonical model,
+verification/receipt/eligibility policy, estimator, W6A calculation or benchmark
+contract changed. Stop at W6B; no successor milestone is started.
+
+Read-only preflight found `main`, HEAD and cached `origin/main` both
+`a3964fca019a3636ccaf95a69f0d0d4f355e0998`, ahead/behind 0/0, empty index diff,
+no tracked changes and no untracked/pre-existing edits. No fetch occurred.
+Project catalog mapped Model Learner ID
+`5e9ee82f-ab79-435f-a8c9-8bb3c4b689d3` to this repository; current-chat metadata
+confirmed its working directory. Before any edits/tests, the coordinator confirmed
+project membership and effective `gpt-6.1-sol` from current turn-context fields for
+turn `01a15f24-e5a5-7fa2-89ba-2bd59dfaa577`. No private historical transcript was
+inspected. This executor performed no staging, commits, pushes, index/ref changes,
+subagents, dependency installation, actual agents, paid inference, network calls,
+runtime setup or containment diagnostics.
+
+Inspected AGENTS, current STATUS/design/readiness/prospective/advisory/benchmark-
+receipt/containment/privacy guidance and the canonical models, storage, supported
+Codex adapter/CLI, JUnit/file verification, assessment/resolution, real derivation,
+Beta-Bernoulli, prospective and advisory interfaces and W2/W3/W6A integration tests.
+The existing `scoped-evidence/v1`, `ReceiptBook`, disposable import, JUnit binding,
+real resolver, forecast/freeze/score and advisory APIs already suffice. No new
+adapter was justified; there is no manufactured failing production-gap assertion.
+
+`scripts/external_handoff_example.py` first records three fictional Task contracts,
+configuration, reviewed verifier-source digest and compatibility policy. Each
+forecast and separate hash file is retained before its target execution. A
+fictional producer supplies only execution metadata and stopped data bytes;
+capture/import uses the actual Codex APIs. A serialized scoped bundle crosses
+into a fresh receiver, with exact frozen-intake checks and current-clock first
+receipts. Producer labels, verifications and receipt assertions are refused by
+the **example's reviewed choreography**, not silently trusted.
+
+A separate reviewed data-only fixture compares at most 65 bytes against its fixed
+expected answer and generates a complete JUnit report without executing candidate
+code. Existing JUnit verification binds exact artifact/report/Task/Run/acceptance;
+the sidecar binds Verification to the full Attempt. Existing assessment and
+derivation yield one eligible verified success and one eligible verified failure.
+These are explicitly `synthetic-w6b-disposable-only` real-contract test records,
+never measured model execution, personal learning data or relabeled benchmarks.
+
+Calculated A/B/C forecasts are 1/2, then 2/3. The success scores Brier 1/4 and
+log loss ln(2); the failure scores Brier 4/9 and log loss ln(3), independently
+checked against the original frozen probabilities. Later Beta(2,2) has mean 1/2,
+one success and one failure, unchanged by replay. W6A global/per-arm/A/B/C advice
+has two eligible labels and mean 1/2, retains evidence references and abstains.
+API and actual CLI JSON agree. Policy, scoped identities/joins/Attempt map,
+cutoffs, evidence membership and forecasts reproduce after serialization and
+disposable reconstruction. Advice preserves actual producer/receiver/forecast
+file hashes. Costs, canonical latency, tokens and effective backend revisions
+remain unknown.
+
+Negative controls cover untrusted completion/producer reports, wrong or missing
+artifact, report digest/Task/Run/acceptance mismatch, skipped/missing/malformed/
+unsupported cases, conflicting native/requested model, every dependency type's
+missing/late receipt, later correction, exact replay, paired target arm/unrelated/
+future exclusions, incomplete/abandoned unknowns, unsupported non-null duration,
+metadata privacy, read-only advice, invalid-before-write and refused partial live
+merge. Existing W2/W3/W6A regressions retain their broader contract coverage.
+
+Actual final validation with the already installed environment:
+
+| Check | Result |
+| --- | --- |
+| New W6B acceptance | **42 passed**, 5.55 s; also included in both runs below. |
+| Focused capture/verification/assessment/W2/W3/receipts/learner/prospective/W6A regressions | **404 passed**, zero skips, 25.28 s. |
+| Broader permitted offline selection | **1,132 passed, 7 existing opt-in skips**, 69.04 s. |
+| Executable retained operator example | Passed; `.model-learner/w6b-handoff-v1/operator-example/` contains the exact fictional workflow outputs. |
+| Repository Ruff lint / format | Passed; **214 files checked** in the final check. |
+| Whitespace and non-staged privacy | Passed on the four public changed files and generated sanitized scoped/advisory projections, without exemptions. |
+| Staged privacy guard | Not run: executor may not stage. Coordinator runs it after exact Desktop review/staging. |
+
+Tests use installed `.venv` Python with bytecode and plugin auto-loading disabled
+and `-p no:cacheprovider`, and local Ruff `--no-cache`. Both regression commands
+unset `MODEL_LEARNER_TEST_POTION_PATH` and `MODEL_LEARNER_OFFLINE_DOCKER_TEST`.
+Broad selection excludes `tests/integration/test_privacy_guard.py` (55 cases
+mutating Git/index/commits, including temporary repos), `test_w4a_containment.py`,
+`test_w4a_process_boundaries.py` and `test_benchmark_host_access.py` (nine completed
+containment/process diagnostics). Seven skips remain six opt-in Potion tests and
+one opt-in Docker test. Existing trusted synthetic verifier/worker regressions
+are included. No full-suite claim, model-weight load, external runtime probe or
+actual container execution. Initial new test failures were fixture-only: a later
+resolver cutoff used for historical reconstruction, reused observation identity,
+and incorrect exclusion spelling; corrected against unchanged production rules.
+Initial formatting/line-length issues were corrected before final checks.
+
+Public before/after inventory: initially clean; modified tracked `STATUS.md` only;
+new/untracked `scripts/external_handoff_example.py`,
+`tests/integration/test_external_handoff.py`, `docs/EXTERNAL_EVIDENCE_HANDOFF.md`.
+No unrelated changes existed or needed preservation. All four paths remain
+uncommitted and unstaged. New ignored artifacts are confined to
+`.model-learner/w6b-handoff-v1/`: focused/regression JUnit reports, privacy/inventory
+records and `operator-example/` (intake/policy, two forecasts/hash files, per-run
+producer/receiver SQLite, fictional data/capture/XML/bundles/receipt books, advisory
+input/output and summary). Pytest's generated fixtures remain in disposable
+system temporary storage. No earlier private/ignored directory was opened.
+
+Proposed coherent nonempty GitHub Desktop groups, coordinator alone operates Git:
+
+1. `test: demonstrate external verified evidence handoff` — executable example
+   and its required integration tests together.
+2. `docs: record external handoff readiness` — runbook and STATUS after checked
+   behavior. No production-code commit is needed.
+
+The [runbook/readiness matrix](docs/EXTERNAL_EVIDENCE_HANDOFF.md) maps P1–P12 and
+N1–N14 and distinguishes declared, received, validated, independently verified
+fixture and unknown claims. Canonical JUnit/bundle validation does not authenticate
+independent external verifier control; a self-consistent forged report cannot be
+detected from hashes and declarations alone. The positive trust root is the known
+reviewed local fixture, and the example refuses producer verification authority.
+It is not a production security boundary or approval for arbitrary external XML.
+Live merge, general provenance/attestation and managed execution remain unsupported.
+
+Retain Option A and W4A's exact 600-second budget. This separately identified
+no-budget data fixture does not repair it; a non-null real-contract duration with
+unknown latency remains ineligible (`budget_duration_unknown`), and benchmark
+`budget_measurements_not_supported` remains intact. macOS bootstrap/Docker socket,
+same-user isolation, protected-verifier, whole-tree stop and resource-coverage
+findings are unchanged. Future real external execution needs separately approved
+runtime, trust/verifier/termination guarantees and exact finite resources.
+W1/W2/W3/W6A and bounded W6B offline work are complete; W4A real runs blocked;
+W4B/W5/full W6/W7 incomplete. Predictive superiority and automatic model choice
+are not required for working v1. No next milestone or real run is requested.
+
 ## W6A offline read-only configuration advisory — 2026-10-21
 
 **PASS for W6A's bounded offline advisory. W4B launch remains BLOCKED.**

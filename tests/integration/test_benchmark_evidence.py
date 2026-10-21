@@ -47,6 +47,8 @@ def fixture(
     conflict=False,
     state=RunState.FINISHED,
     configuration=None,
+    resource_budget=None,
+    stop_reason=None,
 ):
     protected, parent = tmp_path / "protected", tmp_path / "disposable"
     protected.mkdir()
@@ -100,6 +102,8 @@ def fixture(
     snapshot = benchmark.snapshot_candidate(prepared.root)
     run = Run(
         task_id=prepared.task.task_id,
+        resource_budget=resource_budget,
+        stop_reason=stop_reason,
         started_at=started,
         ended_at=ended,
         state=state,

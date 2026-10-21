@@ -1,5 +1,118 @@
 # Model Learner status
 
+## W3 integrated execution lifecycle — 2026-10-20
+
+**W3 PASS for the authorized offline synthetic contract.** P1–P10 and N1–N10
+are covered by the runnable lifecycle suite and the explicitly mapped existing W2
+Attempt-binding/receipt tests. No W4 work, real model execution, private evidence
+access, network call, dependency download or historical experiment change occurred.
+This does not prove predictive superiority, generalization or real-run provenance.
+
+Initial inventory: branch `main`, HEAD
+`0a8b24ebb0d057528d3fa280e6e5316dd8788e67`; no tracked modifications, no untracked
+files, no staged changes. Final HEAD/branch/index are unchanged. Final inventory:
+
+| Path | Before | After |
+| --- | --- | --- |
+| `src/model_learner/storage/evidence.py` | Tracked, clean | Modified |
+| `tests/integration/test_execution_lifecycle.py` | Absent | Untracked, new |
+| `docs/PROSPECTIVE_FAMILY_EVALUATION.md` | Tracked, clean | Modified, W3 appended |
+| `STATUS.md` | Tracked, clean | Modified, W3 checkpoint prepended |
+
+No other tracked modifications or untracked files. All work remains uncommitted;
+no staging, commit, push, publishing, branch/ref changes or nested agents occurred.
+
+Existing functionality exercised before production edits: Task/contract creation,
+actual `capture codex` and `import codex` CLI paths, explicit Run/Attempt/Session
+associations, separate local pytest acceptance execution, actual JUnit production,
+artifact/report-bound verification, assessment and eligible observation derivation.
+The first full workflow failed at W2 export because actual adapter Session metadata
+was unsupported. A separate failing regression exposed the analogous rejection of
+adapter metadata-only Events. An empty-scope regression independently reproduced
+receipt-gated snapshots incorrectly describing declared-time-only availability.
+The pre-fix run had four failures across these three reproduced rejection/display
+conditions. No verifier/learner defect or schema migration was required.
+
+Delivered:
+
+- `storage/evidence.py`: accept only the existing supported Codex adapter's
+  structural Session/Event metadata, using its existing native metadata validator;
+  reject unsupported payload/raw fields. Keep emitted model/provider facts for
+  conflict detection and preserve identities. Add receipt-aware descriptive
+  snapshot metadata using the existing dataclass; no eligibility change.
+- `test_execution_lifecycle.py`: 35 cases, wholly fictional and temporary. Frozen
+  Task/test contract and configuration precede capture; a pre-outcome forecast
+  uses receipt-resolved prior evidence. Actual local tests create JUnit results;
+  a genuinely broken artifact supplies the verified-failure control. Score before
+  verified observation persistence, then learn once, reconstruct scoped evidence,
+  replay twice, and reproduce original frozen bytes/membership. Analytic Beta
+  posteriors and closed-form interval checks, timing, correction, conflict,
+  leakage, tampering, missingness and privacy controls are explicit.
+- Prospective document: concise lifecycle contract, runnable command, complete
+  P/N coverage map, receipt meanings, supported metadata and remaining limits.
+- This status checkpoint only; historical status/document content preserved.
+
+Actual checks with the already installed environment:
+
+| Check | Result |
+| --- | --- |
+| W3 acceptance/regression cases | **35 passed**, 5.67 s. All positive and negative requirement groups covered. |
+| Focused capture, associations, file/JUnit verification, outcomes/corrections, observations, storage, portable evidence, prospective and Bayesian learning suites | **305 passed**, 18.15 s, including W3 and all 39 W2 cases. |
+| Broad repository regression, with explicit exclusions below | **969 passed, 7 skipped**, 71.38 s. |
+| Repository-wide Ruff lint | Passed. |
+| Repository-wide Ruff format check | Passed; 196 files already formatted. |
+| Git working-tree whitespace and explicit new-file whitespace | Passed. |
+| Non-staged privacy screening | Pure guard path/secret/content checks passed on all four changed/new files without exemptions. The generated adapter-backed synthetic bundle also passed pure guard content/secret checks in W3. |
+| Mandatory staged privacy guard | Not run: staging is prohibited for this executor. Coordinator must run it after reviewing/staging through GitHub Desktop. |
+
+Test invocations used `PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+.venv/bin/python -B -m pytest -q -p no:cacheprovider`. Focused selection included
+`test_execution_lifecycle`, `test_portable_evidence`, `test_codex_ingestion`,
+`test_codex_adapter`, `test_run_associations`, both task-workflow/JUnit/assessment-
+resolution suites, `test_coding_execution_cli`, `test_assessment_integrity`,
+`test_resolution_learning_cli`, `test_learning_storage`, `test_learning`,
+`test_prospective` and `test_storage`. Broad invocation added
+`--ignore=tests/integration/test_privacy_guard.py`; its 55 Git-policy tests stage
+or commit in temporary repositories and are excluded under the absolute executor
+Git restriction. No staged-guard result is claimed. Ruff used the local executable
+with `--no-cache`; no `uv sync` or dependency installation was necessary.
+
+Both optional environment gates were explicitly unset for focused/broad tests.
+All seven broad skips are existing opt-ins: one Docker test
+(`test_actual_docker_offline_boundary_and_watchdog`) and six local Potion tests
+(`test_actual_pretrained_c_shares_cohort_and_preserves_a_b_without_network`,
+`test_actual_potion_retrieval_is_pinned_local_and_retains_task_ids`,
+`test_actual_pinned_local_potion_diagnostics_network_disabled`,
+`test_actual_approved_pretrained_potion_cpu_without_network`,
+`test_actual_potion_relevance_metrics_match_frozen_reference`,
+`test_existing_local_potion_annotation_evaluation_if_explicitly_enabled`).
+No Docker or model-weight opt-in was enabled; no unqualified full-suite claim.
+
+Limits: one Task/dataset per bundle, one full Attempt per verified Run, one hashed
+artifact, manually declared configuration/bounds, unauthenticated receipt times,
+metadata-only supported capture and disposable reconstruction. Native event time,
+effective-model confirmation, native duration and cost remain unknown. The
+`source_kind=real` contract is exercised only in a temporary fictional dataset;
+synthetic usage is parsing evidence, not model telemetry. Caller-resolved labels
+and separately preserved forecast digests remain required for trusted scoring.
+No live-ledger merge, general transcript sanitization or real experiment is proven.
+
+Proposed coherent commit groups (coordinator performs all Git mutations):
+
+1. `fix: integrate Codex capture metadata with scoped evidence`
+   - `src/model_learner/storage/evidence.py`
+   - `tests/integration/test_execution_lifecycle.py`
+   Keep the integration fixes and their required regression tests together.
+2. `docs: record W3 lifecycle validation and limits`
+   - `docs/PROSPECTIVE_FAMILY_EVALUATION.md`
+   - `STATUS.md`
+
+Next bounded action: coordinator reviews the four files, stages selected groups in
+GitHub Desktop, runs the mandatory staged privacy guard and creates any approved
+commits. The smallest step toward W4 is a separately authorized finite-feasibility
+scope specifying a selected task, frozen acceptance, privacy/containment and hard
+resource limits. W4 implementation/execution is not started or authorized here.
+
 ## W2 portable evidence and as-of forecast integrity — 2026-10-20
 
 **W2 PASS for the bounded synthetic contract.** No W3 work or real experiment was

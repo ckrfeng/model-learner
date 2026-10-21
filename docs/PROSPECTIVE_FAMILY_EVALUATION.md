@@ -418,3 +418,80 @@ I public projection, unsafe-content rejection and pure privacy-guard screening;
 J unchanged legacy JSONL behavior plus existing regression suites. Fixtures create
 all content in temporary directories and do not launch models or read private data.
 See `STATUS.md` for actual validation counts and the Git-policy test exclusion.
+
+## W3 — offline integrated execution lifecycle (2026-10-20)
+
+`tests/integration/test_execution_lifecycle.py` demonstrates the complete bounded
+workflow with fictional data and disposable SQLite databases. It creates the Task
+and separate acceptance-test source first, declares configuration and policy,
+resolves an earlier independently verified example through W2 receipts, and freezes
+the target forecast before its Run or outcome exists. Synthetic native-like JSONL
+passes through the actual `capture codex` and `import codex` CLI commands. No Codex
+process or model is launched. A local pytest subprocess runs the frozen tests
+against one final source file and produces actual JUnit XML; `verify_junit` checks
+the report and artifact hashes before assessment and observation derivation.
+
+The original forecast is scored before the verified learning row is persisted.
+The next prediction consumes the verified observation once. With Beta(1,1), the
+success example moves the previous Beta(2,1) mean from 2/3 to Beta(3,1), mean 3/4;
+a separate failure gives Beta(1,2), mean 1/3. Closed-form quantiles independently
+check the intervals. A/B/C coincide in this single-configuration, single-family
+fixture; this is integration evidence, not predictive superiority or generalization.
+
+Two production gaps were reproduced before their repairs. W2 rejected the actual
+adapter's Session metadata and nonempty metadata-only Event payloads. The scoped
+projection now accepts only the supported adapter version's structural payload,
+checks its native metadata with the existing adapter validator, and rejects extra
+payload fields or raw content beyond that projection. It preserves emitted model
+and provider fields so configuration conflicts cannot disappear during replay.
+Legacy empty metadata remains supported. Unknown formats/content still fail closed;
+this is not a general transcript sanitizer. Receipt-gated snapshots now describe
+both receipt and declared-time gates and explicitly disclaim authenticated time.
+Legacy resolver metadata and all eligibility rules remain unchanged.
+
+Acceptance mapping (test names below are in the new lifecycle module):
+
+| Requirement | Executable evidence |
+| --- | --- |
+| P1–P6 | `test_p1_through_p10_complete_lifecycle`: unchanged pre-execution contract; CLI parsing; exact Task/Run/Attempt/Session/configuration links; actual independent tests and bound report; unknown-to-success assessment; eligible evidence-linked observation. |
+| P7–P8 | Same test plus `test_verified_label_counts_once`: analytic posterior/intervals, pre-outcome freeze, refusal to score unknown, original Brier/log loss and later update. |
+| P9–P10, N7 | Same test: serialized policy/receipts/bundle, disposable reconstruction twice, capture replay, idempotent derivation, stable keys, associations, assessment history, missingness and unchanged forecast bytes/membership. Duplicate learner inputs count once. |
+| N1 | `test_verified_label_counts_once[N1-failure]`: genuinely failing local tests, verified failure, one eligible failure trial. |
+| N2 | `test_n2_completion_without_verification_is_unknown`: completion claim and zero tool exit cannot supply verification. |
+| N3 | `test_n3_mismatched_binding_rejected`: artifact/report digests, acceptance version, Task and Run mismatch. W2 `test_b_reject_rebound_verification` covers Attempt binding mutations. |
+| N4 | `test_n4_incomplete_report_cannot_learn`: missing/skipped tests, malformed XML, unsupported format. |
+| N5 | `test_n5_late_receipt_excluded_from_earlier_prediction`: old event timestamps with late first receipt cannot enter the earlier forecast. W2 also tests each of ten dependency kinds and missing receipts. |
+| N6 | `test_n6_correction_changes_current_head_not_frozen_forecast`: valid later retraction to unknown changes the current head; the earlier forecast still reconstructs exactly. |
+| N8 | `test_n8_configuration_conflict_survives_portable_replay`: contradictory native model metadata remains ineligible after export/reconstruction. |
+| N9 | `test_n9_unrelated_task_is_excluded_from_bundle_and_forecast`: unrelated Task closure excluded; policy exclusion reason retained. |
+| N10 | `test_n10_frozen_tampering_prevents_scoring`: altered bytes and separately hashed wrong Task/Run/configuration/acceptance/dataset/budget bindings rejected. |
+| Privacy/display | Projection rejection cases, pure bundle privacy screening, and receipt metadata regressions with unchanged legacy metadata. |
+
+Run with the existing environment, without dependency installation:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  .venv/bin/python -B -m pytest tests/integration/test_execution_lifecycle.py \
+  -q -p no:cacheprovider
+```
+
+Timing remains explicit: native execution event time is unavailable in this
+adapter; Event `observed_at` is capture receipt, not invented native time. Event
+`ingested_at`, sidecar first receipt, report generation, verification observation,
+assessment/observation recording and forecast cutoff are separate. The late-receipt
+negative test controls only the sidecar clock for its fictional delayed delivery.
+Other lifecycle cases use actual local clocks. Replay preserves first receipts.
+
+Limits remain one selected Task/dataset per bundle, one complete Attempt per
+verified Run, one hashed artifact file, operator-declared configuration/bounds,
+and disposable reconstruction rather than live merging. The fixture uses the
+existing `source_kind=real` builder contract only inside temporary storage under
+an explicitly fictional dataset ID; it supplies no personal real-run evidence.
+Model version, effective model confirmation, native latency and cost remain
+unknown. Synthetic token counts test parsing only. Hashes/receipts do not prove
+independent execution or authenticated time for arbitrary imported evidence;
+`score_frozen` relies on its caller to supply an independently resolved label.
+Raw content remains private; allowed opaque metadata still needs human review.
+No database migration, new dependency, model, CLI or statistical method was added.
+W4 is not started. Its next bounded action requires a separate feasibility scope
+with selected task, frozen acceptance, privacy/containment and hard resource limits.

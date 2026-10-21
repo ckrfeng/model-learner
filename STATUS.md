@@ -1,5 +1,177 @@
 # Model Learner status
 
+## W4A discriminating pilot preparation — 2026-10-21
+
+**PARTIAL: concrete offline task package validated; real launch remains blocked.**
+Prepared only W4A. No W4B/W5, measured coding agent, additional model, subagent,
+paid inference, network probe, install, private historical evidence access, staging,
+commit, push, branch/ref change or production/schema/estimator change occurred.
+Synthetic regression databases are disposable; no persistent experiment ledger
+was opened or written. Existing historical checkpoints below remain unchanged.
+
+W3 gate verified before writes: `main`, HEAD and cached `origin/main` both
+`386d54686009eb21ca5c200294c906f58f2b7793`, with source/test predecessor
+`98d568a01ca9de10f3bb6bb678c9dc372b72f32b`. Both expected path groups and W3 source/
+tests were present. The supplied coordinator attestation confirms GitHub Desktop
+commits and push. No fetch or independent live remote verification was performed.
+Initial staged state, tracked modifications and untracked inventory were empty;
+no pre-existing edits required preservation. Existing executable local hook retained.
+
+Selected one newly constructed **Transactional Dependency Graph Planner** task.
+Medium-to-hard is a pre-outcome assessment based on transactional graph invariants,
+deterministic topological order, rollback and scale, not a learned difficulty or
+model-performance finding. The complete frozen contract specifies the exact Python
+API, inputs, errors, idempotence, final-batch cycle semantics, state isolation,
+performance thresholds and success definition. Starter source is intentionally
+unimplemented, with no unrelated planted bugs. Only two files enter each arm.
+
+Delivered public files (exact inventory):
+
+| Path | Initial | Final |
+| --- | --- | --- |
+| `tests/fixtures/w4a/TASK.md` | Absent | New frozen candidate contract and provenance |
+| `tests/fixtures/w4a/planner.py` | Absent | New incomplete synthetic starter |
+| `tests/unit/test_w4a_preparation.py` | Absent | New nine manifest/policy checks |
+| `docs/experiments/w4a_preparation.json` | Absent | New versioned preparation manifest |
+| `docs/W4A_PREPARATION.md` | Absent | New operator packet, commands and evidence |
+| `STATUS.md` | Tracked, clean | This checkpoint prepended |
+
+All five new public files remain untracked and STATUS modified; index remains
+empty. No other public file changes. Proposed GitHub Desktop groups:
+
+1. `test: prepare transactional graph pilot contract and checks` — TASK.md,
+   planner.py, test_w4a_preparation.py, w4a_preparation.json (full paths above).
+2. `docs: record W4A preparation evidence and launch blockers` —
+   docs/W4A_PREPARATION.md and STATUS.md.
+
+Coordinator alone reviews/stages, runs the mandatory staged privacy guard, and
+creates any approved commits. No push authorization is granted by this work.
+
+New ignored package: `.model-learner/w4a-preparation-v1/` only. Its `inventory.json`
+lists every retained file/digest, excluding itself. It includes six protected
+Python files (independent acceptance, immutable permutation oracle, heap-based
+trusted reference, oracle anchors, preparation controls and restricted verifier),
+three identical two-file starting workspaces, protected hash/test-ID manifest,
+seven synthetic canaries, and local XML/JSON/text validation reports. Earlier
+private evidence was not enumerated or read. Protected files never enter starting
+snapshots, but same-user read protection is NOT established by ignored paths/0700.
+
+Acceptance checks: 15 fixed JUnit identities; exact API and edge semantics;
+64 exhaustive three-node graphs; 2,400 seeded transactional batches; rollback,
+replay, metamorphic and state/input-isolation checks; 8,000-node chain and a
+2,000-node/24,000-edge DAG. Oracle independently enumerates permutations and has
+analytic anchors (including 25 labeled three-node DAGs). All authoring/review was
+by this executor; no independent person/model review is claimed.
+
+Actual final validation using the already installed environment:
+
+| Check | Actual result |
+| --- | --- |
+| Frozen reference acceptance | **15 passed**, no skips, complete exact-identity JUnit report. |
+| Frozen starter acceptance | **15 expected failures**, zero passes/skips; complete report proves starter does not solve the task. |
+| Protected acceptance + oracle + preparation controls | **26 passed**, 0.93 s; 15 acceptance, three oracle and eight controls. |
+| Public manifest/configuration/forecast checks | **9 passed**, also included in focused regression below. |
+| Focused existing workflow regression | **299 passed**, no skips, 19.07 s; includes all 35 W3 and 39 W2 cases. |
+| Reference final CPU trials | 0.199302, 0.195065, 0.187644 seconds; median 0.195065; all below the 2-second reference calibration threshold. Host evidence only. |
+| Starting-state integrity | Three copies match both frozen file hashes and exact two-file membership. Protected hashes and all 15 required IDs preserved. |
+| Tamper/report controls | Altered starter/reference/oracle/acceptance rejected before execution; arbitrary submissions not accepted by preparation runner; missing/skipped/malformed reports cannot satisfy contract. |
+| Actual macOS isolation probe | **UNAVAILABLE**: sandbox bootstrap failed, exit 71; read/write/symlink/descendant denial unproven, not a successful denial. |
+| Same-user synthetic read control | All seven synthetic canaries readable from candidate directory; folder separation alone fails the boundary requirement. |
+| Existing real collection gate | Refuses collection; unchanged. Offline Docker diagnostic says image approval required; no container launched. |
+| Ruff lint / format | Repository-wide passed (200 files formatted); six ignored protected Python files separately passed. |
+| Whitespace / non-staged privacy | All six public files passed pure path/content/secret screening without exemptions and explicit whitespace checks. |
+| Staged guard | Not run: staging forbidden. Coordinator must run after reviewed staging. |
+
+The first trusted reference+oracle run passed 18 tests. An initial minimal runner
+misclassified the failing starter because the traceback included the timeout
+message in source text; fixed to inspect actual JUnit failure messages, then
+validated the final complete failure. Initial reports are preserved, not replaced.
+Private Ruff issues were fixed before final manifest freeze and checks. No false
+initial-green claim; final results above apply to the final frozen sources.
+
+Exact final commands (from repository root; environment prevents bytecode/cache
+writes and third-party pytest plugin auto-loading):
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B \
+  .model-learner/w4a-preparation-v1/protected/verify_preparation.py \
+  reference --report-name reference-frozen
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B \
+  .model-learner/w4a-preparation-v1/protected/verify_preparation.py \
+  starter --report-name starter-frozen
+W4A_CANDIDATE="$PWD/.model-learner/w4a-preparation-v1/protected/reference.py" \
+  PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  .venv/bin/python -B -m pytest -q -c /dev/null \
+  --rootdir=.model-learner/w4a-preparation-v1/protected -p no:cacheprovider \
+  .model-learner/w4a-preparation-v1/protected \
+  --junitxml=.model-learner/w4a-preparation-v1/reports/protected_frozen.xml
+env -u MODEL_LEARNER_TEST_POTION_PATH -u MODEL_LEARNER_OFFLINE_DOCKER_TEST \
+  PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  .venv/bin/python -B -m pytest -q -p no:cacheprovider \
+  tests/unit/test_w4a_preparation.py tests/unit/test_prospective.py \
+  tests/unit/test_learning.py tests/unit/test_codex_adapter.py \
+  tests/unit/test_task_workflow.py tests/unit/test_junit_verification.py \
+  tests/unit/test_assessment_resolution.py \
+  tests/integration/test_portable_evidence.py \
+  tests/integration/test_execution_lifecycle.py \
+  tests/integration/test_codex_ingestion.py tests/integration/test_run_associations.py \
+  tests/integration/test_task_workflow.py tests/integration/test_junit_verification.py \
+  tests/integration/test_assessment_resolution.py \
+  tests/integration/test_assessment_integrity.py \
+  tests/integration/test_resolution_learning_cli.py \
+  tests/integration/test_learning_storage.py \
+  --junitxml=.model-learner/w4a-preparation-v1/reports/focused_regressions.xml
+.venv/bin/ruff check --no-cache .
+.venv/bin/ruff format --check --no-cache .
+.venv/bin/ruff check --no-cache .model-learner/w4a-preparation-v1/protected/*.py
+.venv/bin/ruff format --check --no-cache .model-learner/w4a-preparation-v1/protected/*.py
+git diff --check
+```
+
+Existing report-name directories are exclusive: use a new name for a fresh offline
+review, not overwrite. Pure privacy screening called only `path_reasons` and
+`content_reasons` on the exact six public files; it did not stage or inspect private
+contents. Explicit new-file whitespace and hash checks were also performed.
+No full-suite claim: all 55 Git-policy tests were excluded (they stage/commit in
+fixtures); the actual Docker and six Potion opt-in tests were not selected or
+enabled, and unrelated broader tests were not rerun because production code did
+not change. No dependency sync/download was needed.
+
+Proposed arms verified only against permitted local metadata: OpenAI gpt-6-luna
+low, gpt-6.1-sol low, gpt-6.1-sol high; all listed with requested effort supported.
+CLI is 0.163.0-alpha.10.2. Advertised context capacities are 272,000 and 500,000;
+actual authenticated availability/backend revision and effective context remain
+unknown. Distinct configuration hashes/families and one Task association are
+explicit. No paid or authenticated availability probe was attempted.
+
+Forecast design prepares fixed Beta(1,1), global, per-arm and A/B/C, all sharing
+source universe, target/budget, whole-Task exclusion and a common frozen cutoff.
+All matched-arm forecasts must freeze before the first run. No execution forecast
+was issued. New benchmark dataset has zero approved evidence, so prior-only is
+expected; private/historical summaries are excluded. Unknowns remain unknown.
+Synthetic in-memory checks verify effort separation and future/target exclusion;
+existing W2/W3 regressions cover receipt gates and independent outcomes.
+
+Blockers: no validated agent or untrusted-verifier read/network/credential/cross-arm
+boundary; existing real benchmark gate remains closed; no proven 600-second agent
+process-tree watchdog. Additionally, W2 resolution is real-source-specific and the
+benchmark exporter marks non-null resource budgets ineligible; the new task's
+benchmark receipt/budget integration is not supported. Proposed resource budget
+remains 600 seconds, not silently null. No token/dollar ceiling is demonstrated.
+Proposed three sequential one-attempt runs expose up to 1,800 process seconds if
+a watchdog is implemented; that is not a hard token or monetary bound. Subscription
+allowance consumption requires a separate concrete decision, and new spending
+remains unauthorized. The private verifier runs only reviewed reference/starter
+code, not untrusted generated submissions.
+
+Next decision: accept this task/arm preparation baseline and authorize a bounded
+offline containment plus benchmark receipt/budget integration increment. After
+those blockers and isolated-runtime calibration pass, separately approve the exact
+three arms, one-attempt cohort and allowance/resource exposure, then freeze every
+forecast. W4B cannot safely launch on approval wording alone. Stop here; no further
+milestone, launch authorization or automatic execution has been prepared.
+
+
 ## W3 integrated execution lifecycle — 2026-10-20
 
 **W3 PASS for the authorized offline synthetic contract.** P1–P10 and N1–N10

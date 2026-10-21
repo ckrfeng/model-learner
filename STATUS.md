@@ -1,5 +1,144 @@
 # Model Learner status
 
+## W4A.2 benchmark first-receipt provenance — 2026-10-21
+
+**PASS for the bounded receipt-only increment. W4B launch remains BLOCKED.**
+Added a source-revalidated, versioned benchmark receipt sidecar and 69 fictional
+acceptance cases. Receipt coverage does not upgrade statistical eligibility,
+verification, trusted historical time or execution security. The proposed target
+remains exactly `ResourceBudget(max_duration_seconds=600)`; its existing
+`budget_measurements_not_supported` exclusion survives. No canonical model,
+SQLite migration, exporter/learner/forecast algorithm or duration policy changed.
+
+Starting read-only inspection confirmed clean `main`, HEAD and cached
+`origin/main` at `b9aa6512d0117ef2d17d865ee0ecbe4a719f8c75`, ahead/behind 0/0,
+empty index diff and no tracked/untracked edits. No fetch was performed. There
+were no pre-existing or unrelated edits to preserve. Exact index-byte SHA-256
+was retained before edits and checked unchanged at handoff. Coordinator remains
+the only operator for Desktop staging, mandatory staged guard, commits and pushes.
+
+Before production edits, the supported synthetic benchmark exporter produced a
+verified success under a declared 600-second Run budget, still ineligible. An
+assertion requiring first-receipt metadata failed (one expected failure), proving
+the export lacked dependency first-receipt states. Actual report/text:
+`.model-learner/w4a2-receipts-v1/gap-before.{xml,txt}`. It creates fictional Task,
+configuration, Run, Attempt, frozen criterion, complete synthetic JUnit binding and
+assessment in disposable storage. Report-input validity is tested; no model or
+new candidate acceptance process was launched by these new receipt fixtures.
+
+Delivered public paths, all uncommitted:
+
+| Path | Change |
+| --- | --- |
+| `src/model_learner/benchmark/receipts.py` | New exact-source digest/identity bundle, local first-receipt book and cutoff availability audit. |
+| `tests/integration/test_benchmark_receipts.py` | New 69 cases covering A–O and R1–R12 boundaries with fictional evidence only. |
+| `tests/integration/test_benchmark_evidence.py` | Existing synthetic helper gains optional budget/stop-reason arguments; defaults preserved. |
+| `docs/BENCHMARK_RECEIPTS.md` | New sidecar/API schema, acceptance mapping, limits and duration options A/B/C decision comparison. |
+| `STATUS.md` | This checkpoint; previous evidence retained. |
+
+`benchmark_receipt_bundle` revalidates a retained export through the unchanged
+source exporter and containment gate, then hashes exact relevant source records.
+The bundle retains benchmark/dataset/fixture/version, original Task/Run/Attempt/
+Outcome/Observation/configuration/acceptance identities, separately named source
+times, safe associations, supersession ancestry and artifact/report digest
+references. It omits prose, raw events, hidden tests, candidate/report contents,
+private filesystem locators and unrelated records. Exact canonical source hashes
+are distinct from the sanitized bundle hash; neither proves authenticity.
+
+`BenchmarkReceiptBook.capture` returns a new book, reads only the current receiver
+clock, preserves identical captures and rejects conflicting identity/digest content
+atomically. No backdating parameter exists. `as_of` requires every record and
+export binding to have a non-null receipt and source times at/before cutoff.
+Missing/null/late receipts across all 13 dependency kinds and future source times
+fail closed. JSON reload/replay preserves membership, digests, exclusions, unknowns
+and counts. A later correction receives its own time and cannot alter the earlier
+bundle's historical availability. The adapter audits exact snapshots; it does not
+select a current assessment head, fall back to older success or emit learner rows.
+
+Limitations remain explicit: one quiescent finalized benchmark Run/target per book;
+no live/multi-writer merge or initial prospective scope capture; verification has
+no explicit canonical Attempt link; resource coverage, native latency, charges and
+unknown configuration versions remain unavailable. `fully_available` means receipt
+coverage for the declared bundle, not proof of those unsupported associations.
+Replay must use the retained exact export: a newly timestamped export with the
+same immutable Observation ID is conflicting content and is rejected. Imported
+receipts are local declarations, not external timestamp attestations. No REAL-only
+W2 resolver or fake real-source wrapper is used. No new canonical IDs are invented.
+
+Actual final validation with the installed environment:
+
+| Check | Result |
+| --- | --- |
+| New acceptance cases | **69 passed**, included in both final runs below. |
+| Focused benchmark/W2/W3, domain/budget, assessment, JUnit, learner and prospective regressions | **360 passed**, zero skips, 21.00 s. |
+| Broader offline repository selection | **1,046 passed, 7 existing opt-in skips**, 63.64 s. |
+| Ruff lint / format | Passed repository-wide; **206 files formatted**. |
+| Git whitespace / new-file whitespace | Passed. |
+| Non-staged privacy screening | All five changed public files passed pure path/content checks without exemptions; generated sanitized bundle also passes in the acceptance test. |
+| Staged guard | Not run: staging is prohibited here. Coordinator must run after reviewed Desktop staging. |
+
+The broad selection excludes `tests/integration/test_privacy_guard.py` (55 tests
+that mutate Git/index/commits), `test_w4a_containment.py`,
+`test_w4a_process_boundaries.py` and `test_benchmark_host_access.py` (nine completed
+containment/process diagnostics not rerun). Six skipped tests require an explicit
+local Potion bundle; one requires an explicitly opted-in Docker experiment.
+Both opt-in environment variables were unset. No full-suite claim, runtime backend
+probe/retry, Docker/image operation, model execution or historical experiment rerun.
+Existing regression tests run their ordinary trusted synthetic acceptance fixtures.
+
+Exact broad command (focused path selection recorded in the report inventory):
+
+```sh
+env -u MODEL_LEARNER_TEST_POTION_PATH -u MODEL_LEARNER_OFFLINE_DOCKER_TEST \
+  PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  .venv/bin/python -B -m pytest -q -p no:cacheprovider \
+  --ignore=tests/integration/test_privacy_guard.py \
+  --ignore=tests/integration/test_w4a_containment.py \
+  --ignore=tests/integration/test_w4a_process_boundaries.py \
+  --ignore=tests/integration/test_benchmark_host_access.py \
+  --junitxml=.model-learner/w4a2-receipts-v1/regressions.xml
+.venv/bin/ruff check --no-cache .
+.venv/bin/ruff format --check --no-cache .
+git diff --check
+```
+
+Initial implementation test exposed a bare fixture SHA-256 versus prefixed-hash
+mismatch (one failure); fixed against the actual exporter interface. Initial Ruff
+found import order, two ambiguous local names and line length; all corrected.
+Initial reports were preserved. Work paused on the human model correction; before
+resuming any edits/tests, the specifically authorized current-chat metadata check
+confirmed effective model `gpt-6.1-sol` for turn
+`01a15ede-68a1-7830-a6f4-5e16df786904`. Only model/turn_id fields were read; no
+conversation content or other logs were inspected. No subagent was used.
+
+New ignored output only under `.model-learner/w4a2-receipts-v1/`:
+`initial-state.json`, `gap-before.xml`, `gap-before.txt`, `acceptance-initial.xml`,
+`acceptance-second.xml`, `acceptance-third.xml`, `focused-final.xml`,
+`focused-final.txt`, `regressions.xml`, `regressions.txt`, `validation.json` and
+`inventory.json` (manifest excludes itself). Disposable databases/captures/reports
+remain in pytest temporary storage. No historical ignored evidence was opened.
+No private fixture was added or privacy policy changed.
+
+Proposed nonempty GitHub Desktop groups; coordinator alone reviews/stages/guards:
+
+1. `feat: record benchmark evidence first receipts` — receipt source, new acceptance
+   tests and the existing synthetic helper's optional budget/stop parameters.
+2. `docs: document benchmark receipts and duration decision` — operator document
+   and STATUS.
+
+Recommend duration **Option A**, retaining current canonical semantics and missing
+measurement exclusion. B would require an explicitly versioned process-elapsed
+benchmark target with proven whole-tree execution/termination/clock coverage; C
+would require a different prospectively approved statistical target. Neither was
+implemented or selected as W4A policy. No latency fabrication, budget nulling,
+source relabeling, token-to-charge conversion or timeout-to-failure conversion.
+
+Stop at W4A.2. Smallest next action: human review of the duration/coverage target
+and supported containment/verifier/process-tree boundary. Agent isolation,
+untrusted-verifier isolation, reliable descendant stop and the enforceable
+600-second ceiling remain blocked before W4B. No W4B/W5, measured coding agent,
+paid inference, install, security change, staging, commit, push or publication.
+
 ## W4A.1 offline containment and watchdog readiness — 2026-10-21
 
 **PARTIAL engineering result; W4B launch remains BLOCKED.** Completed the bounded

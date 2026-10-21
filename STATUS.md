@@ -1,5 +1,125 @@
 # Model Learner status
 
+## W4A.1 offline containment and watchdog readiness — 2026-10-21
+
+**PARTIAL engineering result; W4B launch remains BLOCKED.** Completed the bounded
+offline investigation and reproducible synthetic diagnostics. No production
+watchdog was added because an escaped descendant demonstrably survives a group
+stop. No production/schema/estimator/eligibility changes, frozen-contract edits,
+agent or paid execution, private historical evidence access, dependencies/images,
+privilege changes, staging, commits, pushes or W4A.2 work occurred.
+
+W4A commit gate confirmed: coordinator attests GitHub Desktop commits/pushes
+`72bcab1a59a430ac8eb16c989254c46356f1c716` and
+`762aceb3424ea7913c8a01a16637a4053e530cf3`. Read-only initial inspection found
+`main`, HEAD and cached `origin/main` at the latter, ahead/behind 0/0, all six
+reviewed paths committed, no staged/unstaged/untracked changes. No live remote
+fetch was performed. No pre-existing or unrelated edits needed preservation.
+Chat working directory matches registered Model Learner project
+`5e9ee82f-ab79-435f-a8c9-8bb3c4b689d3`; default model settings were preserved.
+
+Delivered only these public changes, all left uncommitted:
+
+| Path | Change |
+| --- | --- |
+| `tests/integration/test_w4a_containment.py` | New two-case fictional seven-category filesystem/descendant negative control and unchanged real-gate regression. |
+| `tests/integration/test_w4a_process_boundaries.py` | New six-case finite subprocess diagnostics: normal exit, direct-child timeout, surviving descendant, group membership/escape, independent control and duplicate root cleanup. |
+| `docs/W4A_CONTAINMENT.md` | New backend inventory, C1–C14 and W1–W10 evidence/unsupported cases, verifier boundary and read-only budget/receipt assessment. |
+| `STATUS.md` | This checkpoint only; previous evidence preserved. |
+
+Actual host is macOS 26.6.2 arm64 / Python 3.12.14. One existing macOS probe again
+failed bootstrap with exit 71; denial results remain UNPROVEN. Docker CLI exists
+but its supported Desktop socket is absent. Default diagnostic returns
+`image_approval_required`; fixed-image availability check stops at
+`docker_desktop_socket_missing` before daemon/image/container/network operations.
+Image availability is unknown. No podman/bwrap/firejail/limactl/colima on PATH.
+Same-user Python `-I` reads all seven fictional external canaries, follows symlink
+and traversal, writes outside, and permits a child to read outside. Network and
+integration/privilege denial were not tested without a supported isolated facility.
+
+The frozen verifier imports candidate Python into the process holding its oracle.
+No arbitrary candidate was run there. A separately restricted worker and trusted
+driver/report writer remain required; read-only hidden files do not suffice.
+
+Existing `_bounded` stops only its direct child: an authored descendant survives
+the timeout. Group SIGKILL stops an in-group SIGTERM-ignoring child, but a child
+that creates a new session survives. A second signal to the empty original group
+receives EPERM on this host. The initial test exposed that error (7 passed, 1
+failed); final diagnostics retain it explicitly without calling it cleanup.
+All synthetic children are finite; direct children were reaped and known child
+PIDs were observed absent after cleanup. No unrelated processes were signaled.
+This is not an enforceable watchdog. Cancellation receipts, arbitrary descendant
+ownership, controller-crash handling and the hard 600-second ceiling remain
+unsupported. Final measured local normal/timeout intervals were 0.015004625 /
+0.402371667 seconds (0.4-second test deadline); actual monotonic start/stop values
+are in ignored JUnit properties. These are not native inference latency.
+
+Read-only contract finding: `ResourceBudget` has no duration-basis field; ordinary
+observations compare duration to complete attributed attempt latency. Benchmark
+export excludes every non-null budget with `budget_measurements_not_supported`.
+W2 replay/receipt resolution requires the real-data contract and cannot be used
+unchanged for benchmark rows. A receipt-only benchmark sidecar appears feasible
+without canonical schema changes, retaining ineligibility, but full 600-second
+eligibility needs an explicit duration/coverage policy decision first. No nulling
+of budgets, source-kind relabeling, fabricated latency or timeout failure label.
+Exact source boundaries and required receipt fields are in the operator document.
+
+| Readiness area | Verdict |
+| --- | --- |
+| Agent containment | **BLOCKED**; same-user control FAIL, supported denials UNPROVEN. |
+| Untrusted-verifier isolation | **BLOCKED**; separate worker boundary absent. |
+| Process-tree watchdog | **BLOCKED**; actual descendant escape, no safe utility delivered. |
+| Benchmark budget/receipt adapter | **BLOCKED** for full eligibility; receipt-only extension plausible but unimplemented. |
+
+Validation with the installed environment (no dependency sync): final new
+diagnostics **8 passed in 4.01 s**, zero skips; existing focused regressions
+**418 passed, one existing opt-in Docker skip in 17.96 s**. Includes all nine W4A
+public checks and W2/W3, containment, capture, JUnit, assessment, observation and
+learning regressions. No Git-policy tests (55 in the prior checkpoint), actual
+Docker test, Potion/model tests or historical experiments were run. No full-suite
+claim. All six protected plus two public starting hashes match the frozen W4A
+manifest; preparation source, acceptance IDs and hashes were not rewritten.
+
+Commands for the new checks:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  .venv/bin/python -B -m pytest -q -p no:cacheprovider -o junit_family=xunit1 \
+  tests/integration/test_w4a_containment.py \
+  tests/integration/test_w4a_process_boundaries.py
+.venv/bin/ruff check --no-cache .
+.venv/bin/ruff format --check --no-cache .
+git diff --check
+```
+
+The 418-case selection is the preceding W4A checkpoint's exact 299-case list plus
+`tests/unit/test_benchmark*.py` and `tests/integration/test_benchmark*.py`, with
+both MODEL_LEARNER_TEST_POTION_PATH and MODEL_LEARNER_OFFLINE_DOCKER_TEST unset.
+Repository Ruff lint/format passed (203 files); whitespace checks cover tracked
+diff and all new files. Non-staged pure `path_reasons`/`content_reasons` screening
+passed all four changed public files without exceptions. An initial screening
+driver import failed before inspection; corrected import succeeded. The staged
+guard was not run because staging is prohibited. Coordinator must run it after
+reviewed Desktop staging. Index-byte SHA-256, HEAD/branch and cached remote were
+checked unchanged; no Git mutation was performed.
+
+New ignored artifacts only: `.model-learner/w4a-containment-probes-v1/backend.json`,
+`initial_index.sha256`, `focused-initial.xml`, `focused-final.xml`,
+`focused-receipts.xml`, `regressions.xml`. Disposable pytest canaries/process files
+use temporary storage. No other ignored Model Learner data was enumerated.
+Final public inventory: STATUS modified, the three new files above untracked,
+index diff empty; no unrelated edits.
+
+Proposed nonempty GitHub Desktop groups (coordinator alone reviews/stages/guards):
+1. `test: characterize W4A containment and process-tree gaps` — both new test files.
+2. `docs: record W4A containment blockers and budget boundaries` — operator document
+   and STATUS. Tests remain independently useful with the existing production code.
+
+Stop here. Smallest next bounded milestone: separately authorized W4A.2 benchmark
+receipt/measurement-contract work, with a duration policy decision before budget
+eligibility implementation. Supported OS containment and verifier isolation need
+their own decision before W4B; no launch or allowance approval is implied.
+
 ## W4A discriminating pilot preparation — 2026-10-21
 
 **PARTIAL: concrete offline task package validated; real launch remains blocked.**

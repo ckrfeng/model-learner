@@ -1,0 +1,273 @@
+{
+  "version": "w4a-preparation/v1",
+  "verdict": "PARTIAL",
+  "launch_authorized": false,
+  "auto_execute": false,
+  "initial_git": {
+    "branch": "main",
+    "head": "386d54686009eb21ca5c200294c906f58f2b7793",
+    "origin_main": "386d54686009eb21ca5c200294c906f58f2b7793",
+    "staged": [],
+    "pre_existing_edits": []
+  },
+  "task": {
+    "task_id": "4173b04c-af0f-4e68-a8da-a5b267e99716",
+    "id_status": "reserved proposal; not persisted",
+    "name": "Transactional Dependency Graph Planner",
+    "origin": "newly constructed synthetic problem",
+    "difficulty": "medium-to-hard, pre-outcome assessment",
+    "task_group": "transactional-dag",
+    "task_family": "graph-state-machines"
+  },
+  "acceptance": {
+    "identifier": "w4a-transactional-dag",
+    "version": "1",
+    "required_test_ids": [
+      "test_acceptance.Acceptance::test_cycles_and_single_operation_atomicity",
+      "test_acceptance.Acceptance::test_disconnected_and_diamond",
+      "test_acceptance.Acceptance::test_empty_and_api",
+      "test_acceptance.Acceptance::test_exhaustive_three_node_graphs",
+      "test_acceptance.Acceptance::test_final_graph_cycle_policy",
+      "test_acceptance.Acceptance::test_idempotence",
+      "test_acceptance.Acceptance::test_incident_removal_and_recreation",
+      "test_acceptance.Acceptance::test_lexicographic_newly_ready",
+      "test_acceptance.Acceptance::test_metamorphic_replay",
+      "test_acceptance.Acceptance::test_names_and_shapes",
+      "test_acceptance.Acceptance::test_performance",
+      "test_acceptance.Acceptance::test_rollback_after_valid_prefix",
+      "test_acceptance.Acceptance::test_seeded_differential_transitions",
+      "test_acceptance.Acceptance::test_snapshot_and_instance_isolation",
+      "test_acceptance.Acceptance::test_unknown_endpoints_and_removals"
+    ],
+    "performance": {
+      "trials": 3,
+      "median_cpu_seconds_max": 10,
+      "each_cpu_seconds_max": 20,
+      "trial_wall_timeout_seconds": 30,
+      "reference_each_cpu_seconds_max": 2
+    }
+  },
+  "public_starting_files": {
+    "tests/fixtures/w4a/TASK.md": "47dc67d35817dd4426447734775550d99f8fbb30c82f836f8015244090ca8327",
+    "tests/fixtures/w4a/planner.py": "8deb993024d31856cf2666d70d586a2dcedf288c865009df0369649194184759"
+  },
+  "protected_files": {
+    "protected/oracle.py": "77dbb9793d1372b0efc516c672505983c2a9e74c4d9c75a8c8ce2ba0a37c7004",
+    "protected/reference.py": "92243dbdc36372203ad5856a4f946214a07b7f6cf04cd3d3db18b92fc4bd8521",
+    "protected/test_acceptance.py": "fe19b76fdba17834cb14cb17f07c0e1d66db1a8f553108b9e071d69f89d0a90f",
+    "protected/test_oracle.py": "7843b58193129be451111215e42a2d0b1ffb19f60d8d7e18664143c0b6773b2d",
+    "protected/test_preparation_controls.py": "6a4812046a0f12a26dc2c20e9efe99f5dfe8c179788847cd167083e3bcaa9652",
+    "protected/verify_preparation.py": "ab42643453df4b3b0be31822e6765d6a70b6cb5be633e2dada25e20f5b2ea94f"
+  },
+  "protected_manifest_sha256": "3a96a221dbd9962f5158a741268ed5f0254a1e764cd5d1bedb28ec12c74eb556",
+  "arms": [
+    {
+      "arm": "luna-low",
+      "task_id": "4173b04c-af0f-4e68-a8da-a5b267e99716",
+      "configuration": {
+        "schema_version": 2,
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "model_version": null,
+        "reasoning_level": "low",
+        "harness": "codex-cli",
+        "harness_version": "0.163.0-alpha.10.2",
+        "configuration_version": "w4a-proposed/v1",
+        "configuration_id": "72539601748c420e9040a1df0d6f605e5e3068b780a7ea653d60617b8c1515ad",
+        "metadata": {}
+      },
+      "configuration_family": "luna-low",
+      "local_metadata_status": "listed",
+      "requested_effort_supported": true,
+      "advertised_context_window": 272000,
+      "effective_backend_revision": null,
+      "authenticated_availability": "unknown",
+      "launch_argv_proposal": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "-c",
+        "approval_policy=\"never\"",
+        "--ignore-rules",
+        "--strict-config",
+        "--ephemeral",
+        "--json",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--model",
+        "gpt-6-luna",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "--cd",
+        "/candidate/luna-low",
+        "-"
+      ]
+    },
+    {
+      "arm": "sol-low",
+      "task_id": "4173b04c-af0f-4e68-a8da-a5b267e99716",
+      "configuration": {
+        "schema_version": 2,
+        "provider": "openai",
+        "model": "gpt-6.1-sol",
+        "model_version": null,
+        "reasoning_level": "low",
+        "harness": "codex-cli",
+        "harness_version": "0.163.0-alpha.10.2",
+        "configuration_version": "w4a-proposed/v1",
+        "configuration_id": "ef6bdcd3cc60af04dcc861fe1bca5dbf646d9ee1fd43c2b9c344733527dc25f8",
+        "metadata": {}
+      },
+      "configuration_family": "sol-low",
+      "local_metadata_status": "listed",
+      "requested_effort_supported": true,
+      "advertised_context_window": 500000,
+      "effective_backend_revision": null,
+      "authenticated_availability": "unknown",
+      "launch_argv_proposal": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "-c",
+        "approval_policy=\"never\"",
+        "--ignore-rules",
+        "--strict-config",
+        "--ephemeral",
+        "--json",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "--cd",
+        "/candidate/sol-low",
+        "-"
+      ]
+    },
+    {
+      "arm": "sol-high",
+      "task_id": "4173b04c-af0f-4e68-a8da-a5b267e99716",
+      "configuration": {
+        "schema_version": 2,
+        "provider": "openai",
+        "model": "gpt-6.1-sol",
+        "model_version": null,
+        "reasoning_level": "high",
+        "harness": "codex-cli",
+        "harness_version": "0.163.0-alpha.10.2",
+        "configuration_version": "w4a-proposed/v1",
+        "configuration_id": "4dda7375fd6238302c325d2bc323933c92d0303a2af49f7dd0412230498ea19b",
+        "metadata": {}
+      },
+      "configuration_family": "sol-high",
+      "local_metadata_status": "listed",
+      "requested_effort_supported": true,
+      "advertised_context_window": 500000,
+      "effective_backend_revision": null,
+      "authenticated_availability": "unknown",
+      "launch_argv_proposal": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "-c",
+        "approval_policy=\"never\"",
+        "--ignore-rules",
+        "--strict-config",
+        "--ephemeral",
+        "--json",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--model",
+        "gpt-6.1-sol",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--cd",
+        "/candidate/sol-high",
+        "-"
+      ]
+    }
+  ],
+  "local_model_evidence": {
+    "source": "selected fields of local models_cache.json; no identity/auth fields retained",
+    "cache_client_version": "0.163.0",
+    "cache_fetched_at": "2026-10-21T05:00:25.257786Z",
+    "cli_version": "0.163.0-alpha.10.2",
+    "remote_probe_performed": false
+  },
+  "forecast_design": {
+    "state": "not issued; pending complete freeze and approval",
+    "dataset": {
+      "source_kind": "benchmark",
+      "dataset_id": "w4a-constructed-dag",
+      "dataset_version": "1"
+    },
+    "preparation_source_kind": "simulated",
+    "predictors": [
+      "fixed-beta-1-1",
+      "global-beta",
+      "per-arm-beta",
+      "A",
+      "B",
+      "C"
+    ],
+    "cutoff": null,
+    "cohort_policy": "one task, three arms, all forecasts frozen together before any execution",
+    "eligible_historical_records": 0,
+    "historical_ledgers_accessed": false,
+    "expected_cold_start_probability": 0.5,
+    "configuration_families": "distinct by model and effort",
+    "resource_budget_proposal": {
+      "max_duration_seconds": 600,
+      "max_tokens": null,
+      "max_cost_usd": null
+    },
+    "benchmark_receipt_integration": "not validated for this new task; existing real resolver must not be used by relabeling benchmark records",
+    "budget_eligibility_blocker": "Existing benchmark exporter makes every non-null resource budget ineligible; no validated measurement/receipt adaptation for W4A. Do not drop the budget or relabel as real."
+  },
+  "resources": {
+    "invocations_per_arm": 1,
+    "attempts_per_arm": 1,
+    "retries": 0,
+    "sequential": true,
+    "max_active_agents": 1,
+    "proposed_wall_seconds_per_arm": 600,
+    "proposed_wall_seconds_cohort": 1800,
+    "wall_stop_enforced_for_agents": false,
+    "token_ceiling": null,
+    "dollar_ceiling": null,
+    "extra_credits_authorized": false,
+    "subscription_usage_authorized": false,
+    "cpu_memory_process_disk_caps_for_agents": "not implemented or validated"
+  },
+  "containment": {
+    "read_denial": "unproven",
+    "macos_probe": "sandbox_bootstrap_unavailable",
+    "cross_arm_denial": "unproven",
+    "network_denial_for_agents": "unproven",
+    "credential_isolation": "unproven",
+    "untrusted_verifier_isolation": "unproven",
+    "existing_real_gate": "refused"
+  },
+  "tool_policy_proposal": {
+    "allowed": [
+      "local file edits in candidate only",
+      "local Python and tests in candidate only"
+    ],
+    "denied": [
+      "network from agent tools",
+      "integrations",
+      "other agents",
+      "escalation",
+      "other candidate or controller files",
+      "credential reads"
+    ],
+    "enforcement": "not validated; argv alone is insufficient"
+  },
+  "ledger_writes": 0,
+  "model_executions": 0,
+  "ledger_writes_scope": "Persistent experiment ledgers; disposable synthetic regression databases are excluded from this count."
+}

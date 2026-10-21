@@ -1,5 +1,89 @@
 # Model Learner status
 
+## W2 portable evidence and as-of forecast integrity — 2026-10-20
+
+**W2 PASS for the bounded synthetic contract.** No W3 work or real experiment was
+started. Historical W1/Experiment 4 missingness and all earlier checkpoints remain
+unchanged; this does not establish predictive superiority or real-run provenance.
+
+Initial state: `main`, HEAD `f7be75b2022d5bb8a364bd25ce289474aac2d02d`, empty
+index, no tracked modifications. The only pre-existing untracked files were
+`src/model_learner/learn/prospective.py` and `tests/unit/test_prospective.py`.
+Both remain byte-for-byte unchanged. Their startup/final SHA-256 values are
+`9f9df915fb52ceaf2ccccd6a7250642101b18ea9e82959a8093abc16ece7d53c` and
+`16e6bea6e0fbb66cf699e43f6954bcd45e0026128ed1bedf683e10089129c386`.
+
+Reproduced before production edits: two failing synthetic tests showed that
+primary JSONL loses explicit Run/Task–Session links and that declared source times
+cannot exclude evidence actually received after a forecast. The fixture has two
+Tasks, three Runs, three Sessions/Attempts, two configurations, a verified success,
+a verified failure, unknown outcomes, frozen acceptance, artifact/report digests,
+assessment corrections and delayed receipt. The final legacy tests document these
+unchanged limitations; W2 acceptance tests exercise the additive repair.
+
+Delivered:
+
+- New `src/model_learner/storage/evidence.py`: versioned scoped sidecar and
+  prospective receipt book; sanitized metadata projection; explicit verification
+  attempt bindings; isolated validation and idempotent reconstruction; receipt-gated
+  view using the existing assessment/observation resolver. No migration or changes
+  to domain contracts, existing JSONL, estimator, verifier or database implementation.
+- New `tests/integration/test_portable_evidence.py`: **39 passing synthetic cases**
+  covering A–J, including all ten record/association receipt gates, null receipts,
+  late corrections, dangling/rebound identities, incomplete/unsupported reports,
+  unchanged unknown cost, exact frozen probability/evidence membership, privacy
+  projection and pure guard checks. No real data or model execution.
+- Modified `docs/PROSPECTIVE_FAMILY_EVALUATION.md`: appended supported contract,
+  reconstruction procedure, timing assumptions, privacy boundaries and limits.
+- Modified `STATUS.md`: this checkpoint only; historical content preserved.
+
+The new integration tests reuse the pre-existing untracked prospective adapter;
+that is a working-tree dependency, not a claim that W1 already committed it. The
+coordinator must review its disposition separately. No other edits were present
+or changed. Four untracked files remain: the two pre-existing files and the two
+new W2 source/test files. Nothing was staged, committed, pushed or published.
+HEAD, branch and index remain unchanged. No other repository, private ledger,
+conversation history, credential file, dependency installation or paid API was used.
+
+Actual validation with the existing local environment (no dependency downloads):
+
+| Check | Actual result |
+| --- | --- |
+| Initial synthetic gap reproduction | 2 expected failures before production edits: lost links and late-receipt leakage under the legacy contract. |
+| Final W2 acceptance suite | 39 passed in 6.32 s. |
+| Focused storage/association/verification/resolution/learning/evaluation/prospective suites | 213 passed in 9.78 s, including the then-current 35 W2 cases; the 4 subsequently added cases passed in the final W2 suite. |
+| Broad regression with the explicit Git-policy exclusion below | 934 passed, 7 existing opt-in skips in 58.37 s. |
+| Repository-wide Ruff lint | Passed. |
+| Repository-wide Ruff format verification | Passed; 195 files already formatted. |
+| Whitespace and privacy | Working-tree diff whitespace passed. Pure guard path/secret/content screening passed for all 4 W2 files plus the 2 unchanged prospective files, without exemptions; generated synthetic bundle also passes content screening. Final screening after the documentation update also passed; explicit new-file whitespace checks passed. |
+| Staged privacy guard | Not run; index unchanged. Coordinator must run after reviewed staging. |
+
+Tests use `PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+.venv/bin/python -B -m pytest ... -p no:cacheprovider`; Ruff uses the existing
+`.venv/bin/ruff` with `--no-cache`. Broad regression explicitly unsets
+`MODEL_LEARNER_TEST_POTION_PATH` and `MODEL_LEARNER_OFFLINE_DOCKER_TEST` and excludes
+`tests/integration/test_privacy_guard.py`: that file stages and commits in temporary
+Git repositories, prohibited by this task's absolute no-staging/no-commit rule.
+Thus no unqualified full-suite result is claimed. Pure privacy screening does not
+replace the later mandatory staged guard or human privacy review.
+
+Limits: one selected Task/dataset, metadata-only Events, existing deterministic
+verifiers and one complete Attempt per verified Run. Import requires an empty
+or exact-replay disposable destination; it is not a transactional live merge.
+Keep the sidecar for receipt-aware resolution. Missing receipt is unavailable;
+capture uses the actual current clock and cannot retroactively validate history.
+Imported declarations/hashes do not attest time or independent execution. Public
+projection omits prose/locators and refuses unsupported metadata; arbitrary private
+text/novel secret formats still require human review. Full artifacts/transcripts,
+automatic capture and cryptographic time attestation are outside W2.
+
+Next: coordinator reviews the exact four W2 changes and the separately identified
+pre-existing adapter/test dependency, selects files in GitHub Desktop, and runs the
+required staged privacy guard before any commit. Proposed summary:
+`fix: preserve scoped evidence associations and receipt cutoffs`.
+After review, the smallest W3 decision is a separately authorized synthetic
+capture → verifier → resolver integration scope. No further milestone is started.
+
 ## W1 evidence reconciliation and draft protocol — 2026-10-20
 
 Current bounded increment: three documentary phases delivered for human review;

@@ -326,3 +326,95 @@ outside working-v1. Engineering completeness and predictive superiority remain
 separate: working-v1 can provide honest uncertainty/abstention without proving
 calibration or beating simple baselines. Jev, purchases, graph storage, semantic
 ML and autonomous execution are neither dependencies nor authorized work here.
+
+## W2 — scoped evidence and prospective receipts (2026-10-20)
+
+The offline contract in `storage/evidence.py` uses a `scoped-evidence/v1` sidecar.
+Existing JSONL remains a primary-record export: it exports unrelated Tasks when
+asked for all Tasks, omits Task–Session/Run–Session links, and cannot establish
+actual receipt of untimestamped declarations. Two synthetic tests reproduced the
+association and availability failures before production changes. Their final
+versions retain assertions documenting the unchanged legacy behavior.
+
+A sidecar contains one selected Task, its Runs, Attempts, linked Sessions, bounded
+metadata-only Events, Verifications, complete assessment revision history, and
+Observations from one explicit dataset. Canonical IDs, configuration snapshots,
+acceptance contract/version, artifact and report digests, source times, and
+supersession links survive reconstruction. An explicit verification-to-attempt
+map binds the final artifact to one complete segment. Existing repository foreign
+keys, verifier checks, assessment resolver and observation derivation remain the
+validation authorities. No migration, learner change or JSONL change was made.
+The separate module keeps this stricter opt-in contract out of legacy import.
+
+The supported procedure, using **only reviewed sanitized input**, is:
+
+1. Build `scoped_bundle(repository, task_id=..., dataset=...)`. Missing receipts
+   are null; exporting old data provides no historical availability claim.
+2. At actual prospective receipt, call `ReceiptBook.capture(bundle)` and persist
+   its `model_dump_json()` in local storage. Reload with
+   `ReceiptBook.model_validate_json(...)`. Capture reads the current clock and
+   preserves the first receipt and digest on replay. It accepts no event-time
+   override. Capture each increment before the decision that will use it.
+3. Build the bundle again with `receipts=book`, persist its `model_dump_json()`,
+   and reload with `EvidenceBundle.model_validate_json(...)`. Keep this sidecar:
+   importing primary records alone does **not** install receipt semantics in SQLite.
+4. Use `import_bundle` with a disposable initialized repository. It validates a
+   separate temporary reconstruction before writing. The destination must be
+   empty or contain the exact prior scoped replay; live-ledger merging and
+   concurrent writers are unsupported. Invalid identities fail before destination
+   writes. An interrupted disk write can leave a partial disposable reconstruction;
+   start with another empty destination rather than merging it into a live ledger.
+5. Call `resolve_bundle(bundle, cutoff=...)` for learning inputs. It gates **every
+   record and association** by receipt, then invokes existing as-of resolution.
+   A received correction whose evidence is unavailable cannot fall back to an
+   older successful label. No original ledger record or frozen forecast is edited.
+6. Preserve the separate compatibility policy and the existing adapter's exclusive
+   frozen forecast file/digest. The W2 test reloads both policy and evidence and
+   reproduces target Task/Run/configuration, acceptance version, cutoff, evidence
+   keys/run membership, probabilities and intervals with the same fixed
+   Beta(1,1), 95% interval and A/B/C policy definitions. This does not add a new
+   learner or infer compatibility. The pre-existing untracked prospective adapter
+   and its unit tests were used unchanged; they are not newly authored W2 files.
+
+Time meanings remain distinct: Event `observed_at` is source event time and
+`ingested_at` is capture ingestion; Verification `observed_at` and its report
+binding retain result/report times; Outcome/Observation `recorded_at` retain
+existing declared availability; sidecar `received_at` is this receiver's first
+receipt; the frozen forecast cutoff is decision time. Both the existing timestamp
+rules and the new receipt gate must pass. New receipts never establish what was
+known before capture. Imported receipt declarations and hashes are **not trusted
+time attestation**, proof of independent execution, or protection against an
+operator replacing the whole bundle. Preserve external frozen digests separately.
+
+Privacy scope is deliberately narrow. Task prose/workspace, notes/stop prose and
+artifact/report filesystem locators are omitted or replaced by digest references.
+Unknown metadata, nonempty event payloads/raw payloads, configuration metadata,
+and recognizable private locators/credential shapes are refused. Configuration
+identities and observation stable keys are never silently recomputed to accommodate
+redaction. Reviewed opaque identifiers and verifier summaries remain; arbitrary
+private prose or novel credentials cannot be proven absent automatically. Human
+review and the repository privacy guard remain necessary before publication.
+No raw artifact bytes, report XML, prompts, tool output, unrelated Task records,
+or local filesystem paths are needed for the synthetic reconstruction. Source
+records remain untouched; sidecar hashes identify the sanitized projection.
+
+Known limits: one Task/dataset per bundle; the existing real-observation contract
+is exercised by explicitly fictional fixtures, not evidence of real model runs;
+only metadata-only events and the existing deterministic verifiers are supported;
+one full Attempt per verified Run is required. Unknown/missing verification,
+incomplete or unsupported reports, cost and native model-version missingness stay
+unknown or ineligible. Shared-session Events are bounded by explicit Run identity
+or linked Run time range; unrelated Events are excluded. Sessions themselves must
+already have reviewed metadata. Projects, full transcripts, live merge, migration,
+automatic receipt collection, signed provenance and general archive sanitization
+are outside W2. Historical Experiment 4 missingness is unchanged.
+
+Acceptance evidence lives in `tests/integration/test_portable_evidence.py`:
+A/E association and replay; B artifact/report/acceptance/attempt binding;
+C all ten dependency kinds delayed beyond cutoff, null receipt and receipt replay;
+D correction heads and missing-evidence refusal; F dangling/rebound/conflicting
+associations; G unknown/incomplete/unsupported reports; H frozen reconstruction;
+I public projection, unsafe-content rejection and pure privacy-guard screening;
+J unchanged legacy JSONL behavior plus existing regression suites. Fixtures create
+all content in temporary directories and do not launch models or read private data.
+See `STATUS.md` for actual validation counts and the Git-policy test exclusion.

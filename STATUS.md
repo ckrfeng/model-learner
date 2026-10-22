@@ -2,127 +2,193 @@
 
 ## J1 optional task-intent offline evaluation — 2026-10-22
 
-**PARTIAL: fictional local harness passes; official Decisions wire adapter BLOCKED.
-Live Jev accuracy/calibration unmeasured. Independent human gold review pending.**
-Stop at J1. No coding-agent run, paid inference, live HTTP/DNS/credential probe,
-model download, installation, historical experiment, containment rerun or next
-milestone was started. W1–W3, W4A preparation, W6A/W6B status remains unchanged;
-W4B/W5/full W6/W7 remain incomplete. W4A Option A/600-second gates are distinct.
+**PARTIAL: supplied official Decisions examples implemented offline; live
+routing/resource enforcement BLOCKED. Jev accuracy/calibration unmeasured.
+Independent human gold review pending. Stop at J1.**
 
-Inspected current instructions/design/status, README, prospective/advisory/external
-handoff/readiness/privacy guides; canonical models/configuration identities,
-estimator/advisory, semantic/task-state/Potion sources and relevant tests. No
-existing Jev integration or usable task-intent baseline was found. Existing pinned
-`minishlab/potion-base-8M` support was reused as the architectural reference and
-left unchanged; this rule baseline needs no embedding weights or new dependency.
+Delivered frozen primary-intent/executable-source questions and precise rubric,
+six intent classes, deterministic baseline, 24 distinct newly authored fictional
+cases (8 development / 16 holdout), strict parser, fake transport, metrics,
+executable demo and sanitized ignored report. No holdout baseline/mock/provider
+predictions were collected. Labels are authored drafts, **not human gold**.
+Internal question/baseline/source/metric hashes, input hashes, manifest and splits
+are unchanged by the official wire-format follow-up. Manifest SHA-256 remains
+`31e5fe76d0306effdfe1ad7bba8318bc39c16207128ba8aeca3630e332d7a8c2`.
 
-The dispatch supplies target/model and fallback restrictions but no exact official
-alpha request/response schema, provider slug, float tolerance or complete billing
-contract. Repository and coordinator J1 artifact inspection found no capture.
-No network is authorized to obtain it. Rather than claim an invented contract,
-`serialize_decisions` unconditionally refuses live serialization. The explicit
-`j1-local-fixture/v1` envelope/typed parser is only a local test contract, with
-fixed intended OpenRouter target and `allow_fallbacks=false`, null provider slug,
-zero retries and one-use fake transport. Official typed request/response support,
-real provider routing and actual OpenRouter accounting remain undelivered.
-The coordinator reports two earlier free authenticated GETs; none was repeated.
-Credential-file presence was not used or inspected. Actual prepaid balance and
-account/key limits remain unverified.
+Inspected required instructions/status/design/README/prospective/advisory/handoff/
+readiness/privacy guidance and existing task-state, semantic, configuration
+identity, estimator/advisory, Potion and test interfaces. No existing Jev adapter
+or usable task-intent baseline existed. Existing pinned Potion support remains
+unchanged and unnecessary for the fixed-rule baseline; no weights/cache reads,
+downloads, dependency additions or installation. No canonical Task/Run/Attempt/
+Observation, SQLite, outcome/verification/eligibility, Beta-Bernoulli, A/B/C or
+W6A calculation changes. Ordinary learning/advice do not import J1.
 
-Delivered frozen questions/rubric, six intent classes, explicit executable-source
-question, fictional score parser control (no difficulty target), 24 distinct
-fictional descriptions (8 development / 16 untouched holdout), reference labels,
-input/file hashes and frozen question/baseline-source/metric versions. References
-are authored drafts, **not human-reviewed gold**. The holdout has zero baseline,
-mock or provider predictions. Predictors receive descriptions only; actual local
-serialized bytes contain no case IDs, gold labels, splits, outcomes, code or
-hidden tests. Public question choice options necessarily remain in the request.
-The local decoder rejects duplicate keys, nesting >32, malformed/extra/missing/
-wrong-type/ID/label/distribution/score values and nonfinite/out-of-range values;
-local float tolerance is explicitly unverified against the provider's contract.
+### Official example follow-up and exact current behavior
 
-The deterministic executable example runs the actual loader/baseline/local
-serializer/fake transport/parser/metrics and exports a sanitized versioned ignored
-report. Mock answers are fixed independently of task and labels. Metric arithmetic,
-missingness and target/bounds/retry/substitution/error rejection are independently
-tested. Requested/reported model, unknown revision/routing and provisional usage
-stay separate. Missing cost stays null; explicit zero stays zero; cost estimates
-are separate; no direct-provider accounting headers are used. Mock cost/route
-coverage never establishes real billing. Report accuracy 1/8 and binary Brier 1/4
-are **mock plumbing against authored references**, not Jev performance.
-The demo proves unchanged fictional canonical inputs, Beta-Bernoulli estimates
-and full W6A advice (still abstaining). No canonical/schema/policy/adviser code
-was edited; ordinary learning/advice does not import J1.
+Initial delivery was deliberately local-only because no captured schema was
+available and network was forbidden. After that delivery the coordinator supplied
+literal Choice/Noul/Score request and response examples from the official
+OpenRouter Jev guide, plus provider/model page identity evidence. Those inline
+examples now drive `openrouter-decisions-published-examples/v2`; no page fetch,
+HTTP/DNS/credential probe or live request occurred. The initial provisional
+chat-style usage token mapping was corrected to the supplied Decisions fields.
+The coordinator's earlier two free authenticated GETs were not repeated.
 
-`readiness()` is an offline packet, always false: exact official contract/provider
-route, credential/account/key limits, remaining prepaid balance, model/pricing,
-enforceable <=$1 exposure and separate one-request authorization are unresolved.
-Token planning/byte/count bounds are not USD enforcement. A later approved smoke
-would permit at most one POST, no retries/fallback/batch/expansion; missing route,
-cost or settlement, timeout, error, substitution or cap violation means stop.
-Existing prepaid funds only; no purchase/top-up/subscription. See the complete
-[limits and future packet](docs/J1_OFFLINE_INTENT.md). One possible future human
-review of exactly these 24 fictional descriptions is proposed, **not started**.
+`fixture_request` now emits the demonstrated exact top-level fields `model`,
+`state`, `questions` keyed by question ID. Choice uses `type`, `instructions`,
+`criteria` object; Noul uses `type`, `instructions`; score control uses `criteria`
+array. Full frozen rubric stays in instructions; all six Choice labels map to
+concise rubric-consistent category descriptions. No case IDs, split, references, outcomes, source code, hidden tests,
+local-schema markers, reasoning, invented provider or token fields are serialized.
+Actual byte-level projection/substitution tests exercise this serializer.
 
-Actual validation using the already installed environment:
+Response parsing handles keyed `answers`: Choice `choice`/`probabilities`/
+`confidence`, Noul `noul` probability, Score `score`/`legend`/`probabilities`/
+`confidence`. Confidence is separate from category probability. Exact IDs/types/
+labels/levels/shapes/ranges/distribution totals and weighted score are validated;
+extra/missing/duplicate IDs/keys, unsupported reasoning, malformed JSON/UTF-8,
+nesting >32, nonfinite or invalid numeric values reject. Local tolerance `1e-6`
+is not asserted as officially documented. Score is a fictional parser control,
+never an unlabeled difficulty or utility target.
 
-| Check | Result |
+Requested model `typesafe/jev-1.14` remains distinct from the demonstrated returned
+`typesafe/jev-1.14-20261014`. Both exact identities are explicitly admitted; other
+versions/providers reject. Reported provider `TypeSafe`, bounded generation ID,
+usage input/output tokens and scalar cost are preserved. Effective backend
+revision is never inferred from the slug. Deterministic mock metadata can remain
+null; parsed fixtures never become live success, verified route or actual charges.
+Missing/malformed usage/cost stays unknown; explicit zero stays zero; estimates
+remain separate/null; no chat-completion token aliases or `X-Jev-*` accounting.
+
+The examples and provider page support slug `typesafe`, but **do not establish
+Decisions support/enforcement of `provider.only` or `allow_fallbacks`**. Required
+policy is TypeSafe only / fallback false / zero retries, checked out of band by
+the fake. No unsupported routing fields are serialized and no claim is made of
+serialized provider enforcement. `serialize_decisions` refuses live use and no
+HTTP transport exists. The single-use fake rejects target/path/method/status/
+redirect/model/question/provider/fallback substitutions and repeat attempts.
+Bytes, description, question and token-planning bounds are checked; reported
+input/output/USD usage above local caps stops without retry. These checks are
+**not hard provider USD/token enforcement**. The original contract's serialized
+routing guarantee remains an explicitly incomplete acceptance item.
+
+`readiness()` always fails closed. Supplied provider identity is recorded, while
+endpoint route/fallback behavior, output enforcement, documented float tolerance,
+credential/account/key limits, actual prepaid balance, exact pricing/billing,
+enforceable <=$1 exposure and separate one-request authorization remain blocked.
+Credential name only: `OPENROUTER_API_KEY`; no local secret contents or environment
+secret was read. Existing prepaid funds only; no top-up/subscription/purchase.
+A later approved smoke permits at most one POST, no retry/fallback/batch/expansion;
+missing route/cost/settlement, timeout/error, substitution or cap violation stops.
+
+The executable demo now uses published request/response shapes with fake answers
+fixed independently of inputs/references; mock accuracy 1/8 and Brier 1/4 are
+plumbing checks against draft references, **not Jev accuracy/calibration**.
+It proves unchanged fictional canonical inputs, actual Beta-Bernoulli estimates
+and full W6A advice (still abstaining), exporting a sanitized versioned ignored
+report. No global integration/enablement or second learner. One possible future
+human-review experiment labels exactly these 24 fictional cases blinded to
+predictions, then records disagreements/new version before holdout collection;
+**not started**. With 16 holdout cases eventual conclusions are exploratory.
+
+### Coordinator criteria-review correction
+
+Review found the v1 wire representation repeated Choice labels and numeric score
+indices instead of defining the options. Corrected all six existing Choice options
+using descriptions consistent with the original RUBRIC, preserving production
+question IDs, labels, instructions and task semantics. The parser-only Score
+control now describes the fill level of a fictional tank: empty, partially filled,
+full, with a matching instruction and exact expected legend validation. Incorrect
+or swapped legend descriptions reject even with valid keys/probabilities/score.
+Unregistered criteria cannot silently fall back to label/index placeholders.
+
+Only the wire representation advances to `openrouter-decisions-published-examples/v2`;
+v1 definitions are preserved under ignored `criteria-wire-v1.json` and its version
+is retained in source. `understanding/intent.py`, both frozen production questions,
+RUBRIC, CODE_RUBRIC, original internal Score control, baseline and all three JSON
+fixture/manifest files are byte-identical to the pre-review snapshot. No holdout
+predictions, new labels, live route behavior or learning/advice changes.
+
+Pre-existing edits at review start were the eight tracked follow-up files listed
+below. This correction changes only `decisions_offline.py`, its unit test, this
+STATUS and the J1 guide; the other four pre-existing edits are preserved unchanged.
+No new public paths, staging, commit or push. Current readiness remains false;
+provider filtering/fallback and enforceable resource controls still block live use.
+Criteria review: **102 acceptance tests passed in 0.54 s**; the relevant
+semantic/identity/forecast/eligibility/learner/W6A/W6B selection passed
+**391 tests, zero skips, in 25.75 s**. Ruff lint/format, executable demo, whitespace
+and non-staged privacy screening passed. The earlier broader result is retained
+as pre-correction evidence; no Git-mutating/containment/live tests were run.
+Exact review delta and frozen-file hash checks are recorded in ignored
+`criteria-review-inventory.json`.
+
+### Actual validation
+
+| Check | Actual result |
 | --- | --- |
-| J1 acceptance | **79 passed**, 0.24 s after nesting/format fixes; included in both larger selections. |
-| Focused semantic task state / identity / forecast / eligibility / learner / W6A / W6B selection | **368 passed**, zero skips, 25.20 s. |
-| Final broader permitted offline suite | **1,211 passed, 7 skipped**, 64.55 s; includes final source/baseline hash freeze. |
-| Executable fictional demo | Passed; report under ignored `.model-learner/j1-offline-v1/synthetic-report.json`; 8 development cases, no holdout predictions, no paid requests. |
+| Criteria-review acceptance | **102 passed**, 0.54 s. |
+| Criteria-review relevant regressions | **391 passed**, zero skips, 25.75 s; includes the acceptance cases. |
+| Pre-criteria-review official-example/offline acceptance | **90 passed**, 0.20 s; all published typed shapes, actual serialization, usage/cost, bounds/cap stops, no network/credential access, metric arithmetic, privacy and learner/advisory isolation. |
+| Broader permitted selection before the criteria correction | **1,222 passed, 7 existing opt-in skips**, 69.75 s; includes final routing packet, all cap controls and all 90 new acceptance tests. |
+| Prior focused semantic task state / identity / forecast / eligibility / learner / W6A / W6B selection | **368 passed**, zero skips, 25.20 s at initial delivery; these modules also included in the broader selections. |
+| Earlier bounded evidence | Initial acceptance **79 passed**; usage-field follow-up **80 passed**; first published-example acceptance **87 passed** and broader **1,219 passed, 7 skipped**, 65.94 s before final cap controls. |
+| Executable demo | Passed; `.model-learner/j1-offline-v1/synthetic-report.json`, 8 development cases, no holdout predictions, zero paid requests. |
 | Repository Ruff lint / format | Passed; **221 files** already formatted. |
-| Whitespace and non-staged privacy | Passed for all 12 public authored/modified paths and generated sanitized report/local requests; no policy exemptions. |
-| Staged privacy guard | Not run: no staging authorized; coordinator must run it after Desktop review/staging before each commit. |
+| Whitespace / non-staged privacy | Passed on all 12 authored public paths, regenerated sanitized report and all 8 actual serialized development requests; no policy exemptions. |
+| Staged privacy guard | Not run by executor: no staging authorized. Coordinator must review/stage and run the guard before each Desktop commit. |
 
-Tests used a clean process environment, installed `.venv` Python, disabled bytecode,
-pytest plugin autoload/cache and no live opt-in flags. Broad selection excluded
-`tests/integration/test_privacy_guard.py` (55 Git-mutating cases, including temporary
+Existing installed environment only; clean test process environment, bytecode,
+pytest plugin autoload/cache disabled. Broad selection excludes
+`tests/integration/test_privacy_guard.py` (55 Git-mutating cases including temporary
 repos), `test_w4a_containment.py`, `test_w4a_process_boundaries.py` and
-`test_benchmark_host_access.py` (9 completed containment/process diagnostics).
-Seven existing skips are six opt-in Potion checks and one opt-in Docker check.
-No full-suite, live-provider or model-weight claim. Initial additions passed 77
-cases; extra hostile-nesting/error tests exposed a missing decoder nesting bound
-and two lint lines, fixed before final runs. The focused run preceded the final
-baseline implementation-hash pin; the final broad run includes that pin.
+`test_benchmark_host_access.py` (9 prior containment/process diagnostics).
+Seven existing skips: six opt-in Potion checks and one opt-in Docker check.
+No full-suite/live-provider/model-weight/containment rerun claim. Initial hostile
+nesting and two lint issues were fixed before initial final checks. No historic
+private experiment, live agent or paid inference was run.
 
-Initial coordinator baseline (`relay-artifacts/step-007-j1/baseline.json`): `main`,
-HEAD=cached `origin/main`=`9f507edb7c3c9d1124ad1c972ad37712848f83fa`, clean,
-empty index, no pre-existing edits. Final read-only status confirms unchanged
-HEAD/branch/cached origin and empty staged changes; only the following work is
-present. Read-only Git inspection disabled optional locks and filesystem monitor;
-no index/ref/remote mutation, staging, commit, push, merge or publication occurred.
+### Inventory and Git state
 
-Exact public inventory (all uncommitted):
+Original coordinator baseline: clean `main`, empty index, no pre-existing edits,
+HEAD=cached `origin/main`=`9f507edb7c3c9d1124ad1c972ad37712848f83fa`.
+The initial 12-path delivery was left uncommitted by this executor: README, STATUS,
+J1 guide, demo, three intent source modules, four fixture files and test. During
+follow-up the original delivery appeared as commits `d5803fa` / `a6f0786` outside
+this executor. Read-only checks now show `main`, HEAD=cached `origin/main`=
+`a6f0786e4c2b51f69f60a6d5c30aba124a81f949`, empty index, exactly eight modified
+tracked follow-up files, no new/untracked/removed or unrelated public changes:
 
-- Modified tracked: `README.md`, `STATUS.md`.
-- New/untracked source: `src/model_learner/understanding/intent.py`,
-  `src/model_learner/understanding/decisions_offline.py`,
-  `src/model_learner/understanding/intent_evaluation.py`.
-- New/untracked executable/test: `scripts/intent_example.py`,
-  `tests/unit/test_intent_offline.py`.
-- New/untracked fictional fixtures: `tests/fixtures/intent/README.md`,
-  `tests/fixtures/intent/inputs.json`, `tests/fixtures/intent/reference_labels.json`,
-  `tests/fixtures/intent/manifest.json`.
-- New/untracked guide: `docs/J1_OFFLINE_INTENT.md`.
+- `src/model_learner/understanding/decisions_offline.py`
+- `src/model_learner/understanding/intent_evaluation.py`
+- `scripts/intent_example.py`
+- `tests/unit/test_intent_offline.py`
+- `README.md`
+- `STATUS.md`
+- `docs/J1_OFFLINE_INTENT.md`
+- `tests/fixtures/intent/README.md`
 
-No unrelated public changes or removed files. New ignored artifacts are confined
-to `.model-learner/j1-offline-v1/` (public before/final inventories, focused/broad
-JUnit reports, sanitized synthetic report and check evidence); pytest disposable
-fixtures use temporary storage. Ruff may refresh its existing ignored cache.
-No older private/ignored experiments or credential contents were opened.
+The three frozen JSON fixture files and `understanding/intent.py` remain unchanged.
+Ignored outputs stay under `.model-learner/j1-offline-v1/`: initial/final inventories,
+initial focused/broad JUnit, usage-field and official-example acceptance/regression
+JUnit, regenerated sanitized synthetic report. Pytest fixtures use disposable
+system temporary storage; Ruff may refresh its existing ignored cache. No prior
+private artifacts or user data were read, modified or deleted. This executor
+performed no staging/commits/pushes/merge/publication or index/ref/remote mutation;
+read-only Git inspection disabled optional locks and filesystem monitor.
 
-Suggested coherent Desktop commit groups, coordinator operates Git only:
+Suggested follow-up Desktop groups (source and tests together):
 
-1. `feat: add frozen offline task intent evaluation` — three source files,
-   executable demo, required test and four fictional fixture files together.
-2. `docs: record offline intent contract and readiness blockers` — guide, README
-   and STATUS after reviewing the passing source/test group.
+1. `fix: use published Decisions wire examples offline` — two changed source
+   modules, demo and required acceptance test.
+2. `docs: record Decisions evidence and routing blockers` — README, STATUS,
+   J1 guide and fictional fixture README.
 
-Remaining J1 work requires captured official contract/route evidence and independent
-human reference review before any accuracy claim. No successor milestone, real
-request, spend or automatic holdout collection is authorized by this delivery.
+[Full use/limits/receipt packet](docs/J1_OFFLINE_INTENT.md). W1–W3, W4A offline
+preparation and W6A/W6B remain as before; W4B/W5/full W6/W7 incomplete. External
+approved environments own execution, isolation, independent verification and
+termination. W4A coding/containment/600-second Option A gates are distinct;
+no J1 classification/mock result counts as coding-agent evidence. Stop at J1.
 
 ## W6B external verified-evidence handoff — 2026-10-21
 

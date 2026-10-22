@@ -15,8 +15,9 @@ are frozen. Labels never enter serialized local requests. Questions, labels or
 baseline changes after holdout predictions require a new evaluation version and
 future untouched holdout; do not overwrite this version to claim improvement.
 
-The local fixture transport/parser do not implement the official Decisions schema;
-that captured schema and the provider slug remain missing. No difficulty target
+The fake transport/parser implement the supplied official Decisions example
+formats. These are not a complete normative schema; live provider-filter and
+fallback enforcement remain unverified. No difficulty target
 exists. A fictional score control tests a local parser only. Mock results establish
 plumbing, never Jev accuracy/calibration. With 16 holdout tasks, any future result
 is exploratory. See `docs/J1_OFFLINE_INTENT.md` for limits and live blockers.

@@ -424,8 +424,9 @@ for reproduction, sample-size sensitivity and the stationary/adaptation tradeoff
 The [J1 fictional evaluation](docs/J1_OFFLINE_INTENT.md) freezes two task-intent
 questions, 24 fictional descriptions and a deterministic baseline. Its executable
 example uses only local mocked responses and preserves learner/advisory results.
-The official OpenRouter Decisions adapter is blocked pending captured schema and
-provider-route evidence; labels await independent human review. No live request,
+The adapter follows supplied official OpenRouter Decisions examples offline.
+Live use remains blocked pending provider-filter and resource enforcement evidence;
+labels await independent human review. No live request,
 credential access or model download is needed or enabled.
 
 ```sh

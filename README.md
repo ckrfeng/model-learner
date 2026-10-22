@@ -419,6 +419,19 @@ decision age; delayed old labels do not become recent evidence. Full history
 remains the default learner. See [drift investigation](docs/DRIFT_INVESTIGATION.md)
 for reproduction, sample-size sensitivity and the stationary/adaptation tradeoff.
 
+## Optional offline task-intent research
+
+The [J1 fictional evaluation](docs/J1_OFFLINE_INTENT.md) freezes two task-intent
+questions, 24 fictional descriptions and a deterministic baseline. Its executable
+example uses only local mocked responses and preserves learner/advisory results.
+The official OpenRouter Decisions adapter is blocked pending captured schema and
+provider-route evidence; labels await independent human review. No live request,
+credential access or model download is needed or enabled.
+
+```sh
+.venv/bin/python -B scripts/intent_example.py
+```
+
 ## Development checks
 
 ```sh

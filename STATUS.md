@@ -1,5 +1,91 @@
 # Model Learner status
 
+## J2 bounded Decisions integration/readiness — 2026-10-22
+
+**PARTIAL overall. Offline contract PASS; full contract PARTIAL; routing BLOCKED;
+spending BLOCKED; live smoke BLOCKED. Zero paid POSTs, free GETs, network calls,
+credential reads or live attempts. Stop at J2.**
+
+Only the captured published examples from J1 were used; no contract discovery.
+Conditional authorization and the user-confirmed OpenRouter spending limit are
+recorded without assuming current funds or a hard per-request cap. Decisions
+TypeSafe-only/no-fallback and output-limit enforcement remain undocumented.
+Current pricing/settlement, remaining prepaid balance, enforceable exposure
+strictly below $1, and a validated secret-safe live transport are unproven.
+Consequently no credential access, GET preflight, live transport or paid POST was
+necessary or permitted by the acceptance gates. No live one-shot marker was armed
+or consumed. No top-up/purchase/subscription/alternative provider.
+
+Added `understanding/decisions_readiness.py`, a pure offline packet writer,
+focused tests and `docs/J2_DECISIONS_READINESS.md`. The packet validates the frozen
+manifest/input hashes and selects only fictional development `dev-01`; it never
+reads draft references. Exact request SHA-256 is pinned to
+`f7a2a32a6aabb5fb7a8d85f1150309a9a13a93a19aadf05e5fc09b50c284035b`.
+Changed model/questions/criteria refuse before dispatch. Separate protocol hashes
+record required TypeSafe-only, fallback false, zero retries, one paid POST maximum,
+4,096 input / 256 output token plans, strict <$1 exposure and overall $15 prepaid
+ceiling. These remain local requirements, never invented provider wire controls.
+`readiness()` cannot be enabled through caller booleans or numeric budget evidence;
+`refuse_live()` always raises without network/credential access.
+
+Mock-only rehearsal exclusively creates and file/directory-syncs a fixed mode-0600
+marker before dispatch. Existing/partial/symlink markers refuse; sync failure,
+timeout, malformed/mismatched responses and ambiguous attempts never permit retry.
+This is a tested **mock** guard, not a deployed live-attempt safeguard. Sanitized
+mock receipts retain UTC times, request/protocol/response hashes, typed predictions,
+confidence and reported metadata/usage where valid; exception prose/raw responses
+are omitted. Actual billed cost remains null and route verification false, even
+with official example model/provider metadata. Missing/malformed cost stays unknown;
+explicit reported zero is retained. J2 cap checks reject cost >=$1 and usage above
+its 4,096/256 plan. No receipt becomes a verification or learner/advisory input.
+
+The frozen J1 fixture/rubric/baseline bytes and all historical experiment evidence
+remain unchanged. No holdout predictions, gold review, model training/download,
+coding agent, W4B/W5/W7, canonical records, database or learner changes. Existing
+J1 labels remain AI-authored drafts; Jev accuracy/calibration remain unmeasured.
+
+Actual validation using the installed environment, Python bytecode and pytest
+plugin autoload/cache disabled:
+
+- Final J1 + J2 acceptance: **144 passed**, 0.32 s; includes request/parser,
+  identity/routing/redirect controls inherited unchanged from J1, budget gates,
+  frozen label-free selection, durable mock refusal, secret-free offline path and
+  unchanged fictional canonical inputs / Beta-Bernoulli / full W6A advice.
+- Relevant J1/J2, semantic/task-state/representation/understanding, conversation
+  state, learning/prospective, W6A/W6B and receipt regressions: **474 passed,
+  1 existing opt-in skip**, 24.00 s before the final request-digest pin. Final pin
+  and its three substitution tests then passed in the 144-case acceptance above.
+  Skipped: actual Potion relevance metrics, requiring explicit opt-in/model assets.
+- Offline readiness writer passed; ignored readiness packet regenerated. No mock
+  dispatch or live marker consumed by this writer.
+- Repository Ruff lint/format, whitespace and non-staged privacy checks passed.
+  One generated regression testcase name matched a credential pattern and was
+  replaced by its digest in the new ignored XML before final privacy screening;
+  result/counts are preserved. No credential file was accessed.
+  Full suite, Git-mutating privacy/temporary-repository tests, containment/process
+  diagnostics, historical coding experiments and live-provider checks were not run.
+  No environment installation or dependency change.
+
+Baseline and final `main` HEAD:
+`20605ef064673ff6aa2cbae9b0fb768e13ef2e73`. Baseline index/worktree clean;
+no pre-existing changes. Final index unchanged/empty; only tracked modification
+is `STATUS.md`, with four new unstaged/untracked paths:
+
+- `src/model_learner/understanding/decisions_readiness.py`
+- `scripts/decisions_readiness_example.py`
+- `tests/unit/test_decisions_readiness.py`
+- `docs/J2_DECISIONS_READINESS.md`
+
+New ignored receipts: `.model-learner/j2-readiness-v1/readiness.json`,
+`acceptance.xml`, `regressions.xml`. Existing ignored J1/private artifacts preserved;
+no secret file read, no policy exemptions, no staging/index/ref mutation, commit,
+push, merge or publication. Non-staged privacy screening checks working bytes;
+the staged guard was deliberately not invoked. Suggested later coherent commit:
+`feat: add fail-closed Decisions readiness checks` (all five paths; imperative:
+Add frozen development readiness checks and mock one-shot controls). User review
+and any later resolution of the blocked evidence gates remain unstarted; no next
+workstream is authorized by this delivery.
+
 ## J1 optional task-intent offline evaluation — 2026-10-22
 
 **PARTIAL: supplied official Decisions examples implemented offline; live

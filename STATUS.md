@@ -1,5 +1,130 @@
 # Model Learner status
 
+## W4B-P0 first observer-first pilot contract — 2026-10-22
+
+**READY FOR HUMAN REVIEW for this offline subgate. W4B remains incomplete;
+EXTERNAL_RUNTIME_UNAPPROVED blocks launch.** One synthetic data task, frozen start,
+trusted data-only checker, versioned pre-run manifest and finite approval packet
+are complete. No real execution, measured inference, subscription/paid call,
+production history import, runtime implementation or successor increment occurred.
+
+Project registration `5e9ee82f-ab79-435f-a8c9-8bb3c4b689d3` matches this checkout
+via supported `list_projects`. Requested executor model/effort was `gpt-6.1-sol` /
+medium; supported metadata does not expose the effective current-turn model or
+reasoning, so neither is independently verified. No model override or delegated
+agent was launched. Initial `main`, HEAD and cached `origin/main` all matched
+`1aa916bb0708091b5dc94accb4ebda2e93f9d7a7`, origin
+`https://github.com/ckrfeng/model-learner.git`; clean index/worktree and no untracked
+public work. Live origin was not fetched. Initial index SHA-256
+`2433a67ac1c3caddbd0815e0015d778d576b926ac8b4395068d362f6f390b7f4`
+remains unchanged. No preexisting public edits needed preservation.
+
+Exact authored inventory (all unstaged/uncommitted):
+
+| Path | State / delivered behavior |
+| --- | --- |
+| `tests/fixtures/w4b_p0/v1/TASK.md` | New complete synthetic Signal Note configuration task v1; exactly one exercise. |
+| `tests/fixtures/w4b_p0/v1/start/pyproject.toml` | New sole starting artifact; no solution or executable candidate code. |
+| `scripts/check_w4b_p0.py` | New bounded regular-file/no-symlink TOML checker; exact semantics/preservation, deterministic nine-case JUnit and digests. |
+| `tests/unit/test_w4b_p0.py` | New 46 offline controls, independently authored temporary reference, negatives and existing JUnit binding checks. |
+| `docs/experiments/w4b_p0_v1.json` | New frozen hashes, acceptance IDs, source/config/resource proposals, chronology/API mapping and six pending decisions. |
+| `docs/W4B_P0_APPROVAL.md` | New reviewable finite approval packet, trust/runtime gates and exact eventual handoff. |
+| `STATUS.md` | This checkpoint only. |
+
+Frozen instruction SHA-256:
+`586cfc26363d4a43ff11f84a205eea826c6866fb5278e91b0694a472e07a250c`.
+Start artifact SHA-256:
+`c028ee621c2900049775d8b1114d6dff31d45c56c8a4984d8a3054e96f561f69`.
+Checker SHA-256:
+`73580780616176f2dc97443e7ab6e02afdb023cf56e6a92a124c8b0c8d8e2cae`.
+The manifest tests verify these exact bytes and sole start-file membership.
+
+Data acceptance `w4b-p0-signal-note-data/1` freezes nine exact IDs. Checker reads
+only the selected artifact (8,192 bytes maximum), rejects observed symlink
+components/nonregular files, malformed/duplicate TOML, wrong types, malformed or
+conflicting requirements, omissions/extras and changed preserved fields. It never
+imports/builds candidate code or runs commands. All report cases are pass/failure,
+no skips; checker infrastructure failure remains unknown without complete evidence.
+Operator-owned immutable parent directories and external independent control remain
+preconditions, not security proven by parser/file checks. Hashes establish content
+identity, not authentic execution, model identity or verifier independence.
+
+Offline results with installed environment, bytecode/plugin autoload/pytest cache
+disabled (no dependency installation):
+
+- Final focused checker/manifest/binding/privacy controls: **46 passed**, zero
+  skips, 0.21 s. Earlier 36/43-case runs also passed; review added bounded-depth,
+  CLI/exclusive-report, tamper and TOML date/nonfinite/type controls before freeze.
+- Exact reference: **9 passed / 0 failed / 0 skipped**; artifact SHA-256
+  `a35b52314dd298a4f5ca2ae51097510b443cafd5b63eb9cc95eb65c011c66ec0`,
+  report SHA-256 `4671384fc6d330e390ba6873bf52f2d2ef9315ffce1290b44552373e22c3b37f`.
+- Incomplete start: **2 passed / 7 failed / 0 skipped**, as expected; report
+  SHA-256 `f39f65f3a34f5eb1cd16756b24cf43841084372cc6317aeee842219a3f56ce52`.
+  A manual reference check initially selected the system temporary-directory alias
+  and correctly failed the no-symlink-parent rule; selecting its physical path
+  passed. No boundary rule was relaxed.
+- Existing compatibility selection: **341 passed**, zero skips, 26.54 s:
+  `tests/unit/test_junit_verification.py`,
+  `tests/integration/test_junit_verification.py`,
+  `tests/integration/test_portable_evidence.py`,
+  `tests/integration/test_execution_lifecycle.py`,
+  `tests/integration/test_benchmark_receipts.py`,
+  `tests/integration/test_external_handoff.py`, `tests/unit/test_prospective.py`,
+  `tests/unit/test_learning.py`, `tests/unit/test_advisory.py`,
+  `tests/integration/test_advisory.py`. Existing W6B covers P10 self-report
+  ineligibility, P11 unknown telemetry/600-second exclusion, receipts, corrections,
+  forecast scoring, duplicate learner accounting and later read-only advice.
+- Repository Ruff lint and format passed (**231 files**); tracked/new whitespace
+  and non-staged pure privacy screening passed on all **7 authored public files**,
+  without exemptions. No staged guard: staging is prohibited.
+
+Reports are outside the repository at `/private/tmp/w4bp0-focused.xml` and
+`/private/tmp/w4bp0-compatibility.xml`; initial read-only state is retained at
+`/private/tmp/w4bp0-initial-state.json`. Tests use disposable synthetic ledgers,
+never real pilot Task/Run/forecast records or private historical ledgers. No
+full-suite claim: Git-mutating privacy tests, W4A host/process/containment probes,
+model/Potion, Docker, Jev and W7A demo/replay were excluded. The existing W6B
+integration suite was exercised; W7A code was not changed or rerun.
+
+No production storage/schema/migrations, estimator, forecast, eligibility,
+W6A/W6B/W7A behavior or live package configuration changed. W4A and duration
+**Option A remain `ResourceBudget(max_duration_seconds=600)`**, same acceptance
+version. For this separate exercise the manifest compares a new canonical
+600-second target (complete attributed Attempt latency required, presently absent)
+and a distinct explicitly no-budget acceptance-only Task/target requiring human
+approval. Recommend consideration of the latter for the smallest observer demo;
+neither proposal is selected. Safety process time never becomes native latency.
+Cost/tokens/model revision/billing/stop guarantees remain unknown, not zero.
+
+Read-only installed CLI help confirms relevant interface options only; it emitted
+a PATH-alias permission warning, with no escalation. No auth/config read, provider
+availability check, runtime activation or containment re-probe. External environment
+identity, candidate/credential/verifier isolation, tool/network policy, whole-boundary
+stop, immutable handoff, trusted first receipts and actual configuration evidence
+remain pending. Future proposal is exactly `gpt-6.1-sol`, medium, one attempt,
+zero retries; subscription exposure and finite resource authorization are pending.
+Dataset proposal explicitly separates actual real-on-synthetic execution from
+preparation/benchmark/natural-work evidence and requires approval before use.
+
+Final read-only state: same HEAD/branch/cached origin/index, only STATUS tracked
+modified plus the six new public files above; all unstaged. No authored ignored
+repository artifacts. One newly observed ignored Finder metadata file,
+`tests/fixtures/.DS_Store`, was preserved without reading its contents; no ignored
+paths disappeared. No unrelated work was changed. No Git writes, stage, commit,
+push, merge, remote/ref/index change or security-policy modification performed.
+
+Proposed nonempty GitHub Desktop groups (coordinator only):
+1. `feat: prepare one data-only observer pilot contract` — task/start/checker/tests/
+   manifest together.
+2. `docs: record first pilot approval gates and offline evidence` — packet/STATUS.
+
+Coordinator reviews/stages and runs `python3 scripts/privacy_guard.py --staged`
+before any Desktop commit; push requires separate approved verification. Stop at
+P0. Next action is human review of the six finite decisions in the packet, not
+execution. Full W4B/W5/full W6/W7 remain incomplete; authorized external execution,
+trusted independent outcome, actual receipt chronology, frozen prospective scoring,
+eligible learner update and later read-only advice still need real evidence.
+
 ## W7A newcomer fictional offline demo/replay — 2026-10-22
 
 **PASS for W7A offline usability and replay. Real working-v1 end-to-end

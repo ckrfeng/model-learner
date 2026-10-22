@@ -1,5 +1,69 @@
 # Model Learner status
 
+## W7A newcomer fictional offline demo/replay — 2026-10-22
+
+**PASS for W7A offline usability and replay. Real working-v1 end-to-end
+acceptance remains integration pending; full W7 and W4B/W5/full W6 incomplete.**
+Stop at W7A; no next milestone or real execution started.
+
+Reused `scripts/external_handoff_example.py` as the single public entry point:
+no arguments now runs W6B and checks replay in disposable storage;
+`--output-directory` retains a new directory and checks it;
+`--replay-directory` independently reloads the retained fictional evidence.
+Replay imports exact scoped bundles twice in temporary ledgers, checks intake,
+execution-only membership, retained first/final receipts, actual artifact/JUnit
+bindings, resolved eligibility/outcomes, original-cutoff forecast reconstruction,
+checksums/scores and identical advice/summary. It never rewrites retained evidence
+or recaptures receipts. Missing/changed checked evidence refuses with a nonzero
+exit and sanitized error category. Existing output directories are refused.
+
+Added 26 positive/negative checks in `tests/integration/test_offline_demo.py`,
+including repeated read-only replay, missing/changed artifacts and metadata,
+source/receipt/summary substitutions and a substituted forecast with a matching
+local checksum. Added `docs/OFFLINE_DEMO.md` with purpose, prerequisites, simplest
+command/expected result, retention/replay, inspected files, verified scope,
+fictional provenance and real-evidence gaps; linked README and W6B runbook.
+
+All original W6B fixture events/data remain fictional. The dataset's `real`
+source-kind exercises real-contract APIs only in disposable storage. No real
+model performance or coding-agent evidence is claimed. Checksums establish
+content identity, not external authenticity; independently controlled external
+execution/verifier, historical receipts, whole-boundary termination and resource
+coverage are not established. No schema, migration, source-kind/receipt rules,
+estimator, prospective policy, W6A calculations, duration Option A or W4A
+600-second limit changed. No production source, dependencies, model assets,
+launchers, sandboxes, watchdogs, governors, selectors or Jev components added.
+
+Baseline HEAD `2492259b19878893c92688b1a494db5db81108ae`; index/worktree clean,
+no pre-existing edits. Six changed public paths: the script, new replay tests,
+new newcomer guide, README, W6B runbook and this STATUS. Everything remains
+unstaged/uncommitted; no Git/index/ref mutation, push, network, credential access,
+paid call, dependency installation or private-history access.
+
+Validation (installed environment; bytecode, plugin autoload and pytest cache
+disabled; model/Docker opt-ins unset):
+
+- New replay acceptance: **26 passed**, 18.98 s.
+- Focused W2/W3/W6A/W6B/receipt/prospective/learning selection including W7A:
+  **301 passed**, 45.39 s.
+- Broader safe offline selection: **1,302 passed, 7 existing opt-in skips**,
+  101.94 s. Skips: six Potion asset checks and one Docker check.
+- Final retained run and independent replay: identical JSON, exit 0;
+  `.model-learner/w7a-final-v1/` contains the fictional evidence. Earlier
+  `.model-learner/w7a-demo-v1/` is preserved from before final formatting and
+  requires its original script bytes to replay (source digest intentionally pins
+  the checkout). Pytest fixtures are disposable temporary files.
+- Final Ruff lint/format (**227 files**) and whitespace passed. Working-byte
+  privacy passed on all **6 public files and 17 generated fictional projections**,
+  without exemptions; baseline HEAD privacy passed (**291 files, 0 rejected**).
+  Retained advisory CLI/API JSON agrees. No staged guard invoked because staging
+  is prohibited.
+
+The broader selection excludes Git-mutating privacy tests and the existing
+W4A containment/process/host-access diagnostics; this is not a full-suite claim.
+Next step requires user direction; no successor work is authorized. Suggested
+Conventional Commit summary: `feat: add inspectable fictional offline demo replay`.
+
 ## J2 bounded Decisions integration/readiness — 2026-10-22
 
 **PARTIAL overall. Offline contract PASS; full contract PARTIAL; routing BLOCKED;

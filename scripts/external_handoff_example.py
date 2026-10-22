@@ -8,6 +8,8 @@ This is operator choreography, not an external authentication/import service.
 
 import argparse
 import json
+from dataclasses import asdict
+from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from uuid import uuid4
@@ -25,6 +27,7 @@ from model_learner.domain.models import (
     Session,
     Task,
     TaskSessionLink,
+    Verification,
     utc_now,
 )
 from model_learner.learn.advisory import AdvisoryInput, AdvisoryRequest, advise
@@ -38,7 +41,7 @@ from model_learner.learn.prospective import (
 )
 from model_learner.observations import build_real_observation
 from model_learner.storage import evidence as portable
-from model_learner.storage.database import Database, Repository
+from model_learner.storage.database import Database, Repository, StorageError
 from model_learner.verification import (
     JUnitReportBinding,
     assess_run,
@@ -308,13 +311,202 @@ def demonstrate(root):
     return summary
 
 
-if __name__ == "__main__":
+def replay(root):
+    """Read retained fictional evidence; reconstruct only in temporary storage.
+
+    Local consistency with the reviewed fixture is not external authenticity.
+    Original receipt times and frozen forecasts are never regenerated.
+    """
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    intake = json.loads((root / "intake.json").read_text())
+    require(
+        intake["trusted_fixture_sha256"] == file_sha256(Path(__file__)),
+        "reviewed fixture source changed; use the original checkout",
+    )
+    tasks = [Task.model_validate(t) for t in intake["tasks"]]
+    require(len(tasks) == 3, "expected three fictional tasks")
+    require(intake["configuration"] == CONFIG.model_dump(mode="json"), "configuration")
+    policy = TypeAdapter(CompatibilityPolicy).validate_json(
+        (root / "policy.json").read_text()
+    )
+    envelope = AdvisoryInput.model_validate_json(
+        (root / "advisory-input.json").read_text()
+    )
+    require(envelope.request.policy == policy, "advisory policy mismatch")
+    require(
+        portable._public(envelope.request.task) == tasks[2], "advisory task mismatch"
+    )
+    bundles, scores, checksums, probabilities = [], [], [], []
+    with TemporaryDirectory(prefix="model-learner-replay-") as temporary:
+        for i, task in enumerate(tasks[:2]):
+            directory = root / f"handoff-{i}"
+            bundle = portable.EvidenceBundle.model_validate_json(
+                (directory / "resolved.json").read_text()
+            )
+            require(bundle.dataset == DATASET, "fictional dataset mismatch")
+            book = portable.ReceiptBook.model_validate_json(
+                (directory / "receipts.json").read_text()
+            )
+            execution = portable.EvidenceBundle.model_validate_json(
+                (directory / "execution.json").read_text()
+            )
+            first = portable.ReceiptBook.model_validate_json(
+                (directory / "execution-receipts.json").read_text()
+            )
+            require(
+                execution.dataset == DATASET
+                and execution.task_id == task.task_id
+                and not execution.verification_attempts,
+                "execution intake mismatch",
+            )
+            execution_store = repository(Path(temporary) / f"execution-{i}.sqlite")
+            portable.import_bundle(execution_store, execution)
+            expected_entries = {
+                portable.key(e.parse()): e
+                for e in bundle.entries
+                if e.record_type not in {"Verification", "Outcome", "Observation"}
+            }
+            require(
+                len(execution.entries) == len(expected_entries),
+                "execution membership mismatch",
+            )
+            for entry in execution.entries:
+                retained = expected_entries.get(portable.key(entry.parse()))
+                require(
+                    entry.received_at is None
+                    and retained is not None
+                    and entry.record == retained.record
+                    and entry.sha256 == retained.sha256,
+                    "execution-only evidence mismatch",
+                )
+            require(
+                first.receipts
+                == {
+                    key: value
+                    for key, value in book.receipts.items()
+                    if key in expected_entries
+                },
+                "first receipt mismatch",
+            )
+            restored = repository(Path(temporary) / f"resolved-{i}.sqlite")
+            portable.import_bundle(restored, bundle)
+            portable.import_bundle(restored, bundle)
+            require(
+                portable.scoped_bundle(
+                    restored, task_id=task.task_id, dataset=DATASET, receipts=book
+                )
+                == bundle,
+                "retained receipts or scoped reconstruction mismatch",
+            )
+            require(restored.get(Task, task.task_id) == task, "intake task mismatch")
+            run = restored.list_records(Run)[0]
+            evidence = restored.list_records(Verification)[0]
+            binding = JUnitReportBinding.model_validate(evidence.metadata["binding"])
+            # Recheck actual retained artifact/XML through the original verifier.
+            checked = verify_junit(
+                restored,
+                run_id=run.run_id,
+                artifact=directory / "answer.txt",
+                report=directory / "independent.xml",
+                binding=binding,
+                observed_at=evidence.observed_at,
+            )
+            require(checked.result == evidence.result, "verification result mismatch")
+            with (directory / "answer.txt").open("rb") as stream:
+                require(
+                    stream.read(65) == (b"41\n" if i else b"42\n"),
+                    "reviewed fictional artifact mismatch",
+                )
+            rows = portable.resolve_bundle(
+                bundle, cutoff=envelope.request.cutoff
+            ).observations
+            require(len(rows) == 1, "expected one resolved observation")
+            row = rows[0]
+            require(row.eligible_for_configuration_learning, "ineligible outcome")
+            require(
+                row.outcome_status.value == ("failure" if i else "success"),
+                "fictional outcome mismatch",
+            )
+            path = root / f"forecast-{i}.json"
+            frozen = json.loads(path.read_text())
+            cutoff = datetime.fromisoformat(frozen["cutoff"])
+            reconstructed = forecast(
+                [
+                    r
+                    for b in bundles
+                    for r in portable.resolve_bundle(b, cutoff=cutoff).observations
+                ],
+                policy=policy,
+                task_id=task.task_id,
+                run_id=run.run_id,
+                configuration=CONFIG,
+                cutoff=cutoff,
+            )
+            require(
+                json.loads(json.dumps(asdict(reconstructed))) == frozen,
+                "historical forecast mismatch",
+            )
+            checksum = (root / f"forecast-{i}.sha256").read_text().strip()
+            scores.append(score_frozen(path, checksum, row))
+            checksums.append(checksum)
+            probabilities.append(frozen["predictions"][0]["probability"])
+            bundles.append(bundle)
+    require(tuple(bundles) == envelope.bundles, "advisory evidence mismatch")
+    advice = advise(envelope.request, bundles=bundles)
+    require(
+        advice == json.loads((root / "advisory.json").read_text()), "advisory mismatch"
+    )
+    summary = {
+        "origin": "fictional-offline-only",
+        "scores": scores,
+        "forecast_sha256": checksums,
+        "eligible_outcomes": advice["eligible_source_count"],
+        "policy_fingerprint": policy.fingerprint,
+        "forecast_probabilities": probabilities,
+    }
+    require(
+        summary == json.loads((root / "summary.json").read_text()), "summary mismatch"
+    )
+    return summary
+
+
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-directory", type=Path)
-    arguments = parser.parse_args()
-    if arguments.output_directory:
-        arguments.output_directory.mkdir(parents=True, exist_ok=False)
-        print(json.dumps(demonstrate(arguments.output_directory), indent=2))
-    else:
-        with TemporaryDirectory(prefix="model-learner-w6b-") as temporary:
-            print(json.dumps(demonstrate(Path(temporary)), indent=2))
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
+        "--output-directory", type=Path, help="Retain in a new directory."
+    )
+    mode.add_argument("--replay-directory", type=Path, help="Check retained evidence.")
+    arguments = parser.parse_args(argv)
+    try:
+        if arguments.replay_directory:
+            summary = replay(arguments.replay_directory)
+        elif arguments.output_directory:
+            arguments.output_directory.mkdir(parents=True, exist_ok=False)
+            demonstrate(arguments.output_directory)
+            summary = replay(arguments.output_directory)
+        else:
+            with TemporaryDirectory(prefix="model-learner-w6b-") as temporary:
+                root = Path(temporary)
+                demonstrate(root)
+                summary = replay(root)
+    except (
+        OSError,
+        ValueError,
+        KeyError,
+        IndexError,
+        TypeError,
+        StorageError,
+    ) as error:
+        # Avoid echoing file contents or arbitrary validation input on refusal.
+        parser.exit(1, f"Fictional demo/replay refused ({type(error).__name__}).\n")
+    print(json.dumps(summary, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    main()

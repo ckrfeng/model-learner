@@ -7,6 +7,10 @@ No missing production interface was reproduced. No new manifest, adapter, CLI,
 agent launcher or execution service was needed. The new example and 42 acceptance
 tests provide the integration evidence; they do not establish external trust.
 
+For the W7A single-command introduction and retained replay, see the
+[newcomer offline demo guide](OFFLINE_DEMO.md). The original operator workflow
+and trust limits below still apply.
+
 ## Reproduce the operator workflow
 
 Use the installed environment from the repository root. The default invocation

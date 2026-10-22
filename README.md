@@ -29,6 +29,14 @@ for development; uv can download it if needed. `uv sync` uses `uv.lock`, creates
 Activate the environment with `source .venv/bin/activate` to use `model-learner`
 directly.
 
+## Try the fictional offline demo
+
+Run `.venv/bin/python -B scripts/external_handoff_example.py` from this checkout
+to exercise verification, learning, frozen scoring and advice without a model or
+network call. See the [newcomer demo guide](docs/OFFLINE_DEMO.md) for expected
+results, retained evidence and replay. This is fictional integration evidence;
+real coding-agent end-to-end acceptance remains pending.
+
 ## Local ledger
 
 Initialize an ignored local database, then create tasks and register sessions

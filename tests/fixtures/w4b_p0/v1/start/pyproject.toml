@@ -1,0 +1,15 @@
+# Synthetically constructed starting configuration; intentionally incomplete.
+[project]
+name = "signal-note"
+version = "0.1.0"
+description = "Fictional offline note formatter."
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.signal_note]
+default_style = "compact"
+retention_days = 7
+
+[tool.signal_note.labels]
+team = "fictional"
+channel = "local"

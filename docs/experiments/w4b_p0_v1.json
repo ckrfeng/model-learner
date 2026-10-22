@@ -1,0 +1,235 @@
+{
+  "version": "w4b-p0-prerun/1",
+  "preparation_only": true,
+  "task": {
+    "id": "w4b-p0-signal-note",
+    "version": "1",
+    "origin": "synthetically_constructed",
+    "group": "synthetic-config-repair",
+    "meaning": "One public exercise; future actual execution is real-on-synthetic, not natural repository work."
+  },
+  "starting_workspace": [
+    {
+      "path": "tests/fixtures/w4b_p0/v1/start/pyproject.toml",
+      "sha256": "c028ee621c2900049775d8b1114d6dff31d45c56c8a4984d8a3054e96f561f69",
+      "workspace_path": "pyproject.toml"
+    }
+  ],
+  "instruction": {
+    "path": "tests/fixtures/w4b_p0/v1/TASK.md",
+    "sha256": "586cfc26363d4a43ff11f84a205eea826c6866fb5278e91b0694a472e07a250c",
+    "workspace_path": "TASK.md",
+    "read_only": true
+  },
+  "allowed_outputs": [
+    "pyproject.toml"
+  ],
+  "acceptance": {
+    "id": "w4b-p0-signal-note-data",
+    "version": "1",
+    "maximum_artifact_bytes": 8192,
+    "required_test_ids": [
+      "w4b_p0_v1::artifact_regular",
+      "w4b_p0_v1::toml_parse",
+      "w4b_p0_v1::package_metadata",
+      "w4b_p0_v1::python_requirement",
+      "w4b_p0_v1::build_system",
+      "w4b_p0_v1::cli_entry",
+      "w4b_p0_v1::dev_requirements",
+      "w4b_p0_v1::lint_format",
+      "w4b_p0_v1::preservation"
+    ],
+    "success": "All nine exact data cases pass; complete no-skip report; independently controlled operator check and valid binding required. Canonical Task acceptance uses the separately approved resource target identity."
+  },
+  "checker": {
+    "path": "scripts/check_w4b_p0.py",
+    "sha256": "73580780616176f2dc97443e7ab6e02afdb023cf56e6a92a124c8b0c8d8e2cae",
+    "version": "w4b-p0-toml-checker/1",
+    "control": "external_operator_outside_candidate_workspace",
+    "runtime": "Python >=3.12 stdlib only",
+    "report_format": "junit",
+    "independence": "pending external control evidence; hashes prove content identity only"
+  },
+  "dataset_proposal": {
+    "source_kind": "real",
+    "dataset_id": "real-on-synthetic-w4b-p0",
+    "dataset_version": "1",
+    "origin": "actual_external_execution_on_public_synthetic_task",
+    "approval": "pending; no benchmark relabeling; no preparation evidence or natural-work pooling"
+  },
+  "candidate_configuration_proposal": {
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "reasoning_level": "medium",
+    "harness": "codex.exec",
+    "model_version": null,
+    "harness_version": null,
+    "availability": "pending",
+    "effective_configuration": "unverified"
+  },
+  "execution": {
+    "attempts": 1,
+    "retries": 0,
+    "runtime_status": "EXTERNAL_RUNTIME_UNAPPROVED",
+    "runtime_identity": null,
+    "proposal": "operator-run Codex CLI in a separately selected isolated environment; ordinary same-user CLI is insufficient",
+    "requirements": [
+      "candidate workspace only: exact public instruction and start artifact",
+      "candidate cannot access checker, reports, receiver or evidence store",
+      "harness credential isolation from candidate",
+      "frozen tool/network/integration policy",
+      "supported actual model/configuration/execution and capture identity",
+      "defined completion, descendant termination, cancellation and controller-failure stop",
+      "immutable artifact handoff after candidate access ends",
+      "operator-controlled independent verification and trusted first-receipt receiver",
+      "preserve incomplete/ambiguous run and all exclusions; no retry"
+    ]
+  },
+  "forecast_cutoff": {
+    "procedure": [
+      "Only after exact approvals, create Task with chosen target and predeclare Run UUID",
+      "Freeze CompatibilityPolicy dataset, acceptance, budget, task/config universe before cutoff",
+      "Resolve only earlier legitimately received scoped evidence; no private history assumed",
+      "forecast then freeze exclusively; trusted receiver retains returned SHA-256 before launch",
+      "Score original bytes/digest after independently resolved eligible label; retain unknown/unscored cases"
+    ],
+    "forecast_created": false,
+    "run_id": null,
+    "cutoff": null,
+    "sha256": null
+  },
+  "resource_targets": [
+    {
+      "proposal": "canonical-duration",
+      "acceptance_id": "w4b-p0-signal-note-duration",
+      "version": "1",
+      "budget": {
+        "max_duration_seconds": 600
+      },
+      "measurement": "complete accepted attributed Attempt.latency_seconds under existing semantics",
+      "status": "pending; no measurement coverage demonstrated",
+      "unknown_measurement": "budget_duration_unknown; benchmark path independently budget_measurements_not_supported"
+    },
+    {
+      "proposal": "separate-acceptance-only",
+      "acceptance_id": "w4b-p0-signal-note-acceptance-only",
+      "version": "1",
+      "budget": null,
+      "meaning": "distinct Task/target if approved before run; no duration-bounded statistics",
+      "status": "pending explicit human approval; recommended for consideration only"
+    }
+  ],
+  "selected_resource_target": null,
+  "w4a_preservation": {
+    "duration_policy": "Option A",
+    "max_duration_seconds": 600,
+    "acceptance_version_changed": false,
+    "policy_changed": false
+  },
+  "exposure": {
+    "proposed_safety_timeout_seconds": 600,
+    "safety_stop_enforcement": "unproven; not canonical latency",
+    "token_limit": null,
+    "subscription_allowance": "pending explicit confirmation and approval, separate from monetary spend",
+    "new_api_spend_authorized": false,
+    "monetary_limit": null,
+    "operator_time_limit": null,
+    "billing": null,
+    "cost_usd": null,
+    "native_latency_seconds": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "model_revision": null,
+    "stop_guarantee": null,
+    "unknowns_block_launch": "Human must set finite limits and explicitly accept/reject unenforceable exposure."
+  },
+  "evidence_handoff": [
+    {
+      "facts": "Task identity, chosen acceptance/version, required IDs, start/config/checker hashes",
+      "api": "Task; AcceptanceSpec; junit_criterion; ExecutionConfiguration; CompatibilityPolicy",
+      "basis": "pre-run operator declaration, received at actual time"
+    },
+    {
+      "facts": "frozen forecast, cutoff, preselected Run UUID, original bytes/digest custody",
+      "api": "forecast; freeze; score_frozen",
+      "basis": "trusted receiver custody before execution; no P0 real forecast"
+    },
+    {
+      "facts": "actual capture, native Session, explicit Task/Run/Attempt joins and declared/observed config",
+      "api": "capture_codex_stream; ingest_codex_capture; Run; Attempt; TaskSessionLink; RunSessionLink",
+      "basis": "supported captured events and separate operator launch/stop declarations; no guessed measurements"
+    },
+    {
+      "facts": "stopped artifact digest, complete trusted XML, report digest, actual report time/completion/exit",
+      "api": "JUnitReportBinding; verify_junit",
+      "basis": "immutable handoff and externally independent operator; producer success/XML is insufficient"
+    },
+    {
+      "facts": "execution-only approved intake then dependencies and actual first arrivals",
+      "api": "scoped_bundle; import_bundle; ReceiptBook.capture",
+      "basis": "receiver clock per new identity/digest; persist sidecar; never copy producer receipt authority"
+    },
+    {
+      "facts": "outcome, explicit verification-to-Attempt binding, eligible/ineligible row and reasons",
+      "api": "assess_run; build_real_observation; scoped_bundle verification_attempts; resolve_bundle",
+      "basis": "existing verification/attribution/resource/receipt rules; unsupported metrics null"
+    },
+    {
+      "facts": "frozen forecast score, deduplicated learner update, later read-only advice",
+      "api": "score_frozen; BetaBernoulli; advise",
+      "basis": "resolved eligible row only; no refit, model selection or batch inference"
+    }
+  ],
+  "approvals": [
+    {
+      "id": "contract-trust",
+      "status": "pending",
+      "requires": "Approve exact public hashes, required IDs, operator/checker/receiver identities and external independence evidence."
+    },
+    {
+      "id": "external-environment",
+      "status": "pending",
+      "requires": "Name pinned validated runtime and approved input/output/tool/network/credential/termination boundaries."
+    },
+    {
+      "id": "configuration-attempt",
+      "status": "pending",
+      "requires": "Confirm gpt-6.1-sol medium availability/effective settings; one attempt, zero retries or substitutions."
+    },
+    {
+      "id": "target-dataset",
+      "status": "pending",
+      "requires": "Select exactly one versioned resource target and approve segregated real-on-synthetic dataset before canonical Task creation."
+    },
+    {
+      "id": "finite-exposure",
+      "status": "pending",
+      "requires": "Confirm existing subscription allowance and finite token/safety/monetary/operator limits with enforcement or explicit accepted unknowns; no new spend proposed."
+    },
+    {
+      "id": "chronology-handoff",
+      "status": "pending",
+      "requires": "Approve pre-run forecast digest custody, actual receiver first receipts, immutable artifact and incomplete-run handling."
+    }
+  ],
+  "real_execution_records_created": false,
+  "current_turn_metadata": {
+    "project_registration": "5e9ee82f-ab79-435f-a8c9-8bb3c4b689d3; list_projects path matches cwd",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning": "medium",
+    "effective_model_independently_verified": false,
+    "effective_reasoning_independently_verified": false,
+    "reason": "Supported tool metadata exposes no effective current-turn model/reasoning. No model override, agent launch or availability call performed."
+  },
+  "baseline": {
+    "branch": "main",
+    "head": "1aa916bb0708091b5dc94accb4ebda2e93f9d7a7",
+    "cached_origin_main": "1aa916bb0708091b5dc94accb4ebda2e93f9d7a7",
+    "remote": "https://github.com/ckrfeng/model-learner.git",
+    "live_remote_fetched": false,
+    "initial_index_worktree": "clean",
+    "preexisting_public_work": [],
+    "initial_index_sha256": "2433a67ac1c3caddbd0815e0015d778d576b926ac8b4395068d362f6f390b7f4"
+  },
+  "stop": "Offline package only; no W4B pass, real run, runtime implementation, W5 or next W7 increment."
+}

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 from model_learner.understanding.decisions_offline import (
-    LOCAL_SCHEMA,
+    WIRE_VERSION,
     FakeTransport,
     fixture_request,
     parse_fixture_response,
@@ -148,25 +148,24 @@ def metrics(
 
 
 def mock_response() -> bytes:
-    """Same fixed answers for every task, chosen without any labels or input text."""
+    """Same fixed answers for every task, chosen without labels or input text."""
     return canonical(
         {
-            "schema": LOCAL_SCHEMA,
             "model": None,
             "provider": None,
             "usage": None,
-            "answers": [
-                {
-                    "id": QUESTIONS[0].id,
-                    "kind": "choice",
-                    "label": "unclear",
+            "id": None,
+            "answers": {
+                QUESTIONS[0].id: {
+                    "type": "choice",
+                    "choice": "unclear",
                     "confidence": 1.0,
-                    "distribution": {
+                    "probabilities": {
                         label: float(label == "unclear") for label in LABELS
                     },
                 },
-                {"id": QUESTIONS[1].id, "kind": "noul", "true_probability": 0.5},
-            ],
+                QUESTIONS[1].id: {"type": "noul", "noul": 0.5},
+            },
         }
     )
 
@@ -230,7 +229,8 @@ def evaluate_development(
         "external_model_evidence": (
             "none; mocked plumbing is not Jev accuracy/calibration"
         ),
-        "wire_contract_status": "blocked; local fixture schema only",
+        "wire_contract_status": "published examples implemented; live routing blocked",
+        "wire_version": WIRE_VERSION,
         "billing_coverage": {
             "n": len(receipts),
             "known_cost": sum(r["reported_cost_usd"] is not None for r in receipts),

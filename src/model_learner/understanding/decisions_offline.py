@@ -1,18 +1,19 @@
-"""Offline fixture boundary, NOT an implementation of the unverified alpha API.
+"""Offline implementation of supplied OpenRouter Decisions examples.
 
-No HTTP library, credential loading, DNS, retries or live transport is provided.
-The fixture envelope and typed answers deliberately identify their local schema.
+No HTTP library, credential loading, DNS, retries or live transport. Published
+examples establish demonstrated shapes, not routing support or a normative schema.
 """
 
 from __future__ import annotations
 
 import json
 import math
+import re
 from dataclasses import dataclass
 
 from model_learner.understanding.intent import (
     QUESTIONS,
-    VERSION,
+    SCORE_CONTROL,
     Prediction,
     Question,
     canonical,
@@ -21,37 +22,85 @@ from model_learner.understanding.intent import (
 ORIGIN = "https://openrouter.ai"
 PATH = "/api/alpha/decisions"
 MODEL = "typesafe/jev-1.14"
+PUBLISHED_RETURNED_MODEL = "typesafe/jev-1.14-20261014"
+PROVIDER_SLUG = "typesafe"
+PREVIOUS_WIRE_VERSION = "openrouter-decisions-published-examples/v1"
+WIRE_VERSION = "openrouter-decisions-published-examples/v2"
+CHOICE_CRITERIA = {
+    "bug_fix": "Restore stated existing intended behavior.",
+    "new_feature": "Add stated new behavior.",
+    "refactor": "Reorganize executable implementation while preserving behavior.",
+    "investigation": "Diagnose, compare or explain without a requested repair.",
+    "documentation": "Change prose or examples intended only as documentation.",
+    "unclear": (
+        "No clear primary intent: equal independent objectives, vague requests, "
+        "or insufficient context."
+    ),
+}
+SCORE_INSTRUCTIONS = (
+    "Classify the current fill level of the fictional tank using these ordered levels."
+)
+SCORE_CRITERIA = (
+    "Empty: the fictional tank contains no liquid.",
+    "Partially filled: the fictional tank contains some liquid below capacity.",
+    "Full: the fictional tank is at capacity.",
+)
 CREDENTIAL_NAME = "OPENROUTER_API_KEY"  # Name only; never read here.
 MAX_REQUEST_BYTES = 16 * 1024
 MAX_RESPONSE_BYTES = 32 * 1024
 MAX_DESCRIPTION_BYTES = 4096
 MAX_INPUT_TOKEN_PLAN = 20_000
 MAX_OUTPUT_TOKEN_PLAN = 512
-LOCAL_SCHEMA = "j1-local-fixture/v1"
-TOLERANCE = 1e-6  # LOCAL tolerance; official alpha float tolerance is unverified.
+TOLERANCE = 1e-6  # Conservative local validation tolerance; official tolerance unknown.
 
 
 class ContractUnavailable(ValueError):
-    """Official captured schema/provider route required before wire implementation."""
+    """Provider routing/enforcement not established for this endpoint."""
 
 
 def serialize_decisions(*args, **kwargs) -> bytes:
-    """Fail closed instead of inventing an official provider-bound request."""
-    raise ContractUnavailable("official Decisions schema and provider slug unverified")
+    """Live use is always blocked; documented example bytes are fake-only."""
+    raise ContractUnavailable(
+        "Decisions provider filtering/fallback enforcement unverified"
+    )
+
+
+def question_definition(question: Question) -> dict:
+    """Map frozen internal semantics onto the published typed field names."""
+    value = {"type": question.kind, "instructions": question.prompt}
+    if question.kind == "choice":
+        if question.labels != QUESTIONS[0].labels:
+            raise ValueError("no frozen descriptions for these choice criteria")
+        value["criteria"] = {label: CHOICE_CRITERIA[label] for label in question.labels}
+    elif question.kind == "score":
+        if question.levels != tuple(float(i) for i in range(len(question.levels))):
+            raise ValueError("published score levels must be zero-based indices")
+        if question != SCORE_CONTROL:
+            raise ValueError("no frozen descriptions for this score control")
+        value["instructions"] = SCORE_INSTRUCTIONS
+        value["criteria"] = list(SCORE_CRITERIA)
+    return value
 
 
 def fixture_request(
-    description: str, *, input_token_plan: int = 4096, output_token_plan: int = 256
+    description: str,
+    *,
+    input_token_plan: int = 4096,
+    output_token_plan: int = 256,
+    questions: tuple[Question, ...] = QUESTIONS,
 ) -> bytes:
-    """Local projection of task text/questions only; cannot be sent to a provider.
+    """Published request fields only, for the offline fake transport.
 
-    Bytes and token plans are independent limits, neither is an enforceable USD cap.
-    A reviewed fictional caller is required; this is not a private-text sanitizer.
+    Routing/output enforcement is unverified: no invented provider or token fields
+    are added. Planning limits/policy remain local and cannot authorize live use.
+    Only reviewed fictional caller inputs are appropriate; not a text sanitizer.
     """
     if type(description) is not str or not description.strip():
         raise ValueError("a nonblank fictional description is required")
     if len(description.encode()) > MAX_DESCRIPTION_BYTES:
         raise ValueError("description byte bound")
+    if not 1 <= len(questions) <= 2 or len({q.id for q in questions}) != len(questions):
+        raise ValueError("one or two distinct questions required")
     for value, maximum in (
         (input_token_plan, MAX_INPUT_TOKEN_PLAN),
         (output_token_plan, MAX_OUTPUT_TOKEN_PLAN),
@@ -60,20 +109,9 @@ def fixture_request(
             raise ValueError("token planning bound")
     body = canonical(
         {
-            "schema": LOCAL_SCHEMA,
-            "contract": VERSION,
-            "target": {
-                "origin": ORIGIN,
-                "path": PATH,
-                "method": "POST",
-                "model": MODEL,
-            },
-            "provider": {"allow_fallbacks": False},
-            "provider_slug": None,
+            "model": MODEL,
             "state": description,
-            "questions": [q.model_dump(mode="json") for q in QUESTIONS],
-            "input_token_plan": input_token_plan,
-            "output_token_plan": output_token_plan,
+            "questions": {q.id: question_definition(q) for q in questions},
         }
     )
     if len(body) > MAX_REQUEST_BYTES:
@@ -133,66 +171,59 @@ def keys(value, expected):
 
 
 def parse_answer(answer: dict, question: Question) -> dict:
-    """Strict LOCAL typed parser; deliberately no model-generated explanation."""
+    """Parse the demonstrated Choice/Noul/Score answer shape, without reasoning."""
     fields = {
-        "choice": {"id", "kind", "label", "confidence", "distribution"},
-        "noul": {"id", "kind", "true_probability"},
-        "score": {"id", "kind", "weighted_score", "levels", "confidence"},
+        "choice": {"type", "choice", "confidence", "probabilities"},
+        "noul": {"type", "noul"},
+        "score": {"type", "score", "legend", "probabilities", "confidence"},
     }
     keys(answer, fields[question.kind])
-    if answer["id"] != question.id or answer["kind"] != question.kind:
-        raise ValueError("answer identity/type mismatch")
+    if answer["type"] != question.kind:
+        raise ValueError("answer type mismatch")
     if question.kind == "noul":
-        return {"true_probability": number(answer["true_probability"])}
-    number(answer["confidence"])
+        return {"true_probability": number(answer["noul"])}
+    confidence = number(answer["confidence"])
+    labels = (
+        question.labels
+        if question.kind == "choice"
+        else tuple(str(i) for i in range(len(question.levels)))
+    )
+    keys(answer["probabilities"], labels)
+    distribution = {k: number(v) for k, v in answer["probabilities"].items()}
+    if abs(sum(distribution.values()) - 1) > TOLERANCE:
+        raise ValueError("invalid distribution total")
     if question.kind == "choice":
-        keys(answer["distribution"], question.labels)
-        distribution = {k: number(v) for k, v in answer["distribution"].items()}
-        label = answer["label"]
+        label = answer["choice"]
         if type(label) is not str or label not in question.labels:
             raise ValueError("undeclared label")
-        if abs(sum(distribution.values()) - 1) > TOLERANCE:
-            raise ValueError("invalid distribution total")
-        if abs(answer["confidence"] - distribution[label]) > TOLERANCE:
-            raise ValueError("confidence contradicts label probability")
-        if distribution[label] + TOLERANCE < max(distribution.values()):
-            raise ValueError("choice label contradicts distribution")
-        return {
-            "label": label,
-            "confidence": answer["confidence"],
-            "distribution": distribution,
-        }
-    levels = answer["levels"]
-    if type(levels) is not list or len(levels) != len(question.levels):
-        raise ValueError("invalid score levels")
-    probabilities = []
-    for item, level in zip(levels, question.levels, strict=True):
-        keys(item, {"value", "probability"})
-        if number(item["value"], -1000, 1000) != level:
-            raise ValueError("mismatched score level")
-        probabilities.append(number(item["probability"]))
-    weighted = number(
-        answer["weighted_score"], min(question.levels), max(question.levels)
-    )
-    if (
-        abs(sum(probabilities) - 1) > TOLERANCE
-        or abs(
-            weighted
-            - sum(p * v for p, v in zip(probabilities, question.levels, strict=True))
-        )
-        > TOLERANCE
+        # Confidence is separate from category probability in the published shape.
+        return {"label": label, "confidence": confidence, "distribution": distribution}
+    definition = question_definition(question)
+    keys(answer["legend"], labels)
+    if any(
+        type(text) is not str or not text.strip() or len(text) > 2048
+        for text in answer["legend"].values()
     ):
+        raise ValueError("invalid score legend")
+    if answer["legend"] != dict(zip(labels, definition["criteria"], strict=True)):
+        raise ValueError("score legend differs from requested criteria")
+    weighted = number(answer["score"], min(question.levels), max(question.levels))
+    expected = sum(
+        distribution[str(i)] * level for i, level in enumerate(question.levels)
+    )
+    if abs(weighted - expected) > TOLERANCE:
         raise ValueError("inconsistent weighted score")
     return {
         "weighted_score": weighted,
-        "confidence": answer["confidence"],
-        "levels": levels,
+        "confidence": confidence,
+        "levels": dict(zip(labels, question.levels, strict=True)),
     }
 
 
 def usage_projection(usage) -> dict:
-    """Provisional OpenRouter-style usage projection; not alpha-contract verified.
+    """Project the usage fields in the supplied official Decisions example.
 
+    This is the documented example subset, not a complete normative schema.
     Only scalar usage.cost is treated as reported USD, never X-Jev headers.
     Unknown/malformed is null, explicit zero remains zero; no charge estimate.
     """
@@ -209,8 +240,8 @@ def usage_projection(usage) -> dict:
         return result | {"usage_status": "malformed"}
     malformed = False
     for source, target in (
-        ("prompt_tokens", "input_tokens"),
-        ("completion_tokens", "output_tokens"),
+        ("input_tokens", "input_tokens"),
+        ("output_tokens", "output_tokens"),
         ("cost", "reported_cost_usd"),
     ):
         value = usage.get(source)
@@ -240,30 +271,29 @@ def usage_projection(usage) -> dict:
     }
 
 
-def parse_fixture_response(body: bytes) -> tuple[Prediction, dict]:
+def parse_response(
+    body: bytes, *, questions: tuple[Question, ...] = QUESTIONS
+) -> tuple[dict, dict]:
+    """Validate published example fields; null metadata preserves unknown fixtures.
+
+    No result here establishes routing enforcement, live completion or verification.
+    Returned model identities are explicitly admitted, never inferred from a slug.
+    """
     value = decode(body, MAX_RESPONSE_BYTES)
-    keys(value, {"schema", "answers", "model", "provider", "usage"})
-    if value["schema"] != LOCAL_SCHEMA:
-        raise ValueError("unsupported local response schema")
-    if value["model"] not in (None, MODEL) or value["provider"] not in (
-        None,
-        "TypeSafe",
-    ):
+    keys(value, {"answers", "model", "provider", "usage", "id"})
+    if value["model"] not in (None, MODEL, PUBLISHED_RETURNED_MODEL) or value[
+        "provider"
+    ] not in (None, "TypeSafe"):
         raise ValueError("unexpected reported model/provider")
-    answers = value["answers"]
-    if type(answers) is not list or len(answers) != len(QUESTIONS):
-        raise ValueError("exact answer set required")
-    if any(type(a) is not dict or type(a.get("id")) is not str for a in answers):
-        raise ValueError("invalid answer identity")
-    mapping = {a["id"]: a for a in answers}
-    if len(mapping) != len(answers) or set(mapping) != {q.id for q in QUESTIONS}:
-        raise ValueError("missing/extra/duplicate answer IDs")
-    choice, binary = [parse_answer(mapping[q.id], q) for q in QUESTIONS]
-    return Prediction(
-        intent=choice["label"],
-        code_probability=binary["true_probability"],
-        origin="mocked_external_model",
-    ), {
+    generation = value["id"]
+    if generation is not None and (
+        type(generation) is not str
+        or not re.fullmatch(r"gen-dec-[A-Za-z0-9-]{1,120}", generation)
+    ):
+        raise ValueError("invalid generation identity")
+    keys(value["answers"], {q.id for q in questions})
+    parsed = {q.id: parse_answer(value["answers"][q.id], q) for q in questions}
+    return parsed, {
         "requested_model": MODEL,
         "reported_model": value["model"],
         "effective_model_revision": None,
@@ -271,7 +301,7 @@ def parse_fixture_response(body: bytes) -> tuple[Prediction, dict]:
         "routing_status": "unknown"
         if value["provider"] is None
         else "mocked_declaration",
-        "generation_id": None,
+        "generation_id": generation,
         "timestamp": None,
         "local_receipt": None,
         "completion": "mocked",
@@ -279,12 +309,26 @@ def parse_fixture_response(body: bytes) -> tuple[Prediction, dict]:
     }
 
 
+def parse_fixture_response(body: bytes) -> tuple[Prediction, dict]:
+    parsed, receipt = parse_response(body)
+    return Prediction(
+        intent=parsed[QUESTIONS[0].id]["label"],
+        code_probability=parsed[QUESTIONS[1].id]["true_probability"],
+        origin="mocked_external_model",
+    ), receipt
+
+
 @dataclass
 class FakeTransport:
-    """Single-use local bytes fixture; has no HTTP capability or credential field."""
+    """Single-use, no HTTP capability. Required route policy is out of band.
+
+    It rejects unverified provider fields, never pretending they are supported.
+    A fake's route-policy check is not real endpoint enforcement.
+    """
 
     response: bytes | Exception
     calls: int = 0
+    questions: tuple[Question, ...] = QUESTIONS
 
     def send(
         self,
@@ -295,6 +339,8 @@ class FakeTransport:
         method="POST",
         status=200,
         redirected=False,
+        allow_fallbacks=False,
+        provider_only=(PROVIDER_SLUG,),
     ) -> bytes:
         if self.calls:
             raise ValueError("one local attempt only; retries forbidden")
@@ -305,28 +351,37 @@ class FakeTransport:
             or status != 200
         ):
             raise ValueError("target/status/redirect rejected")
+        if allow_fallbacks is not False or provider_only != (PROVIDER_SLUG,):
+            raise ValueError("fallback/provider substitution rejected")
         request = decode(body, MAX_REQUEST_BYTES)
         if type(request) is not dict or type(request.get("state")) is not str:
-            raise ValueError("invalid fixture request")
-        expected = fixture_request(
-            request["state"],
-            input_token_plan=request.get("input_token_plan"),
-            output_token_plan=request.get("output_token_plan"),
-        )
-        if body != expected:
-            raise ValueError("altered fixture target/questions/provider/bounds")
+            raise ValueError("invalid request")
+        if body != fixture_request(request["state"], questions=self.questions):
+            raise ValueError(
+                "altered model/questions or unsupported provider/bounds fields"
+            )
         if isinstance(self.response, Exception):
             raise self.response
-        decode(self.response, MAX_RESPONSE_BYTES)
+        value = decode(self.response, MAX_RESPONSE_BYTES)
+        usage = usage_projection(value.get("usage") if type(value) is dict else None)
+        for field, maximum in (
+            ("input_tokens", MAX_INPUT_TOKEN_PLAN),
+            ("output_tokens", MAX_OUTPUT_TOKEN_PLAN),
+            ("reported_cost_usd", 1),
+        ):
+            if usage[field] is not None and usage[field] > maximum:
+                raise ValueError("reported usage exceeds local offline cap")
         return self.response
 
 
 def readiness() -> dict:
-    """Evidence packet only. Cannot enable a live call even with local credentials."""
+    """Offline packet only. No enabling path, even with a local credential."""
     return {
         "version": "jev-one-request-readiness/v1",
         "ready": False,
         "mode": "offline_only",
+        "wire_examples": WIRE_VERSION,
+        "schema_basis": "supplied_official_examples; not_complete_normative_schema",
         "credential_name": CREDENTIAL_NAME,
         "credential_read": False,
         "origin": ORIGIN,
@@ -334,8 +389,12 @@ def readiness() -> dict:
         "method": "POST",
         "requested_model": MODEL,
         "intended_provider": "TypeSafe",
-        "provider_slug": None,
+        "provider_slug": PROVIDER_SLUG,
+        "provider_slug_basis": "user-supplied official provider/model pages",
+        "required_provider_only": [PROVIDER_SLUG],
         "allow_fallbacks": False,
+        "routing_fields_serialized": False,
+        "routing_controls_verified": False,
         "retries": 0,
         "max_requests": 1,
         "max_exposure_usd": 1,
@@ -344,9 +403,9 @@ def readiness() -> dict:
         "max_request_bytes": MAX_REQUEST_BYTES,
         "max_response_bytes": MAX_RESPONSE_BYTES,
         "blockers": [
-            "official_request_response_schema",
+            "provider_filter_and_fallback_enforcement",
             "official_float_tolerance",
-            "provider_slug_and_exact_route",
+            "provider_output_limit_enforcement",
             "credential_account_key_limits",
             "remaining_prepaid_balance",
             "exact_model_pricing_and_billing_terms",

@@ -51,6 +51,6 @@ if __name__ == "__main__":
     output = repository / ".model-learner/j1-offline-v1/synthetic-report.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
-    print("PARTIAL: fictional local plumbing passed; official wire contract blocked.")
+    print("PARTIAL: fictional local plumbing passed; live routing contract blocked.")
     print("8 development cases; 16 untouched holdout; zero paid requests.")
     print("Report: .model-learner/j1-offline-v1/synthetic-report.json")

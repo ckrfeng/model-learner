@@ -1,6 +1,72 @@
 # Model Learner status
 
+## First real public coding-task acceptance — 2026-10-23
+
+**Narrow M0–M4 observer flow complete for one public task on the supported local
+Codex CLI path. Overall Model Learner work remains open.** The task implemented
+`normalize_line_endings(text)` against four frozen, intentionally public cases.
+The independently authored public checker was unchanged and rerun by the operator
+outside candidate access against the stopped immutable artifact: **4 passed,
+0 failed, 0 skipped**, checker exit 0. Candidate process was reaped and its public
+workspace removed before that independent check. No implementation was added to
+the product source.
+
+| Acceptance criterion | Preserved evidence |
+| --- | --- |
+| Reproducible local setup | Previously published Python/uv lockfile and installed CLI setup evidence; installer was not rerun for this acceptance. |
+| Supported real local-agent capture | One corrected top-level `codex.exec` launch, parent/child exit 0/0, 18 metadata events, no capture diagnostics. |
+| Explicit task and acceptance linkage | Frozen task/starter/public checker and four required case identities linked to the actual session, bounded run and single declared configuration segment. |
+| Artifact-bound independent outcome | Exact stopped artifact and complete JUnit report bound to task/run/spec, artifact/report digests, generation time/source, completion and actual checker exit. Unknown assessment retained, then verified success appended. |
+| Eligible real observation/export | Existing builder returned one eligible `source_kind=real` observation, zero exclusions; eligibility was inspected before exporting one row. |
+| Idempotent reimport/rebuild | Identical capture inserted 0 events and recognized 18 duplicates; summary and observation identity stable; both unknown and verified assessments preserved. |
+
+Requested/operator-declared configuration: `gpt-6.1-sol`, medium,
+`codex.exec` / CLI `0.163.0-alpha.11`, local provider config ID
+`openai_no_retries`, backend label OpenAI. Native model/provider/reasoning fields
+were absent. Eligibility uses the existing explicit manual-configuration contract,
+not native identity attestation. Cost, native inference latency, model revision,
+runtime authentication/billing route and actual provider retry behavior remain
+unknown. Observed usage: 70,439 input tokens including 54,272 cached input;
+340 output tokens including 20 reasoning tokens. Subset counts are not added
+again. About **20.733 seconds is process wall time only**, not canonical Attempt
+latency. The 39 stderr bytes were `unclassified_nonempty`; raw text and meaning
+were not retained. Exhaustive native-tool isolation is not proven.
+
+Sanitized content bindings:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| Stopped public implementation | `3b6c3de2f75edbf8a64694ac1704d783b374c08e8e5f12c3bc519cf644bc907c` |
+| Independently generated JUnit report | `747b96a7c1d7ffbde8d4924ddfc9c607a5e06586b5fe3bca2e025ac9b0e0823e` |
+
+The coordinator independently checked all 33 preserved evidence artifacts and
+the report/artifact binding. Captures, ledger, receipts and execution identifiers
+remain private and ignored. Two earlier failed launches remain separate immutable
+history; no discarded diagnostic or historical cause is reconstructed here.
+
+The [finite acceptance matrix](docs/SYNTHETIC_CONTAINER_SUPERVISION.md#proposed-trusted-model-dispatch-decision--2026-10-23)
+now marks this narrow real coding-task endpoint complete. Trusted/custom model
+transport architecture is approved under standing authorization, but remains
+unimplemented and technically unaccepted; this ordinary CLI run did not validate
+it. W4B-P0 remains separately authorized but unexecuted.
+W4A graph coding/containment and the unchanged 600-second attributed Attempt-latency
+gates remain open. This single-task acceptance establishes no general model/task/
+provider/harness capability, statistical advantage or whole-product completion.
+
+This checkpoint changes documentation only, from a clean `main` baseline
+`be0d13fc90a8f7eeef0a7ad7767a6eec0fda0af1`. No pre-existing edits. Only document
+privacy, whitespace and local-link checks were run; no installer, candidate,
+test/verifier, import/replay, provider or runtime was rerun. No code/dependency/
+contract/budget change, staging, commit or push. All three edited documents passed
+those checks; no staged guard was run. Stop for coordinator review.
+
 ## Trusted model-dispatch architecture recommendation — 2026-10-23
+
+**Superseding authorization note:** standing human authorization approves the
+previously presented versioned trusted-dispatcher recommendation. The approval
+stops in this historical entry no longer apply; no renewed confirmation is
+required for that architecture. Implementation and technical acceptance remain
+open, including native-tool isolation, authentication/routing and spend evidence.
 
 **Documentation decision prepared; architecture change awaits human decision.**
 Started clean on `main`, HEAD/cached origin

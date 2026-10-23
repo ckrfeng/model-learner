@@ -2,6 +2,8 @@
 
 The latest finite disposal verification and passing synthetic acceptance are below.
 The earlier failed runtime evidence remains historical and unchanged.
+The finite matrix also records a separate real public CLI task; that acceptance
+does not establish this synthetic controller as a coding-agent backend.
 
 **Three bounded synthetic runtime cases passed; production use is unvalidated.** This
 increment adds only a fixed-data host controller and noncanonical receipt. It is
@@ -78,6 +80,13 @@ receipts cannot validate as Observation, Verification or AdvisoryInput.
 
 ## Proposed trusted model-dispatch decision — 2026-10-23
 
+**Current authorization supersedes the historical approval stop below:** the
+previously presented versioned trusted-dispatcher recommendation is approved under
+standing human authorization. No renewed architecture confirmation is needed.
+It is not implemented or technically accepted; tool-isolation, authentication/
+routing and spend gates still require evidence. The original recommendation and
+its then-pending decision are preserved below as history.
+
 **Recommendation: route 2, a purpose-built trusted host dispatcher, conditional
 on one human architecture decision. Not adopted or implemented.** Preserve the
 [W4B-P0 coding choice](W4B_P0_APPROVAL.md): OpenAI / `gpt-6.1-sol` / medium,
@@ -130,25 +139,29 @@ or a provider-side output bound. No paid request is admissible on those facts.
 The same exposure proof is required for any proposed coding endpoint; capability,
 entitlement, pricing and output enforcement are unknown until independently shown.
 
-Finite acceptance matrix; no gate is satisfied merely by this recommendation:
+Finite acceptance matrix, updated for the subsequent real public-task acceptance;
+the architecture recommendation itself satisfies no execution gate:
 
 The M0–M4 observational endpoint can use the existing supported local-agent capture
 workflow within its authorized task scope; it does not require turning Codex into
 a benchmark dispatcher. A custom harness cannot replace that real evidence with
 synthetic receipts or acquire a fabricated native-session identity.
 
-| Milestone | Current status | Exact remaining acceptance |
+| Milestone | Current status | Evidence / remaining acceptance |
 | --- | --- | --- |
-| M0–M4 first real product endpoint | Foundation/contracts/import/verifier paths exist; supported CLI metadata-only smoke capture/reimport passed historically. Full real task-to-outcome endpoint is incomplete. | Reproducible install; capture one supported real local-agent session with actual metadata; declare task/acceptance and link execution; bind independent verification to the exact artifact or retain honestly unknown outcome; export an eligible `source_kind=real` observation when evidence supports eligibility; reimport and rebuild summaries idempotently without losing assessments. An unknown outcome is valid evidence, not automatically an eligible success. |
-| Trusted model transport | Not implemented; installed CLI boundary unproven, route 2 pending decision. | Positive dispatch allowlist and clean-child sentinel; no worker/bridge/artifact credential; exact supported model/provider/effort and no fallback; provider-side output bound; first-call <=$1 and total <=min($15, proven remaining prepaid), with lower effective limits respected; external stop and actual usage/cost receipt. Unknown spend or identity fails admission. |
+| M0–M4 first real product endpoint | Complete for one public coding task and the supported local Codex CLI path. | Published setup evidence; 18 real captured metadata events; explicit frozen task/four-case linkage; stopped-artifact independent verification; one eligible real observation/export with zero exclusions; replay inserted 0 with 18 duplicates and stable summary/observation identity, retaining unknown and verified assessments. Configuration is operator-declared; native identity, cost and latency remain unknown. |
+| Trusted model transport | Route 2 architecture approved under standing authorization; not implemented or technically accepted. Installed CLI boundary remains unproven. | Positive dispatch allowlist and clean-child sentinel; no worker/bridge/artifact credential; exact supported model/provider/effort and no fallback; provider-side output bound; first-call <=$1 and total <=min($15, proven remaining prepaid), with lower effective limits respected; external stop and actual usage/cost receipt. Unknown spend or identity fails admission. |
 | Separate acceptance-only synthetic pilot | Frozen public W4B-P0 inputs/checker exist; user authorization is already given. No pilot executed. Synthetic lifecycle tests alone do not prove candidate execution. | Freeze the existing acceptance-only target and inputs/checker identities before launch; one attempt, zero retries; approved runtime and proven transport/exposure; only approved inputs enter worker; trusted immutable handoff/checker/receiver receipt. Implement and validate the missing bounded artifact/tool path before execution; no duration-learning claim or relabeling of the synthetic control receipt. |
 | W4A | Separate and incomplete; graph task/acceptance remain frozen. | Actual graph coding and containment gates plus attributed canonical Attempt-latency coverage under the unchanged 600-second budget. Operator wall time, local safety timeout or receipt span cannot substitute for Attempt latency. |
-| Final real end-to-end acceptance | Incomplete. | Complete the M0–M4 flow above with actual supported local-agent evidence and retained eligibility reasons/assessments. A new dispatcher needs truthful supported capture for its own harness; no fabricated Codex stream, second adapter or canonical schema change is authorized here. Fixture, synthetic-control, benchmark and inferred data remain separate from real evidence. |
+| Final real end-to-end acceptance | Narrow first-product flow complete for this one public task; overall product work remains open. | Actual supported CLI capture, bound independent verification, eligible real export and assessment-preserving replay satisfy the scoped M0–M4 criteria. No generalization to other models/providers/tasks/harnesses or duration learning. A future dispatcher still needs its own truthful supported capture; no fabricated Codex stream or schema change. Fixture, synthetic-control, benchmark and inferred data remain separate. |
 
 The acceptance-only pilot may demonstrate its frozen synthetic task; it cannot
-stand in for the final real product endpoint or W4A. No task, target, schema,
-threshold or budget is changed by this record. Stop for the architecture decision;
-implementation, provider proof and execution are not part of this step.
+stand in for the real product endpoint or W4A. The separate
+[real coding-task result and limits](../STATUS.md#first-real-public-coding-task-acceptance--2026-10-23)
+provide the narrow endpoint evidence. No task, target, schema, threshold or budget
+is changed. The architecture has standing approval, with no new confirmation
+gate; the ordinary CLI run did not implement or technically accept the custom
+dispatcher. Its technical evidence gates remain open.
 
 ## Actual acceptance evidence — 2026-10-23
 
@@ -379,7 +392,8 @@ requires a new instruction. Same-user malicious host actors,
 helper/launchd/VM failure, logout/reboot and comprehensive hostile-code safety are
 outside established evidence. No production watchdog or general guarantee exists.
 
-Model/auth relay remains absent; no credential, provider metadata, inference,
-coding agent, candidate, W4B pilot or payment occurred. Jev, W4A coding/containment/
-duration and final real E2E gates remain open. Exact commands, counts, files and
-repository checks are recorded in STATUS. Leave changes unstaged/uncommitted.
+Model/auth relay remains absent. No inference or coding candidate ran during the
+synthetic supervision validation; the separate ordinary real public CLI task is
+recorded in the matrix and STATUS. Jev, W4A coding/containment/duration, W4B-P0 and
+custom transport gates remain open. The narrow first real observer endpoint is
+complete; overall product work is not. Leave changes unstaged/uncommitted.

@@ -1,5 +1,41 @@
 # Model Learner status
 
+## Private typed dispatch admission contract — 2026-10-23
+
+Added private `benchmark._dispatch_contract` and hand-authored synthetic unit
+fixtures only. Host-selected task/checker snapshots, host-issued one-use call
+permits, one start attempt, controller-created lease binding and distinct opaque
+lease/artifact references support start, bounded status, stopped output and
+cleanup-only recovery. Exact task context, single-flight transitions, 25 ms poll
+cadence and existing controller deadlines are checked. Invalid or uncertain
+completion becomes indeterminate; start cannot be replayed. Rejections expose
+fixed enums only. State is host-owned memory, not a durable crash-safe registry.
+
+Private protocol bounds are 1,024 request bytes, 2,048 serialized reply bytes and
+2,048 host call IDs per instance; existing 64 KiB controller state, 1,024-byte
+handoff, 0.5–30 second lease and four-second command bounds remain unchanged.
+These protocol/cache bounds do not change task acceptance, spend budgets or the
+separate frozen 600-second W4A semantics. No public export, adapter, wire client,
+canonical observation/verification record or runtime behavior was added.
+
+Focused verification: **118 passed** with
+`PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -B -m pytest -q -p no:cacheprovider tests/unit/test_dispatch_contract.py`.
+Ruff check and format check passed for the two changed Python files. No configured
+type checker; no broad suite or runtime tests run. Synthetic controller boundary
+sentinels recorded zero calls, including recovery and rejection paths. An initial
+fixture polled two nanoseconds too early and was corrected before the passing run.
+
+Started clean on `main`, HEAD/cached origin
+`8e23b11f2b785158710292684fb582b08c0091a7`; no pre-existing edits. Source, tests and
+this status entry are unstaged for coordinator review; Git index unchanged. No
+model/provider/auth/network/worker/controller operation or Git publication.
+The approved trusted dispatcher architecture remains unimplemented as an
+execution harness and technically unaccepted. Native identity, auth/billing,
+provider retry, output/spend and tool-isolation unknowns remain. Next separately
+scoped dependency: offline trusted lifecycle adapter and clean child-environment,
+cancellation and bounded handoff evidence, without a model request. Not started;
+W4B-P0 and W4A retain their separate gates. Stop after this contract increment.
+
 ## First real public coding-task acceptance — 2026-10-23
 
 **Narrow M0–M4 observer flow complete for one public task on the supported local

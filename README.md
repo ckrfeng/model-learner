@@ -34,8 +34,10 @@ directly.
 Run `.venv/bin/python -B scripts/external_handoff_example.py` from this checkout
 to exercise verification, learning, frozen scoring and advice without a model or
 network call. See the [newcomer demo guide](docs/OFFLINE_DEMO.md) for expected
-results, retained evidence and replay. This is fictional integration evidence;
-real coding-agent end-to-end acceptance remains pending.
+results, retained evidence and replay. This demo is fictional integration evidence.
+A separate [real public coding-task acceptance](STATUS.md#first-real-public-coding-task-acceptance--2026-10-23)
+completed the narrow M0–M4 flow for one supported local Codex CLI path; broader
+product gates remain open.
 
 ## Local ledger
 
@@ -128,6 +130,32 @@ This adapter supports the CLI stream. It does not ingest existing desktop sessio
 files. See [Codex source assessment and limitations](docs/CODEX_OBSERVATION.md)
 and [Desktop feasibility findings](docs/CODEX_DESKTOP_FEASIBILITY.md).
 
+### Provider configuration for the validated CLI path
+
+For the tested CLI `0.163.0-alpha.11`, custom provider tables cannot use the
+reserved built-in ID `openai`. The accepted run used these per-invocation `-c`
+overrides, with `--model gpt-6.1-sol` and
+`-c 'model_reasoning_effort="medium"'`:
+
+```sh
+-c 'model_provider="openai_no_retries"' \
+-c 'model_providers.openai_no_retries.name="OpenAI"' \
+-c 'model_providers.openai_no_retries.requires_openai_auth=true' \
+-c 'model_providers.openai_no_retries.request_max_retries=0' \
+-c 'model_providers.openai_no_retries.stream_max_retries=0'
+```
+
+This is a provider-override fragment, not a complete launcher; retain the authorized
+sandbox/privacy settings. The selector and table ID must match. Backend label
+OpenAI is separate from local config ID `openai_no_retries`; record both truthfully
+where supported. Use the local ID in this path's operator configuration
+declaration and preserve emitted native values unchanged. The name and requested
+zero values do not prove zero runtime
+retries, authentication/billing route, native model identity or native-tool
+isolation. Custom entries do not inherit all built-in capability/header defaults.
+The [matching source](https://github.com/openai/codex/blob/5425d3e625daa58eea3ad1de27c087eb3b2ffbd3/codex-rs/config/src/config_toml.rs#L929)
+rejects the reserved ID. Model Learner still observes the operator's launch.
+
 ## Tasks and verification
 
 Declare an objective, acceptance version, and expected file SHA-256 before the
@@ -164,6 +192,15 @@ evidence records unknown; `outcome human` records an unverified human assessment
 Revisions use `--supersedes` and preserve original evidence. Mixed configuration,
 incomplete capture/attribution, and unassessed outcomes are retained with
 exclusions. See [workflow semantics and limitations](docs/TASK_VERIFICATION.md).
+
+Inspect eligibility before export: `--source-kind real` filters source kind, not
+eligibility. A fresh ledger containing only the final eligible observation makes
+a one-row acceptance export unambiguous; earlier unknown assessments can remain
+without building them into learning rows. For idempotency, reimport the identical
+capture with the same machine ID, repeat `session show` and the identical
+`observations build`, then inspect `run show`: require zero new events, unchanged
+summary/observation identity and retained assessment history. Requested/manual
+configuration declarations stay distinct from missing native identity metadata.
 
 For coding tasks, declare the required JUnit test identities before execution.
 Run pytest yourself and retain its XML report plus an independent binding receipt

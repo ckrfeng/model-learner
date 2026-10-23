@@ -159,3 +159,63 @@ authorized dispatch; this increment authorizes no paid smoke, retry, fallback,
 purchase or allowance assumption. Optional coding-agent sandbox readiness is
 independent of this offline classification work. Stop at this bounded increment;
 W4A/W4B coding/containment/duration and final real E2E acceptance remain open.
+
+## Official live-gate review — 2026-10-23
+
+**BLOCKED before dispatch; no paid smoke or authenticated account request.**
+The human's bounded one-attempt authorization remains valid. Technical prerequisites
+are still missing; another spending approval is not the blocker. No new client,
+mock abstraction, route substitution or gate override was implemented.
+
+Current public documentation improves on J1/J2's captured examples. The official
+[Decisions reference](https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-request)
+lists the existing POST endpoint, required model/state/questions, optional provider
+routing preferences, bearer authentication and typed response with model/usage;
+provider and generation ID are also described. Its example usage includes input
+tokens, output tokens and cost. No Decisions output-limit parameter was found in
+that reference. This establishes published fields, not a successful current call
+or completeness of every undocumented capability.
+
+The official [provider-selection guide](https://openrouter.ai/docs/guides/routing/provider-selection)
+documents provider `only` and `allow_fallbacks=false`; account and request
+allowlists intersect. Together with the Decisions provider field, this supports
+the intended routing controls at the documentation level. It does not establish
+the actual selected key/account policy, an authenticated TypeSafe route or
+execution identity. The current frozen fake-only request still omits routing
+fields and cannot be sent as an approved live request unchanged.
+
+The [Jev 1.14 model page](https://openrouter.ai/typesafe/jev-1.14) lists TypeSafe,
+262,144-token context and prices of $0.042 per million input tokens / $0 output.
+That listing is not a measurement of this account's availability, a settled charge
+or proof that one request fits the approved ceiling. The dedicated public model
+endpoints URL could not be retrieved through the browsing tool; no authenticated
+substitute or alternate provider/model was tried.
+
+| Gate | Established now | Exact missing evidence |
+| --- | --- | --- |
+| Provider/route | Intended OpenRouter Decisions endpoint and `typesafe/jev-1.14`; documented routing controls | Non-secret evidence tying the selected credential/account to the exact allowed TypeSafe route and no-fallback policy; a supported live request contract incorporating those controls. |
+| Output exposure | Frozen public development input and two fixed typed questions; existing local response-size bound | Endpoint-specific supported output cap, or a documented finite-output guarantee sufficient for the approved conservative bound. Local read limits and post-response rejection do not constrain provider work. |
+| Spend | Published model price; existing one-attempt authorization, $1 ceiling and lesser of remaining prepaid or $15 total | Current selected-key/account remaining balance, applicable limits/usage and enforcement that bounds this one request and total exposure. No 400-million-token allowance assumed. |
+| Credential transport | `.env.local` is an ignored regular file, not a symlink; metadata only inspected | Credential availability, account/provider identity and approved secret-safe loading/transport remain unverified. Presence is not a valid-key check. Metadata showed group/other mode bits; ACL/effective access was not assessed and permissions were not changed. |
+| Result receipt | Published model/provider/usage/cost fields | An actual response and billing/settlement basis, obtainable only after all pre-dispatch gates pass. No receipt or charge was fabricated. |
+
+The [spend-controls guide](https://openrouter.ai/docs/guides/best-practices/spend-controls)
+describes workspace/guardrail checks and ownership-dependent attribution. The
+[shared-key cap guide](https://openrouter.ai/docs/guides/best-practices/capping-shared-agent-keys)
+describes key credit limits, reset windows, BYOK inclusion and rejection after a
+configured limit is reached. Neither proves that the locally selected key has
+those controls or current funds. No key-limit/account setting was changed.
+
+Needed next: official endpoint-specific output/enforcement evidence and non-secret
+selected-account/key metadata confirming identity, route policy, remaining funds
+and applicable exposure cap, plus a reviewed secure credential mechanism. Obtain
+that through a secure operator/provider workflow; never paste a key into chat.
+No credential was loaded, no account/dashboard endpoint authenticated, no input
+was submitted and no live one-shot marker was armed or consumed. Only public
+documentation was browsed; searches outside official sources were not used as
+technical evidence. Prior frozen datasets, wire hashes and all trust rules remain
+unchanged. Optional coding-agent sandbox approval is unrelated to these blockers.
+
+Execution stopped at these missing facts as required. J2 still refuses live use;
+no advisory/utility learning record was created. Exact checks, repository state
+and the documentation-only commit proposal are in STATUS.

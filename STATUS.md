@@ -1,5 +1,80 @@
 # Model Learner status
 
+## Jev official live-readiness review — 2026-10-23
+
+**BLOCKED before paid dispatch; precise external-evidence stop.** Continued the
+same registered Model Learner checkout/project
+`5e9ee82f-ab79-435f-a8c9-8bb3c4b689d3`; no new chat/checkout. Initial `main`, HEAD and
+cached `origin/main` were clean at `80781a4a3dfc8a93e2874943fa937df1685d56f3`,
+preceded by `f4f5143d2f1af33735daca93f1481ac651c75958`. No pre-existing public edits.
+Read-only inspection found both commit authors match `ckrfeng` and no recognized
+AI coauthor/signoff trailers. No commit or authenticated push identity is asserted
+for a future commit. Current-turn model/effort is not exposed to this executor's
+supported metadata; the prior coordinator attestation applies to its named earlier
+turn, not independently to this turn. No model selection/override was performed.
+
+Reviewed current AGENTS, plan observation/inference/decision boundaries, J1/J2 docs,
+readiness and offline transport source, plus targeted current official OpenRouter/
+TypeSafe public documentation. [Current gate findings and source links](docs/J2_DECISIONS_READINESS.md#official-live-gate-review--2026-10-23)
+record the new evidence: Decisions now documents a provider-routing object; the
+provider guide documents `only` and disabling fallback. The model page lists Jev
+1.14/TypeSafe and public pricing. Response usage/cost fields are documented.
+These are documentation facts, not live route/account/charge verification.
+
+Essential facts still missing: endpoint-specific enforceable conservative output
+bound; actual selected credential/account/provider-route identity and policy;
+current remaining prepaid/key limits and bounded single-request/total exposure;
+reviewed secret-safe loading/transport. The existing local fake request has no
+live routing fields, and local byte/usage rejection cannot enforce provider work.
+Public documentation endpoints were browsed; one model-endpoints metadata fetch
+was inaccessible through the tool. No paid inference, authenticated account GET,
+credential use, retry, fallback/substitution, purchase or provider switch occurred.
+No private input, source code or holdout was submitted.
+
+`.env.local` metadata only: present, ignored, regular, nonsymlink, group/other mode
+bits present. Contents/values were never read; ACL/effective access, key validity,
+account identity and secure availability remain unknown. No exposure is asserted
+from mode bits alone; file and permissions were preserved. No secrets requested
+in chat. Account probes cannot substitute for the missing output guarantee.
+The existing paid authorization is preserved: one attempt, no retries/substitution,
+maximum $1 and lesser of remaining prepaid or $15 total. No further spending
+permission requested, no automatic dispatch, no live marker consumed and no real
+usage/cost receipt exists. Missing cost remains unknown, not zero.
+
+Exactly two documentation files changed, all unstaged/uncommitted:
+
+- `docs/J2_DECISIONS_READINESS.md`: append dated official evidence/gate table and
+  specific next evidence; historical J1/J2 claims preserved in their time scope.
+- `STATUS.md`: this checkpoint only.
+
+No code, test, fixture, protocol/hash, default live refusal, advisory/utility trust,
+estimator or evidence schema changes. No new mock abstraction or live client.
+Published W4B-P0/W6B/W7A, historical experiments and the 204/85 completed test
+selections were not repeated. For this documentation-only stop no pytest run was
+needed; focused integration/paid validation remains unexecuted, not passed.
+Required repository Ruff lint/format, whitespace and privacy checks passed;
+exact results below. No staging/staged guard, index/ref mutation or Git write.
+
+Validation: `.venv/bin/ruff check --no-cache .` passed;
+`.venv/bin/ruff format --check --no-cache .` passed (**233 files**);
+`GIT_OPTIONAL_LOCKS=0 git diff --check` passed;
+`GIT_OPTIONAL_LOCKS=0 python3 scripts/privacy_guard.py --tree HEAD` passed
+(**301 files, zero rejected**); pure working-byte path/content privacy and newline/
+trailing-whitespace checks passed on both changed Markdown files without exemptions.
+No new ignored repository artifacts; no ignored paths removed. Initial read-only
+snapshot is `/private/tmp/jev-live-readiness-initial-state.json`; index SHA-256
+`b49405fb964ae47334527a510878234967c624c2bca5ebcc2189d943933b6af3`
+and HEAD/branch/cached origin remain unchanged. All unrelated/private files preserved.
+
+Proposed single coherent commit: `docs: record Jev live-smoke evidence blockers`
+(both paths). Latest human policy supersedes historical Desktop-only notes:
+coordinator alone may stage/commit with Git CLI and push with GitHub CLI or
+authenticated Git, verifying human `ckrfeng` attribution and no AI trailers.
+Executor performs none of those actions. Stop here; obtain the named technical
+evidence through secure operator/provider channels before any later dispatch.
+Jev live smoke, W4A/W4B actual coding/containment/600-second gates and final trusted
+E2E remain open. This review supplies no coding-agent utility evidence.
+
 ## Bounded Jev offline HTTP-envelope contract — 2026-10-23
 
 **PASS for this offline transport/contract increment; live Jev remains BLOCKED.**

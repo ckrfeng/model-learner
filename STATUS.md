@@ -1,5 +1,55 @@
 # Model Learner status
 
+## One trusted-adapter cleanup-only recovery acceptance — 2026-10-23
+
+**One new opt-in integration test passed once: 1 passed, 0 failures/errors/skips,
+2.44 seconds, command exit 0.**
+`tests/integration/test_dispatch_adapter_runtime.py::test_cleanup_only_recovery`
+requires exact node selection, a fresh ignored private evidence root and trusted
+ready preflight; broader test selections skip it. Started clean on `main` at
+HEAD/cached origin `e57c30b1c8d2020787edfcaac787eddcb94417a8`, no pre-existing edits.
+Controller/adapter sources and installed runtime binary hashes matched the sealed
+normal-run pins: Colima 0.10.3, Lima 2.2.1, Docker client 29.8.2, dedicated running
+profile, zero VM host shares and the unchanged ARM64 image
+`sha256:24bb3511a0db7b5114a4aee033c65a8a4148f39b7b80a398e548546db967a36f`.
+An initial metadata-filter lexer error was preserved and corrected before any
+worker launch; it was not an unhealthy runtime or a worker retry.
+
+The actual adapter performed **1 live-mode start, 1 admitted typed recovery,
+1 controller recovery, 1 finalization, 0 output calls, 0 restart/retry** using
+the existing 12-second finite lease. The fixed live worker was independently
+observed running with three guest PIDs while its lease was active. Validated
+receipt stop reason was `recovery`, with exact lease/target/config/input and
+confirmed cleanup. Output digest, size and artifact reference remained absent;
+no payload was invented. Exactly one daemon start event was found for the exact
+container. Independent checks before/after retention found that container, its
+exact service and all three observed guest PIDs absent; service exit 113, healthy
+GUI domain exit 0 with empty stderr. Finalization retained validated evidence
+and removed temporary state. Three observed PIDs are not exhaustive descendant
+enumeration, malicious-host isolation or a general cancellation guarantee.
+
+Private evidence: `.model-learner/dispatch-adapter-recovery-v1-20261023-01/`.
+All **25 files** match the complete byte/hash inventory (24 entries plus itself),
+including both preflight results/diagnostic, source/runtime pins, one-shot guard,
+typed phase journal, retained lease/receipt, absence checks and focused JUnit.
+Recovery receipt: 3,133 bytes, SHA-256
+`53f7a5cc054fe081127422ea6e943f93dfa7861e19b0f2df0a27b3dc409b0aba`;
+inventory: 3,490 bytes, SHA-256
+`a72129024769a337af32c6e43398c5c09a819e31a70a3249e6516c443987c9ec`.
+New test Ruff lint/format, syntax and working-byte privacy checks passed; final
+STATUS/privacy/whitespace checks passed. No other test/runtime case was rerun.
+
+Only the new test and this entry are pending, unstaged; index/HEAD unchanged.
+No controller/adapter behavior, frozen worker/task/budget/schema or prior evidence
+changed. No model/provider/auth/external network call, canonical/learning/advice
+record, paid inference or Git publication occurred. This is synthetic recovery
+evidence only; the adapter remains synchronous/in-memory, not crash durable.
+Live environment inheritance, tool isolation, endpoint/model/effort, billing,
+provider retry, output/spend and remote stop remain unproven. Future prospective
+scoring requires a forecast frozen before a distinct authorized target run;
+earlier outcomes cannot be backdated. W4A's 600-second semantics and W4B-P0 retain
+their separate gates. Stop here; no subsequent run or transport work started.
+
 ## One normal trusted-adapter runtime integration — 2026-10-23
 
 **One new synthetic normal-path adapter/controller lifecycle passed, exit 0.**

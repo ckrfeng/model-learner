@@ -1,5 +1,54 @@
 # Model Learner status
 
+## One normal trusted-adapter runtime integration — 2026-10-23
+
+**One new synthetic normal-path adapter/controller lifecycle passed, exit 0.**
+Started clean on `main` at HEAD/cached origin
+`6b32333aa20615f3807dc9176494c61ebedfc705`; no pre-existing edits. Read-only
+preflight found the existing dedicated profile running: Colima 0.10.3, Lima 2.2.1
+(matching its recorded running version), Docker client 29.8.2, zero VM host shares,
+and exact ARM64 image
+`sha256:24bb3511a0db7b5114a4aee033c65a8a4148f39b7b80a398e548546db967a36f`.
+Installed binary hashes were recorded and rechecked before start; no installation,
+profile/context change or runtime upgrade occurred.
+
+Actual adapter use admitted the host-selected fixed synthetic target/config/input
+with host-generated task/call identities and an opaque lease handle: **1 start,
+31 bounded status calls, 1 output, 1 finalization, 0 recovery, 0 retry**. The normal
+worker completed within the existing five-second lease; its validated receipt
+bound the fixed input, stable stopped output and cleanup assertions. Exactly one
+start event was independently found for its exact container. Output was **38
+bytes**, SHA-256
+`0cdeb83a8b7d787e41e9dbe720820b4bdbf6baad8a01849670fa3a5e98ae90bb`.
+Adapter finalization retained validated lease/receipt/output/helper diagnostic
+and removed temporary state. Independent exact-container queries confirmed
+absence before/after retention; exact service absence returned 113 and the GUI
+domain returned 0 with empty stderr. No guest PIDs were recorded in this normal
+completion, so the empty PID check adds no descendant-enumeration evidence.
+
+Ignored private evidence is
+`.model-learner/dispatch-adapter-normal-v1-20261023-01/`: preflight/runtime identity,
+one-shot drivers/guard, host binding and phase journal, bounded replies, retained
+controller evidence, exact start event and independent absence summaries.
+All **24 files** match the completeness inventory (23 entries plus inventory
+itself). Integration receipt SHA-256
+`7177eb03662f4a34657a4ac6de1d58f708832fd2ac7c93a3719c2e33c23e274b`;
+inventory SHA-256
+`4a5f8de4e749da5d12032833b2decf553ab9989526876bd2753cbb221a640f9e`.
+No tests were rerun: checkout exactly matched the reviewed adapter commit. Only
+driver syntax, evidence digest/completeness and STATUS whitespace/diff checks
+were added; source/tests/controller behavior are unchanged.
+
+This is one synthetic adapter integration, separate from the earlier three
+controller-only cases, W4A/W4B and model transport. No model/provider/auth/external
+network request, canonical record, coding task or Git publication occurred.
+The adapter remains synchronous/in-memory, not crash durable. Generated launch
+environment checks do not prove live inheritance or malicious-host/tool isolation.
+Model identity/effort, routing/billing, provider retry, output/spend and remote-stop
+evidence remain open; W4A's 600-second latency semantics are unchanged. Only this
+STATUS entry is tracked and unstaged; index/HEAD unchanged. Stop here; no transport
+work or second run started.
+
 ## Offline trusted lifecycle adapter — 2026-10-23
 
 Added private `benchmark._dispatch_adapter` around the existing admission contract.

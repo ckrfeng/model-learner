@@ -1,5 +1,44 @@
 # Model Learner status
 
+## Offline trusted lifecycle adapter — 2026-10-23
+
+Added private `benchmark._dispatch_adapter` around the existing admission contract.
+One host-owned instance per task owns a fresh private root, opaque handle/path
+maps and retained output lookup. Start occurs only after admission and binds the
+returned lease only when it matches owned state. Status validates lease/receipt
+state; an active lease without a receipt is pending state, not worker liveness
+proof. Output revalidates the original receipt and exact bounded bytes/hash.
+Host-only retention delegates disposal only after confirmed stopped validation.
+Existing controller and pure admission implementations remain unchanged.
+
+Ambiguous start, cancellation, timeout or adapter failure can attempt cleanup-only
+recovery at most once, against the exact owned directory; a replaced known lease
+authorizes no recovery. Unknown cleanup keeps state/evidence and prevents
+disposal. Start is never retried. The adapter is synchronous and in-memory, not
+crash-safe: cancellation flags immediately but waits for an active port call to
+return before recovery; the host must call `expire()` from its watchdog. Local
+cleanup is not provider inference cancellation or a hard process deadline.
+
+Verification: **147 passed** (29 synthetic adapter cases plus 118 contract cases)
+using `PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -B -m pytest -q -p no:cacheprovider tests/unit/test_dispatch_adapter.py tests/unit/test_dispatch_contract.py`.
+Touched-file Ruff lint/format checks passed; no configured type checker or broad
+suite run. Fake ports exercised lifecycle mapping, retention, concurrent cancel,
+uncertain cleanup, identity replacement, output races, and zero port access for
+rejected/replayed proposals. The existing launcher generated a job from synthetic
+files behind a mocked bootstrap boundary: its environment contained only the
+existing fixed `PATH` entry and omitted the synthetic parent sentinel. No child,
+launchd job or worker ran; this checks generated environment only, not runtime
+inheritance, malicious-host isolation or transport acceptance.
+
+Started clean on `main`, HEAD/cached origin
+`f1098bedc301cde893e6b160199bda9d3c2fcb03`; no pre-existing edits. Source, synthetic
+tests and this entry remain unstaged; index unchanged. No stage/commit/push,
+publication, live controller/runtime/model/provider/auth/network operation or
+actual environment-value inspection. Next dependency is separately reviewed
+isolated controller integration acceptance without a model/provider call; not
+started. Native identity, auth/billing, provider retry, output/spend, remote-stop
+and tool-isolation evidence remain open. W4A/W4B retain their separate gates.
+
 ## Private typed dispatch admission contract — 2026-10-23
 
 Added private `benchmark._dispatch_contract` and hand-authored synthetic unit

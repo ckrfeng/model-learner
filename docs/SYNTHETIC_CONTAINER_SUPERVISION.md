@@ -78,6 +78,54 @@ receipts cannot validate as Observation, Verification or AdvisoryInput.
 
 ## Actual acceptance evidence — 2026-10-23
 
+### Offline host Codex control-transport decision — 2026-10-23
+
+**Stop: the required boundary is unproven in installed CLI
+`0.163.0-alpha.11`.** This is a feasibility decision, not a claim that no Codex
+version can support such a boundary. No bridge, model session, MCP server,
+candidate, container or provider request was launched for this spike.
+
+Inspected the installed CLI's `--help`, `exec --help`, `mcp add --help`, local
+feature listing and locally generated experimental app-server JSON Schema.
+Generation started no app server. Subsequent interface checks used empty temporary
+HOME/CODEX_HOME and an explicit clean environment, without reading user config or
+auth. No website, browser, model catalog, provider or credential check was used.
+
+| Required property | Supported local evidence | Decision |
+| --- | --- | --- |
+| Disable every native workspace/tool action | Feature configuration includes `shell_tool`; isolated defaults also list `unified_exec`, `view_image`, browser/computer use, apps and plugins. The typed `ToolsV2` schema contains only `web_search`; generic config accepts arbitrary fields. | One feature toggle does not establish an exhaustive enforced deny-all policy. Generic config/schema acceptance is not proof of tool absence. |
+| Expose only the fixed bridge methods | MCP help supports a stdio command. `ThreadStartParams.dynamicTools` declares a tool array without an exclusivity contract. | Neither interface establishes that native/other tools are unavailable or cannot reappear through deferred/nested tools. |
+| Strip inherited secrets before bridge process creation | `mcp add --env KEY=VALUE` sets variables. The inspected help/schema does not specify a pre-exec clear-environment/positive-inheritance contract for stdio servers. | Environment addition/override does not prove absence of inherited secrets. |
+| Verify separation offline with a sentinel | A parent containing one public synthetic sentinel spawned a child with an explicit clean environment; the child observed no sentinel. | Passed only for ordinary subprocess creation. Codex MCP spawning was not exercised; its environment boundary remains unverified. |
+
+Read-only sandbox and approval settings control particular execution permissions;
+they do not establish the requested absence of native read/shell/filesystem tools.
+No guessed configuration keys, prompt instructions, tool-disabled declarations or
+under-development Code Mode flags were treated as independently verified isolation.
+No model turn was used to discover the effective tool set.
+
+The minimum viable boundary needs a trusted host dispatcher with a supported,
+testable positive tool allowlist and a bridge launcher that clears inheritance
+before the bridge's first instruction. Credentials stay solely in the trusted
+host client; bridge/VM/container/prompt/artifact never receive them. The bridge
+must bind to one validated lease and expose only frozen synthetic start/status/
+bounded-output/recovery operations through the existing controller, with byte/time
+limits and duplicate-call refusal. It must reject shell, caller paths, network,
+raw Docker arguments and caller-selected task/container IDs. The existing
+launchd lease/receipt remains the cleanup and handoff authority. Such registration
+and dispatch controls would still need independent verification; declarations
+alone would not prove the security boundary.
+
+Since the installed interface evidence does not satisfy the prerequisite, no
+bridge implementation or weaker runner was built and no bridge integration/runtime
+replay was performed. A supported offline effective-tool inventory plus enforceable
+dispatch policy and a real launcher sentinel test are the precise missing proof.
+Selecting or implementing a different client is outside this increment.
+Existing fixed workers and noncanonical provenance remain unchanged; no result
+enters Observation, Verification or AdvisoryInput. W4A's frozen 600-second budget
+is unchanged. Local evidence is ignored under
+`.model-learner/control-transport-feasibility-v1/`.
+
 ### Finite disposal verification and final synthetic acceptance
 
 One diagnostic queried only the previously recorded failed-normal label and GUI

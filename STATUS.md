@@ -1,5 +1,53 @@
 # Model Learner status
 
+## Offline host-only Codex transport feasibility — 2026-10-23
+
+**Bounded feasibility complete; required CLI boundary unproven. No bridge built.**
+Started clean on `main`, HEAD/cached origin
+`ede078e4ea5fe2af49ded078fba2b6059f2b0de9`, containing the published synthetic
+supervision acceptance. Requested `gpt-6.1-sol` / medium remains unverified by
+supported current-turn metadata. No new chat, checkout, subagent or model change.
+
+Installed local CLI reports `0.163.0-alpha.11`. Inspected only relevant supervisor
+APIs, CLI help/config interfaces, isolated default feature flags and its locally
+generated app-server JSON Schema. The shell feature is configurable, but neither
+help nor typed schema proves that every native/deferred/nested tool can be denied
+while only the fixed stdio bridge is exposed. `ToolsV2` describes web search;
+generic configuration and dynamic-tool fields do not provide an exclusive tool
+policy contract. MCP `--env` documents setting values, not clearing inherited
+variables before server startup. These are evidence gaps, not a universal claim
+that Codex lacks such capabilities. No guessed switch or declaration was accepted
+as independent isolation proof.
+
+One public synthetic sentinel test confirmed clean child-process environment
+creation in ordinary subprocess code only. No actual Codex MCP child was started,
+so its environment separation is explicitly **not verified**. Static interface
+checks after initial help used temporary empty HOME/CODEX_HOME and a clean explicit
+environment; no real credential or user config was read. Evidence and focused XML
+are ignored under `.model-learner/control-transport-feasibility-v1/`.
+
+Added a compact decision in `docs/SYNTHETIC_CONTAINER_SUPERVISION.md` identifying
+the missing enforceable effective-tool allowlist and pre-exec environment-clearing
+proof, plus the minimum trusted dispatcher/controller boundary. Only that guide
+and this status changed. No bridge/source/test implementation, MCP server, model
+session/request, authentication, provider/network call, denied browser, container,
+runtime canary, candidate, W4B or W4A execution occurred. Existing 3-case runtime
+acceptance remains historical fixed-synthetic evidence; no new runtime claim.
+
+Focused installed tests: **88 passed**, zero skips (supervision and mocked offline
+adapter selection); no new tests were needed for this decision-only edit. Ruff
+lint/format passed for 237 files. Both public files pass working-byte privacy and
+whitespace checks; read-only HEAD privacy guard passed 305 files, zero rejected.
+Git HEAD/cached origin, branch and index remain unchanged. No executor staging,
+commit, fetch or push; prior artifacts and runtime source/tests remain unchanged.
+
+Stop at the capability gap. A subsequent implementation needs a supported offline
+effective-tool/dispatch proof and actual stdio-launcher sentinel verification
+before any bridge integration. Jev prepaid balance, effective TypeSafe-only/no-
+fallback routing and provider output bound remain unestablished; no check was
+repeated. W4A's 600-second semantics and observer-first provenance are unchanged.
+Proposed coordinator commit: `docs: record blocked Codex bridge feasibility`.
+
 ## Finite launchd disposal verification — 2026-10-23
 
 **Requested synthetic supervision increment complete: 3 runtime cases passed.**

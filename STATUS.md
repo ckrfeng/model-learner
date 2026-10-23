@@ -1,5 +1,122 @@
 # Model Learner status
 
+## Bounded Jev offline HTTP-envelope contract — 2026-10-23
+
+**PASS for this offline transport/contract increment; live Jev remains BLOCKED.**
+Continued the already-open existing Model Learner checkout; no new checkout or
+chat was created. Supported project listing maps project
+`5e9ee82f-ab79-435f-a8c9-8bb3c4b689d3` to this working directory. The executor could
+not independently verify model/reasoning through its supported metadata/tools.
+The coordinator independently verified `gpt-6.1-sol` with effort medium for turn
+`01a1672f-ebfb-7ce2-a8bb-662493b2ede2` through narrowly scoped selected current-turn
+local session `turn_context` metadata.
+No model override, delegated coding agent or provider call was launched.
+
+Initial branch `main`, HEAD and cached `origin/main`:
+`485e2b3e02644ec09be12acdc38212dc1a7038d8`; index/worktree clean, no untracked public
+work. Existing origin remains `https://github.com/ckrfeng/model-learner.git`.
+Read-only inspection only; no live fetch. Initial index SHA-256
+`9295d9c9734836139be83901af8e03227274e732889b8e56ed77c9f5bec472bb`
+is retained outside the repository and unchanged. No pre-existing edits needed
+preservation. Published W4B-P0/W6B/W7A and their evidence were not rerun.
+
+Demonstrated missing gap: J1's fake checked status/redirect through caller arguments
+and returned bare bytes; J2 had no explicit HTTP response metadata object to
+exercise absent/duplicate media type, encoding/length conflicts or returned route
+metadata before parsing. Added one deliberately narrow offline envelope seam,
+reusing the existing frozen request, fake request/policy validation, durable mock
+marker, typed answer parsing, budget checks and sanitized receipt choreography.
+No HTTP/network implementation, credential loading or invented provider fields.
+No official-provider research was needed: captured J1/J2 field evidence suffices
+for offline fixtures; undocumented live routing/enforcement is still unresolved.
+
+Exact changed paths, all unstaged/uncommitted:
+
+| Path | Delivered change |
+| --- | --- |
+| `src/model_learner/understanding/decisions_transport.py` | New `ResponseFixture` / exact `MockHTTPTransport`; explicit bounded response metadata and one local exchange. |
+| `src/model_learner/understanding/decisions_readiness.py` | Admit this second exact offline fake; add explicit fixture contract/evidence-class tags only to its receipts. Live refusal/readiness and legacy fake receipts unchanged. |
+| `tests/unit/test_decisions_transport.py` | New 60 original synthetic DEVELOPMENT envelope and integration controls. |
+| `docs/J2_DECISIONS_READINESS.md` | Document demonstrated gap, local dialect, reuse, reproduction and remaining gates. |
+| `STATUS.md` | This checkpoint only. |
+
+The new local dialect checks exact existing HTTPS origin/path, explicit integer
+200 and false redirect state, bounded byte body, required JSON Content-Type,
+case-insensitive duplicate/header shape controls, optional identity encoding and
+matching decimal Content-Length. Alternate routes, redirects, missing/malformed
+metadata, extra headers, unsupported/compressed bodies, malformed typed answers,
+model/provider substitution and enabled fallback are refused without retry.
+This restrictive fixture dialect is not a normative provider schema or proven
+production transport. Response metadata and model/provider fields are simulated
+declarations, not independently authenticated route evidence.
+
+Actual offline E2E evidence: frozen public fictional `dev-01` input through J2's
+durable mock marker, explicit envelope checks, existing wire/parser and sanitized
+receipt. Success is `mocked_parsed`, `mode=mock_only`,
+`evidence_class=synthetic_development_http_fixture`, zero paid POSTs, routing false,
+actual billed cost null. Errors yield no prediction and preserve consumed marker.
+No raw body/header/error prose enters receipts. New success/error receipts fail
+Observation, Verification and AdvisoryInput validation; existing fictional outcome
+inputs and complete abstaining advice remain byte/result-identical. No trust rule,
+canonical outcome/learning, estimator, forecast or advisory code changed.
+
+Validation using installed environment; no sync/install. Commands use
+`PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -B
+-m pytest -q -p no:cacheprovider`:
+
+- Focused: `tests/unit/test_decisions_transport.py`,
+  `tests/unit/test_decisions_readiness.py`, `tests/unit/test_intent_offline.py`,
+  `--junitxml=/private/tmp/jev-transport-focused.xml`: **204 passed**, zero skips,
+  0.38 s (60 new + 144 existing). Secret/network APIs forbidden in the new
+  integration control; only frozen manifest/input files are read for dispatch,
+  never draft reference labels or holdout predictions.
+- Relevant regressions: `tests/unit/test_advisory.py`,
+  `tests/integration/test_advisory.py`, `tests/unit/test_learning.py`,
+  `tests/unit/test_prospective.py`,
+  `--junitxml=/private/tmp/jev-transport-regressions.xml`: **85 passed**, zero skips,
+  2.32 s; model/Docker opt-in environment variables unset.
+- `.venv/bin/ruff check --no-cache .` passed;
+  `.venv/bin/ruff format --check --no-cache .` passed (**233 files**).
+- `GIT_OPTIONAL_LOCKS=0 python3 scripts/privacy_guard.py --tree HEAD` passed:
+  **299 files inspected, zero rejected**. This checks the published baseline,
+  not the new working bytes. Pure non-staged path/content privacy and whitespace
+  screening additionally passed all **5 changed public files**, without exemptions.
+  `GIT_OPTIONAL_LOCKS=0 git diff --check` passed. No staged guard/staging.
+
+Initial lint found six long test-source lines; formatting resolved them before
+the first test run. No test failures occurred. No full-suite claim: Git-mutating
+privacy/temp-repository tests, W4A probes, W4B-P0, W6B/W7A demos/replay, model/Potion,
+Docker, historical experiments and live-provider/account checks were excluded.
+No new ignored repository artifact; reports and initial read-only snapshot are
+under `/private/tmp/jev-transport-*`. Existing ignored/private data was preserved,
+with no ignored path added or removed. Final HEAD/branch/cached remote/index match
+the initial state. Only the five listed paths changed; no unrelated edits.
+
+No `.env.local`/secret read or use, DNS/socket/HTTP call, paid/provider request,
+holdout classification, fallback/substitution execution, purchase/top-up/subscription,
+security/runtime change or Git/index/ref mutation occurred. Optional sandbox
+approval is independent of this offline classification increment. Existing
+conditional later paid authorization remains preserved; no smoke here. Live gates
+still require endpoint/provider and route/no-fallback enforcement, bounded output
+and spend, secure credential transport, current prepaid/pricing/settlement evidence
+and separately gated one-shot execution. The $1 / lesser-of-remaining-prepaid-or-$15
+later boundary is not relaxed; no allowance size is assumed.
+
+Suggested coherent nonempty Desktop commit units:
+
+1. `feat: validate offline Decisions HTTP response envelopes` —
+   `src/model_learner/understanding/decisions_transport.py`,
+   `src/model_learner/understanding/decisions_readiness.py` and
+   `tests/unit/test_decisions_transport.py` (implementation and 60 tests).
+2. `docs: record offline Decisions transport contract and evidence` —
+   `docs/J2_DECISIONS_READINESS.md` and `STATUS.md`.
+
+Coordinator alone reviews/stages, runs `python3 scripts/privacy_guard.py --staged`,
+commits through GitHub Desktop and separately pushes approved verified commits.
+Executor stops here with changes uncommitted. Jev live evaluation, W4A/W4B actual
+coding/containment/600-second gates and final real trusted E2E remain open; this
+offline fixture increment completes none of those gates.
+
 ## W4B-P0 first observer-first pilot contract — 2026-10-22
 
 **READY FOR HUMAN REVIEW for this offline subgate. W4B remains incomplete;

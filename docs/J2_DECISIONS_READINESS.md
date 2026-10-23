@@ -55,7 +55,8 @@ here. No next workstream is started.
 
 ## Mock rehearsal and receipts
 
-`rehearse` accepts only the exact existing offline FakeTransport and frozen input.
+`rehearse` accepts only the exact existing offline FakeTransport or the exact
+offline MockHTTPTransport described below, and the same frozen input.
 Before mock dispatch it exclusively creates a fixed `mock-attempt-consumed.json`
 with mode 0600, syncs the file, then syncs its directory. A pre-existing, partial or
 symlink marker refuses dispatch. Sync failure refuses dispatch and retains the
@@ -84,3 +85,77 @@ It writes only ignored `.model-learner/j2-readiness-v1/readiness.json`; it does 
 dispatch even a mock or consume any live marker. Actual test results and the
 unchanged Git baseline are recorded in `STATUS.md`. No staging, commit, push,
 merge, history change, coding agent or historical experiment rerun is part of J2.
+
+## Bounded offline HTTP-envelope seam — 2026-10-23
+
+The previous fake checked status/redirect policy through caller arguments but had
+no explicit response-envelope object: body bytes alone could not exercise missing
+Content-Type, duplicate headers, encoding/length contradictions or returned route
+metadata. `understanding/decisions_transport.py` adds that missing local seam;
+it does not add an HTTP client, discover provider fields or implement live transport.
+
+`ResponseFixture` requires explicit origin, path, status, redirect state, headers
+and body. These are newly authored synthetic DEVELOPMENT fixtures, not network
+captures, signed receipts or proof of the declared route. The exact
+`MockHTTPTransport` consumes one in-memory attempt, validates the envelope, and
+reuses J1's existing request/model/question, no-fallback/provider and usage
+controls. J2's existing frozen `dev-01` request, durable mock marker, answer parser,
+accounting checks, error handling and sanitized receipts are reused unchanged.
+No new reference labels, holdout predictions or task examples are introduced.
+
+This deliberately small **local fixture dialect** admits exactly:
+
+- Existing HTTPS Decisions origin/path, status integer 200, redirect state false.
+  An alternate origin, path/query, redirect or error status refuses.
+- Bounded bytes (existing 32 KiB ceiling), up to 16 explicit header pairs,
+  case-insensitive distinct names and at most 256 printable ASCII value characters.
+- Required Content-Type `application/json`, optionally `; charset=utf-8`;
+  optional Content-Encoding `identity` and optional matching decimal Content-Length.
+  Other headers (including Location), duplicate names, compressed encoding,
+  missing media type and contradictory lengths refuse. This is not a complete
+  provider HTTP schema or a validated production parser.
+
+Successful envelope validation still requires the existing full typed Decisions
+body contract. HTTP success alone supplies no classification, routing proof or
+verified outcome. Existing example model/provider declarations remain declarations;
+missing actual usage/cost remains unknown. The wire body still contains only the
+existing published `model`, `state` and `questions`; no invented provider-routing,
+fallback, output-limit or spending fields are serialized.
+
+New receipts add `transport_contract="decisions-offline-http-envelope/v1"` and
+`evidence_class="synthetic_development_http_fixture"`. They retain `mode=mock_only`,
+zero paid POSTs, false routing verification and null actual billed cost. Raw headers,
+response bodies and exception prose are omitted. Rejected envelope/transport errors
+yield no prediction; the mock marker remains consumed. A syntactically accepted
+response can have a digest without yielding a valid typed prediction. Neither
+success nor error receipts can be used as an Observation, Verification or advisory
+input; no outcome, learner, forecast, evidence eligibility or advisory code changed.
+
+Reproduce the deterministic offline integration using the installed environment:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  .venv/bin/python -B -m pytest -q -p no:cacheprovider \
+  tests/unit/test_decisions_transport.py \
+  tests/unit/test_decisions_readiness.py tests/unit/test_intent_offline.py
+```
+
+This exercises actual local fixture processing end to end, not external provider
+execution. All 60 new controls and the 144 existing J1/J2 controls pass. Actual
+regression/lint/privacy results and Git inventory are recorded in STATUS.
+
+`readiness` stays false and `refuse_live` still always raises. Subclasses/arbitrary
+clients are rejected before marker creation. No `.env.local` or environment credential
+value is loaded; no private history, source code or hidden holdout is supplied as
+classification input or transmitted.
+No endpoint/provider availability, authenticated dashboard/configuration or account
+probe was necessary for this seam, so no new URL/key information is requested.
+
+Live blockers listed above remain: provider identity and exact route enforcement,
+no-fallback/output ceilings, secure credential transport, current funds/pricing/
+settlement and bounded exposure, then separately gated live one-shot controls.
+Existing conditional paid-use authorization is preserved for later separately
+authorized dispatch; this increment authorizes no paid smoke, retry, fallback,
+purchase or allowance assumption. Optional coding-agent sandbox readiness is
+independent of this offline classification work. Stop at this bounded increment;
+W4A/W4B coding/containment/duration and final real E2E acceptance remain open.

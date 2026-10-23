@@ -1,5 +1,310 @@
 # Model Learner status
 
+## Finite launchd disposal verification — 2026-10-23
+
+**Requested synthetic supervision increment complete: 3 runtime cases passed.**
+No next milestone, general agent backend, model relay, pilot or W4A/W4B execution
+was started. Continued the same five pending paths on `main` over
+`40176882eb20788f895741067dda46d0b9228807`; no Git writes. Requested
+`gpt-6.1-sol` / medium remains unverified by supported current-turn metadata.
+
+One narrow diagnostic queried only the recorded failed-normal service label and
+GUI domain. Service return code **113** classified as exact-service absence;
+domain return code **0**, empty stderr, classified healthy. Both stdout streams
+were discarded at source; stderr had a 4 KiB cap and two-second command limits.
+Only return codes, byte counts and allowlisted categories were retained. This
+confirms the later absent/healthy state; it does **not** establish that the earlier
+failure was a particular launchd transition or domain failure. No old job was
+recreated, differential probe repeated, or unrelated job/log inspected.
+
+`unload` now uses a five-second monotonic verification deadline, at-most-one-second
+commands and short 50 ms polls of only the exact lease-derived service. It checks
+for existing absence first, otherwise bootouts that label once and treats continued
+presence as transitional until the deadline. Success requires the complete
+recognized absence message bound to this label and GUI UID, followed by a healthy
+GUI domain with empty stderr. All service/domain/bootout stdout is discarded;
+private stderr is capped at 4 KiB. Domain failure, unexpected stderr, command
+timeout, cancellation, deadline expiry, command error and bootout failure produce
+distinct non-secret error categories and retain state. Only the owned launchctl
+CLI process is killed/reaped on timeout/cancellation/output overflow; reaping has
+a separate one-second bound. The helper READY handshake, containment/cleanup,
+receipt semantics, dependency pins and frozen W4A 600-second budget are unchanged.
+The integration test's independent service query now uses the same bounded runner.
+
+Final focused selection: **88 passed**, zero skips, 1.32 s (73 supervision unit
+tests plus 15 existing mocked offline-adapter tests). New tests cover transient
+presence then absence, already-absent idempotence, wrong label/UID, domain failure,
+unknown stderr, timeout, cancellation, deadline expiry, state retention, stdout
+discard, stderr overflow and owned CLI reaping. Ruff caught one long synthetic
+test string and integration formatting; corrected, then repository lint/format
+passed for **237 files**. No full-suite claim.
+
+Exactly one authorized actual selection used `pytest -x`: **3 passed**, zero skips,
+**11.30 s**, in the dedicated existing Colima profile. Normal completion retained
+the exact 38-byte fixed output; timeout stopped on the deadline; abrupt owned
+controller SIGKILL stopped on controller exit. Timeout/crash each observed three
+guest PIDs including the detached-session descendant. All cases passed observed
+input binding, stable post-stop output, stopped/absent container and observed
+guest-process absence, valid bound receipt, recovery idempotence, controller
+completion/reaping, exact launchd absence and temporary-state removal. Separate
+read-only checks confirmed all three exact containers/services absent, healthy
+GUI domain, valid receipts and normal helper-return diagnostics. No case was
+retried; no canary, provider, credential, agent, candidate or pilot ran. These are
+finite synthetic observations, not a hard deadline or general crash guarantee.
+
+All prior supervision artifacts remain byte-identical, including 20 original
+pinned files and three original failure receipt bindings. New ignored evidence
+is `.model-learner/supervision-control-v1/disposal-repair-v1/`: diagnostic, focused
+reports, runtime XML, three retained receipt/output/diagnostic bundles, final
+absence observations and hash inventory. Same five public paths pass working-byte
+privacy/whitespace; HEAD privacy guard passed **301 files, zero rejected**. Git
+HEAD/cached origin, branch and index digest are unchanged. No stage/commit/push,
+fetch, download, credentials access or security/privacy-setting change.
+
+Stop here for coordinator review. Proposed commits: `feat: add fail-closed
+synthetic container supervision` (module and both test files), then `docs: record
+synthetic supervision acceptance and limits` (guide and status). Coordinator alone
+stages, runs the staged privacy guard and commits with verified human attribution.
+Jev, production model/auth relay, W4A/W4B real coding/containment/duration and final
+trusted E2E remain open; moving to any of them requires a new instruction.
+
+## Packaged-helper exception capture and repair — 2026-10-23
+
+**Python helper readiness validated; full runtime acceptance still BLOCKED at
+launchd disposal verification.** Continued the same five pending public paths on
+`main` over `40176882eb20788f895741067dda46d0b9228807`. No differential probe was
+repeated. Effective current-turn model/reasoning metadata remains unavailable;
+requested `gpt-6.1-sol` / medium was not independently enforced or changed.
+
+One owned ordinary subprocess ran the exact previously failed packaged
+interpreter/bootstrap/helper sequence with a newly bound, validated no-worker
+lease. Private stdout/stderr were captured with an 8 KiB cap per stream and a
+ten-second timeout; the process exited 1 and was reaped. The actual exception was
+`TypeError: 'select.kqueue' object does not support the context manager protocol`
+at `watch`. No launchd job/container was created by this diagnostic; its temporary
+state was removed. The metadata hypothesis was not supported: no `.dist-info` or
+dependency change was made. Raw captures remain private ignored artifacts.
+
+Repaired only the established queue-lifecycle error using `contextlib.closing`.
+Regression coverage uses the real kqueue registration and verifies explicit close
+in the fake test. The pinned bootstrap now writes one exclusive mode-0600,
+at-most-512-byte `helper-diagnostic.json` containing only an allowlisted stage,
+outcome and exception type. Error messages, traceback/source, paths and task
+payload are excluded. Uncaught Python errors use this receipt; raw standard
+streams remain discarded. Finalization retains the safe diagnostic when present.
+Tests verify success/error/tamper stages, size/mode and private-message exclusion.
+All dependency RECORD checks, digest pins, Pydantic validation and legacy lease
+encoding remain intact. No downloads, credentials or privacy/security changes.
+
+Exactly one corrected launchd no-worker preflight reached the **real READY**
+lease/PID handshake and returned normally (`stage=ready`). Its immediate removal
+check was inconclusive; later exact-service queries verified absence, then only
+the matching temporary state was removed. This disposal observation is separate
+from the original preflight result; no helper retry was used. No container query
+or start occurred in either no-worker diagnostic/preflight.
+
+With READY and disposal verified, executed exactly one `pytest -x` runtime
+selection. **1 failed in 2.93 s**, stopping at the normal scenario's
+`finalize -> unload -> temporary supervisor removal not verified`. Before that
+failure, the real fixed normal worker had passed input/output binding, completed
+stop reason, stable output, container/guest-process absence, cleanup confirmation,
+recovery idempotence and controller exit assertions. This is partial evidence,
+not a passing runtime test. Timeout and controller-crash cases were **not run**.
+No runtime retry, old canary, model, provider, agent, candidate or pilot followed.
+The test's failure cleanup later finalized successfully. Separately verified the
+exact container and launchd service absent and original temporary job directory
+removed; retained the valid receipt/output and separate disposal observation.
+The immediate removal-check failure's cause remains unestablished; no removal
+policy was weakened or repaired speculatively.
+
+Final focused selection: **72 passed**, zero skips (57 supervision unit tests,
+15 existing mocked offline-adapter tests). Repository Ruff lint/format passed for
+237 files; same five public paths pass working-byte privacy/whitespace checks;
+read-only HEAD privacy guard passed 301 files, zero rejected. All baseline
+supervision evidence remains byte-identical, including the 20 explicitly pinned
+files and three original failed runtime receipt bindings. New private evidence is
+only `.model-learner/supervision-control-v1/packaged-repair-v1/`. Integration source
+is unchanged. Git HEAD/cached origin, branch and index digest remain unchanged;
+executor did not stage, commit, fetch or push. No full-suite claim.
+
+Next separately authorized event: diagnose the exact launchd removal-verification
+failure with bounded safe observations before another runtime acceptance run.
+Timeout/controller-crash supervision, W4A/W4B and final trusted E2E remain open;
+W4A's 600-second semantics and canonical measurement contracts are unchanged.
+Coordinator-only proposed commit units: `feat: add fail-closed synthetic container
+supervision` (module and both test files), then `docs: record supervision readiness
+and disposal blocker` (guide and this status). Coordinator reviews/stages, runs the
+staged privacy guard and uses verified human attribution; executor stops here.
+
+## Differential Python startup diagnosis — 2026-10-23
+
+**Bounded diagnosis complete; packaged helper readiness still BLOCKED.** Exactly
+three new no-worker launchd probes used identical PATH-only environment, cwd `/`,
+marker code and ten-second bounds. Resolved base Python succeeded both with
+`-I -B -S -c` and `-I -B -c`; the repository venv entry point with `-I -B -S -c`
+did not reach its marker. The previous venv `-I -B` failure was not rerun. One
+one-second sample of only the blocked owned process showed Python initialization
+at an open call. This distinguishes entry-point behavior, not the underlying OS
+mechanism; no TCC denial, security exception or privacy-setting remedy is proven.
+All three unique jobs, owned processes and temporary probe directories were removed.
+
+The same pending supervision module now prepares a content-addressed helper bundle
+under `~/.local/share/model-learner/supervision-helper-v1/`, using the resolved
+existing base Python, `-I -B -S`, explicit cwd `/` and an explicit import directory.
+It copies the static project import closure (15 modules) and the five existing
+Pydantic dependencies, checking installed dependency RECORD hashes and all copied
+bytes. No download, editable `.pth`, symlink-only venv copy or validation removal.
+Manifest/interpreter/bootstrap digests bind the new lease runtime descriptor;
+bootstrap verifies the manifest/files before imports. Legacy lease encoding omits
+the new default fields, preserving old receipt digests. An explicit no-worker
+lease purpose uses the actual kqueue registration and lease/PID ready handshake,
+then returns before constructing Runtime or querying a container. It grants no
+worker execution or containment acceptance.
+
+Exactly **one final no-worker launchd preflight** used those actual production
+arguments, the final source and a Pydantic-validated synthetic lease. It **failed**:
+no ready acknowledgement within ten seconds, job exited code 1, no start-consumed
+file. Exit stage/cause is unestablished because job stderr was discarded. No repeat,
+additional sample, runtime suite, canary or container operation followed. Exact
+job/process absence and temporary-state removal were verified. The verified host
+code bundle remains installed; it is not an active job or a validated supervisor.
+
+Evidence is ignored under
+`.model-learner/supervision-control-v1/differential-v1/`: three probe observations,
+one final-readiness bundle, initial and final focused reports. All 20 baseline
+artifact files remain byte-identical; the three original failed runtime receipt
+bindings still validate locally. No secrets, private sessions or credentials read.
+
+Validation: first focused run **70 passed, 1 failed**, exposing intermediate
+bundle directories created with insufficiently private modes; corrected to create
+each directory explicitly mode 0700. Final focused selection **71 passed**, zero
+skips (56 supervision unit tests and 15 existing mocked offline-adapter tests).
+Repository Ruff lint and format passed (**237 files**); working-byte privacy and
+whitespace checks passed on the same five pending public paths. Read-only HEAD
+privacy guard passed **301 files, zero rejected**. No full-suite/runtime claim.
+Integration test source is unchanged. Git HEAD/cached origin, branch and index
+digest remain at the preceding checkpoint; no staging, commit, push or fetch.
+
+Next separately authorized event: diagnose the packaged helper's exit code 1 with
+a bounded owned-job diagnostic and retained stderr, before any further readiness
+or container acceptance attempt. Crash/stop/receipt acceptance, W4A/W4B and final
+trusted E2E remain open. No model, provider, credential relay, agent or pilot ran.
+
+## Synthetic host supervision and receipt — 2026-10-23
+
+**PARTIAL implementation; runtime arming and crash/stop acceptance BLOCKED.**
+Stopped actual runtime attempts at the independent-ready invariant. No worker,
+agent, arbitrary candidate, W4B pilot, model transport, credential, provider request
+or payment occurred. Existing Colima setup and its previous 14 canaries were not
+repeated. No real supervision guarantee or W4A/final-E2E completion is claimed.
+
+Continued the same Model Learner checkout on `main`, initial HEAD/cached
+`origin/main` `40176882eb20788f895741067dda46d0b9228807`, clean index/worktree, no
+pre-existing public edits. Effective current-turn model/reasoning is unavailable
+through this executor's supported metadata; requested `gpt-6.1-sol` / medium was
+not independently enforced or changed. No new chat/checkout/subagent. Initial
+index SHA-256 `c7a42eccfcc5648473a4c6123b313905b0e8d3421eff9caf637f9bfa4a7e95f6`
+and final HEAD/branch/cached origin/index remain unchanged; no remote fetch.
+
+Exactly five authored public paths, all unstaged/uncommitted:
+
+| Path | Change |
+| --- | --- |
+| `src/model_learner/benchmark/supervision.py` | New fixed synthetic-only controller, durable lease, temporary per-user watcher, recovery/disposal and noncanonical bound receipt. |
+| `tests/unit/test_supervision.py` | New 52 synthetic tests; no launchd, Docker, network, credentials or Git writes. |
+| `tests/integration/test_supervision_runtime.py` | New explicit opt-in normal/deadline/owned-controller-kill acceptance; blocked at arming, no worker started. |
+| `docs/SYNTHETIC_CONTAINER_SUPERVISION.md` | New implemented contract, trust/measurement limits and exact unsuccessful runtime evidence. |
+| `STATUS.md` | This checkpoint only. |
+
+Reuses existing `AcceptanceSpec`, `ExecutionConfiguration`, restricted container
+arguments/policy and bounded-command helper. Those modules are unchanged. New
+`synthetic-container-control/v1` is noncanonical, `synthetic_control_only`, with
+fixed data and exactly two fixed worker modes; arbitrary commands/models/images/
+endpoints are not accepted by the controller entry point. No ledger records,
+canonical receipt book, estimator, eligibility or advisory integration. Controller
+UUID is an alias, not a canonical Run. Model/provider are absent; canonical Attempt
+latency is always null. W4B frozen task/checker/manifest, W4A 600-second budget,
+acceptance identities and all production trust semantics are unchanged.
+
+Exclusive/fsynced mode-0700 state precedes any start; an ownership reservation
+precedes Docker create. The immutable ID, fixed target/config, input/helper digests,
+controller identity and wall/monotonic observations bind the lease. Independent
+launchd ready acknowledgement is mandatory before exclusive/fsynced start
+consumption. Existing/ambiguous state is recovery-only; no automatic second start.
+Ownership/policy checks, runtime-query success and guest-process observations are
+required for cleanup claims. Receipt validates exact lease/output binding and
+keeps unobserved input/output unknown. Failed cleanup/disposal retains state.
+No input, code, auth or runtime socket is host-mounted into workers; only the
+fixed synthetic driver/data and existing bounded tmpfs policy are configured.
+Actual worker-side isolation/network checks did not run because arming failed.
+
+Actual validation (installed environment, bytecode/plugin autoload/cache disabled):
+
+- New marker-only per-user launchd preflight **passed**: unique label bootstrapped,
+  marker appeared, bootout succeeded, job absent and preflight state removed.
+  This proves only that simple independent jobs execute, not Python supervision.
+- Final focused selection: **67 passed**, zero skips, 0.34 s: 52 new unit tests
+  plus 15 existing mocked offline-adapter tests, checking reused policy interfaces.
+  Command: `PYTHONDONTWRITEBYTECODE=1 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+  .venv/bin/python -B -m pytest -q -p no:cacheprovider
+  tests/unit/test_supervision.py tests/unit/test_benchmark_offline.py
+  --junitxml=.model-learner/supervision-control-v1/focused-final.xml`.
+- Actual opt-in new runtime selection: **3 failed**, zero skips, 13.65 s, all at
+  `independent supervisor not armed`. Command used
+  `MODEL_LEARNER_SUPERVISION_RUNTIME_TEST=1`, explicit ignored evidence directory,
+  and `pytest -q -s -p no:cacheprovider tests/integration/test_supervision_runtime.py
+  --junitxml=.model-learner/supervision-control-v1/runtime.xml` through supported
+  escalation. All three created restricted containers, but **zero starts**;
+  start-consumption files were absent. No controller-kill/normal/timeout worker
+  acceptance was exercised. No further runtime trial after this failed gate.
+- launchd reported each owned Python helper running without ready acknowledgement.
+  One scoped one-second stack sample showed Python initialization waiting at an
+  open call. It does not establish a TCC denial or approved remedy. No privacy/
+  security change, interpreter relocation, runtime workaround or bypass attempted.
+- External disposal verified all three exact container IDs absent, unloaded only
+  their unique labels, verified helpers/jobs absent, then removed each temporary
+  job directory. Original receipts/helper bytes were retained unchanged alongside
+  separate disposal observations. No temporary supervisor or worker remains.
+- Initial cleanup treated empty logs from unstarted workers as missing-input error.
+  Final code restricts unknown-input handling to the never-started arming-failure
+  case; an overbroad exemption caused one unit failure (44 passed), was narrowed,
+  then passed. Final review added duplicate-key, process-evidence, hardlink and
+  fsync-failure controls. Original failed runtime/unit XML remains retained.
+- Repository Ruff lint/format (**237 files**), tracked/new whitespace and pure
+  working-byte privacy passed on all **5 authored public files**, without exemptions.
+  `GIT_OPTIONAL_LOCKS=0 python3 scripts/privacy_guard.py --tree HEAD` passed:
+  **301 files, zero rejected** (published baseline only). No staged guard/staging.
+
+No full-suite claim. Excluded: old real isolation/process/host-access probes,
+W4B-P0, W6B/W7A demos/replay, models/Potion, Jev/account, downloads, unrelated
+experiments and Git-mutating tests. New opt-in integration tests are not silently
+converted into skips or a passing crash-control result. Default test collection
+skips service execution unless explicitly enabled; future finite validation must
+use fail-fast `pytest -x` after the blocked helper startup is resolved.
+
+New ignored evidence is only `.model-learner/supervision-control-v1/`: initial
+runtime/unit XML, final focused XML, and three `arming-failure-<owner>/` bundles
+with original lease/helper/plist/receipt and external-disposal observations.
+Original runtime profiles/artifacts and all other private data were preserved.
+Initial read-only snapshot and one owned-helper diagnostic are under `/private/tmp/`.
+No `.env.local` access, host configuration/security changes, downloads, permanent
+login item, root daemon, staging/commit/push/merge or index/ref mutation.
+
+Single next event: demonstrate the selected Python helper initializes and arms
+under its temporary per-user launchd job through an approved execution path.
+Then actual crash/stop/receipt acceptance still needs its bounded test; do not
+launch a pilot based on unit tests or the marker-only preflight. Model/auth relay,
+supervisor/VM loss, logout/reboot and hostile-code guarantees remain unestablished.
+Jev, W4A/W4B real coding/containment/duration and final trusted E2E stay open.
+
+Suggested small coherent coordinator commit units:
+1. `feat: add fail-closed synthetic container supervision` — module and both tests.
+2. `docs: record synthetic supervision contract and arming blocker` — guide/STATUS.
+
+Coordinator alone reviews/stages, checks the active local hook, runs
+`python3 scripts/privacy_guard.py --staged`, commits/pushes with verified human
+attribution. Executor leaves all changes uncommitted and stops at this blocker.
+
 ## Jev official live-readiness review — 2026-10-23
 
 **BLOCKED before paid dispatch; precise external-evidence stop.** Continued the

@@ -1,5 +1,51 @@
 # Model Learner status
 
+## Trusted model-dispatch architecture recommendation — 2026-10-23
+
+**Documentation decision prepared; architecture change awaits human decision.**
+Started clean on `main`, HEAD/cached origin
+`91800683ef6f4f9c163957219ba72a3757ab8658`; no pre-existing edits. Read the full
+coordinator-supplied planner dispatch and existing published contracts/evidence
+only. Requested `gpt-6.1-sol` / medium remains unverified by supported current-turn
+metadata; no model override or subagent. No feasibility/probe/research repetition.
+
+[Reviewable recommendation and finite acceptance matrix](docs/SYNTHETIC_CONTAINER_SUPERVISION.md#proposed-trusted-model-dispatch-decision--2026-10-23)
+compare exactly two routes: wait for a proven supported Codex interface, or build
+a purpose-built trusted host dispatcher. Recommend the latter conditionally, as
+a separate external execution harness observed by Model Learner. Existing
+controller remains the fixed-worker lifecycle/handoff authority; host transport
+owns authentication/spend; dispatcher owns typed positive tool enforcement;
+independent operator/receiver owns verification and first-arrival evidence.
+
+One substantive decision is required: authorize a new versioned dispatcher harness
+in place of proposed `codex.exec`, keeping OpenAI / `gpt-6.1-sol` / medium, frozen
+task/checker, one attempt/no retry and exposure ceilings. Supported endpoint access
+to that exact model/effort and enforceable budgets are unknown. No presently proven
+route preserves the entire frozen configuration; a different harness must receive
+a new configuration identity. If model/provider/budget preservation cannot be
+proved, stop/wait; no substitution or fallback. No architecture change adopted.
+Already-authorized ordinary setup, necessary free pinned downloads and the
+separate acceptance-only pilot are not reopened as permission requests.
+
+The matrix distinguishes M0–M4's incomplete real product endpoint, unimplemented
+trusted model transport, the authorized but unexecuted separate W4B-P0 synthetic
+pilot, W4A's unchanged graph/containment and 600-second attributed Attempt-latency
+gates, and final real E2E. Historical CLI metadata smoke is not a verified coding
+outcome; synthetic/benchmark/fixture success cannot complete the real endpoint.
+First-call <=$1 and total <=min($15, proven remaining prepaid), lower effective
+key limits and stricter frozen J2 limits remain intact. Jev metadata's $5 key
+remaining/$0 usage is not wallet, TypeSafe-only/no-fallback or output-bound proof.
+
+Exactly two documentation paths changed: supervision guide and this status.
+Only focused working-byte privacy and whitespace checks were run; no code/tests,
+runtime, provider request, credential read, agent, candidate, pilot, download,
+model session or unrelated research. No new test/runtime evidence is claimed.
+Both edited files passed those checks; HEAD/cached origin and index remain aligned
+with baseline, no staging/commit/push/fetch. Prior source/tests/artifacts preserved.
+Proposed coordinator commit: `docs: propose trusted model dispatch boundary`.
+Stop after this decision record; subsequent implementation requires the specific
+architecture decision, not another generic setup approval.
+
 ## Offline host-only Codex transport feasibility — 2026-10-23
 
 **Bounded feasibility complete; required CLI boundary unproven. No bridge built.**

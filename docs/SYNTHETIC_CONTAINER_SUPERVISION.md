@@ -76,6 +76,80 @@ ceiling. Per-operation cleanup grace can extend the synthetic deadline. W4A's
 frozen 600-second budget and acceptance remain unchanged. Synthetic control
 receipts cannot validate as Observation, Verification or AdvisoryInput.
 
+## Proposed trusted model-dispatch decision — 2026-10-23
+
+**Recommendation: route 2, a purpose-built trusted host dispatcher, conditional
+on one human architecture decision. Not adopted or implemented.** Preserve the
+[W4B-P0 coding choice](W4B_P0_APPROVAL.md): OpenAI / `gpt-6.1-sol` / medium,
+one attempt and no retries. Its frozen `codex.exec` harness cannot truthfully name
+a different client. The exact model's availability through a suitable supported
+endpoint, effective reasoning setting and enforceable exposure remain **unknown**.
+No practical route currently proves preservation of the entire frozen
+configuration and budgets. Do not substitute Jev, another model/provider, a
+subscription entitlement or an undocumented Codex endpoint to fill that gap.
+Direct endpoint billing/entitlement may differ from the proposed subscription
+client; portability is unknown. The recommendation grants no new purchase or
+unbounded API spending and does not establish that prepaid funds exist there.
+
+This recommendation uses only published local evidence: 88 focused checks and the
+single three-case synthetic runtime selection passed; Codex CLI
+`0.163.0-alpha.11` tool exclusivity and MCP environment clearing remain unproven.
+No research, CLI reprobe, model request or runtime work was performed for this
+decision. Historical approval packets retain their original dates; current user
+authorization already covers ordinary setup, necessary free pinned downloads and
+one separate acceptance-only pilot. Those are not new approval requests here.
+
+| Route | Evidenced capability / unresolved facts | Smallest subsequent increment and objective tests | Identity impact |
+| --- | --- | --- | --- |
+| 1. Wait for a supported Codex client/interface | Installed CLI supports configuration and stdio MCP declarations; it does not prove exhaustive native/deferred/nested tool denial or pre-start environment clearing. A suitable future interface, availability date and spend controls are unknown. | Once supported evidence exists, test an offline effective-tool inventory and dispatch denial, including forged/nested calls, plus an actual launcher sentinel test before bridge code. Then one fixed-controller bridge test; no model turn as a tool-discovery test. | Could retain `codex.exec` only if actual client/version, provider/model/effort and policy are corroborated. New client/version or policy changes still require a distinct configuration identity. No timeline or frozen-identity guarantee. |
+| 2. Purpose-built trusted host dispatcher — recommended | Existing controller supplies fixed worker start/stop, crash cleanup, bounded handoff and synthetic receipts; ordinary clean child creation passed. There is no model client, transport enforcement or supported-endpoint proof yet. | After the architecture decision, one offline typed-dispatch/transport-contract increment using synthetic responses: enforce a positive method set; reject shell/path/network/raw-Docker, wrong lease, duplicate calls, malformed/oversized messages; test cancellation, deadlines, crash recovery and a real child sentinel. Prove request admission/spend reservations without a provider call. Later live identity/output/spend proof is a separate technical gate before the authorized pilot. | Requires a new versioned harness/client and `ExecutionConfiguration`; never call it `codex.exec` or fabricate a Codex native session. Keep OpenAI / `gpt-6.1-sol` / medium as required identity, subject to endpoint proof. No provider/model switch is proposed or authorized. |
+
+**Single human decision:** authorize replacing the proposed `codex.exec` execution
+path with the versioned trusted host dispatcher for the separate acceptance-only
+pilot, while retaining the exact coding model/provider/effort, frozen task/checker
+and exposure ceilings. This changes the harness architecture, not ordinary setup
+permission. Until decided, route 2 is only a recommendation. If exact endpoint
+identity or budgets cannot be proven, stop and wait under route 1; do not silently
+relax them or turn this into another generic setup/pilot approval request.
+
+Logical ownership for route 2 (no new daemon or implementation selected):
+
+| Responsibility | Trusted owner and boundary |
+| --- | --- |
+| Model authentication | External trusted host transport alone holds the credential and calls the supported endpoint. Clear the environment before creating any bridge/worker process; no credential in prompts, bridge, VM, container, capture or artifacts. Model-generated text never controls authentication or endpoint selection. |
+| Typed tool allowlist | Host dispatcher validates every call against a fixed positive method enum and schema, exact lease/task binding, byte/time limits and single-use state. It exposes only existing bounded synthetic controller operations initially. No native host tools, arbitrary paths, shell, network or raw Docker method. A model's declared tool set is not enforcement. |
+| Worker lifecycle | Existing trusted Colima controller plus independent launchd lease owns READY-before-start, deadline/controller-loss cleanup, descendant checks and exact absence. External host launcher/transport owns model-request stop/cancellation. Killing a local process does not prove remote inference or billing stopped. |
+| Output handoff and checking | Controller stops candidate access and hands out bounded data with exact hashes. Independent trusted operator checks an immutable snapshot with the frozen checker; checker, oracle, receiver and host shares never enter the worker. The fixed worker is not yet a W4B coding/artifact interface. |
+| Receipts and observation | Controller retains its noncanonical synthetic control receipt; transport retains actual requested/observed identity, usage/cost and stop status; trusted receiver owns first-arrival `ReceiptBook` evidence and independent verification. Model Learner observes/imports supported evidence and builds eligibility; it does not become the model dispatcher or accept producer self-report as verification. |
+| Spend admission and enforcement | Trusted transport reserves conservative worst-case request exposure before dispatch using proven input/output bounds, exact route/pricing and current prepaid/key constraints. Enforce first-call <=$1 and total <=min($15, remaining prepaid), also any lower effective key limit; retain stricter frozen J2 <$1 limits. No fallback, retries, top-up or second ambiguous call. Require provider-side output enforcement, external stop and actual usage/cost receipt; unknown charge remains unknown and blocks further admission. Local post-hoc rejection cannot cap remote spend. |
+
+Jev remains a separate blocked decision-model integration, not a substitute coding
+model. Existing key metadata reports a $5 key limit/remaining and $0 usage; that
+does not prove prepaid wallet balance, effective TypeSafe-only/no-fallback routing
+or a provider-side output bound. No paid request is admissible on those facts.
+The same exposure proof is required for any proposed coding endpoint; capability,
+entitlement, pricing and output enforcement are unknown until independently shown.
+
+Finite acceptance matrix; no gate is satisfied merely by this recommendation:
+
+The M0–M4 observational endpoint can use the existing supported local-agent capture
+workflow within its authorized task scope; it does not require turning Codex into
+a benchmark dispatcher. A custom harness cannot replace that real evidence with
+synthetic receipts or acquire a fabricated native-session identity.
+
+| Milestone | Current status | Exact remaining acceptance |
+| --- | --- | --- |
+| M0–M4 first real product endpoint | Foundation/contracts/import/verifier paths exist; supported CLI metadata-only smoke capture/reimport passed historically. Full real task-to-outcome endpoint is incomplete. | Reproducible install; capture one supported real local-agent session with actual metadata; declare task/acceptance and link execution; bind independent verification to the exact artifact or retain honestly unknown outcome; export an eligible `source_kind=real` observation when evidence supports eligibility; reimport and rebuild summaries idempotently without losing assessments. An unknown outcome is valid evidence, not automatically an eligible success. |
+| Trusted model transport | Not implemented; installed CLI boundary unproven, route 2 pending decision. | Positive dispatch allowlist and clean-child sentinel; no worker/bridge/artifact credential; exact supported model/provider/effort and no fallback; provider-side output bound; first-call <=$1 and total <=min($15, proven remaining prepaid), with lower effective limits respected; external stop and actual usage/cost receipt. Unknown spend or identity fails admission. |
+| Separate acceptance-only synthetic pilot | Frozen public W4B-P0 inputs/checker exist; user authorization is already given. No pilot executed. Synthetic lifecycle tests alone do not prove candidate execution. | Freeze the existing acceptance-only target and inputs/checker identities before launch; one attempt, zero retries; approved runtime and proven transport/exposure; only approved inputs enter worker; trusted immutable handoff/checker/receiver receipt. Implement and validate the missing bounded artifact/tool path before execution; no duration-learning claim or relabeling of the synthetic control receipt. |
+| W4A | Separate and incomplete; graph task/acceptance remain frozen. | Actual graph coding and containment gates plus attributed canonical Attempt-latency coverage under the unchanged 600-second budget. Operator wall time, local safety timeout or receipt span cannot substitute for Attempt latency. |
+| Final real end-to-end acceptance | Incomplete. | Complete the M0–M4 flow above with actual supported local-agent evidence and retained eligibility reasons/assessments. A new dispatcher needs truthful supported capture for its own harness; no fabricated Codex stream, second adapter or canonical schema change is authorized here. Fixture, synthetic-control, benchmark and inferred data remain separate from real evidence. |
+
+The acceptance-only pilot may demonstrate its frozen synthetic task; it cannot
+stand in for the final real product endpoint or W4A. No task, target, schema,
+threshold or budget is changed by this record. Stop for the architecture decision;
+implementation, provider proof and execution are not part of this step.
+
 ## Actual acceptance evidence — 2026-10-23
 
 ### Offline host Codex control-transport decision — 2026-10-23

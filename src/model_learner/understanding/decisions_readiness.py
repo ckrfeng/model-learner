@@ -14,6 +14,10 @@ from decimal import Decimal
 from pathlib import Path
 
 from model_learner.understanding import decisions_offline as wire
+from model_learner.understanding.decisions_transport import (
+    VERSION as HTTP_FIXTURE_VERSION,
+)
+from model_learner.understanding.decisions_transport import MockHTTPTransport
 from model_learner.understanding.intent import canonical, digest
 from model_learner.understanding.intent_evaluation import MANIFEST_SHA256
 
@@ -187,13 +191,15 @@ def _consume_mock_marker(directory: Path, request_sha256: str) -> None:
         os.close(directory_fd)
 
 
-def rehearse(root: Path, directory: Path, transport: wire.FakeTransport) -> dict:
+def rehearse(
+    root: Path, directory: Path, transport: wire.FakeTransport | MockHTTPTransport
+) -> dict:
     """Single frozen mock request; no credentials, caller text or live labeling.
 
     Exception messages and raw responses are never placed in receipts. The marker
     persists on all failures, including parsing, accounting or model mismatches.
     """
-    if type(transport) is not wire.FakeTransport:
+    if type(transport) not in (wire.FakeTransport, MockHTTPTransport):
         raise ValueError("exact offline fake transport required")
     body = frozen_request(root)
     request_hash = hashlib.sha256(body).hexdigest()
@@ -247,4 +253,7 @@ def rehearse(root: Path, directory: Path, transport: wire.FakeTransport) -> dict
         # No retry, raw error text or reclassification as live evidence.
         pass
     receipt["finished_at"] = datetime.now(UTC).isoformat()
+    if type(transport) is MockHTTPTransport:
+        receipt["transport_contract"] = HTTP_FIXTURE_VERSION
+        receipt["evidence_class"] = "synthetic_development_http_fixture"
     return receipt

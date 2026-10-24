@@ -495,3 +495,90 @@ Raw content remains private; allowed opaque metadata still needs human review.
 No database migration, new dependency, model, CLI or statistical method was added.
 W4 is not started. Its next bounded action requires a separate feasibility scope
 with selected task, frozen acceptance, privacy/containment and hard resource limits.
+
+## M6-B focused task-dependent assignment contrast (2026-10-24)
+
+`learn.stress.run_selection_confounding()` adds one frozen synthetic increment,
+separate from `run_stress_suite()` and the original simulator. No existing
+scenario, generator default, fingerprint or campaign artifact changes. Direct
+module import is sufficient; no CLI or estimator integration is added.
+
+The two mechanisms are `selection_confounded` and `assignment_control`, each
+using seeds `(11, 23, 37, 41, 53, 67, 71, 83, 97, 101, 113, 127)`. Each has
+120 decisions at 60-second spacing from 2026-01-01T00:00:00Z. Training is indices
+0–71 (72 eligible labels), cutoff 01:12 UTC; heldout is indices 72–119 (48 labels),
+evaluated at 01:59 UTC. Labels have zero delay, no unknowns and no missing
+resources. The experiment has 2,880 distinct synthetic rows; no other parameters
+or seeds are searched.
+
+Groups are equally likely. Columns below are arm-a/arm-b/arm-c. All twelve cells
+remain in the declared grid even when a realized split has zero assignments.
+Expected counts refer to 30 decisions in a group; observed group totals and
+cell counts are random and are reported separately for each seed and split.
+
+| Group | Known success probabilities | Confounded assignment probabilities | Expected assignments per 30 |
+| --- | --- | --- | --- |
+| group-a | 0.20, 0.45, 0.70 | 0.05, 0.15, 0.80 | 1.5, 4.5, 24 |
+| group-b | 0.30, 0.55, 0.80 | 0.10, 0.20, 0.70 | 3, 6, 21 |
+| group-c | 0.40, 0.65, 0.90 | 0.70, 0.20, 0.10 | 21, 6, 3 |
+| group-d | 0.50, 0.75, 0.95 | 0.80, 0.15, 0.05 | 24, 4.5, 1.5 |
+
+Control assignment is independent of group, (1/3, 1/3, 1/3), or expected
+(10, 10, 10) per 30 decisions in each group. Positive assignment probabilities
+provide theoretical overlap; a 0.05 probability still yields sparse/empty cells.
+Arm-a's equal-group latent rate is 0.35, while its confounded assignment-weighted
+latent rate is 0.43636. This difference reflects the synthetic group mix. No
+propensity adjustment, counterfactual utility or causal estimate is computed.
+
+The stress-only generator uses four SHA-256-seeded stdlib Random MT19937 streams:
+group, assignment, outcome and resources. Seed strings are
+`selection-streams/v1:<seed>:<stream>` and do not depend on mechanism. Group uses
+floor(4*U), assignment an inverse cumulative probability draw and outcome
+`U < cell probability`; resources use the existing lognormal transform. Changing
+assignment thresholds cannot shift group/outcome draws. The scenario fingerprint
+includes the mechanism, fixed seed list/current seed, sample/split/timing,
+probability matrices, resource parameters, RNG construction, explicit synthetic
+configuration snapshots, target choice, acceptance and budget. Dataset IDs are
+unique per mechanism/seed. This separate path preserves old RNG draw ordering.
+
+Existing `evaluate()` supplies the three fixed-prior references. M6-A is queried
+through its unchanged public `partial_pool` API. Synthetic arm snapshots declare
+an explicit synthetic effort; each arm remains a separate compatible family,
+while its four groups share the declared broad task family. The first predeclared
+heldout Task in each group is the target (an explicit sentinel covers an absent
+group). All Tasks are declared at the start. The common training prefix excludes
+all these target IDs before every fit, retaining the same source IDs across
+methods. Targets have no training rows in the actual split. Every partial-pooling
+result's evidence IDs are checked against the exact common training set.
+Heldout truth never enters either fit. A repeat baseline fit queries its twelve
+cell intervals for diagnostics; it uses the same 72 rows as `evaluate()`.
+
+Brier score, log loss and 10-bin equal-width ECE weight the 48 heldout labels.
+The log convention clips at [1e-15, 1-1e-15] for mixture scoring; all predictions
+are interior, so clipping is inactive and baseline scores equal unchanged
+`evaluate()` scores. Empty bins retain zero counts and undefined means. Primary
+latent RMSE, 95% interval coverage and mean width weight unique represented
+heldout cells equally; additional assignment-weighted latent metrics are exposed.
+Coverage concerns known latent rates, not future binary outcomes. Equal-seed
+summaries include mean, sample SD, range, defined-seed count and paired per-seed
+differences against global. Undefined values remain null. Repeated labels/cells
+are not independent replications, and seed variation is descriptive.
+
+Actual equal-seed means from this fixed increment:
+
+| Assignment | Method | Brier | Log loss | ECE | Cell RMSE | Cell coverage | Width |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| confounded | global | 0.239927 | 0.673044 | 0.085961 | 0.201465 | 0.370644 | 0.218230 |
+| confounded | per-arm | 0.224186 | 0.640734 | 0.099488 | 0.140999 | 0.809449 | 0.369772 |
+| confounded | unpooled | 0.235202 | 0.664800 | 0.145326 | 0.169165 | 0.974074 | 0.600543 |
+| confounded | partial pooling | 0.226731 | 0.646115 | 0.131375 | 0.136157 | 0.956481 | 0.535938 |
+| control | global | 0.240888 | 0.674894 | 0.087462 | 0.231156 | 0.279040 | 0.221073 |
+| control | per-arm | 0.207467 | 0.602855 | 0.133894 | 0.129406 | 0.764520 | 0.341943 |
+| control | unpooled | 0.208315 | 0.602723 | 0.156575 | 0.157711 | 0.964646 | 0.576055 |
+| control | partial pooling | 0.203980 | 0.593559 | 0.158451 | 0.126003 | 0.972222 | 0.508311 |
+
+This is a mechanism contrast and finite numerical stress check. No method must
+win and these values establish no real-world superiority, universal calibration,
+automatic selection, or utility policy. Full M6-B remains open: real heldout work
+requires sufficient compatible observations; benchmark adapter work is conditional
+on availability. M7 utility/shadow and separate runtime gates are unchanged.

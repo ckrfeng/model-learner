@@ -1,5 +1,55 @@
 # Model Learner status
 
+## M6-B focused selection-confounding stress — 2026-10-24
+
+Delivered one additive stress-only assignment contrast, not full M6-B completion.
+`learn.stress.run_selection_confounding()` compares selection_confounded and
+assignment_control on the exact twelve fixed seeds, 120 decisions each, with
+72 training/48 heldout labels. The two mechanisms share the known 4×3 success
+matrix and independent explicit group/assignment/outcome/resource RNG streams;
+only assignment probabilities differ. This represents 2,880 distinct synthetic
+rows. All parameters/mechanisms enter scenario fingerprints and separate dataset
+identities. Old generator bytes, original stress definitions/defaults/scenarios,
+existing campaign evidence and M6-A math/API are preserved.
+
+Existing evaluate() supplies global/per-arm/unpooled references; unchanged M6-A
+partial_pool supplies the fourth method. All methods use identical eligible
+prefix source IDs, heldout/scored IDs, acceptance, null budget, admitted snapshot
+set and cutoff (2026-01-01 01:12 UTC). Targets are the first predeclared heldout
+Task per group; target IDs are excluded from the common fit, and each mixture
+result's evidence is checked against its exact 72-source set. Heldout truth
+perturbation leaves every fitted cell prediction unchanged. Twelve assignment
+cells, including zeros, and all ten calibration bins remain visible.
+
+Binary Brier/log loss/ECE weight the 48 heldout assignments; primary latent
+RMSE/95% interval coverage/width weight unique represented cells equally, with
+assignment-weighted latent diagnostics separately exposed. Per-seed results and
+equal-seed mean/sample SD/range/defined counts include paired differences against
+global. Confounded mean Brier: global 0.239927, per-arm 0.224186, unpooled
+0.235202, partial pooling 0.226731. Control: 0.240888/0.207467/0.208315/0.203980.
+These descriptive synthetic tradeoffs require no winner and establish no real
+superiority, universal calibration, causal effect, utility or automatic selection.
+Positive but weak overlap (minimum assignment probability 0.05) leaves some
+realized cells empty; expected counts are distinguished from observed counts.
+
+Focused verification **119 passed in 8.24 s**, including new deterministic/shared-
+fit/boundary/metric tests and preserved stress/M6-A unit and fictional integration
+regressions. An earlier negative fixture used an invalid string source-kind in a
+nested model; corrected that setup and reran the bounded selection successfully.
+Ruff lint/format and whitespace checks passed. No privacy guard was run during
+implementation; coordinator retains staged-guard/hook responsibilities before
+any commit. Initial clean main HEAD/cached origin was
+39ce567280c26bb109ea12d5cd44e2b46ebd45e5; all twelve fixed input hashes matched.
+Only stress.py, its new focused test, the prospective guide and this status
+changed, unstaged/uncommitted. No generator, estimator/evaluation/partial-pooling,
+dependency, CLI/advisory, private ledger, real cycle/checker, provider/network,
+inference/runtime, benchmark or Git index/history/publication action occurred.
+
+This finite selection-confounding increment is complete. Full M6-B remains open:
+real heldout work needs adequate compatible observations, and benchmark adapter
+work is conditional on availability. M7 utility/shadow and W4A600s/W4B/custom-
+transport gates remain separate/open. No follow-on milestone was started.
+
 ## M6-A finite hierarchical partial pooling — 2026-10-24
 
 Delivered standalone `finite-hierarchical-beta-binomial/v1` via

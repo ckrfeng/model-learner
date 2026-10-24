@@ -2,26 +2,55 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import math
-from collections.abc import Iterable
-from dataclasses import dataclass
-from datetime import timedelta
+import random
+from collections.abc import Iterable, Mapping
+from dataclasses import asdict, dataclass
+from datetime import UTC, datetime, timedelta
 from statistics import fmean, stdev
+from uuid import NAMESPACE_URL, uuid5
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from model_learner.domain.models import AcceptanceSpec
-from model_learner.learn.estimator import Aggregation, BetaBernoulli
+from model_learner.domain.models import (
+    AcceptanceSpec,
+    DatasetReference,
+    ExecutionConfiguration,
+    Observation,
+    OutcomeStatus,
+    Task,
+)
+from model_learner.learn.estimator import (
+    Aggregation,
+    BetaBernoulli,
+    label_exclusion,
+    matches_target,
+    select_records,
+)
 from model_learner.learn.evaluation import (
     BaselineMetrics,
     CalibrationBin,
     EvaluationReport,
     evaluate,
 )
+from model_learner.learn.partial_pooling import PartialPoolingRequest, partial_pool
+from model_learner.learn.prospective import (
+    CompatibilityPolicy,
+    ConfigurationMember,
+    TaskMember,
+)
 from model_learner.simulate import (
     SimulationConfig,
     execution_configurations,
     generate,
+)
+from model_learner.simulate.generator import (
+    SimulationResult,
+    SimulationTruth,
+    TruthRecord,
+    _resource,
 )
 
 TARGET = AcceptanceSpec(identifier="simulated-binary-success", version="1")
@@ -446,3 +475,645 @@ def _summarize(metrics: list[BaselineMetrics]) -> StressBaselineSummary:
         pooled_calibration=tuple(bins),
         pooled_calibration_error=_ece(tuple(bins)),
     )
+
+
+# Separate frozen stress-only path: the original simulator/default suite above
+# retain their identities and random draw ordering. These are synthetic truths.
+SELECTION_SEEDS = (11, 23, 37, 41, 53, 67, 71, 83, 97, 101, 113, 127)
+SELECTION_MECHANISMS = ("selection_confounded", "assignment_control")
+SELECTION_GROUPS = ("group-a", "group-b", "group-c", "group-d")
+SELECTION_PROBABILITIES = (
+    (0.20, 0.45, 0.70),
+    (0.30, 0.55, 0.80),
+    (0.40, 0.65, 0.90),
+    (0.50, 0.75, 0.95),
+)
+SELECTION_ASSIGNMENT = (
+    (0.05, 0.15, 0.80),
+    (0.10, 0.20, 0.70),
+    (0.70, 0.20, 0.10),
+    (0.80, 0.15, 0.05),
+)
+SELECTION_START = datetime(2026, 1, 1, tzinfo=UTC)
+SELECTION_METRICS = (
+    "brier_score",
+    "log_loss",
+    "calibration_error",
+    "truth_rmse",
+    "truth_interval_coverage",
+    "interval_width",
+)
+
+
+def _selection_stream(seed: int, name: str) -> random.Random:
+    seed_bytes = f"selection-streams/v1:{seed}:{name}".encode()
+    return random.Random(int.from_bytes(hashlib.sha256(seed_bytes).digest(), "big"))
+
+
+def _selection_configurations() -> tuple[ExecutionConfiguration, ...]:
+    # Explicit effort is required by the unchanged compatibility contract. Do
+    # not change the original simulator configurations to add it globally.
+    return tuple(
+        ExecutionConfiguration(
+            provider="synthetic",
+            model=f"arm-{arm}",
+            model_version="1",
+            reasoning_level="synthetic",
+            harness="selection-stress-only",
+            harness_version="1",
+        )
+        for arm in "abc"
+    )
+
+
+def _selection_contract(mechanism: str, seed: int) -> dict:
+    if (
+        mechanism not in SELECTION_MECHANISMS
+        or type(seed) is not int
+        or seed not in SELECTION_SEEDS
+    ):
+        raise ValueError("unsupported frozen selection scenario or seed")
+    return {
+        "version": "selection-confounding-stress/v1",
+        "mechanism": mechanism,
+        "seed": seed,
+        "seeds": SELECTION_SEEDS,
+        "count": 120,
+        "train_count": 72,
+        "start_at": SELECTION_START.isoformat(),
+        "spacing_seconds": 60,
+        "verification_delay_seconds": 0,
+        "unknown_probability": 0,
+        "resource_missing_probability": 0,
+        "group_probabilities": (0.25,) * 4,
+        "assignment_probabilities": SELECTION_ASSIGNMENT
+        if mechanism == "selection_confounded"
+        else ((1 / 3,) * 3,) * 4,
+        "probabilities": SELECTION_PROBABILITIES,
+        "cost_means_usd": (0.02, 0.08, 0.2),
+        "latency_means_seconds": (10, 25, 50),
+        "resource_log_sigma": 0.3,
+        "rng": "stdlib-random.Random-MT19937/random-streams/v1",
+        "stream_seed": (
+            "sha256(selection-streams/v1:seed:group|assignment|outcome|resources)"
+        ),
+        "group_draw": "floor(4*U)",
+        "assignment_draw": "inverse-cumulative-probability",
+        "outcome_draw": "U < cell probability",
+        "resource_draw": "existing lognormal arithmetic-mean transform",
+        "acceptance": TARGET.model_dump(mode="json"),
+        "budget": None,
+        "configurations": tuple(
+            c.model_dump(mode="json") for c in _selection_configurations()
+        ),
+        "target_choice": (
+            "first heldout decision per group; predeclared empty-group sentinel"
+        ),
+        "task_family": "selection-groups",
+    }
+
+
+def _selection_digest(value: object) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value, sort_keys=True, separators=(",", ":"), allow_nan=False
+        ).encode()
+    ).hexdigest()
+
+
+def _selection_task_id(fingerprint: str, index: int):
+    return uuid5(NAMESPACE_URL, f"selection-task:{fingerprint}:{index}")
+
+
+def _generate_selection(mechanism: str, seed: int) -> SimulationResult:
+    """Exactly 120 rows; independent streams keep outcome draws assignment-stable."""
+    contract = _selection_contract(mechanism, seed)
+    fingerprint = _selection_digest(contract)
+    dataset = DatasetReference(
+        source_kind="simulated",
+        dataset_id=f"selection-{mechanism}-seed-{seed}-{fingerprint}",
+        dataset_version="1",
+    )
+    groups, assignments, outcomes, resources = (
+        _selection_stream(seed, name)
+        for name in ("group", "assignment", "outcome", "resources")
+    )
+    configurations = _selection_configurations()
+    rows, truths = [], []
+    for index in range(120):
+        group = int(4 * groups.random())
+        u = assignments.random()
+        probabilities = contract["assignment_probabilities"][group]
+        arm = (
+            0
+            if u < probabilities[0]
+            else 1
+            if u < probabilities[0] + probabilities[1]
+            else 2
+        )
+        probability = SELECTION_PROBABILITIES[group][arm]
+        success = outcomes.random() < probability
+        cost = _resource(resources, contract["cost_means_usd"][arm], 0.3)
+        latency = _resource(resources, contract["latency_means_seconds"][arm], 0.3)
+        at = SELECTION_START + timedelta(seconds=index * 60)
+        source_id = f"{fingerprint}:{index}"
+        rows.append(
+            Observation(
+                observation_id=uuid5(
+                    NAMESPACE_URL, f"selection-observation:{source_id}"
+                ),
+                source_kind="simulated",
+                dataset=dataset,
+                source_record_id=source_id,
+                task_id=_selection_task_id(fingerprint, index),
+                task_group=SELECTION_GROUPS[group],
+                configuration=configurations[arm],
+                acceptance_spec=TARGET,
+                attribution_status="single_configuration",
+                eligible_for_configuration_learning=True,
+                outcome_status="success" if success else "failure",
+                verification_status="verified",
+                cost_usd=cost,
+                latency_seconds=latency,
+                decision_at=at,
+                label_available_at=at,
+                recorded_at=at,
+                metadata={"measurement_source": "selection-stress-only/v1"},
+            )
+        )
+        truths.append(
+            TruthRecord(
+                source_record_id=source_id,
+                success_probability=probability,
+                realized_success=success,
+            )
+        )
+    return SimulationResult(
+        observations=tuple(rows),
+        truth=SimulationTruth(
+            dataset=dataset, scenario_fingerprint=fingerprint, records=tuple(truths)
+        ),
+    )
+
+
+def _selection_policy(
+    mechanism: str, seed: int
+) -> tuple[CompatibilityPolicy, tuple[Task, ...]]:
+    contract = _selection_contract(mechanism, seed)
+    fingerprint = _selection_digest(contract)
+    dataset = DatasetReference(
+        source_kind="simulated",
+        dataset_id=f"selection-{mechanism}-seed-{seed}-{fingerprint}",
+        dataset_version="1",
+    )
+    group_rng = _selection_stream(seed, "group")
+    groups = [SELECTION_GROUPS[int(4 * group_rng.random())] for _ in range(120)]
+    tasks = tuple(
+        TaskMember(str(_selection_task_id(fingerprint, i)), group, "selection-groups")
+        for i, group in enumerate(groups)
+    )
+    targets = tuple(
+        Task(
+            task_id=_selection_task_id(
+                fingerprint,
+                next((i for i in range(72, 120) if groups[i] == group), 120 + g),
+            ),
+            description="Predeclared synthetic heldout target",
+            task_group=group,
+            acceptance_spec=TARGET,
+            created_at=SELECTION_START,
+        )
+        for g, group in enumerate(SELECTION_GROUPS)
+    )
+    extra = tuple(
+        TaskMember(str(t.task_id), t.task_group, "selection-groups")
+        for t in targets
+        if str(t.task_id) not in {m.task_id for m in tasks}
+    )
+    return CompatibilityPolicy(
+        "selection-compatibility/v1",
+        SELECTION_START,
+        dataset.model_dump_json(),
+        TARGET.model_dump_json(),
+        "null",
+        tuple(
+            ConfigurationMember(c.model_dump_json(), c.model)
+            for c in _selection_configurations()
+        ),
+        (*tasks, *extra),
+    ), targets
+
+
+def _selection_admit(rows, policy, targets, cutoff):
+    dataset = DatasetReference.model_validate_json(policy.dataset_json)
+    selected, excluded = select_records(rows, dataset)
+    members = {m.task_id: m for m in policy.tasks}
+    snapshots = {
+        m.configuration.configuration_id: m.configuration for m in policy.configurations
+    }
+    target_ids = {t.task_id for t in targets}
+    train, held = [], []
+    for row in selected:
+        member = members.get(str(row.task_id))
+        if member is None or row.configuration.configuration_id not in snapshots:
+            excluded["not_admitted_by_policy"] += 1
+        elif (
+            row.task_group != member.group
+            or row.configuration != snapshots[row.configuration.configuration_id]
+        ):
+            raise ValueError("selection source contradicts frozen membership")
+        elif not matches_target(row, TARGET, None):
+            excluded["other_target_or_budget"] += 1
+        elif row.decision_at < cutoff and row.task_id in target_ids:
+            excluded["prediction_task"] += 1
+        elif (reason := label_exclusion(row)) is not None:
+            excluded[reason] += 1
+        elif row.decision_at < cutoff:
+            if (
+                row.recorded_at > cutoff
+                or row.label_available_at is None
+                or row.label_available_at > cutoff
+            ):
+                excluded["not_available_at_cutoff"] += 1
+            else:
+                train.append(row)
+        else:
+            held.append(row)
+    return train, held, excluded
+
+
+def _selection_bins(predictions, labels):
+    bins = []
+    for i in range(10):
+        members = [
+            (p, y)
+            for p, y in zip(predictions, labels, strict=True)
+            if min(int(p * 10), 9) == i
+        ]
+        bins.append(
+            CalibrationBin(
+                i / 10,
+                (i + 1) / 10,
+                len(members),
+                fmean(p for p, _ in members) if members else None,
+                fmean(y for _, y in members) if members else None,
+            )
+        )
+    return tuple(bins)
+
+
+def _selection_truth(values):
+    # Equal unique represented cells, unlike assignment-weighted label scores.
+    return {
+        "truth_rmse": math.sqrt(fmean((p - t) ** 2 for p, _, _, t in values))
+        if values
+        else None,
+        "truth_interval_coverage": fmean(lo <= t <= hi for _, lo, hi, t in values)
+        if values
+        else None,
+        "interval_width": fmean(hi - lo for _, lo, hi, _ in values) if values else None,
+    }
+
+
+def _selection_run(result: SimulationResult, mechanism: str, seed: int) -> dict:
+    """Shared-ID evaluation of existing APIs; simulator truth never enters a fit."""
+    policy, targets = _selection_policy(mechanism, seed)
+    dataset = DatasetReference.model_validate_json(policy.dataset_json)
+    if (
+        result.truth.dataset != dataset
+        or result.truth.scenario_fingerprint
+        != _selection_digest(_selection_contract(mechanism, seed))
+    ):
+        raise ValueError("selection result does not match frozen scenario")
+    rows = tuple(
+        Observation.model_validate(r.model_dump()) for r in result.observations
+    )
+    cutoff = SELECTION_START + timedelta(seconds=72 * 60)
+    evaluation_at = SELECTION_START + timedelta(seconds=119 * 60)
+    train, held, excluded = _selection_admit(rows, policy, targets, cutoff)
+    report = evaluate(
+        (*train, *held),
+        dataset=dataset,
+        train_until=cutoff,
+        evaluation_at=evaluation_at,
+        acceptance_spec=TARGET,
+        training_observations=train,
+        # Truth is scoring-only and limited to common admitted source IDs.
+        truth=result.truth.model_copy(
+            update={
+                "records": tuple(
+                    t
+                    for t in result.truth.records
+                    if t.source_record_id
+                    in {r.source_record_id for r in (*train, *held)}
+                )
+            }
+        ),
+        calibration_bins=10,
+    )
+    by_id = {r.source_record_id: r for r in held}
+    if report.held_out_count != len(held) or report.scored_label_count != len(held):
+        raise ValueError("selection heldout labels are not jointly scoreable")
+    truths = {t.source_record_id: t.success_probability for t in result.truth.records}
+    held_keys = {(r.configuration.configuration_id, r.task_group) for r in held}
+    configurations = _selection_configurations()
+    grid = tuple(
+        (c.configuration_id, g) for g in SELECTION_GROUPS for c in configurations
+    )
+    training_ids = tuple(sorted(r.source_record_id for r in train))
+    held_ids = tuple(sorted(by_id))
+    fit_digest, held_digest = (
+        _selection_digest(training_ids),
+        _selection_digest(held_ids),
+    )
+    predicted = {}
+    methods = []
+    for aggregation in AGGREGATIONS:
+        learner = BetaBernoulli.fit(
+            train,
+            dataset=dataset,
+            cutoff=cutoff,
+            acceptance_spec=TARGET,
+            aggregation=aggregation,
+        )
+        predicted[aggregation] = {
+            (c.configuration_id, g): (p.success_probability, p.lower, p.upper)
+            for c in configurations
+            for g in SELECTION_GROUPS
+            for p in (learner.predict(c, g),)
+        }
+    pp_cells = {}
+    pp_exclusions = []
+    stable_to_source = {r.stable_key: r.source_record_id for r in train}
+    for target in targets:
+        pooled = partial_pool(
+            PartialPoolingRequest(
+                task=target, candidates=configurations, policy=policy, cutoff=cutoff
+            ),
+            observations=train,
+        )
+        actual_ids = tuple(
+            sorted(
+                stable_to_source[e.stable_key]
+                for cell in pooled.cells
+                for e in cell.evidence
+            )
+        )
+        if actual_ids != training_ids or pooled.eligible_source_count != len(train):
+            raise ValueError(
+                "partial pooling training identities differ from shared fit"
+            )
+        pp_exclusions.append(dict(pooled.exclusions))
+        for cell in pooled.cells:
+            if cell.task_group == target.task_group:
+                p = cell.posterior
+                pp_cells[cell.configuration_id, cell.task_group] = (
+                    p.mean,
+                    p.lower.value,
+                    p.upper.value,
+                )
+    predicted["partial_pooling"] = pp_cells
+    for name, cache in predicted.items():
+        probabilities = [
+            cache[r.configuration.configuration_id, r.task_group][0] for r in held
+        ]
+        labels = [int(r.outcome_status is OutcomeStatus.SUCCESS) for r in held]
+        bins = _selection_bins(probabilities, labels)
+        binary = {
+            "brier_score": fmean(
+                (p - y) ** 2 for p, y in zip(probabilities, labels, strict=True)
+            )
+            if labels
+            else None,
+            "log_loss": fmean(
+                -y * math.log(max(1e-15, min(1 - 1e-15, p)))
+                - (1 - y) * math.log1p(-max(1e-15, min(1 - 1e-15, p)))
+                for p, y in zip(probabilities, labels, strict=True)
+            )
+            if labels
+            else None,
+        }
+        if name in AGGREGATIONS:
+            baseline = report.baselines[AGGREGATIONS.index(name)]
+            if any(
+                binary[k] is not None and abs(binary[k] - getattr(baseline, k)) > 1e-14
+                for k in binary
+            ):
+                raise ArithmeticError(
+                    "selection scoring disagrees with existing evaluation"
+                )
+            binary = {k: getattr(baseline, k) for k in binary}
+            bins = baseline.calibration
+        cell_values = []
+        for key in sorted(held_keys):
+            known = {
+                truths[r.source_record_id]
+                for r in held
+                if (r.configuration.configuration_id, r.task_group) == key
+            }
+            if len(known) != 1:
+                raise ValueError("selection cell truth is not stationary")
+            cell_values.append((*cache[key], known.pop()))
+        assignment_values = [
+            (
+                *cache[r.configuration.configuration_id, r.task_group],
+                truths[r.source_record_id],
+            )
+            for r in held
+        ]
+        methods.append(
+            {
+                "method": name,
+                "training_ids_digest": fit_digest,
+                "heldout_ids_digest": held_digest,
+                "training_count": len(train),
+                "scored_label_count": len(labels),
+                "represented_cell_count": len(held_keys),
+                **binary,
+                "calibration_error": _ece(bins),
+                "calibration_bins": tuple(asdict(b) for b in bins),
+                **_selection_truth(cell_values),
+                "assignment_weighted_truth": _selection_truth(assignment_values),
+                "cell_predictions": tuple(
+                    {
+                        "configuration_id": cid,
+                        "task_group": group,
+                        "probability": cache[cid, group][0],
+                        "lower": cache[cid, group][1],
+                        "upper": cache[cid, group][2],
+                        "heldout_count": sum(
+                            (r.configuration.configuration_id, r.task_group)
+                            == (cid, group)
+                            for r in held
+                        ),
+                    }
+                    for cid, group in grid
+                ),
+            }
+        )
+    baseline = methods[0]
+    return {
+        "mechanism": mechanism,
+        "seed": seed,
+        "scenario": _selection_contract(mechanism, seed),
+        "scenario_fingerprint": result.truth.scenario_fingerprint,
+        "dataset": dataset.model_dump(mode="json"),
+        "cutoff": cutoff.isoformat(),
+        "evaluation_at": evaluation_at.isoformat(),
+        "policy_fingerprint": policy.fingerprint,
+        "target_task_ids": tuple(str(t.task_id) for t in targets),
+        "training_count": len(train),
+        "heldout_count": len(held),
+        "scored_label_count": report.scored_label_count,
+        "training_ids_digest": fit_digest,
+        "heldout_ids_digest": held_digest,
+        "exclusions": dict(sorted(excluded.items())),
+        "evaluation_exclusions": report.exclusions,
+        "training_exclusions": report.training.excluded,
+        "partial_pooling_exclusions": tuple(pp_exclusions),
+        "assignment_counts": tuple(
+            {
+                "task_group": g,
+                "configuration_id": cid,
+                "train": sum(
+                    (r.configuration.configuration_id, r.task_group) == (cid, g)
+                    for r in train
+                ),
+                "heldout": sum(
+                    (r.configuration.configuration_id, r.task_group) == (cid, g)
+                    for r in held
+                ),
+            }
+            for cid, g in grid
+        ),
+        "methods": tuple(methods),
+        "paired_minus_global": tuple(
+            {
+                "method": m["method"],
+                **{
+                    k: m[k] - baseline[k]
+                    if m[k] is not None and baseline[k] is not None
+                    else None
+                    for k in SELECTION_METRICS
+                },
+            }
+            for m in methods
+        ),
+    }
+
+
+def run_selection_confounding(
+    *,
+    results: Mapping[tuple[str, int], SimulationResult] | None = None,
+) -> dict:
+    """Exactly the frozen 24-run increment; optional frozen rows permit replay.
+
+    Supplied results must cover the full fixed experiment, not an extra campaign.
+    No estimator can select an arm and no metric winner is required.
+    """
+    keys = tuple(
+        (mechanism, seed)
+        for mechanism in SELECTION_MECHANISMS
+        for seed in SELECTION_SEEDS
+    )
+    if results is not None and set(results) != set(keys):
+        raise ValueError("selection replay must contain exactly the frozen 24 runs")
+    runs = tuple(
+        _selection_run(
+            _generate_selection(mechanism, seed)
+            if results is None
+            else results[mechanism, seed],
+            mechanism,
+            seed,
+        )
+        for mechanism, seed in keys
+    )
+    if any(
+        (r["training_count"], r["heldout_count"], r["scored_label_count"])
+        != (72, 48, 48)
+        for r in runs
+    ):
+        raise ValueError("selection experiment requires the exact 120/72/48 split")
+    summaries = []
+    for mechanism in SELECTION_MECHANISMS:
+        members = [r for r in runs if r["mechanism"] == mechanism]
+        for i, method in enumerate(
+            ("global", "per_arm", "unpooled", "partial_pooling")
+        ):
+            summaries.append(
+                {
+                    "mechanism": mechanism,
+                    "method": method,
+                    "metrics": {
+                        k: asdict(_distribution(r["methods"][i][k] for r in members))
+                        for k in SELECTION_METRICS
+                    },
+                    "paired_minus_global": {
+                        k: asdict(
+                            _distribution(
+                                r["paired_minus_global"][i][k] for r in members
+                            )
+                        )
+                        for k in SELECTION_METRICS
+                    },
+                }
+            )
+    return {
+        "version": "selection-confounding-stress/v1",
+        "seeds": SELECTION_SEEDS,
+        "generated_row_count": 2880,
+        "design": selection_design(),
+        "runs": runs,
+        "equal_seed_summaries": tuple(summaries),
+        "method": (
+            "All methods share eligible prefix IDs and heldout scored IDs. "
+            "Binary scores/ECE "
+            "weight heldout assignments; latent metrics weight unique "
+            "represented heldout "
+            "cells equally. Assignment-weighted latent diagnostics are also exposed. "
+            "Sample seed variation is descriptive; repeated labels/cells are "
+            "not independent "
+            "replications. No causal estimate, adjustment, utility or model switching."
+        ),
+    }
+
+
+def selection_design() -> dict:
+    """Expected assignments are probabilities, never asserted observed counts."""
+    rows = []
+    for mechanism in SELECTION_MECHANISMS:
+        assignment = (
+            SELECTION_ASSIGNMENT
+            if mechanism == "selection_confounded"
+            else ((1 / 3,) * 3,) * 4
+        )
+        rows.append(
+            {
+                "mechanism": mechanism,
+                "assignment_probabilities": assignment,
+                "expected_counts_per_30_in_each_group": tuple(
+                    tuple(30 * p for p in r) for r in assignment
+                ),
+                "assignment_weighted_latent_rate_by_arm": tuple(
+                    math.fsum(
+                        assignment[g][a] * SELECTION_PROBABILITIES[g][a]
+                        for g in range(4)
+                    )
+                    / math.fsum(assignment[g][a] for g in range(4))
+                    for a in range(3)
+                ),
+            }
+        )
+    return {
+        "groups": SELECTION_GROUPS,
+        "arms": ("arm-a", "arm-b", "arm-c"),
+        "known_probability_matrix": SELECTION_PROBABILITIES,
+        "equal_group_latent_rate_by_arm": tuple(
+            fmean(SELECTION_PROBABILITIES[g][a] for g in range(4)) for a in range(3)
+        ),
+        "mechanisms": tuple(rows),
+        "overlap": (
+            "Every assignment probability is positive; minimum .05 in "
+            "confounded design. Sparse realized cells may be zero."
+        ),
+    }

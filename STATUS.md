@@ -1,5 +1,68 @@
 # Model Learner status
 
+## Reviewed declaration category and present-time real advisory — 2026-10-24
+
+**Bounded compatibility and real advisory acceptance passed.** Scoped evidence
+now admits exactly two built-in-string Attempt `declaration_source` values:
+`human` and `explicit_human_authorized_operator_CLI_invocation`. The additional
+49-character ASCII provenance category was consistent on both preserved Attempts
+and is retained verbatim. Run/Attempt `boundary_source` remains exactly
+`human_declaration`; unknown keys, adjacent/custom labels, locators,
+credential-shaped values and non-built-in strings remain rejected. No producer,
+schema, advisory policy or historical record was rewritten.
+
+Focused portable-evidence integration: **80 passed, 8.87 s**, exit 0. Touched
+Python Ruff lint/format, syntax/privacy and working-tree whitespace checks passed.
+No broad suite or new model/task/checker/runtime execution. Started clean on
+`main`, HEAD/cached origin `34623cc997f80163561cfee28468a7f25668bee8`;
+all 22 fixed input hashes matched. Only this entry, the scoped exporter and its
+focused integration tests are pending, unstaged; index/HEAD unchanged.
+
+The sole present-time `advise` call used only the earlier task's scoped bundle,
+the frozen target/configuration/compatibility semantics, and no raw real rows.
+New policy `present-time-receipt-advisory/v3` was declared at
+`2026-10-24T07:00:51.415980+00:00`; actual local intake receipts at
+`2026-10-24T07:00:51.424689+00:00`; cutoff
+`2026-10-24T07:00:51.435551+00:00`. All **28 records** were receipt-complete.
+The API returned receipt-gated real availability, **0 eligible sources**,
+`other_target_or_budget: 1`, no missing/late receipts or resolution exclusions,
+and `abstain` / null selected configuration with reason
+`no_eligible_evidence_and_no_approved_decision_policy`. These are current receiver
+declarations, not authenticated historical receipt or original execution time.
+
+Original ledger, historical policy, forecast and completed cycle remain
+byte-identical. Source and initial/final disposable ledger SHA-256:
+`be1b0885d614e8589b13d8c8ffd5d5d0de8b748af79ccc8174826ff421eade21`.
+Only disposable SQLite housekeeping was permitted; no logical source-record
+writes occurred, its final bytes were unchanged and no WAL/SHM persisted after
+connections closed. Transient sidecar creation was not monitored.
+
+Private evidence is under `.model-learner/current-receipt-advisory-v3/`, intake
+`intake-20261024T065820913315Z`. Its complete 12-file inventory SHA-256 is
+`4cfec4cf981a0aabe0c2f70a9a0eb59033d0476d8baa1a1e82de500bd5b10889`;
+actual advisory output SHA-256
+`1291a6efc27b5d0ebd8bc9bdd306efa76c2413b9c1388b1cf912d374051775df`;
+operation-result SHA-256
+`3897763316bc9462ae611a425d024bf75d2e53a52f6528e4dd6eb6cb02afdddc`.
+The earlier completed-cycle report remains SHA-256
+`cf9d9a9c49f9b703caffdc5360bcdf2ba015cebd802b437ebf4b97508ed0f0b2`.
+No real record IDs, raw rows or absolute private paths are included here.
+
+| Finite acceptance area | Evidence/state |
+| --- | --- |
+| Real observer and prospective cycle | Established for the bounded public tasks: supported capture/task/run/verification/export; prospective target 5/5 independent cases; original pre-run forecast scored Brier 0.25/log loss 0.6931; one eligible target update; replay inserted 0/recognized 18 duplicates and preserved initial unknown/later verified assessments. Completed-cycle report above, not a rerun. |
+| Reviewed category and current real advisory | Complete for this increment: exact provenance round-trip and one receipt-gated real API call with honest acceptance-mismatch exclusion/abstention. No useful model-selection advice claimed. |
+| Remaining narrow engineering v1 evidence | Open: demonstrate a distinct advisory target with acceptance-compatible, receipt-backed real source evidence and evidence-linked estimates/advice or a justified insufficient-data abstention. This completed target has no compatible prior source in its frozen universe; its own outcome is excluded. A new eligible compatible source would be needed for this same target. The existing completed outcome can be considered only for a separately declared future target; no new observation, target or run is authorized here. |
+| Broader M6/M7 plan work | Existing offline learner/stress/advisory evidence retains its published scope. Pooling/evaluation and utility-policy/shadow deliverables remain distinct; this increment adds no statistical-superiority, calibration or selection-policy claim and introduces none as a new narrow-v1 prerequisite. |
+| Later plan work | M8 remains optional; later M9/M10+ work stays separate. Whole-product completion is not claimed. |
+| Separate runtime gates | Custom live transport, W4A containment and exact 600-second attributed Attempt latency, and W4B-P0 remain separately scoped/open. This local advisory supplies none of those proofs. |
+
+No inference, provider/network/credential access, paid fallback, forecast
+regeneration/rescoring, learner update, task/checker rerun, Git staging/commit/push
+or publication occurred in this increment. Native identity, route/billing,
+provider retries, output/spend enforcement and remote stop remain unknown.
+Stop here; no follow-on task or new execution was started.
+
 ## One trusted-adapter cleanup-only recovery acceptance — 2026-10-23
 
 **One new opt-in integration test passed once: 1 passed, 0 failures/errors/skips,

@@ -88,6 +88,21 @@ def test_receipt_gated_success_failure_and_unknown(portable_scenario, monkeypatc
     assert current["availability"]["method"] == "receipt-gated-scoped-resolution/v1"
 
 
+def test_producer_declarations_still_require_receipts(portable_scenario):
+    repo, task, *_ = portable_scenario
+    run, attempt = w2.producer_records(portable_scenario)
+    bundle = portable.scoped_bundle(repo, task_id=task.task_id, dataset=DATASET)
+    assert all(entry.received_at is None for entry in bundle.entries)
+    assert any(entry.parse() == run for entry in bundle.entries)
+    assert any(entry.parse() == attempt for entry in bundle.entries)
+    result = advise(real_request(portable_scenario), bundles=[bundle])
+    assert result["eligible_source_count"] == 0
+    assert result["exclusions"]["missing_receipt_entries"] == len(bundle.entries)
+    assert predictions(result)["A"]["probability"] == 0.5
+    assert result["advisory"]["status"] == "abstain"
+    assert result["advisory"]["selected_configuration_id"] is None
+
+
 @pytest.mark.parametrize("receipt", ["late", "missing"])
 def test_receipt_not_source_time_controls_availability(
     portable_scenario, monkeypatch, receipt

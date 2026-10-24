@@ -47,8 +47,8 @@ TYPES = {kind.__name__: kind for kind in (*KINDS, TaskSessionLink, RunSessionLin
 METADATA = {
     Task: {"junit_verifier", "file_digest_verifier"},
     Session: {"machine_id", "adapter_version", "native_timestamp_coverage"},
-    Run: {"final_artifact_fingerprint"},
-    Attempt: {"configuration_provenance"},
+    Run: {"final_artifact_fingerprint", "boundary_source"},
+    Attempt: {"configuration_provenance", "boundary_source", "declaration_source"},
     Outcome: {"assessment_method"},
     Verification: {
         "criterion",
@@ -112,6 +112,21 @@ def _public(record: BaseModel) -> BaseModel:
             data[field] = None
     if type(record) in METADATA and set(data["metadata"]) - METADATA[type(record)]:
         raise ValueError("unsupported public metadata; review a sanitized source")
+    if isinstance(record, (Run, Attempt)):
+        # Preserve the reviewed producer defaults verbatim. Custom declaration
+        # text is not a public identifier and needs separate review.
+        declarations = {"boundary_source": "human_declaration"}
+        if isinstance(record, Attempt):
+            declarations["declaration_source"] = "human"
+        if any(
+            field in data["metadata"]
+            and (
+                type(data["metadata"][field]) is not str
+                or data["metadata"][field] != expected
+            )
+            for field, expected in declarations.items()
+        ):
+            raise ValueError("unsupported public declaration metadata")
     if isinstance(record, Session) and record.metadata:
         if (
             record.source != SOURCE

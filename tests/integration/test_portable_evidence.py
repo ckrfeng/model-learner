@@ -40,6 +40,7 @@ from model_learner.learn.prospective import (
 )
 from model_learner.observations import build_real_observation
 from model_learner.observations.resolution import resolve_real_observations
+from model_learner.runs import create_bounded_run, declare_attempt
 from model_learner.storage import evidence as portable
 from model_learner.storage.database import Database, Repository, StorageError
 from model_learner.storage.jsonl import export_jsonl, import_jsonl
@@ -268,6 +269,87 @@ def roundtrip(bundle, tmp_path):
     restored = repository(tmp_path / "restored.sqlite")
     portable.import_bundle(restored, restored_bundle)
     return restored, restored_bundle
+
+
+def producer_records(scenario):
+    """Supported APIs create fictional declarations, never an executed task."""
+    repo, task, _, _, attempts, *_ = scenario
+    session = repo.create_session(
+        Session(source=SOURCE, native_session_id="fixture-declaration-producer")
+    )
+    run = create_bounded_run(
+        repo,
+        task_id=task.task_id,
+        session_id=session.session_id,
+        started_at=START,
+        ended_at=START + timedelta(minutes=1),
+        final_artifact_fingerprint="sha256:" + hashlib.sha256(b"fictional").hexdigest(),
+    )
+    attempt = declare_attempt(
+        repo,
+        run_id=run.run_id,
+        configuration=attempts[0].configuration,
+        started_at=run.started_at,
+        ended_at=run.ended_at,
+    )
+    return run, attempt
+
+
+def test_producer_declaration_metadata_roundtrip(scenario, tmp_path):
+    source, task, other, *_ = scenario
+    run, attempt = producer_records(scenario)
+    assert run.metadata["boundary_source"] == "human_declaration"
+    assert attempt.metadata == {
+        "configuration_provenance": "human_declaration",
+        "boundary_source": "human_declaration",
+        "declaration_source": "human",
+    }
+    raw = portable.scoped_bundle(source, task_id=task.task_id, dataset=DATASET)
+    for record in (run, attempt):
+        entry = next(
+            e for e in raw.entries if portable.key(e.parse()) == portable.key(record)
+        )
+        assert entry.parse() == record
+    assert all(entry.received_at is None for entry in raw.entries)
+    assert not portable.resolve_bundle(raw, cutoff=CUTOFF).observations
+    restored, copied = roundtrip(raw, tmp_path)
+    portable.import_bundle(restored, copied)
+    for kind, record in ((Run, run), (Attempt, attempt)):
+        assert (
+            restored.get(kind, getattr(record, kind.__name__.lower() + "_id")) == record
+        )
+    assert source.get(Run, run.run_id) == run
+    assert source.get(Attempt, attempt.attempt_id) == attempt
+    assert str(other.task_id) not in copied.model_dump_json()
+
+
+@pytest.mark.parametrize("kind", [Run, Attempt])
+def test_producer_declarations_still_reject_unknown_metadata(scenario, kind):
+    records = dict(zip((Run, Attempt), producer_records(scenario), strict=True))
+    record = records[kind]
+    changed = record.model_copy(
+        update={"metadata": record.metadata | {"unknown_extra": "fictional"}}
+    )
+    with pytest.raises(ValueError, match="unsupported public metadata"):
+        portable._public(changed)
+
+
+@pytest.mark.parametrize(
+    "kind,field",
+    [
+        (Run, "boundary_source"),
+        (Attempt, "boundary_source"),
+        (Attempt, "declaration_source"),
+    ],
+)
+@pytest.mark.parametrize(
+    "value", ["custom", "", None, 1, True, ["human"], {"source": "human"}]
+)
+def test_public_declaration_values_are_exact(scenario, kind, field, value):
+    record = scenario[0].list_records(kind)[0]
+    changed = record.model_copy(update={"metadata": record.metadata | {field: value}})
+    with pytest.raises(ValueError, match="unsupported public declaration metadata"):
+        portable._public(changed)
 
 
 def test_a_e_association_roundtrip_idempotence(scenario, tmp_path, monkeypatch):
@@ -600,6 +682,10 @@ def test_receipt_replay_and_digest_integrity(scenario, monkeypatch):
     monkeypatch.setattr(portable, "utc_now", lambda: LATE)
     book.capture(bundle)
     assert all(time == LATE for _, time in book.receipts.values())
+    first = book.model_dump_json()
+    monkeypatch.setattr(portable, "utc_now", lambda: LATE + timedelta(days=1))
+    book.capture(bundle)
+    assert book.model_dump_json() == first
     bad = changed(bundle, Session, lambda d: d.update(native_session_id="rebound"))
     with pytest.raises(ValueError, match="rebound"):
         book.capture(bad)

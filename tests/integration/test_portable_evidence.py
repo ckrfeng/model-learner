@@ -58,6 +58,7 @@ DATASET = DatasetReference(
     source_kind="real", dataset_id="synthetic-w2-contract", dataset_version="1"
 )
 KINDS = (Task, Session, Run, Attempt, Event, Verification, Outcome, Observation)
+REVIEWED_DECLARATION = "explicit_human_authorized_operator_CLI_invocation"
 
 
 def repository(path):
@@ -271,7 +272,7 @@ def roundtrip(bundle, tmp_path):
     return restored, restored_bundle
 
 
-def producer_records(scenario):
+def producer_records(scenario, declaration_source="human"):
     """Supported APIs create fictional declarations, never an executed task."""
     repo, task, _, _, attempts, *_ = scenario
     session = repo.create_session(
@@ -291,18 +292,22 @@ def producer_records(scenario):
         configuration=attempts[0].configuration,
         started_at=run.started_at,
         ended_at=run.ended_at,
+        declaration_source=declaration_source,
     )
     return run, attempt
 
 
-def test_producer_declaration_metadata_roundtrip(scenario, tmp_path):
+@pytest.mark.parametrize("declaration_source", ["human", REVIEWED_DECLARATION])
+def test_producer_declaration_metadata_roundtrip(
+    scenario, tmp_path, declaration_source
+):
     source, task, other, *_ = scenario
-    run, attempt = producer_records(scenario)
+    run, attempt = producer_records(scenario, declaration_source)
     assert run.metadata["boundary_source"] == "human_declaration"
     assert attempt.metadata == {
         "configuration_provenance": "human_declaration",
         "boundary_source": "human_declaration",
-        "declaration_source": "human",
+        "declaration_source": declaration_source,
     }
     raw = portable.scoped_bundle(source, task_id=task.task_id, dataset=DATASET)
     for record in (run, attempt):
@@ -310,6 +315,10 @@ def test_producer_declaration_metadata_roundtrip(scenario, tmp_path):
             e for e in raw.entries if portable.key(e.parse()) == portable.key(record)
         )
         assert entry.parse() == record
+    exported_attempt = next(e for e in raw.entries if e.parse() == attempt)
+    assert exported_attempt.record["metadata"]["declaration_source"].encode() == (
+        declaration_source.encode()
+    )
     assert all(entry.received_at is None for entry in raw.entries)
     assert not portable.resolve_bundle(raw, cutoff=CUTOFF).observations
     restored, copied = roundtrip(raw, tmp_path)
@@ -324,8 +333,13 @@ def test_producer_declaration_metadata_roundtrip(scenario, tmp_path):
 
 
 @pytest.mark.parametrize("kind", [Run, Attempt])
-def test_producer_declarations_still_reject_unknown_metadata(scenario, kind):
-    records = dict(zip((Run, Attempt), producer_records(scenario), strict=True))
+@pytest.mark.parametrize("declaration_source", ["human", REVIEWED_DECLARATION])
+def test_producer_declarations_still_reject_unknown_metadata(
+    scenario, kind, declaration_source
+):
+    records = dict(
+        zip((Run, Attempt), producer_records(scenario, declaration_source), strict=True)
+    )
     record = records[kind]
     changed = record.model_copy(
         update={"metadata": record.metadata | {"unknown_extra": "fictional"}}
@@ -348,6 +362,59 @@ def test_producer_declarations_still_reject_unknown_metadata(scenario, kind):
 def test_public_declaration_values_are_exact(scenario, kind, field, value):
     record = scenario[0].list_records(kind)[0]
     changed = record.model_copy(update={"metadata": record.metadata | {field: value}})
+    with pytest.raises(ValueError, match="unsupported public declaration metadata"):
+        portable._public(changed)
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        REVIEWED_DECLARATION + "_extra",
+        REVIEWED_DECLARATION.lower(),
+        " " + REVIEWED_DECLARATION,
+        REVIEWED_DECLARATION + " ",
+        "/private/fictional-provenance",
+        "https://example.invalid/provenance",
+        "Bearer fictional-credential",
+        "sk-" + "fixture" * 6,
+    ],
+)
+def test_reviewed_category_does_not_admit_custom_or_sensitive_text(scenario, value):
+    record = scenario[4][0]
+    changed = record.model_copy(
+        update={"metadata": record.metadata | {"declaration_source": value}}
+    )
+    with pytest.raises(ValueError, match="unsupported public declaration metadata"):
+        portable._public(changed)
+
+
+@pytest.mark.parametrize("kind", [Run, Attempt])
+def test_reviewed_category_is_not_a_boundary_source(scenario, kind):
+    record = scenario[0].list_records(kind)[0]
+    changed = record.model_copy(
+        update={"metadata": record.metadata | {"boundary_source": REVIEWED_DECLARATION}}
+    )
+    with pytest.raises(ValueError, match="unsupported public declaration metadata"):
+        portable._public(changed)
+
+
+@pytest.mark.parametrize(
+    "kind,field,value",
+    [
+        (Run, "boundary_source", "human_declaration"),
+        (Attempt, "boundary_source", "human_declaration"),
+        (Attempt, "declaration_source", "human"),
+        (Attempt, "declaration_source", REVIEWED_DECLARATION),
+    ],
+)
+def test_public_declarations_require_builtin_strings(scenario, kind, field, value):
+    class StringSubclass(str):
+        pass
+
+    record = scenario[0].list_records(kind)[0]
+    changed = record.model_copy(
+        update={"metadata": record.metadata | {field: StringSubclass(value)}}
+    )
     with pytest.raises(ValueError, match="unsupported public declaration metadata"):
         portable._public(changed)
 

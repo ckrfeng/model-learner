@@ -415,3 +415,79 @@ def investigate_drift(
             write_json(report)
     except (OSError, ValueError, ArithmeticError) as error:
         raise typer.BadParameter(str(error)) from error
+
+
+# Tests inject a temporary ignored-root substitute; production uses this relative
+# workspace-local root only. No CLI option can redirect the root itself.
+_SHADOW_BASE = Path(".model-learner")
+
+
+def _write_shadow_record(output_file: Path, record) -> None:
+    """Create below the shadow root using no-follow directory-relative handles."""
+    import os
+    from contextlib import ExitStack
+
+    if ".." in output_file.parts or not hasattr(os, "O_NOFOLLOW"):
+        raise ValueError("invalid shadow destination")
+    base = _SHADOW_BASE.absolute()
+    root = base / "shadow"
+    try:
+        parts = output_file.absolute().relative_to(root).parts
+    except ValueError:
+        raise ValueError("invalid shadow destination") from None
+    if not parts:
+        raise ValueError("invalid shadow destination")
+    encoded = (record.model_dump_json(indent=2) + "\n").encode()
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    with ExitStack() as stack:
+        fd = os.open(base.parent, flags)
+        stack.callback(os.close, fd)
+        for component in (base.name, "shadow", *parts[:-1]):
+            try:
+                os.mkdir(component, mode=0o700, dir_fd=fd)
+            except FileExistsError:
+                pass
+            fd = os.open(component, flags, dir_fd=fd)
+            stack.callback(os.close, fd)
+        output_fd = os.open(
+            parts[-1],
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+            0o600,
+            dir_fd=fd,
+        )
+        with os.fdopen(output_fd, "wb") as stream:
+            stream.write(encoded)
+
+
+@learn_app.command("shadow")
+def utility_shadow(
+    input_file: Annotated[
+        Path, typer.Option(help="Explicit versioned shadow input JSON.")
+    ],
+    output_file: Annotated[
+        Path, typer.Option(help="New record beneath .model-learner/shadow/ only.")
+    ],
+) -> None:
+    """Record a hypothetical policy choice; preserve the human's actual choice."""
+    import hashlib
+
+    from model_learner.learn.advisory import advise
+    from model_learner.learn.utility import ShadowInput, shadow_record
+
+    try:
+        raw = input_file.read_bytes()
+        payload = ShadowInput.model_validate_json(raw)
+        advisory = advise(
+            payload.advisory.request,
+            observations=payload.advisory.observations,
+            bundles=payload.advisory.bundles,
+        )
+        record = shadow_record(
+            payload, advisory, input_sha256=hashlib.sha256(raw).hexdigest()
+        )
+        _write_shadow_record(output_file, record)
+    except (OSError, ValueError, ArithmeticError, StorageError):
+        raise typer.BadParameter(
+            "invalid shadow input, evidence or create-only destination"
+        ) from None
+    write_json(record)

@@ -1,5 +1,51 @@
 # Model Learner status
 
+## M7 explicit utility and nonexecuting shadow increment — 2026-10-24
+
+Delivered three strict immutable opt-in policies over unchanged configuration-
+advisory/v1 estimates: quality-first/v1 (p_success), cost-sensitive/v1 (declared
+success_value_usd*p_success minus measured mean cost), and balanced/v1 (explicit
+quality/cost/latency weights with positive reference scales). Every threshold,
+limit/null, predictor and timezone-aware timestamp is caller-supplied. Minimum
+eligible labels must be >=1; there is no universal evidence threshold. Unknown
+resources retain null means and coverage counts and gate eligibility exactly
+when required by a positive weight or explicit hard constraint. Ties within
+absolute 1e-12 and all-ineligible sets abstain with candidate explanations.
+Success intervals remain conditional; utility is only a point convention.
+
+New learn shadow reads a versioned envelope with existing AdvisoryInput, calls
+read-only advise and utility once, and exclusively creates a sanitized record
+beneath .model-learner/shadow/. No-follow directory handles reject symlinks and
+traversal; new directories/files use 0700/0600 subject to umask. Input SHA-256 is
+retained instead of payload content. Human candidate choice is separately
+validated and may differ from the hypothetical choice. Replays cannot overwrite.
+No launch, route, outcome, observation, propensity or counterfactual is created.
+Existing advise and its command remain abstain-only/v1.
+
+Focused acceptance: **102 passed in 2.82 s**, including new synthetic utility/
+actual Typer tests and preserved unit/integration advisory regressions. Hand
+cases gave equal-probability cost utilities 6 versus 3, balanced utilities
+0.258333 versus 0.133333, and quality-first selected probability 0.75 over
+0.333333 despite greater cost within explicit limits. Tests verify missing-data
+rules, constraints, ties, fixed failures, identity/order/immutability, privacy,
+input digest, human separation, safe paths, exclusive create, permissions and no
+ledger access/source writes under temporary roots. Initial failures traced to
+applying the generic version-label shape to the existing multi-part estimator
+version; pinned the known unchanged estimator/forecast versions explicitly.
+
+Touched-file Ruff lint/format, whitespace and pure working-byte/path privacy
+checks passed. Started clean main at HEAD/cached origin
+1cfa2868ec135fee1713dcf43a3de222c555cad0; all 13 fixed input hashes matched.
+Only new utility.py, two focused tests, additive learning command, appended guide
+and this status changed; unstaged/uncommitted. Advisory/estimator/domain/storage,
+M6-A/M6-B, default database, dependencies and original command definitions remain
+unchanged. No user ledger, actual real evidence, prior cycle/checker, provider,
+network/inference/runtime action, Git index/history change, commit or publication.
+
+This bounded utility/shadow increment is complete. No full M7 or roadmap
+completion claim: conditional M6-B real heldout/benchmark work, W4 runtime gates,
+and broader plan acceptance remain open; M8/M9+ were not started.
+
 ## M6-B focused selection-confounding stress — 2026-10-24
 
 Delivered one additive stress-only assignment contrast, not full M6-B completion.

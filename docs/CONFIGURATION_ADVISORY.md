@@ -153,3 +153,98 @@ benchmark learning resolver, decision policy, live routing or shadow-decision
 persistence is implemented. W6A stops at the offline advisory. W4B/W5, full W6,
 and W7 are not completed by this increment. The consolidated next human decisions
 are in [the real-execution decision register](REAL_DATA_READINESS.md#w6a-real-execution-decision-register--2026-10-21).
+
+## M7 opt-in utility conventions and nonexecuting shadow records
+
+`learn.utility.evaluate_utility(advisory_json, policy=..., predictor=...,
+decision_at=...)` ranks the existing selected predictor's estimates without
+recomputing them. This explicit layer is separate from `advise()` and its
+unchanged `abstain-only/v1` default. It launches nothing and changes no actual
+configuration or human choice.
+
+Policies are immutable, versioned and forbid extra fields, booleans as numbers,
+and nonfinite values. Every policy requires explicit `minimum_eligible_labels`
+(an integer >=1), `maximum_interval_width`, `maximum_cost_usd` and
+`maximum_latency_seconds`. The three maximum fields are required keys but may
+be null. There is no universal evidence threshold. Predictor and timezone-aware
+decision timestamp are also required; the timestamp cannot precede the advisory
+cutoff. Predictor must be one of fixed_prior/global/per_arm/A/B/C, shared across
+candidates. A missing/unavailable predictor or insufficient evidence makes a
+candidate ineligible. An explicit interval/resource limit also gates eligibility.
+
+- `quality-first/v1`: U = p_success. Cost and latency enter only explicit hard
+  limits. A higher probability may dominate an expensive candidate within limits.
+- `cost-sensitive/v1`: additionally requires positive `success_value_usd`;
+  U = success_value_usd*p_success - mean_cost_usd. A known measured cost is
+  required. Value is a caller declaration, never inferred from a task/model name.
+- `balanced/v1`: additionally requires nonnegative quality_weight, cost_weight,
+  latency_weight summing to one within 1e-12, and positive cost_reference_usd and
+  latency_reference_seconds. U = quality_weight*p_success -
+  cost_weight*(mean_cost_usd/cost_reference_usd) -
+  latency_weight*(mean_latency_seconds/latency_reference_seconds). Positive-weight
+  resources require at least one measured sample; zero-weight resources do not
+  gate eligibility unless an explicit hard limit requires them. Both reference
+  fields remain required even when the corresponding weight is zero.
+
+Means and known/missing sample counts are retained exactly from selected
+eligible-evidence summaries. Unknown resources remain null. Unsupported or
+inconsistent inputs fail closed with a fixed error. Results sort candidates by
+canonical snapshot ID, retain conditional success intervals/counts/identity,
+and explain every exclusion. All-ineligible candidates produce abstention;
+a top-utility tie within absolute 1e-12 produces `utility_tie`, without an ID
+tie-break. Utility is a point convention using stated resource means, not a
+utility interval, statistical significance claim, calibrated value or outcome.
+
+The explicit `learn shadow` command reads this versioned envelope:
+
+```python
+# Fictional construction; choose all values for the actual declared scenario.
+import json
+from pathlib import Path
+
+payload = {
+    "version": "explicit-utility-shadow-input/v1",
+    "advisory": json.loads(Path("reviewed-advisory-input.json").read_text()),
+    "policy": {
+        "version": "cost-sensitive/v1",
+        "minimum_eligible_labels": 1,
+        "maximum_interval_width": None,
+        "maximum_cost_usd": None,
+        "maximum_latency_seconds": None,
+        "success_value_usd": 12.0,
+    },
+    "predictor": "A",
+    "decision_at": "2026-01-01T02:00:00Z",
+    "human_selected_configuration_id": None,
+}
+# Serialize as the explicitly supplied input file; no default ledger is read.
+```
+
+```text
+model-learner learn shadow --input-file .model-learner/reviewed-shadow-input.json --output-file .model-learner/shadow/reviewed-choice.json
+```
+
+The envelope nests the existing AdvisoryInput, not raw advisory output. The
+command invokes read-only advise() once and the utility layer once, then creates
+a sanitized `explicit-utility-shadow-record/v1` and prints it as JSON. The record
+includes the raw input file SHA-256, projected target/dataset/policy/cutoff and
+candidate estimates/resources plus the explicit policy and timestamp. It omits
+source rows, evidence payloads, prose, arbitrary metadata and locators. Human
+selection is a separate nullable candidate ID; it may differ from the hypothetical
+choice. Neither field is a Run, outcome, propensity or counterfactual result.
+
+Output must be explicitly beneath `.model-learner/shadow/` in the working
+project. The writer rejects traversal and symlinks using no-follow directory
+handles, creates new directories with mode 0700 and an exclusive file with mode
+0600 (subject to a more restrictive umask). It fails closed when safe no-follow
+creation is unavailable. Existing files are never overwritten, including replay
+at the same path. No default ledger or canonical record is opened/updated by
+the shadow layer; forecast/advisory defaults and actual user choice remain intact.
+No inference, routing, model switching or execution follows a hypothetical choice.
+
+Synthetic acceptance covers the equations, missing data, explicit constraints,
+ties, immutable/privacy projections and the actual temporary-root command,
+including exclusive create, permissions, symlink/traversal refusal, input digest,
+human separation and unchanged advisory abstention. This is the bounded M7
+utility/shadow increment. It does not close conditional M6-B real heldout or
+benchmark work, separate runtime gates, broader M7/roadmap acceptance, or M8/M9+.

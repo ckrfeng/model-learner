@@ -1,5 +1,56 @@
 # Model Learner status
 
+## M6-A finite hierarchical partial pooling — 2026-10-24
+
+Delivered standalone `finite-hierarchical-beta-binomial/v1` via
+`learn.partial_pooling.PartialPoolingRequest` and `partial_pool`. Each independent
+configuration-family × broad-task-family domain integrates nine equally likely
+prior states: mu in {1/4, 1/2, 3/4}, independent kappa in {2, 8, 32}. Exact
+configuration × narrow-group cells keep separate counts and conditional Beta
+rates. Posterior summaries retain all state uncertainty, within/between variance,
+mixture equal-tail intervals and numerical diagnostics. Empty compatible cells
+borrow without invented direct observations; other domains retain independent
+hyperparameters. Coarse support and edge mass are explicit limitations.
+
+The API reuses existing compatibility, selection, eligibility and receipt
+resolution boundaries. Real-contract inputs require scoped bundles; raw real
+rows and benchmark inputs are refused. Target evidence across all arms is
+excluded. Cutoff checks, independent-unit deduplication/conflict refusal,
+public-label projection, nested snapshot revalidation and immutable results are
+covered. Independent review corrections enforce source-snapshot equality after
+ID admission (including schema/metadata aliases) and refuse UUID subclasses
+before identifier presentation or output. Ten new boundary regressions cover
+both alias reproductions, all reference fields and unchanged admitted sources.
+Limits are 256 populated cells and 10,000 eligible labels per domain;
+credible mass [0.5, 0.999]. Quantiles require bracket width <=1e-12 and CDF
+residual <=1e-9 within 64 iterations, using the unchanged Beta CDF.
+
+Bounded acceptance: **169 tests passed in 3.92 s**, including both new focused
+files and existing unit learning/prospective/advisory and integration advisory
+regressions. All new fixtures are synthetic; real-contract integration uses
+fictional disposable portable evidence. Cold rational mean/variance errors were
+zero; one-success errors were 1.11e-16 / 2.08e-17. Independent transformed-density
+Simpson integration (4096/8192 panels) had maximum refinement 3.28e-14 and
+CDF difference 3.67e-15 across cold/one-success checks; interval tail error was
+at most 3.86e-13. Legal extreme checks through 10,000 labels and credible masses
+0.5/0.95/0.999 achieved residual <=9.38e-10, at most 51 iterations. Small fixed
+examples show sparse-cell borrowing and distinct abundant opposing rates near
+0.9902/0.0098, versus unchanged global/per-arm 0.5. No universal shrinkage,
+calibration or superiority claim follows.
+
+New-file Ruff lint/format, working-byte/path privacy and whitespace checks passed.
+All fixed input hashes matched the clean baseline before edits. Only the four
+new scoped implementation/test/doc files and this status changed; no pre-existing
+edits. Existing estimator, numerics, forecasts, advisory, resolver, models,
+dependencies and exports are unchanged. No CLI/forecast/advisory integration,
+real-data evaluation, inference/provider/runtime action, Git index/history change,
+commit or publication was performed for M6-A.
+
+M6-A is complete for this finite specification. Next primary work remains M6-B:
+selection-confounding/multi-seed stress and sufficiently supported time-ordered
+held-out evaluation. M7 utility policy/recorded shadow choice and separate
+W4A600s/W4B/custom-transport gates remain open. Stop after this increment.
+
 ## Reviewed declaration category and present-time real advisory — 2026-10-24
 
 **Bounded compatibility and real advisory acceptance passed.** Scoped evidence
